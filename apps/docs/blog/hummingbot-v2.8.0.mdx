@@ -1,0 +1,160 @@
+---
+title: "Hummingbot v2.8.0 Release Notes"
+description: "Release notes for Hummingbot v2.8.0."
+date: "2025-08-21"
+category: "Releases"
+---
+
+*Released on August 21, 2025*
+
+| Repository | Description | GitHub Release | DockerHub Release |
+|------------|-------------|----------------|-------------------|
+| [Hummingbot](https://github.com/hummingbot/hummingbot) | Core Client | [`v2.8.0`](https://github.com/hummingbot/hummingbot/releases/tag/v2.8.0) | [`version-2.8.0`](https://hub.docker.com/r/hummingbot/hummingbot/tags?name=version-2.8.0) |
+| [Gateway](https://github.com/hummingbot/gateway) | DEX Middleware | [`v2.8.0`](https://github.com/hummingbot/gateway/releases/tag/v2.8.0) | [`version-2.8.0`](https://hub.docker.com/r/hummingbot/gateway/tags?name=version-2.8.0) |
+
+
+<Note> **Other Hummingbot repositories such as [Dashboard](https://github.com/hummingbot/dashboard), [Hummingbot-API](https://github.com/hummingbot/hummingbot-api), [Hummingbot API Client](https://github.com/hummingbot/hummingbot-api-client), [Quants-Lab](https://github.com/hummingbot/quant-lab), [Deploy](https://github.com/hummingbot/deploy) and the newly released [Hummingbot MCP](https://github.com/hummingbot/mcp) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.**
+See the full changelogs on GitHub:
+
+- [Hummingbot v2.8.0 Changelog](https://github.com/hummingbot/hummingbot/releases/tag/v2.8.0)
+- [Gateway v2.8.0 Changelog](https://github.com/hummingbot/gateway/releases/tag/v2.8.0)
+
+## How to Update
+
+### Docker
+
+Re-run the [Deploy](https://github.com/hummingbot/deploy) setup script:
+```bash
+git clone https://github.com/hummingbot/deploy.git
+cd deploy
+bash setup.sh
+```
+
+For individual images, exit running containers, pull the latest images, and restart:
+```bash
+docker compose down
+docker pull hummingbot/hummingbot:latest
+docker compose up -d
+```
+
+### Source
+
+Update the branches of each repo to this release by running:
+```bash
+git pull origin master # Hummingbot
+git pull origin main # Gateway
+```
+
+Afterwards, follow the instructions to re-install dependencies and compile the codebase for each repository. See [Install Hummingbot from Source](/images/blog/hummingbot-v2.8.0/../installation/hummingbot-client) and [Install Gateway from Source](/images/blog/hummingbot-v2.8.0/../gateway/installation).
+
+## Release Highlights
+
+### 🔗 Gateway 2.8.0 - Major Architecture Refactor
+
+This release completes the [NCP-22](https://snapshot.box/#/s:hbot-ncp.eth/proposal/0xce92e088bb088e66e17f6c26b07643f1dcb3c0e57c8d3e93b80e37e6c92e7ebf) Gateway refactor, introducing a completely revamped architecture with standardized schemas, native Gateway commands in Hummingbot, and modernized DEX connectors.
+
+#### 🏗️ Architecture Overhaul
+
+**Standardized Schemas**: Implemented three universal trading schemas across all DEX connectors:
+
+  - [**Router Schema**](/images/blog/hummingbot-v2.8.0/../gateway/connectors#router-schema): DEX aggregators (Jupiter, 0x, Uniswap Router) that find optimal swap routes
+  - [**AMM Schema**](/images/blog/hummingbot-v2.8.0/../gateway/connectors#amm-schema): Traditional V2-style constant product pools (Raydium AMM, Uniswap V2)
+  - [**CLMM Schema**](/images/blog/hummingbot-v2.8.0/../gateway/connectors#clmm-schema): V3-style concentrated liquidity pools (Meteora DLMM, Raydium CLMM, Uniswap V3)
+
+**New Configuration System**: 
+
+  - Token lists now stored in `/conf/tokens/\{chain\}/\{network\}.json` following [tokenlists.org](https://tokenlists.org/) standard
+  - Pool definitions in `/conf/pools/\{connector\}.json` for each DEX
+  - Network-specific YAML files for chain configurations
+  - See [Configuration Guide](/images/blog/hummingbot-v2.8.0/../gateway/configuration) for details
+
+#### 🎮 Gateway Commands in Hummingbot
+
+Added comprehensive [Gateway commands](/images/blog/hummingbot-v2.8.0/../gateway/commands) directly in the Hummingbot client:
+
+* **Wallet Management**: `gateway connect`, `gateway balance` - Connect wallets and check balances
+* **Trading**: `gateway swap` - Execute swaps with quotes and slippage protection
+* **Liquidity**: `gateway lp` - Manage AMM and CLMM liquidity positions
+* **Configuration**: `gateway token`, `gateway pool`, `gateway config` - Manage tokens, pools, and settings
+* **Monitoring**: `gateway ping`, `gateway list` - Check connection status and available connectors
+
+#### 🔄 Revamped DEX Connectors
+
+* **[Jupiter](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/jupiter)**: Complete rewrite with Router schema, improved route finding and error handling
+* **[Meteora](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/meteora)**: New DLMM (Dynamic Liquidity Market Maker) support with CLMM schema
+* **[Raydium](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/raydium)**: Dual support for AMM V2 pools and CLMM V3 concentrated liquidity
+* **[Uniswap](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/uniswap)**: Migrated to Universal Router with support for V2 AMM, V3 CLMM, and Smart Order Router
+
+#### 🛠️ Legacy Connector Updates
+
+Standardized existing Gateway connectors to align with the new architecture. The following connectors are ready for v2.8.0 schema implementation with bounties available:
+
+* **[PancakeSwap](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/pancakeswap)** - BNB Chain AMM/CLMM ([Bounty #7654](https://github.com/hummingbot/hummingbot/issues/7654))
+* **[Balancer](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/balancer)** - Multi-asset AMM pools ([Bounty #7653](https://github.com/hummingbot/hummingbot/issues/7653))
+* **[Curve](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/curve)** - Stablecoin-optimized AMM ([Bounty #7652](https://github.com/hummingbot/hummingbot/issues/7652))
+* **[SushiSwap](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/sushiswap)** - Multi-chain AMM/CLMM
+* **[QuickSwap](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/quickswap)** - Polygon AMM/CLMM
+* **[TraderJoe](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/traderjoe)** - Avalanche AMM/CLMM
+* **[ETCSwap](/images/blog/hummingbot-v2.8.0/../exchanges/gateway/etcSwap)** - Ethereum Classic AMM
+
+See the [DEX Connectors](/images/blog/hummingbot-v2.8.0/../gateway/connectors) page for full details on upgrading these connectors to the v2.8.0 standard. 
+
+#### 🔐 Security & Infrastructure
+
+* **Hardware Wallet Support**: Full Ledger integration for Ethereum and Solana chains
+* **Transaction Safety**: Added simulation, connector-specific settings, and slippage protection
+* **Error Handling**: Improved error messages and recovery mechanisms across all connectors
+* **Integration**: Transaction handling and data storage in Hummingbot
+
+#### 📚 Documentation & Developer Experience
+
+* **Swagger API**: Enhanced API documentation available at `http://localhost:15888/docs` in DEV mode
+* **[Gateway Documentation](/images/blog/hummingbot-v2.8.0/../gateway/index)**: Complete rewrite with practical guides and examples
+* **[Gateway Strategies](/images/blog/hummingbot-v2.8.0/../gateway/strategies)**: New scripts demonstrating AMM Data Feed, AMM Trade, and LP Position Management
+* **[Chain Schemas](/images/blog/hummingbot-v2.8.0/../gateway/chains#chain-schema)**: Standardized request/response schemas for all blockchain operations
+
+#### 🚀 Migration Guide
+
+For users upgrading from Gateway v2.7 or earlier, see the [Gateway Installation Guide](/images/blog/hummingbot-v2.8.0/../gateway/installation) for complete setup instructions.
+
+### 🤖 Hummingbot MCP Server
+
+We introduced the **Hummingbot MCP (Model Context Protocol) Server**, a new server module that connects Hummingbot with AI agents, automation frameworks, and external tools via the [MCP standard](https://github.com/modelcontextprotocol).
+
+Key highlights:
+
+* **AI-Powered Control**: Exposed bot and strategy management through MCP-compatible clients (e.g., Claude, Gemini, Cursor).
+* **API Integration**: Acted as a middleware layer between the Hummingbot API and AI/automation clients.
+* **Docker Deployment**: Added official Docker images for fast setup.
+
+📦 Repository: [github.com/hummingbot/mcp](https://github.com/hummingbot/mcp)
+
+📚 Documentation: [Hummingbot MCP Overview](https://github.com/hummingbot/mcp#readme)
+
+### 🏦 Foxbit CLOB CEX Connector
+
+- Based on approval from [community voting](https://snapshot.box/#/s:hbot-ncp.eth/proposal/0x01022a516c3536d015e21b28e90204a7dbc4a65b42c0e2d568847509f7531e6a), the [Foxbit](/images/blog/hummingbot-v2.8.0/../exchanges/foxbit/index) exchange connector was added back in [#7680](https://github.com/hummingbot/hummingbot/pull/7680).
+
+### Other Updates
+
+**hummingbot/deploy**
+
+* [#101](https://github.com/hummingbot/deploy/pull/101) - Improved the setup script to ensure the compose file was updated when users changed the default admin username or password
+
+**hummingbot/hummingbot-api**
+
+* [#75](https://github.com/hummingbot/hummingbot-api/pull/75) - Improved the controller configuration routes
+
+**hummingbot/dashboard**
+
+* [#253](https://github.com/hummingbot/dashboard/pull/253) - Improved the controller configuration (same as PR#75)
+* [#258](https://github.com/hummingbot/dashboard/pull/258) - Fixed a `KeyError` that occurred when token balances were zero.
+* [#259](https://github.com/hummingbot/dashboard/pull/259) - Renamed Backend-API references to Hummingbot-API.
+
+**hummingbot/hummingbot**
+
+
+* [#7343](https://github.com/hummingbot/hummingbot/pull/7343) - Improved trade updates for Hyperliquid **Thanks to [isreallee82](https://github.com/isreallee82) for this fix! 🙏**
+* [#7670](https://github.com/hummingbot/hummingbot/pull/7670) - Added spot candles feed for BTC Markets **Thanks to [jrcalzada-nginio](https://github.com/jrcalzada-nginio) for this fix! 🙏**
+* [#7711](https://github.com/hummingbot/hummingbot/pull/7711) - Minor improvements across core modules such as `market data provider`, `v1 strategy config` and `performance monitoring`
+* [#7722](https://github.com/hummingbot/hummingbot/pull/7722) - Fixed the `HEADLESS_MODE` environment variable issue **Thanks to [petioptrv](https://github.com/petioptrv) for this fix! 🙏**

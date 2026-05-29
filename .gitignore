@@ -28,3 +28,7 @@ next-env.d.ts
 npm-debug.log*
 coverage
 public/brand/
+
+# Migrated docs images (regenerate via apps/docs/scripts/migrate-*.mjs; optimize before deploy)
+apps/docs/images/blog/
+apps/docs/images/assets/

@@ -1,0 +1,9 @@
+{
+  "name": "@hummingbot/docs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "mint dev",
+    "migrate": "node scripts/migrate-blog.mjs && node scripts/migrate-exchanges.mjs && node scripts/generate-nav.mjs"
+  }
+}

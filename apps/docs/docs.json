@@ -1,0 +1,411 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Hummingbot",
+  "colors": {
+    "primary": "#00C2CE",
+    "light": "#5FFFD7",
+    "dark": "#00B1BB"
+  },
+  "favicon": "/logo/condor-logo-square.png",
+  "metadata": {
+    "og:site_name": "Condor"
+  },
+  "api": {
+    "playground": {
+      "proxy": false
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Condor",
+            "pages": [
+              "introduction",
+              "motivation",
+              "installation",
+              "release-process"
+            ]
+          },
+          {
+            "group": "Getting Started",
+            "pages": [
+              "getting-started/overview",
+              "getting-started/installing",
+              "getting-started/telegram",
+              "getting-started/web-dashboard",
+              "llm-integration",
+              "getting-started/credentials",
+              "getting-started/portfolio",
+              "getting-started/first-agent",
+              "getting-started/sessions"
+            ]
+          },
+          {
+            "group": "Trading Agents",
+            "pages": [
+              "trading-agents/overview",
+              "trading-agents/architecture",
+              "trading-agents/sessions",
+              "trading-agents/mcp-tools",
+              "trading-agents/inventory",
+              "trading-agents/agent-builder"
+            ]
+          },
+          {
+            "group": "Executors",
+            "pages": [
+              "executors/overview",
+              "executors/order-executor",
+              "executors/position-executor",
+              "executors/grid-executor",
+              "executors/dca-executor",
+              "executors/twap-executor",
+              "executors/xemm-executor",
+              "executors/arbitrage-executor",
+              "executors/lp-executor",
+              "executors/position-handover"
+            ]
+          },
+          {
+            "group": "Routines",
+            "pages": [
+              "routines/overview",
+              "routines/global-routines",
+              "routines/creating-routines",
+              "routines/reports"
+            ]
+          },
+          {
+            "group": "Bots",
+            "pages": [
+              "bots/overview",
+              "bots/controllers",
+              "bots/scripts",
+              "bots/backtesting"
+            ]
+          },
+          {
+            "group": "Other Condor Features",
+            "pages": [
+              "other-features/portfolio",
+              "other-features/trade",
+              "other-features/keys",
+              "other-features/server",
+              "other-features/lp",
+              "other-features/gateway"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Hummingbot API Reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api-reference",
+              "api-reference/architecture",
+              "api-reference/hummingbot",
+              "api-reference/gateway"
+            ]
+          }
+        ],
+        "openapi": "api-reference/openapi.json"
+      },
+      {
+        "tab": "🎙️ Podcast",
+        "groups": [
+          {
+            "group": "Podcast",
+            "pages": [
+              "podcast/overview",
+              "podcast/ep8",
+              "podcast/ep7",
+              "podcast/ep6",
+              "podcast/ep5",
+              "podcast/ep4",
+              "podcast/ep3",
+              "podcast/ep2",
+              "podcast/ep1"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Exchanges",
+        "groups": [
+          {
+            "group": "Connectors",
+            "pages": [
+              "exchanges/aevo",
+              "exchanges/architect",
+              "exchanges/ascendex",
+              "exchanges/backpack",
+              "exchanges/binance",
+              "exchanges/bing_x",
+              "exchanges/bitget",
+              "exchanges/bitmart",
+              "exchanges/bitrue",
+              "exchanges/bitstamp",
+              "exchanges/btc-markets",
+              "exchanges/bybit",
+              "exchanges/coinbase",
+              "exchanges/cube",
+              "exchanges/decibel",
+              "exchanges/derive",
+              "exchanges/dexalot",
+              "exchanges/dydx",
+              "exchanges/evedex",
+              "exchanges/foxbit",
+              "exchanges/gate-io",
+              "exchanges/gateway",
+              "exchanges/grvt",
+              "exchanges/htx",
+              "exchanges/hyperliquid",
+              "exchanges/index",
+              "exchanges/injective",
+              "exchanges/kraken",
+              "exchanges/kucoin",
+              "exchanges/mexc",
+              "exchanges/ndax",
+              "exchanges/okx",
+              "exchanges/pacifica",
+              "exchanges/vertex",
+              "exchanges/xrpl"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Blog",
+        "groups": [
+          {
+            "group": "Blog",
+            "pages": [
+              "blog/overview"
+            ]
+          },
+          {
+            "group": "Releases",
+            "pages": [
+              "blog/hummingbot-v2.14.0",
+              "blog/hummingbot-v2.13.0",
+              "blog/hummingbot-v2.12.0",
+              "blog/hummingbot-v2.11.0",
+              "blog/hummingbot-v2.10.0",
+              "blog/hummingbot-v2.9.0",
+              "blog/hummingbot-v2.8.0",
+              "blog/hummingbot-v2.7.0",
+              "blog/hummingbot-v2.6.0",
+              "blog/hummingbot-v2.5.0",
+              "blog/hummingbot-v2.4.0",
+              "blog/hummingbot-v2.3.0",
+              "blog/hummingbot-v2.2.0",
+              "blog/hummingbot-v2.1.0",
+              "blog/hummingbot-v2.0.1",
+              "blog/hummingbot-v2.0.0",
+              "blog/hummingbot-v1.28.0",
+              "blog/hummingbot-v1.27.0",
+              "blog/hummingbot-v1.26.0",
+              "blog/hummingbot-v1.25.0",
+              "blog/hummingbot-v1.24.0",
+              "blog/hummingbot-v1.23.0",
+              "blog/hummingbot-v1.22.0",
+              "blog/hummingbot-v1.21.0",
+              "blog/hummingbot-v1.20.0",
+              "blog/hummingbot-v1.19.0",
+              "blog/hummingbot-v1.18.0",
+              "blog/hummingbot-v1.17.0",
+              "blog/hummingbot-v1.16.0",
+              "blog/hummingbot-v1.15.0",
+              "blog/hummingbot-v1.14.0",
+              "blog/hummingbot-v1.13.0",
+              "blog/hummingbot-v1.12.0",
+              "blog/hummingbot-v1.11.0",
+              "blog/hummingbot-v1.10.0",
+              "blog/hummingbot-v1.9.0",
+              "blog/hummingbot-v1.8.0",
+              "blog/hummingbot-v1.7.0",
+              "blog/hummingbot-v1.6.0",
+              "blog/hummingbot-v1.5.0",
+              "blog/hummingbot-v1.4.0",
+              "blog/hummingbot-v1.3.0",
+              "blog/hummingbot-v1.2.0",
+              "blog/hummingbot-v1.1.0",
+              "blog/hummingbot-v1.0.0",
+              "blog/hummingbot-v1.0.1",
+              "blog/hummingbot-v1.1.1"
+            ]
+          },
+          {
+            "group": "Roadmap",
+            "pages": [
+              "blog/introducing-condor",
+              "blog/hummingbot-2024-technical-roadmap",
+              "blog/hummingbot-2023-roadmap-update",
+              "blog/hummingbot-2023-technical-roadmap",
+              "blog/hummingbot-roadmap-q2-2021",
+              "blog/hummingbot-2020-roadmap"
+            ]
+          },
+          {
+            "group": "Governance",
+            "pages": [
+              "blog/governance-simplification-proposal-2025",
+              "blog/tracking-foundation-hbot-purchases",
+              "blog/state-of-the-foundation-2024",
+              "blog/epoch-6-polls-recap",
+              "blog/faq-on-hbot-and-hummingbot-governance",
+              "blog/proposed-epoch-6-governance-changes",
+              "blog/epoch-5-polls-recap",
+              "blog/epoch-5-hbot-voter-guide",
+              "blog/epoch-4-polls-recap",
+              "blog/end-of-hbot-delegation",
+              "blog/faq-on-hummingbot-polls-for-exchanges",
+              "blog/epoch-3-polls-recap",
+              "blog/hummingbot-2023-governance-roadmap",
+              "blog/changes-to-hummingbot-maintenance-and-governance",
+              "blog/introducing-the-hummingbot-governance-token-hbot"
+            ]
+          },
+          {
+            "group": "Connectors",
+            "pages": [
+              "blog/using-xrpl-with-hummingbot",
+              "blog/using-binance-with-hummingbot",
+              "blog/using-derive-with-hummingbot",
+              "blog/injective-connector-guide",
+              "blog/using-dydx-v4-with-hummingbot",
+              "blog/dydx-v4-connector",
+              "blog/announcing-xrpl-connector",
+              "blog/announcing-vega-hummingbot-connector-sponsorship",
+              "blog/using-vega-protocol-with-hummingbot",
+              "blog/using-osmosis-with-hummingbot",
+              "blog/using-dexalot-with-hummingbot",
+              "blog/using-hyperliquid-vaults-with-hummingbot",
+              "blog/using-polkadex-with-hummingbot",
+              "blog/introducing-the-perpetual-protocol-connector-and-strategy",
+              "blog/what-is-cross-exchange-market-making",
+              "blog/exchange-types-explained-clob-rfq-amm"
+            ]
+          },
+          {
+            "group": "Interviews",
+            "pages": [
+              "blog/interview-with-liquidity-miner-mrbig",
+              "blog/interview-with-community-member-vik",
+              "blog/interview-with-market-maker-harry-yeh",
+              "blog/interview-with-liquidity-miner-neohowie",
+              "blog/interview-with-liquidity-miner-lorenzo",
+              "blog/interview-with-liquidity-miner-dominator008",
+              "blog/interview-with-liquidity-miner-david-salter",
+              "blog/from-hedge-fund-to-market-making-bot-the-hummingbot-origin-story"
+            ]
+          },
+          {
+            "group": "Tutorials",
+            "pages": [
+              "blog/strategy-guide-grid-strike",
+              "blog/dashboard-tutorial-pmm-simple-v2",
+              "blog/quickstart-dashboard",
+              "blog/docker-installation-guide",
+              "blog/directional-trading-experiment",
+              "blog/how-to-trade-crypto",
+              "blog/tips-for-handling-different-market-conditions",
+              "blog/basic-concepts-of-crypto-trading",
+              "blog/guide-to-the-avellaneda-stoikov-strategy",
+              "blog/what-is-inventory-risk",
+              "blog/what-is-arbitrage",
+              "blog/what-is-market-making",
+              "blog/how-to-think-about-liquidity-blockcrunch"
+            ]
+          },
+          {
+            "group": "Announcements",
+            "pages": [
+              "blog/affiliate-program",
+              "blog/botcamp-cohort-7-demo-day",
+              "blog/improvements-to-discord-support-program",
+              "blog/announcing-botcamp-and-the-broader-hummingbot-ecosystem",
+              "blog/2023-a-year-of-innovation-at-hummingbot",
+              "blog/introducing-v2-strategies",
+              "blog/retrospective-on-the-october-2023-bot-battle",
+              "blog/beta-bot-battle-results-and-roundup",
+              "blog/join-the-beta-bot-battle",
+              "blog/launching-usdc-payouts-for-bounty-recipients",
+              "blog/kicking-off-the-hummingbot-dashboard-community-project",
+              "blog/botcamp-cohort-4-demo-day",
+              "blog/introducing-community-bounties",
+              "blog/introducing-discord-support-bounties",
+              "blog/gate-io-trading-competition-results-and-retrospective",
+              "blog/introducing-the-hummingbot-foundation",
+              "blog/open-defi-hackathon-join-the-hunt-for-hummingbot-bounties",
+              "blog/hummingbot-miner-year-1-recap",
+              "blog/nem-liquidity-mining-case-study",
+              "blog/partnering-with-balancer",
+              "blog/liquidity-mining-in-hummingbot-vs-defi-part-2",
+              "blog/liquidity-mining-in-hummingbot-vs-defi",
+              "blog/introducing-the-celo-arbitrage-bot",
+              "blog/introducing-the-eagle-club",
+              "blog/hummingbot-collaborates-with-binance",
+              "blog/liquidity-mining-launch",
+              "blog/hummingbot-partners-with-kucoin",
+              "blog/demystifying-liquidity-mining-rewards",
+              "blog/introducing-liquidity-mining-a-marketplace-for-market-makers",
+              "blog/liquidity-mining-whitepaper",
+              "blog/does-community-based-market-making-work",
+              "blog/introducing-harmony-liquidity-bounties",
+              "blog/hummingbot-vs-uniswap-two-approaches-to-liquidity",
+              "blog/hummingbot-is-live",
+              "blog/the-thin-crust-of-liquidity",
+              "blog/hummingbot-whitepaper"
+            ]
+          },
+          {
+            "group": "Engineering",
+            "pages": [
+              "blog/create-controller-config",
+              "blog/coding-a-custom-v2-controller",
+              "blog/strategy-coding-for-dummies",
+              "blog/hummingbot-gateway-architecture-part-2",
+              "blog/hummingbot-gateway-architecture-part-1",
+              "blog/hummingbot-architecture-part-2",
+              "blog/technical-deep-dive-into-the-avellaneda-stoikov-strategy",
+              "blog/hummingbot-architecture-part-1",
+              "blog/scaling-the-hummingbot-developer-community"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/condor-light.png",
+    "dark": "/logo/condor-dark.png"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "About us",
+        "href": "https://hummingbot.org/about/"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "GitHub",
+      "href": "https://github.com/hummingbot/condor"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/_hummingbot",
+      "discord": "https://discord.gg/hummingbot",
+      "youtube": "https://youtube.com/@hummingbot",
+      "github": "https://github.com/hummingbot/condor"
+    }
+  }
+}
