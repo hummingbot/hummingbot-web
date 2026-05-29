@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "@hummingbot/tokens/theme.css";
+
+/* Scan the shared UI package for Tailwind classes (workspace pkgs live in
+   node_modules and are ignored by default). */
+@source "../../../../packages/ui/src";

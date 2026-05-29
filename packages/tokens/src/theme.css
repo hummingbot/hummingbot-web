@@ -1,0 +1,127 @@
+/* ============================================================
+   Hummingbot Design Tokens — Tailwind v4, dark-first
+   Ported from ~/botcamp-site/src/app/globals.css
+   Consume from an app:  @import "tailwindcss";
+                         @import "@hummingbot/tokens/theme.css";
+   Load Satoshi in each Next app via next/font/local, exposing --font-satoshi
+   (see each app's layout.tsx). fonts.css provides a plain @font-face
+   fallback for non-Next consumers.
+   ============================================================ */
+
+/* Map design tokens → Tailwind utility namespaces. */
+@theme inline {
+  /* Brand accents (signature Hummingbot palette) */
+  --color-brand-teal: #5fffd7;
+  --color-brand-yellow: #fcdb17;
+  --color-brand-magenta: #e549ff;
+  --color-brand-orange: #ef8728;
+  --color-brand-cyan: #00c2ce;
+
+  /* Ink scale (neutrals) */
+  --color-ink-0: #ffffff;
+  --color-ink-50: #fafafa;
+  --color-ink-100: #f5f5f5;
+  --color-ink-150: #ededee;
+  --color-ink-200: #e5e7eb;
+  --color-ink-300: #d4d4d8;
+  --color-ink-400: #a1a1aa;
+  --color-ink-500: #71717a;
+  --color-ink-600: #52525b;
+  --color-ink-700: #3f3f46;
+  --color-ink-800: #2f2f2f;
+  --color-ink-850: #1f1f22;
+  --color-ink-900: #1a1a1b;
+  --color-ink-950: #0f0f0f;
+  --color-ink-999: #090909;
+
+  /* Trading semantics */
+  --color-bull: #22c55e;
+  --color-bear: #ef4444;
+
+  /* Semantic surface tokens (resolve to raw HSL channels below) */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Fonts (Satoshi loaded by the app via next/font/local → --font-satoshi) */
+  --font-sans: var(--font-satoshi), "Satoshi", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", monospace;
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+/* Raw token values — dark-first (defaults live on :root). */
+:root {
+  color-scheme: dark;
+
+  --background: 0 0% 7%;
+  --foreground: 0 0% 96%;
+  --card: 0 0% 4%;
+  --card-foreground: 0 0% 96%;
+  --popover: 0 0% 4%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 46 98% 50%;
+  --primary-foreground: 0 0% 9%;
+  --secondary: 21 85% 54%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 65%;
+  --accent: 289 100% 64%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 96%;
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+  --ring: 46 98% 50%;
+
+  --radius: 0.5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 24px -8px rgba(0, 0, 0, 0.5);
+  --shadow-glow-teal: 0 0 24px rgba(95, 255, 215, 0.35);
+  --shadow-glow-magenta: 0 0 24px rgba(229, 73, 255, 0.25);
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* Tabular numerals for metrics by default where requested via .tabular */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}

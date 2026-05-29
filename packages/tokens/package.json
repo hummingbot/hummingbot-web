@@ -1,0 +1,12 @@
+{
+  "name": "@hummingbot/tokens",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./theme.css": "./src/theme.css",
+    "./fonts.css": "./src/fonts.css",
+    "./fonts/*": "./fonts/*"
+  }
+}
