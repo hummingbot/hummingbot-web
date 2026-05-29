@@ -5,14 +5,9 @@ date: "2025-08-02"
 category: "Tutorials"
 ---
 
-![cover](/images/blog/dashboard-tutorial-pmm-simple-v2/cover.png)
-
 Welcome to the **Dashboard Tutorial: PMM Simple V2 Strategy** — a step-by-step guide designed to help you understand, configure, backtest, and deploy the PMM Simple V2 strategy using the Hummingbot Dashboard.  
 
 In this tutorial, you’ll learn how to set up the strategy’s parameters, test its performance through backtesting, fine-tune order spreads and risk controls, and finally save and deploy your configuration for live trading.
-
-
-
 
 ## 🔍 How PMM Simple Differs From Other Strategies
 
@@ -21,7 +16,6 @@ In this tutorial, you’ll learn how to set up the strategy’s parameters, test
 Unlike more complex strategies in the Hummingbot V2 codebase, **PMM Simple** does **not use any technical indicators** or price forecasts. It places limit orders at fixed spreads around a reference price (typically the mid-price), aiming to consistently earn from spread capture. 
 
 Strategies like `pmm_dynamic` adapt spread and pricing using MACD and volatility metrics (NATR), while `bollinger_v1` and `dman_v3` follow directional or mean-reversion logic with Bollinger Bands. PMM Simple stays always in the market, using clean, fixed parameters with minimal logic, making it ideal for stability, simplicity, and extensibility.
-
 
 - **Compared with v2 simple_pmm script**
 
@@ -35,8 +29,6 @@ V1 **Pure Market Making** is reliable and works well out-of-the-box, making it i
 
 Navigate to **PMM Simple** from the sidebar in your Hummingbot Dashboard.
 
-[![PMM Simple Sidebar](/images/blog/dashboard-tutorial-pmm-simple-v2/image1.png)](image1.png)
-
 ## General Settings
 
 | Parameter                | Description                                                  | Example       |
@@ -49,8 +41,6 @@ Navigate to **PMM Simple** from the sidebar in your Hummingbot Dashboard.
 | `executor_refresh_time`  | Seconds before replacing inactive orders                     | 300           |
 | `cooldown_time`          | Wait time after stop-loss before re-entering                 | 60            |
 
-[![general settings](/images/blog/dashboard-tutorial-pmm-simple-v2/image2.png)](image2.png)
-
 ### Buy/Sell Order Settings
 
 Configure number of levels, spreads, and allocation per level:
@@ -62,10 +52,6 @@ Configure number of levels, spreads, and allocation per level:
 | `buy_amounts_pct`    | Relative sizes for buy orders           | [50, 50]    |
 | `sell_amounts_pct`   | Relative sizes for sell orders          | [50, 50]    |
 
-
-[![buy / sell settings](/images/blog/dashboard-tutorial-pmm-simple-v2/image3.png)](image3.png)
-
-
 ### 🛡️ Risk Controls
 
 | Parameter                | Description                                              | Example     |
@@ -76,20 +62,12 @@ Configure number of levels, spreads, and allocation per level:
 | `take_profit_order_type`| LIMIT or MARKET (or LIMIT_MAKER on some connectors)       | LIMIT       |
 | `trailing_stop`          | Activation delta and trailing delta (optional)           | 0.01, 0.002 |
 
-
-[![risk](/images/blog/dashboard-tutorial-pmm-simple-v2/image4.png)](image4.png)
-
-
 ### 🔄 Position Management (Spot Only)
 
 | Parameter                         | Description                                               | Example |
 |-----------------------------------|-----------------------------------------------------------|---------|
 | `position_rebalance_threshold_pct`| Auto market order to rebalance if threshold exceeded      | 0.05    |
 | `skip_rebalance`                  | Disable automatic rebalance (true/false)                  | false   |
-
-
-[![risk](/images/blog/dashboard-tutorial-pmm-simple-v2/image5.png)](image5.png)
-
 
 ## 🧠 How the Strategy Works
 
@@ -111,7 +89,6 @@ Behind the scenes, the controller monitors for stale or inactive orders and repl
 
 If you're running the strategy on a spot connector and enable rebalancing, it will track your quote/base asset ratio. If the balance deviates beyond your `position_rebalance_threshold_pct`, the bot submits a market order to restore your original asset split. You can disable this behavior entirely by setting `skip_rebalance: true`.
 
-
 ## 📊 Backtesting Your Strategy
 
 Use the **Backtesting** section to simulate strategy performance over historical data.
@@ -126,9 +103,6 @@ Use the **Backtesting** section to simulate strategy performance over historical
 
 4. Click `Run Backtesting`
 
-[![backtesting](/images/blog/dashboard-tutorial-pmm-simple-v2/image6.png)](image6.png)
-
-
 ### Metrics Displayed:
 
 | Metric            | Meaning                                                  |
@@ -141,10 +115,6 @@ Use the **Backtesting** section to simulate strategy performance over historical
 | `Executors`       | Number of executed positions                             |
 | `Accuracy`        | Overall success rate                                     |
 
-
-[![results](/images/blog/dashboard-tutorial-pmm-simple-v2/image7.png)](image7.png)
-
-
 ## 💾 Saving Your Config
 
 Once satisfied with backtest results:
@@ -154,9 +124,6 @@ Once satisfied with backtest results:
 2. Name your config base and add a config tag
 
 3. Click `Upload`
-
-[![config](/images/blog/dashboard-tutorial-pmm-simple-v2/image8.png)](image8.png)
-
 
 To **reuse saved configs**, uncheck “Use default config”  
 
@@ -170,9 +137,6 @@ Saved YAML files are stored under:
 ```
 
 ➡️ You can also tweak an existing config, then save it under a new name for versioning.
-
-[![reload](/images/blog/dashboard-tutorial-pmm-simple-v2/image9.png)](image9.png)
-
 
 ## 🚀 Deploying Your Config
 
@@ -190,14 +154,10 @@ To launch your trading bot using the saved configuration:
 
 6. Click **Deploy Bot**
 
-[![Deploy Bot](/images/blog/dashboard-tutorial-pmm-simple-v2/image10.png)](image10.png)
-
 🎉 **Congratulations!** You've just deployed a `pmm_simple` trading bot.
 
 To monitor your bot, go to the **Instances** page —  
 Status may take a few seconds to reflect after deployment.
-
-[![reload](/images/blog/dashboard-tutorial-pmm-simple-v2/image11.png)](image11.png)
 
 ## ✅ Summary
 

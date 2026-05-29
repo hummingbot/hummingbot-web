@@ -49,7 +49,6 @@ The [Hummingbot Client](../installation/hummingbot-client) installation has been
 
 See the [Hummingbot Client Quickstart](../installation/hummingbot-client) for full instructions.
 
-
 ### 📊 Dynamic Order Book Initialization
 
 Hummingbot now supports dynamic order book initialization, a performance optimization that allows order books to be loaded on-demand rather than all at startup. This feature is particularly beneficial for traders running strategies across multiple exchanges or managing large numbers of trading pairs.
@@ -81,7 +80,6 @@ Hummingbot now fully supports HIP-3 (DEX) markets on the Hyperliquid Perpetual c
 📚 Documentation: [Hyperliquid Connector Guide](../exchanges/hyperliquid)
 
 **Special thanks to [isreallee82](https://github.com/isreallee82) for these contributions ([#7875](https://github.com/hummingbot/hummingbot/pull/7875), [#7952](https://github.com/hummingbot/hummingbot/pull/7952))! 🙏**
-
 
 ### 🛠️ Hummingbot API Enhancements
 
@@ -123,7 +121,6 @@ Gateway now includes comprehensive wallet management capabilities, enabling prog
 
 **Local Generation Option**: Includes a CLI script (pnpm wallet:create) for generating keypairs locally before adding to Gateway.
 
-
 ### Other Updates
 
 **hummingbot/hummingbot**
@@ -140,14 +137,12 @@ Gateway now includes comprehensive wallet management capabilities, enabling prog
 * **[#7949](https://github.com/hummingbot/hummingbot/pull/7949)** – Fixed Gateway swap execution flow and improved XEMM order tracking
 * **[#7952](https://github.com/hummingbot/hummingbot/pull/7952)** – Enabled HIP-3 markets by default and removed `enable_hip3_markets` configuration option **Thanks to [isreallee82](https://github.com/isreallee82) for this fix! 🙏**
 
-
 **hummingbot/gateway**
 
 * **[#576](https://github.com/hummingbot/gateway/pull/576)** – Fixed error handling to return 404 instead of 500 for closed or non-existent CLMM positions.
 * **[#577](https://github.com/hummingbot/gateway/pull/577)** – Added wallet generation script and wallet API endpoints (see Wallet Management section above).
 * **[#582](https://github.com/hummingbot/gateway/pull/582)** – Removed token cache for immediate token availability. Tokens added via `POST /tokens/` now work immediately without requiring a Gateway restart.
 * **[#587](https://github.com/hummingbot/gateway/pull/587)** – Added split routing support in Uniswap and PancakeSwap quote-swap operations.
-
 
 **hummingbot/hummingbot-api**
 

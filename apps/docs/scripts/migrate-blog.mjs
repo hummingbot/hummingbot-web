@@ -27,7 +27,7 @@ import {
 import { homedir } from "node:os";
 import { basename, dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { convertAdmonitions, escapeForMdx, stripMdLinks } from "./_sanitize.mjs";
+import { convertAdmonitions, escapeForMdx, stripImages, stripMdLinks } from "./_sanitize.mjs";
 
 const HOME = homedir();
 const POSTS = join(HOME, "hummingbot-site/docs/blog/posts");
@@ -79,8 +79,8 @@ function parseFrontmatter(raw) {
 }
 
 function firstParagraph(body) {
-  const text = body
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+  const text = stripImages(body)
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/<[^>]+>/g, "")
     .replace(/[#*_>`]/g, "");
   for (const para of text.split(/\n\s*\n/)) {
@@ -90,13 +90,10 @@ function firstParagraph(body) {
   return "";
 }
 
-function sanitizeMdx(body, slug) {
-  let out = body;
-  out = out.replace(/<!--\s*more\s*-->/g, "");
+function sanitizeMdx(body) {
+  let out = body.replace(/<!--\s*more\s*-->/g, "");
+  out = stripImages(out);
   out = convertAdmonitions(out);
-  // rewrite relative image refs → /images/blog/<slug>/<file>
-  out = out.replace(/!\[([^\]]*)\]\((?!https?:|\/|#)([^)\s]+)(#only-[a-z]+)?\)/g, (_m, alt, p) => `![${alt}](/images/blog/${slug}/${p})`);
-  out = out.replace(/(src=")(?!https?:|\/)([^"]+)(")/g, (_m, a, p, b) => `${a}/images/blog/${slug}/${p}${b}`);
   out = stripMdLinks(out);
   out = escapeForMdx(out);
   return out.trim();
@@ -150,16 +147,7 @@ for (const slug of readdirSync(POSTS)) {
   const date = String(Array.isArray(fm.date) ? fm.date[0] : fm.date || "2020-01-01").slice(0, 10);
   const category = mapCategory(fm.categories, slug, title);
 
-  // copy images
-  for (const f of readdirSync(dir)) {
-    if (f === "index.md") continue;
-    if (![".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"].includes(extname(f).toLowerCase())) continue;
-    const destDir = join(IMG_OUT, slug);
-    mkdirSync(destDir, { recursive: true });
-    cpSync(join(dir, f), join(destDir, f));
-  }
-
-  writePost({ slug, title, description, date, category, body: sanitizeMdx(bodyNoH1, slug) });
+  writePost({ slug, title, description, date, category, body: sanitizeMdx(bodyNoH1) });
   manifest.push({ slug, title, date, category, type: "post" });
 }
 
@@ -181,7 +169,7 @@ for (const file of readdirSync(RELEASES)) {
     description: `Release notes for Hummingbot v${version}.`,
     date,
     category: "Releases",
-    body: sanitizeMdx(bodyNoH1, slug),
+    body: sanitizeMdx(bodyNoH1),
   });
   manifest.push({ slug, title, date, category: "Releases", type: "release", version });
 }

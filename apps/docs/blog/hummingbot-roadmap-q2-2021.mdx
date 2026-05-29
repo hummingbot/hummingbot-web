@@ -5,13 +5,9 @@ date: "2021-05-06"
 category: "Roadmap"
 ---
 
-![cover](/images/blog/hummingbot-roadmap-q2-2021/cover.png)
-
 Two years ago, we decided to open source the technology stack that powered our quant hedge fund and launch Hummingbot. Back then, everyone thought we were crazy, stupid, or both.
 
 Today, [Hummingbot](https://github.com/hummingbot/hummingbot) has become the leading open source trading bot project in crypto, with 12,000+ Discord community members, 1,700+ stars, 700+ forks, and 80 contributors. With integrations to [20+ exchanges](../../../exchanges/index) and an expanding list of [protocols](../../../gateway/connectors), Hummingbot helps both individual and professional quant traders all over the world skip the low-level drudgery of building and maintaining integrations to centralized and decentralized exchanges alike.
-
-
 
 However, this is possible only because of [Hummingbot Miner](https://miner.hummingbot.io), the liquidity mining platform where Hummingbot users can run market making bots to earn token rewards. For token projects, Miner provides a more efficient, transparent, and community-based liquidity solution compared to hiring a market maker. For Hummingbot users, Miner allows them to earn higher yields than anywhere else in crypto. For us as a company, the fees earned from exchanges and projects who utilize the Miner platform sustain the development and maintenance of the Hummingbot open source project.
 
@@ -27,8 +23,6 @@ Please see below for more information on the initiatives we plan to ship over th
 
 ## New Hummingbot connector: Uniswap V3
 
-![](/images/blog/hummingbot-roadmap-q2-2021/./uniswap-v3.jpg)
-
 We are excited to announce an upcoming new Hummingbot connector that supports [Uniswap V3](https://uniswap.org/blog/uniswap-v3/), along with a new strategy `uniswap_v3_lp` that lets Uniswap liquidity providers dynamically maintain their positions as market conditions change.
 
 The new "range orders" in the design of Uniswap V3 give liquidity providers (LPs) greater control and enable them to be more capital efficient. Therefore, both we and Uniswap expect to see greater participation from professional market makers after V3 launches. However, since Uniswap V3 LPs will need to adjust their range orders as market prices change, a bot that automates order adjustment while taking into account fluctuations in gas prices, volatility, and other market data will be essential for LPs to stay competitive.
@@ -36,8 +30,6 @@ The new "range orders" in the design of Uniswap V3 give liquidity providers (LPs
 The first version of this connector and strategy, which we expect to ship shortly after Uniswap V3 launch in May, will likely be rudimentary and buggy, so please do not risk large amounts of capital with it. We plan to work with Uniswap to incrementally improve the design throughout the rest of this year.
 
 ## New Hummingbot Miner exchange: AscendEx
-
-![](/images/blog/hummingbot-roadmap-q2-2021/./ascendex-bitmax.png)
 
 Since Hummingbot Miner has to collect and process large amounts of order book data coming from many different users simultaneously, supporting additional exchanges involves a large amount of engineering work. 
 
@@ -61,8 +53,6 @@ In order to continue adding exchanges, we need to refactor the existing connecto
 
 We have partnered with Gitcoin to support the [OpenDeFi hackathon](https://gitcoin.co/hackathon/open-defi/onboard) going on now, so you can win bounties for creating Hummingbot strategies!
 
-![](/images/blog/hummingbot-roadmap-q2-2021/./open-defi.jpg)
-
 ## Other Hummingbot Miner initiatives in Q2
 
 **Improved payouts support**: Hummingbot Miner pays miners every week by sending their accrued token rewards to wallets that they select. Since these payouts occur on various blockchains, ensuring that these payouts go through smoothly is a challenging process. In addition, we also have to collect certain compliance forms from users who earn more than $600 in a calendar year. 
@@ -76,5 +66,3 @@ Some of these API endpoints are already being used by the `liquidity_mining` str
 **App redesign**: Last but certainly not least, we're working on an extensive redesign of the Hummingbot Miner app. The redesign aims to make Miner more exchange-like from a design standpoint, as well as using charts and graphs to display data more visually. Users will also be able switch between light and dark modes!
 
 Below is an early design of the new Market view:
-
-![](/images/blog/hummingbot-roadmap-q2-2021/./redesign.png)

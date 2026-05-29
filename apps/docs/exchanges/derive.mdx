@@ -32,13 +32,11 @@ title: "Rate Limits"
 
 - The system enforces rate limits using a fixed window algorithm, replenishing the request allowance every 5 seconds to maintain system stability. Market makers can access higher rate limits upon request by contacting the support team.
 
-    ![API](/images/exchanges/derive/rate-limit-api1.png)
+    
 
-    ![API](/images/exchanges/derive/rate-limit-api9.png)
+    
 
 - **Derive Rate Limit:**  [https://docs.derive.xyz/reference/rate-limits](https://docs.derive.xyz/reference/rate-limits)
-
-
 
 The below rate limits have been implemented to safeguard our system. Rate limiters use a **"fixed window" algorithm** to discretely refill the request allowance every 5 seconds.
 
@@ -53,7 +51,6 @@ To apply for increased rates, please contact our support team.
 > **Note:**  
 > Burst requests for both REST and WebSockets are refreshed every 5 seconds.  
 > For example, a trader can send 5× matching requests in a single burst but must wait 5 seconds before any further requests can be sent.
-
 
 ## Matching, Non-Matching, and Custom Requests
 
@@ -81,34 +78,33 @@ All **non-matching** requests over the **REST API** are rate limited per IP at a
 
 If the limit is crossed, a **`429 Too Many Requests`** response is returned.
 
-
 ## 🔑 How to Connect
 
 ### Generate API Keys
 
 - Connect
 
-    ![API](/images/exchanges/derive/derive-api2.png)
+    
 
 - Click Home tab
 
-    ![API](/images/exchanges/derive/derive-api3.png)
+    
 
 - Click Developers tab
 
-    ![API](/images/exchanges/derive/derive-api3.png)
+    
 
 - Register your session KEY (i.e your public address e.g metamask)
 
-    ![API](/images/exchanges/derive/derive-api4.png)
+    
 
 - Input a Name and your public address
 
-    ![API](/images/exchanges/derive/derive-api5.png)
+    
 
 - Click Register button to exit. Now you can use your new Session Key.
 
-    ![API](/images/exchanges/derive/derive-api6.png)
+    
 
 ### Add Keys to Hummingbot
 
@@ -116,11 +112,11 @@ From inside the Hummingbot client, run `connect derive`:
 
 - Input a Derive address as Derive Wallet address
 
-    ![API](/images/exchanges/derive/derive-api8.png)
+    
 
 - Input your Subaccount ID
   
-    ![API](/images/exchanges/derive/derive-api7.png)
+    
 
 ```
 >>> connect derive
@@ -176,11 +172,11 @@ From inside the Hummingbot client, run `connect derive_perpetual`:
 
 - Input a Derive address as DerivePerpetual Wallet address
 
-    ![API](/images/exchanges/derive/derive-api8.png)
+    
 
 - Input your Subaccount ID
   
-    ![API](/images/exchanges/derive/derive-api7.png)
+    
 
 ```
 >>> connect derive_perpetual
@@ -224,4 +220,3 @@ Afer you create an account and create the API keys, you can enter them by using 
 - **Derive Leverage:** [https://docs.derive.xyz/reference/private-get_positions#:~:text=leverage](https://docs.derive.xyz/reference/private-get_positions#:~:text=leverage)
 
 - Sample View
-    ![API](/images/exchanges/derive/derive-api10.png)

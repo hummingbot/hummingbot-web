@@ -24,7 +24,6 @@ category: "Releases"
 >
 > This release includes breaking changes across `hummingbot-api`, `hummingbot-mcp`, and `condor`. Older hummingbot client versions will no longer work — see [Updating to New Versions](../installation/update) for update instructions.
 
-
 ## Release Highlights
 
 ### 🎒 Backpack Spot & Perpetual Connector
@@ -87,7 +86,6 @@ We are continuing to evolve our strategy framework by unifying the V2 strategy a
 * **LP Executor & Rebalancer:** Introduces the `lp_rebalancer` controller and `lp_executor` for automated liquidity provision on CLMM DEXs (e.g., Meteora, Raydium). Features include an orchestrated state machine for managing LP positions, automatic out-of-range rebalancing based on price limits, and a new `lphistory` command for performance tracking.
 * **Core Integration:** Merged via PRs [#7986](https://github.com/hummingbot/hummingbot/pull/7986) and [#7948](https://github.com/hummingbot/hummingbot/pull/7948).
 
-
 ### Other Updates
 
 **hummingbot/hummingbot**
@@ -100,15 +98,12 @@ We are continuing to evolve our strategy framework by unifying the V2 strategy a
 * **[#8037](https://github.com/hummingbot/hummingbot/pull/8037)** – Upgraded the Binance user stream connection.
 * **[#8061](https://github.com/hummingbot/hummingbot/pull/8061)** – Updated Hyperliquid perpetual constants and refactored DEX market handling for HIP-3 API updates. **Thanks to [isreallee82](https://github.com/isreallee82) for this contribution! 🙏**
 
-
-
 **hummingbot/gateway**
 
 * **[#583](https://github.com/hummingbot/gateway/pull/583)** - Added optional `defaultNetworks` parameter to Solana and Ethereum chain configs to optimize balance queries
 * **[#591](https://github.com/hummingbot/gateway/pull/591)** - Improved CLMM support for the LP Position Executor with position status tracking, `strategyType` passthrough, and transaction fee separation
 * **[#600](https://github.com/hummingbot/gateway/pull/600)** - Switched Orca CLMM positions to Token-2022 instructions for full rent recovery on close **Thanks to [mlguys](https://github.com/mlguys) for this contribution! 🙏**
 * **[#603](https://github.com/hummingbot/gateway/pull/603)** - Used on-chain whirlpool data for real-time Orca pool pricing instead of potentially stale API data
-
 
 **hummingbot/hummingbot-api**
 
@@ -119,19 +114,16 @@ We are continuing to evolve our strategy framework by unifying the V2 strategy a
 * **[#120](https://github.com/hummingbot/hummingbot-api/pull/120)** - Added `lp_executor` support: registered `LPExecutor` and `LPExecutorConfig` in the executor registry, exposed `/executors/types/available` and `/executors/types/lp_executor/config` endpoints, added `lp_rebalancer` controller, and updated Gateway connector handling to support AMM/CLMM connectors without order book trackers.
 * **[#128](https://github.com/hummingbot/hummingbot-api/pull/128)** - Introduced executor log capture with per-executor ring buffers and a new `GET /executors/{id}/logs` endpoint; cleaned up orphaned executors on startup; consolidated bot deployment to controller-based path; and added new controllers.
 
-
 **hummingbot/mcp**
 
 * **[#13](https://github.com/hummingbot/mcp/pull/13)** - Added executor tools and guides: new MCP tools for creating, managing, and monitoring executors (position, grid, DCA, TWAP, XEMM, LP) with structured preference storage, stop-loss support, and formatted output tables.
 * **[#15](https://github.com/hummingbot/mcp/pull/15)** - Minor improvements to executor tools and guides: improved validation schemas, executor guide refinements, and better preference management.
-
 
 **hummingbot/condor**
 
 * **[#22](https://github.com/hummingbot/condor/pull/22)** - Removed the OpenAI key prompt.
 * **[#25](https://github.com/hummingbot/condor/pull/25)** - Applied improvements and added a Position Executor wizard for creating long/short positions with stop loss, take profit, and trailing stops.
 * **[#31](https://github.com/hummingbot/condor/pull/31)** - Fixed executor issues, improved pair management, unified persistence layer, and added HIP-3 support check.
-
 
 **hummingbot/skills** *(New Repository)*
 

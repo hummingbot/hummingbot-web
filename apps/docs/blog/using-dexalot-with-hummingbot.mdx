@@ -5,22 +5,15 @@ date: "2024-03-14"
 category: "Connectors"
 ---
 
-![cover](/images/blog/using-dexalot-with-hummingbot/cover.png) 
-
 ## Introduction
 
 Welcome to our user guide which will embark you on a decentralized trading journey that combines Dexalot's cutting-edge technology built on Avalanche blockchain and Hummingbot's advanced trading capabilities.
 
-
-
 **Dexalot** offers a familiar centralized exchange experience within a secure, transparent, and efficient on-chain environment. Linking **Dexalot** with **Hummingbot** unlocks automated trading possibilities. Whether a seasoned trader or a newcomer, this tutorial equips you to navigate the exciting intersection of decentralized finance and automated trading seamlessly.
-
-
 
 For a comprehensive understanding and step-by-step visual instructions, we recommend starting with our video guide below. It covers everything you need to know to get Hummingbot up and running on Dexalot, from setup to execution.
 
 &lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/PC3BPRwjgRI?si=3k6djtq0pkwng1vt" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
-
 
 After watching the video, you can follow along with our detailed written guide below. It complements the video and provides the commands needed to run which you can copy - paste into the terminal. 
 
@@ -29,11 +22,8 @@ After watching the video, you can follow along with our detailed written guide b
 Visit the Dexalot App: [https://app.dexalot.com/trade/](https://app.dexalot.com/trade/)
 At upper right, click **Connect Wallet**. Then, click on the **Checkboxes** and **Accept** button.
  
-![images](/images/blog/using-dexalot-with-hummingbot/02.png)
 
 Select your preferred wallet. In this guide, we will use Metamask.
-
-![images](/images/blog/using-dexalot-with-hummingbot/02a.png)
 
 Let’s proceed to deposit funds into Dexalot Subnet Portfolio.
 
@@ -43,13 +33,11 @@ Let’s proceed to deposit funds into Dexalot Subnet Portfolio.
 
    3. Click on `3 vertical dots` at right side of token you wish to deposit, then select `Deposit into Dexalot`
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/03.png)    
+    
 
 Approve the deposit with your Metamask wallet. Normal gas fees are less than 1 USDT & deposit will normally take less than 1 minute. But will be relatively higher & longer during busy period. 
 
-![images](/images/blog/using-dexalot-with-hummingbot/04.png)    
-
+    
 
 ## Installing Hummingbot and Gateway
 
@@ -57,8 +45,7 @@ Approve the deposit with your Metamask wallet. Normal gas fees are less than 1 U
 
 Search for **Powershell**, right-click and click **Run as administrator**
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/06.png)    
+    
 
 In Powershell terminal, type the below command:
 
@@ -71,12 +58,11 @@ Remember to restart PC or laptop after installing.
 
 In Microsoft Store, search “Ubuntu”, and click `Get` button to download and install the app.
 
-![images](/images/blog/using-dexalot-with-hummingbot/05.png)    
-
+    
 
 Launch Ubuntu app. Provide preferred username and password.
 
-![images](/images/blog/using-dexalot-with-hummingbot/07.png) 
+ 
 
 Continue to type these commands one by one in Ubuntu terminal:
 
@@ -109,8 +95,7 @@ docker compose up -d
 
 ```
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/11.png)    
+    
 
 ```
 sudo chmod -R a+rw ./hummingbot_files ./gateway_files
@@ -140,8 +125,7 @@ In Hummingbot client, type in the following command
    
    Type `exit` and press &lt;kbd>Enter&lt;/kbd> key    
 
-![images](/images/blog/using-dexalot-with-hummingbot/12.png)     
-
+     
 
 In Ubuntu terminal, type the following command:
 
@@ -149,17 +133,13 @@ In Ubuntu terminal, type the following command:
 docker compose down
 ```
 
-
 Open the `docker-compose.yaml` file using your favorite code editor. We are using Visual Studio Code.
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/13.png) 
-
+ 
 
 Uncomment the lines with environment and CONFIG_PASSWORD and type the passwords you have set above. Remember to save the file.
 
-![images](/images/blog/using-dexalot-with-hummingbot/14.png) 
-
+ 
 
 In the Ubuntu terminal, type these commands:
    ```
@@ -171,9 +151,7 @@ In the Ubuntu terminal, type these commands:
 
 In Hummingbot client, check that `Gateway: ONLINE`. If so, you have successfully setup Gateway.
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/15.png) 
-
+ 
 
 Continue to connect Metamask wallet to Dexalot, type:
 ```
@@ -192,9 +170,7 @@ Enter in the following details:
 
   -  Press &lt;kbd>Enter&lt;/kbd> key>
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/16.png)         
-
+         
 
 ### **Setting Up a Simple Market Making Bot**
 
@@ -227,21 +203,13 @@ Enter the following:
 >
 >   Feel free to change and customize the parameters above, according to your capital and risks tolerance.
 
-
 Before proceeding to start the bot, ensure to have switch the network from **Avalanche** to **Dexalot** in the Dexalot App. You can switch the network at the upper right of screen.
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/18.png) 
-
+ 
 
 In addition, ensure also that you have appropriate balances of tokens that you wish to trade with. In this guide, we will be trading ALOT-USDC pair. So, we have manually traded to get ALOT and USDC.
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/21.png)
-
 Finally, we need to add ALOT in the gas tank. ALOT will be used for gas fees for every activity that the bot will perform. Click on 3 vertical dots at right side of ALOT, and select Add Gas. For amount, we usually set 5-10 ALOT which will last for few weeks or a month.
-
-![images](/images/blog/using-dexalot-with-hummingbot/24.png)
 
 We are now ready to start the bot, in Hummingbot client, type:
 
@@ -254,12 +222,11 @@ Enter **Yes** when prompted then enter the status command below
 status
 ```
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/22.png)    
+    
 
 You can check the bot’s open orders at Dexalot App, inside the Orders tab, as well as at the Order Book column with yellow dot indicators.
 
-![images](/images/blog/using-dexalot-with-hummingbot/23.png)    
+    
 
 ### **Utilizing DIP and Multiverse Programs**
 
@@ -299,9 +266,7 @@ Experience Sharing
    
    4. Ensure that the limit orders are inside the blue bands (i.e within 2 standard deviations of mid-price) in order to be eligible for rewards
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/26.png)    
-
+    
 
 The rewards you earn are primarily determined by your filled orders and overall trading volume. However, the amount of rewards can fluctuate daily, depending on the volatility of the specific market pair you are trading. 
 
@@ -315,8 +280,7 @@ Let's take a look at the rewards earned in February 2024 as an example. With a c
 
 Due to the recent upward trend in the market over the past few weeks, trading activities have also been profitable, contributing to the overall positive returns.
 
-
-![images](/images/blog/using-dexalot-with-hummingbot/25-b.png)    
+    
 
 > **Warning**
 >

@@ -11,7 +11,6 @@ category: "Releases"
 >
 > The Hummingbot client release was updated to `v2.6.1` on June 12, 2025 to hot-fix critical issues with the market making controllers.
 
-
 | Repository | Description | GitHub Release | DockerHub Release |
 |------------|-------------|----------------|-------------------|
 | [Hummingbot](https://github.com/hummingbot/hummingbot) | Core Client | [`v2.6.1`](https://github.com/hummingbot/hummingbot/releases/tag/v2.6.1) | [`version-2.6.1`](https://hub.docker.com/r/hummingbot/hummingbot/tags?name=version-2.6.1) |
@@ -90,7 +89,6 @@ The next release will introduce major improvements to transaction handling and t
 - **Streamlined Hummingbot-Gateway Inteface**: Unified interaction through a single `GatewayTxHandler`, simplified API with generic methods, and more stateless Gateway architecture for better reliability
 - **Better User Experience**: More reliable DEX trade execution, improved transaction success rates, and easier troubleshooting with enhanced monitoring capabilities
 
-
 ### Improved Backtesting Performance
 
 This PR introduces significant performance improvements to the backtesting engine by optimizing timestamp-based lookups. The key changes include:
@@ -109,11 +107,9 @@ These changes have resulted in a performance improvement of over 40% in backtest
 
 - Reducing memory usage by avoiding creation of intermediate filtered DataFrames
 
-
 **Special thanks to [WuonParticle](https://github.com/WuonParticle) for this contribution! 🙏**
 
 Pull Request: [#7569](https://github.com/hummingbot/hummingbot/pull/7569)
-
 
 ### Controller Improvements
 
@@ -172,7 +168,6 @@ Pull Request: [#7637](https://github.com/hummingbot/hummingbot/pull/7637)
 * [#7576](https://github.com/hummingbot/hummingbot/pull/7576) – Fixed empty snapshot issue for `Derive perpetual` **Thanks to [isreallee82](https://github.com/isreallee82) for this fix! 🙏**
 * [#7599](https://github.com/hummingbot/hummingbot/pull/7599) – Refactored the `NDAX` connector to the latest standards **Thanks to [vic-en](https://github.com/vic-en) for this fix! 🙏**
 
-
 ### Other Updates
 
 #### **[`hummingbot`](https://github.com/hummingbot/hummingbot)**
@@ -184,7 +179,6 @@ Pull Request: [#7637](https://github.com/hummingbot/hummingbot/pull/7637)
 * [#7622](https://github.com/hummingbot/hummingbot/pull/7622) – Optimized the throttler CPU usage **Thanks to [cs-mshr](https://github.com/cs-mshr) for this fix! 🙏**
 * [#7633](https://github.com/hummingbot/hummingbot/pull/7633) – Fixed the `pkg_resources is deprecated as an API` error with the client
 * [#7634](https://github.com/hummingbot/hummingbot/pull/7634) – Fixed issues with failing tests
-
 
 #### **[`gateway`](https://github.com/hummingbot/gateway)**
 

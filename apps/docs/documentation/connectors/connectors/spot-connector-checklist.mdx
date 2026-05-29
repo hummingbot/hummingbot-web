@@ -5,7 +5,7 @@ description: "Before proceeding with the setup of the Spot Connector, ensure tha
 
 ## Prerequisites
 
-Before proceeding with the setup of the Spot Connector, ensure that you have the Hummingbot source version installed on your system. Follow the detailed installation instructions provided at [Hummingbot Installation Guide](./../../installation/hummingbot-client). 
+Before proceeding with the setup of the Spot Connector, ensure that you have the Hummingbot source version installed on your system. Follow the detailed installation instructions provided at [Hummingbot Installation Guide](/documentation/installation/hummingbot-client). 
 
 ## API Checklist
 
@@ -36,8 +36,6 @@ Before proceeding with the setup of the Spot Connector, ensure that you have the
 | AUTHENTICATION                          | True | Other           | Class that provides the logic for the web assistant to correctly configure authenticated requests to the exchange (private endpoint). It should be a subclass of AuthBase [(example)](https://github.com/hummingbot/hummingbot/blob/master/hummingbot/connector/exchange/binance/binance_auth.py) |
 | Rate limits                             | True | Other           | Documentation of the rate limits applied for each endpoint and global limits for each IP/connection. [(example)](https://binance-docs.github.io/apidocs/spot/en/#limits) | 
 | SERVER TIME                             | Conditionally | Public REST     |  |
-
-
 
 ## Directory Setup
 
@@ -107,7 +105,6 @@ Add to the constant files the following variables
     - If you don’t need Time Sync:
         - [ ]  Delete the files related with the Time Sync and code the `build_api_factory` function without that.
 
-
 ### Utils 
 
 - Code in `connector_name`_utils.py file
@@ -116,7 +113,6 @@ Add to the constant files the following variables
     - [ ]  Replace binance for `connector_name`.
     - [ ]  Replace `DEFAULT_FEES` with the appropriate values .
     - [ ]  Check if you need connection to other domains or delete it.
-
 
 ### Order Book
 
@@ -184,8 +180,6 @@ Add to the constant files the following variables
                 - [ ]  test_listen_for_order_book_snapshots_log_exception
                 - [ ]  test_listen_for_order_book_snapshots_successful
 
-
-
 ### Auth
 
 - `connector_name_auth.py`
@@ -207,7 +201,6 @@ Add to the constant files the following variables
                 - [ ]  `_generate_signature`
         - WEBSOCKET
             - [ ]  `ws_authenticate`
-
 
 ### User Stream Data Source
 
@@ -249,7 +242,6 @@ Add to the constant files the following variables
                     - [ ]  test_listen_for_user_stream_does_not_queue_empty_payload
                     - [ ]  test_listen_for_user_stream_connection_failed
                     - [ ]  test_listen_for_user_stream_iter_message_throws_exception
-
 
 ### Exchange
 
@@ -361,6 +353,5 @@ Add to the constant files the following variables
             - `_user_stream_event_listener`
                 - [ ]  test_user_stream_update_for_order_failure
                 - [ ]  _user_stream_event_listener
-
 
 - [ ] Add `connector_name_api_key` and `connector_name_api_secret` to the `conf_global_TEMPLATE.yml`

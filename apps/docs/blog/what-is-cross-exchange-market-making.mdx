@@ -1,11 +1,9 @@
 ---
 title: "What is Cross Exchange Market Making?"
-description: "Welcome back to our Educational Center, where we aim to help you to learn more about [market making](../what-is-market-making/index.md), [arbitrage](../wha"
+description: "Welcome back to our Educational Center, where we aim to help you to learn more about market making, arbitrage, and everything related to algorithmic tradin"
 date: "2020-09-23"
 category: "Connectors"
 ---
-
-![cover](/images/blog/what-is-cross-exchange-market-making/cover.webp)
 
 Welcome back to our Educational Center, where we aim to help you to learn more about [market making](../what-is-market-making/index), [arbitrage](../what-is-arbitrage/index), and everything related to algorithmic trading.
 
@@ -18,12 +16,7 @@ The objective of this article is to help you understand:
 - **How is cross-exchange market making different from pure market making?**
 - **Why and when should I use this strategy?**
 
-
-
 If you already understand how [arbitrage](../what-is-arbitrage/index) and [pure market making](../what-is-inventory-risk/index) work, cross-exchange market making ("XEMM") becomes really simple: it's simply a hybrid of the two.
-
-![](/images/blog/what-is-cross-exchange-market-making/./guitars.jpg)
-
 
 ### So what is cross-exchange market making?
 
@@ -71,8 +64,6 @@ That is why we mentioned earlier that cross-exchange market making kind of looks
 A financial environment where the same asset is traded in different marketplaces is susceptible to what is known as **market inefficiency**, where the information about the value of the asset takes some time to dissipate to all the exchanges.
 
 This can be easily noticed by looking at the differences between bid and ask prices offered on each order book, as can be seen on the screenshot of the BTC/USDT order book on two different exchanges at the moment in time:
-
-![](/images/blog/what-is-cross-exchange-market-making/./image2.png)
 
 Bid prices:
 
@@ -124,8 +115,6 @@ One way to address this operational inefficiency is to maintain an inventory on 
 
 This might sound contradictory to what was explained in the above examples since one of the goals of the **cross-exchange market making** strategy is to avoid exposure to inventory risk, but let me explain it further.
 
-![](/images/blog/what-is-cross-exchange-market-making/./image3.png)
-
 The figure above shows the state of the market maker's account at the moment he starts the operation. As you can see, he begins with a total inventory of 20 units of the Token A, split across two exchanges.
 
 This will allow the trader to create a position on the Exchange B order book, locking his minimum profit at 1% (101 * 1.01 = 102.01).
@@ -133,8 +122,6 @@ This will allow the trader to create a position on the Exchange B order book, lo
 > 💡 Reminder: If the Best Offer price on Exchange A changes, the **market maker** will change his Ask Offer price on Exchange B, to guarantee the 1% profit. If on Exchange A the price rises to 105, he would change his Ask price on Exchange B to 106.
 
 Now, let's see what happens the moment his sell offer is taken by another buyer:
-
-![](/images/blog/what-is-cross-exchange-market-making/./image4.png)
 
 At the exact moment his maker order is filled on the Exchange B, he will become a taker of the Best Offer on Exchange A.  As you can see in the figure above, the total amount of Token A on both exchanges is still the same (20), while his total USD balance has increased by $1.
 
@@ -176,8 +163,6 @@ As mentioned above, there is a lot of fragmentation in the cryptocurrency market
 
 Let's take a look, for example, at Travala (AVA) the most traded token on Binance DEX, and compare its bid-ask market spread with the centralized Binance.com, as shown on [Coingecko](https://www.coingecko.com/pt/moedas/travala#markets):
 
-![](/images/blog/what-is-cross-exchange-market-making/./image5.png)
-
 Binance DEX has less liquidity and lower trade volume than Binance.com which is reflected in a bid-ask spread on Binance DEX that is nearly 5x that on Binance.com.
 
 A cross-exchange market maker could take advantage of this situation by posting offers on Binance DEX with his maker spread lower than the prevailing bid-ask market spread. This would put his orders in a good position and first in line to be taken by other participants.
@@ -196,8 +181,6 @@ If another participant takes the market maker ask offer on Binance DEX (selling 
 With today's article, we presented all three strategies that can be implemented with Hummingbot ([pure_market_making](../what-is-market-making/index), [arbitrage](../what-is-arbitrage/index), cross_exchange_market_making), and each one has its own characteristics, advantages, and disadvantages.
 
 Here is a comparison between these strategies:
-
-![](/images/blog/what-is-cross-exchange-market-making/./image6.png)
 
 There is still a lot more content planned for the Hummingbot Academy that will cover the details and inner workings of each one, helping you find and create a strategy that fits better with your trading plans, so make sure to check our blog for updates every week.
 

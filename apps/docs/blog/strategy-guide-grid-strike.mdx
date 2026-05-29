@@ -1,6 +1,6 @@
 ---
 title: "Strategy Guide: Grid Strike"
-description: "Grid Strike (gridstrike) is a [Controller](../../../strategies/v2-strategies/controllers/index.md) in Hummingbot's StrategyV2 framework that automatically"
+description: "Grid Strike (gridstrike) is a Controller in Hummingbot's StrategyV2 framework that automatically places a grid of buy or sell orders within a set price ran"
 date: "2025-10-07"
 category: "Tutorials"
 ---
@@ -13,17 +13,12 @@ This guide explains how the Grid Strike strategy works and helps you decide when
 
 **Strategy Code**: [https://github.com/hummingbot/hummingbot/blob/master/controllers/generic/grid_strike.py](https://github.com/hummingbot/hummingbot/blob/master/controllers/generic/grid_strike.py)
 
-
 ## Strategy Overview
-
-![](/images/blog/strategy-guide-grid-strike/./long-grid.png)
 
 - **Grid-based Order Placement:** The strategy lets you place either a **Long Grid** or a **Short Grid** that places buy/sell orders across a defined price range
 - **Automated Risk Management:** Each side utilizes Grid Executors that automatically manages the risk of each position with configurable take profit, stop loss, and time limits
 - **Exchange Flexibility:** Works on both spot and perpetual exchange connectors, including support for **one-way position mode** on perp exchanges
 - **Highly Configurable** Can be tailored for various market scenarios (trending up, trending down, or consolidating) or trading objectives (volume, liquidity, P&L, etc) by adjusting price range, order spacing, and other parameters
-
-
 
 ## Running the Strategy
 
@@ -46,8 +41,6 @@ In the Hummingbot client, run the following command:
 create --controller-config generic.grid_strike
 ```
 
-![1.png](/images/blog/strategy-guide-grid-strike/1.png)
-
 Afterwards, a file `conf_generic.grid_strike_1.yml` in `/conf/controllers` will be saved with the default starting configuration.
 
 See [Strategy Configuration](#strategy-configuration) below for an in-depth guide to adjusting these parameters.
@@ -59,7 +52,6 @@ Once you are satisfied with your Grid Strike configuration, add the name of the 
 ```
 create --script-config v2_with_controllers
 ```
-![image.png](/images/blog/strategy-guide-grid-strike/image.png)
 
 If you have an existing load script configuration file, simply modify it to add the Grid Strike configuration you just made (e.g `conf_generic.grid_strike_1.yml`):
 
@@ -72,7 +64,6 @@ script_file_name: v2_with_controllers.py
 max_global_drawdown_quote: null
 max_controller_drawdown_quote: null
 ```
-
 
 ### Run Loader Script
 
@@ -93,8 +84,6 @@ Alternatively, use this CLI command to skip password entry and automatically sta
 When you start the Grid Strike strategy, it first looks at your configuration to figure out how to set up your trading grid. Once the grid is set up, the strategy begins placing orders based on the set `side` (buy or sell) within your specified price range. It places order and waits for it to fill. Whenever `order_frequency` is reached, it checks if it needs to place a new order.
 
 Run the `status` command (or `status --live` for constant refresh) to get an in-depth overview of the strategy performance:
-
-[![image-1.png](/images/blog/strategy-guide-grid-strike/./image-1.png)](./image-1.png)
 
 When an order gets filled and opens a position, the Triple Barrier system immediately takes over to manage that specific trade. This system acts a personal risk manager for each filled order or position: it will automatically close the position if it reaches the `take_profit` or if it moves from the set `stop_loss` against you. This happens automatically without you having to watch the screen. 
 
@@ -141,8 +130,6 @@ triple_barrier_config:
 
 ### Key Parameters
 
-[![](/images/blog/strategy-guide-grid-strike/./long-grid-order-executor.png)](./long-grid-order-executor.png)
-
 Here are some of the most important settings:
 
 | Parameter | Meaning |
@@ -170,8 +157,6 @@ Make sure to set the most important parameters like:
 - Grid Dimensions: Start price and end price
 
 ### Triple Barrier Parameters
-
-![](/images/blog/strategy-guide-grid-strike/./triple_barrier.png)
 
 Grid Strike creates Grid Executors that implement the Triple Barrier Method, similar to [Position Executors](../../../strategies/v2-strategies/executors/positionexecutor). Set these parameters to define how each order is managed if it is filled:
 
@@ -237,8 +222,6 @@ Your final grid will be a balance of these three factors. The bot will create th
 
 ### Long vs Short Grids
 
-[![](/images/blog/strategy-guide-grid-strike/./long-vs-short-grids.png)](./long-vs-short-grids.png)
-
 Think of Grid Strike as a way to “ride the wave” of a trend:
 
 **Short Grid (Betting on Price Going Down)**
@@ -249,8 +232,6 @@ Grid Strike places sell (short) orders at gradually lower prices. As the market 
 
 If you are anticipating for continuing downtrend movement, you can setup the Grid Strike with `start_price` above the `end_price` as shown below.
 
-![Gridstrike for Short.png](/images/blog/strategy-guide-grid-strike/Gridstrike_for_Short.png)
-
 **Long Grid (Betting on Price Going Up)**
 
 If you think the price will rise, set `side` to 1 and define the expected upward price trajectory using `start_price` and `end_price`. Similarly, use `min_order_amount_quote` and `min_spread_between_orders` to space the orders in your grid.
@@ -259,6 +240,5 @@ Grid Strike places buy (long) orders at gradually higher prices. As the price cl
 
 Conversely, if you are anticipating for price reversal at support level or continuing uptrend, you can setup the Grid Strike with `start_price` below the `end_price` as shown below.
         
-![GridStrike for Long.png](/images/blog/strategy-guide-grid-strike/GridStrike_for_Long.png)
 
 This "averaging into a trend" approach is the key difference. A traditional grid buys low and sells high in a sideways range (fighting the momentum), whereas Grid Strike joins the momentum, adding to a winning long or short position as the trend develops in your favor.

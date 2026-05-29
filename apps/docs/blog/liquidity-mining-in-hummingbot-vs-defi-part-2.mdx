@@ -1,11 +1,9 @@
 ---
 title: "Liquidity Mining in Hummingbot vs DeFi - Part 2"
-description: "While we wrote the [original whitepaper](https://coinalpha.com/liquidity-mining-policy) and coined the term “liquidity mining”, the concept recently became"
+description: "While we wrote the original whitepaper and coined the term “liquidity mining”, the concept recently became popularized in DeFi with the emergence of Balanc"
 date: "2020-10-16"
 category: "Announcements"
 ---
-
-![cover](/images/blog/liquidity-mining-in-hummingbot-vs-defi-part-2/cover.jpg)
 
 While we wrote the [original whitepaper](https://coinalpha.com/liquidity-mining-policy) and coined the term “_**liquidity mining**_”, the concept recently became popularized in DeFi with the emergence of [Balancer](https://balancer.finance/), [Curve.Fi](https://www.curve.fi/), and, despite being late to the game, [Uniswap](https://uniswap.org/), who recently introduced token distributions to the original Automated Market Maker (AMM) concept.
 
@@ -14,8 +12,6 @@ Our version of liquidity mining and that of DeFi share the same objective: _**fi
 > **Hummingbot Miners and AMM liquidity mining both take a decentralized, crowd-sourced approach to market making. They allow the general public, not just the professional market makers, to participate in providing liquidity for digital assets.**
 
 One important way in which they enable this is by creating frameworks for compensating a decentralized group of market makers.
-
-
 
 Most of the readers reading this will probably already be aware of the promise of tens to even hundreds of percentages of yields offered by liquidity mining protocols as well as on Hummingbot Miners.  **But are they real? What’s the catch?**
 
@@ -45,8 +41,6 @@ There have been a number of blogs and studies into "&lt;u>impermanent loss&lt;/u
 
 The analyses typically show a chart that looks like the following:
 
-![](/images/blog/liquidity-mining-in-hummingbot-vs-defi-part-2/./image1.png)
-
 *Source: [Uniswap: A Good Deal for Liquidity Providers?](https://medium.com/@pintail/uniswap-a-good-deal-for-liquidity-providers-104c0b6816f2)*
 
 What this graph shows is that at the moment a liquidity provider deposits assets into the liquidity pool, the change in the value of assets starts at 0% and the price of the asset (x axis) is 100% (of course, nothing has happened yet).
@@ -59,26 +53,19 @@ Once trading occurs resulting in prices moving up or down (movement along the x-
 
 **Hard to measure performance**: monitoring profits and benchmarking for a liquidity provider is not so straight forward. If the asset price moves higher, the pool value goes up.  Below is another way of looking at the liquidity pool value; rather than looking at the change only (from above), the following graph shows the absolute value of the pool (blue) after 200 simulated trades, compared to the value of the original assets (red) if there were no trades (i.e. HODL):
 
-![](/images/blog/liquidity-mining-in-hummingbot-vs-defi-part-2/./image3.png)
-
 When prices go up, many liquidity providers may be happy their portfolio value increased, and they may not realize or focus on the fact that actually the value of their assets would be *even higher* had they not done anything.  If asset price goes down, well… just blame it on the market.  Doing something versus not doing something just gets lost in the broader move in the market!  Also, some liquidity providers may just trust that the 0.3% is enough compensation and better than “doing nothing”, but in reality as already mentioned, the 0.3% protocol fee is likely insufficient to compensate liquidity providers for just about any asset with any price volatility (i.e. any asset other than a stable coin).
 
 **Protocol supporters / token issuers**: liquidity providers may not necessarily be profit driven.  Some may provide liquidity, even if it results in portfolio losses, because they want to promote use of the AMM protocols.  Also, token issuers may fund a token pool for their tokens to increase accessibility and tradability of their tokens. They might even use an AMM to "list" their tokens and make them accessible to the public for the first time, to avoid the listing fees and market making requirements of centralized exchanges.
 
 **Token rewards**:  OK so the above rationale is probably not compelling for the majroity general public.  So now we’re getting to the real reason AMM protocols have exploded in the past few months.  It comes down to…*cold hard cash*. Or rather, **token rewards**.
 
-![](/images/blog/liquidity-mining-in-hummingbot-vs-defi-part-2/./image5.jpg)
-
 AMMs really blew up when protocols like [Balancer](https://balancer.finance/) and [Curve.Fi](http://curve.Fi) introduced liquidity mining rewards. In addition to the protocol trade fees, liquidity providers received a generous allocation of protocol tokens, which compensated for impermanent loss, and then some. The generous liquidity mining incentives made it so that liquidity providers no longer really had to think too much about impermanent loss.
 
 > **The generous liquidity mining token rewards offered, coupled with the ease of participation, drove the enormous growth of DeFi and participation in liquidity pools.**
 
-
 ---
 
 #### Hummingbot Miner: liquidity mining for centralized exchanges
-
-![](/images/blog/liquidity-mining-in-hummingbot-vs-defi-part-2/./image2.jpg)
 
 [Hummingbot Miner](https://miners.hummingbot.io) is our platform where we enable token issuers and exchanges to fund rewards pools that can be earned by market makers and traders for providing liquidity and order book depth for specific tokens. Unlike the AMMs, our platform is not a smart contract protocol; it is trading data infrastructure that enables _**liquidity mining on centralized exchanges.**_
 
@@ -105,7 +92,6 @@ The main risk of market making is inventory risk.  We recently wrote a post abou
 But a big difference is that traders participating in Hummingbot Miners are not just passively relying on a rigid smart contract without any risk management measures whatsoever; Hummingbot miners can customize their strategies, embed their trading views into the bots, and implement risk management measures. In trader speak, they can "*add alpha*".
 
 For example, if prices are trending down, AMMs would just continue to accept unfavorable trades.  On the other hand, with Hummingbot, we have a number of risk management features, such as the ability to adjust bid/ask spreads, order pricing, order sizes (bid vs. ask), and adding in order delays or stopping orders on one side (e.g. stop placing bids when prices continually drop). *Read more about some of these features in our [blog](../what-is-inventory-risk/index)*.
-
 
 > While market making on centralized exchanges (Hummingbot Miners) does entail more complexity, the trade-off is that **traders have much more power and control over their trading. Hummingbot allows for risk management!**
 
@@ -136,7 +122,6 @@ Liquidity mining in DeFi is really easy; simply deposit assets into a smart cont
 If you’re willing to roll up your sleeves, Hummingbot Miner may be a better way to capture liquidity mining rewards.  You have the ability to customize your trading, use risk management tools, and take control of your trading. Participating in Hummingbot Miner is also a way for the general public to get into the world of automated bot trading and earn rewards while doing so.
 
 We are continually adding new exchanges and new token issuers to our platform, so over time, Hummingbot miners will also be able to participate in campaigns for an increasingly diverse group of trading pairs and tokens.
-
 
 ##### Useful resources
 

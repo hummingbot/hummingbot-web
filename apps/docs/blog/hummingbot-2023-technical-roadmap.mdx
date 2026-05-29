@@ -5,20 +5,13 @@ date: "2022-12-13"
 category: "Roadmap"
 ---
 
-![cover](/images/blog/hummingbot-2023-technical-roadmap/cover.jpg)
-
 *This post provides a description of the technical changes that the Hummingbot Foundation plans to implement over the course of the next year. Note that these changes will be subject to HBOT governance and the approval of the Hummingbot community.*
 
 ## From bot to framework
 
 Since it was launched in 2019, the open source [Hummingbot](https://github.com/hummingbot/hummingbot?ref=blog.hummingbot.org) software client has grown and evolved considerably. 
 
-
-
 Originally a simple market making bot that only supported a few exchanges, today Hummingbot is a now a powerful, complex codebase with connectors to 40+ centralized and decentralized exchanges, 13+ strategies, and helper modules such as the Rate Oracle, Telegram integration, and other components.
-
-
-![](/images/blog/hummingbot-2023-technical-roadmap/image_1.jpg)
 
 With hundreds of daily active users who [generate millions in volume](https://p.datadoghq.com/sb/a96a744f5-a15479d77992ccba0d23aecfd4c87a52?ref=blog.hummingbot.org) and [provide liquidity to many tokens](https://miners.hummingbot.io/?ref=blog.hummingbot.org), the Hummingbot community is a small but powerful global army of quant traders and developers who use and maintain this shared community-owned codebase.
 
@@ -29,9 +22,6 @@ We've been amazed at what our community has been able to build with Hummingbot. 
 Therefore, our overall goal at Hummingbot Foundation next year is to grow the population of technical Hummingbot users who can customize and create their own strategies via [Scripts](https://docs.hummingbot.org/scripts?ref=blog.hummingbot.org), instead of just running the off-the-shelf strategy templates. 
 
 2023 technical priorities
-
-
-![](/images/blog/hummingbot-2023-technical-roadmap/image_2.jpg)
 
 Source: [Andy Holmes](https://unsplash.com/photos/rCbdp8VCYhQ?ref=blog.hummingbot.org)
 
@@ -90,7 +80,6 @@ One of the benefits of [Strategies](https://docs.hummingbot.org/strategies?ref=b
 
 On the other hand, [Scripts](https://docs.hummingbot.org/scripts?ref=blog.hummingbot.org) allow users to easily create strategies in a single file, but currently don't allow users to define a configuration file. To get the best of both worlds, we plan to define a new class of Strategies/Scripts that will work with a configuration file and with the simple, Python-based user experience of the existing Scripts.  
 
-
 ### 4. Support external modules like Orchestration
 
 It's clear from community calls that orchestrating multiple bots and controlling bots programmatically are directions that they want the codebase to expand.
@@ -109,9 +98,6 @@ The team has submitted a [draft pull request](https://github.com/hummingbot/humm
 We plan to keep the core Hummingbot codebase lightweight and work with community teams to support external modules like orchestration. If there are teams that want to design and maintain similar external components that work with Hummingbot, please let us know.
 
 The road to Hummingbot 2.0
-
-
-![](/images/blog/hummingbot-2023-technical-roadmap/image_3.jpg)
 
 Source: [Karsten Wurth](https://unsplash.com/photos/rafblRbne3o?ref=blog.hummingbot.org)
 

@@ -5,22 +5,15 @@ date: "2022-01-01"
 category: "Tutorials"
 ---
 
-![cover](/images/blog/basic-concepts-of-crypto-trading/cover.webp)
-
 ### Order Book
 
 An **order book** is the list of orders that an exchange uses to record the interest of buyers and sellers for a particular financial market. A matching engine uses the book to determine which orders can be fully or partially executed.
 
 Example of an order book on AscendEx where the prices in red indicate sell orders and the prices in blue indicate buy orders.
 
-
-
-![Order book image](/images/blog/basic-concepts-of-crypto-trading/image_1.jpg)
-
 ### Liquidity
 
 The order book is **very liquid** when a great amount of orders is stored in each buy and sell side of the order book. In such a situation a market order produces only a small price adjustment. On the contrary, if the order book is **not liquid**, there are only a few orders on the buy and sell side and there is a very large average gap in price between adjacent orders. In this case, even a market order with a small volume can produce a dramatic price fluctuation of several ticks. Markets perform better when they are more liquid.
-
 
 ### Limit and market orders
 
@@ -39,8 +32,6 @@ A **market order** lets you purchase or sell a financial asset instantly at best
 [Market Order Video](https://www.youtube.com/watch?v=pQMKqnzmydk&amp;feature=emb_imp_woyt)
 
 ### Bid-ask spread
-
-![Bid-ask spread image](/images/blog/basic-concepts-of-crypto-trading/image_2.jpg)
 
 *Depth Chart of the buy (green) and sell (red) orders*
 
@@ -83,8 +74,6 @@ Slippage is financial loss during trading as a result of market inefficiencies a
 
 [Learn more about slippage](https://river.com/learn/terms/s/slippage/?ref=blog.hummingbot.org)
 
-
-
 ## What is Market Making?
 
 ### Market Makers and Market Takers
@@ -93,11 +82,7 @@ Slippage is financial loss during trading as a result of market inefficiencies a
 
 **Market Takers** take liquidity, as in they place market orders to immediately buy or sell. Market orders are orders to take the best available price in the current market. Takers take the price that they want and in doing so, they are “taking” volume off of an order book. They place orders that are filled immediately by buy or sell orders already sitting on the books. Taker market orders are designed to never land on an exchange’s order book, as they are filled by the exchange’s matching engine as they are placed. Thus, taker fees are typically higher because their orders are filled immediately.
 
-[![What are Makers and Takers?](https://img.youtube.com/vi/vw7iBwcFB9c/0.jpg)](https://www.youtube.com/embed/vw7iBwcFB9c)
-
 It can be assumed that every taker’s market order is filled by a maker’s limit order but this is not always the case. You can place a limit order to "cross" and take an order from the orderbook so it becomes a taker.
-
-![Crossing the orderbook image](/images/blog/basic-concepts-of-crypto-trading/image_3.jpg)
 
 **For example:**
 
@@ -117,9 +102,6 @@ A **market maker** is
 
 A **market taker** is any are accepting the prices offered on the order book is called a market taker.
 
-[![Market Makers and Takers](https://img.youtube.com/vi/vsBoyW-M0Aw/0.jpg)](https://www.youtube.com/embed/vsBoyW-M0Aw)
-[![Market Makers and Takers](https://img.youtube.com/vi/jmq9TkoXN_o/0.jpg)](https://www.youtube.com/embed/jmq9TkoXN_o)
-
 ### Market Making vs Arbitrage
 
 To learn more about the difference between Market Making and Arbitrage:
@@ -138,7 +120,6 @@ How is market making different from bitcoin mining and liquidity pools?
 
 That is where the **Hummingbot software** comes in. The software acts as a layer to automatically execute an algorithm that you set for trading. It sounds complicated but it can be as easy as “set buy orders at 1% below the current price and sell orders 1% above”. There are far more options, but this is just the jist.
 
-
 ## Trading terminologies 101
 
 ### Trading Pairs
@@ -150,8 +131,6 @@ With ETH/BTC you can buy Ethereum with Bitcoin, or sell Ethereum for Bitcoin.
 [What are "Trading Pairs" in Cryptocurrency?](https://cryptocurrencyfacts.com/what-are-trading-pairs-in-cryptocurrency/?ref=blog.hummingbot.org)
 
 ### Base and Quote Assets
-
-![Base and Quote Assets image](/images/blog/basic-concepts-of-crypto-trading/image_4.jpg)
 
 [Currency pairs: base and quote currencies, and types of pairs.](https://fbs.com/analytics/guidebooks/currency-pairs-base-and-quote-currencies-majors-and-crosses-15?ref=blog.hummingbot.org)
 
@@ -172,8 +151,6 @@ Some exchanges have no web pages where you can view the minimum order size. For 
 [KuCoin - hummingbot docs](../../../exchanges/kucoin/index)
 [https://hummingbot.org/exchanges/kucoin/](../../../exchanges/kucoin/index)
 
-[![Postman API tutorial for beginners](https://img.youtube.com/vi/FjgYtQK_zLE/0.jpg)](https://www.youtube.com/embed/FjgYtQK_zLE)
-
 ### Trading Fees
 
 Whenever you execute trades (taking an order or when someone fills your orders) there are corresponding fees deducted from the total amount. Fees vary from exchanges.
@@ -192,7 +169,6 @@ Examples:
 - Paxos Standard / PAX
 - USD Coin / USDC
 - Binance USD / BUSD
-
 
 #### Fiat currencies
 
@@ -213,8 +189,6 @@ Examples :
 #### ERC20 Tokens
 
 [An Introduction to ERC-20 Tokens | Binance Academy](https://academy.binance.com/en/articles/an-introduction-to-erc-20-tokens)
-
-![ERC20 Tokens image](/images/blog/basic-concepts-of-crypto-trading/image_5.jpg)
 
 ## How to trade crypto: an introduction
 

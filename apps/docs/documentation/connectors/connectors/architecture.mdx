@@ -5,17 +5,13 @@ description: "!!! note The information below are for developers building spot an
 
 > **Note**
 >
-> The information below are for developers building `spot` and `perpetual` connectors that integrate directly into the Hummingbot client. For information on developing `gateway` connectors that use [Gateway](../../../gateway/index), see [Building Gateway Connectors](../../../gateway/connectors).
+> The information below are for developers building `spot` and `perpetual` connectors that integrate directly into the Hummingbot client. For information on developing `gateway` connectors that use [Gateway](/documentation/gateway), see [Building Gateway Connectors](/documentation/gateway/connectors).
 
 Here is the high-level design of a connector:
-
-[![Connector Architecture Diagram](/images/assets/img/connector-architecture-diagram.svg)](../../../assets/img/connector-architecture-diagram.svg)
 
 Note that for Derivative (`perp`) connectors, we have a multiple inheritance to `ExchangeBase` and `PerpetualTrading`.
 
 ## Component Overview
-
-[![Connector Architecture Diagram](/images/assets/img/high-level-connector-architecture-diagram.svg)](../../../assets/img/high-level-connector-architecture-diagram.svg)
 
 Each connector is comprised of the following components.
 Below are the detailed descriptions of tasks for each component and its corresponding files.
@@ -116,7 +112,6 @@ An instance of `ClientOrderTracker` holds and manages `InFlightOrders` by callin
 
 Provides utilities for connectors to update in-flight orders and to handle order errors.
 
-
 ## Fee Accounting
 
 The `BudgetChecker` uses the information from a `TradeFeeSchema` to generate a specific instance of `TradeFeeBase` that is then applied to an `OrderCandidate` in order to asses the order's effects on account balances.
@@ -157,7 +152,6 @@ DEFAULT_FEES = TradeFeeSchema(
 - `buy_percent_fee_deducted_from_returns: bool`
 - `maker_fixed_fees: List`
 - `taker_fixed_fees: List`
-
 
 **Example: `TradeFeeSchema`**
 ```python

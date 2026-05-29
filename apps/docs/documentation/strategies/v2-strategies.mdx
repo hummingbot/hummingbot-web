@@ -9,7 +9,7 @@ Understanding the three core components and how they relate is key to building e
 
 ### Executors
 
-[**Executors**](executors/index) automate a discrete trading workflow — placing, managing, and closing orders according to predefined logic. They are designed to **start and finish**: each executor has a lifecycle (active → closed/failed) and handles its own order management internally.
+[**Executors**](/documentation/strategies/v2-strategies/executors) automate a discrete trading workflow — placing, managing, and closing orders according to predefined logic. They are designed to **start and finish**: each executor has a lifecycle (active → closed/failed) and handles its own order management internally.
 
 Key properties:
 - Self-contained: manages order placement, refresh, and cancellation autonomously
@@ -21,7 +21,7 @@ Examples: `PositionExecutor`, `DCAExecutor`, `GridExecutor`, `TWAPExecutor`, `XE
 
 ### Scripts and Controllers
 
-[**Scripts**](../scripts/index) and [**Controllers**](controllers/index) are **long-running processes** inside the Hummingbot client that run continuously until stopped. They are suited for strategies that need to monitor markets, adapt over time, or manage multiple executors in parallel.
+[**Scripts**](/documentation/strategies/scripts) and [**Controllers**](/documentation/strategies/v2-strategies/controllers) are **long-running processes** inside the Hummingbot client that run continuously until stopped. They are suited for strategies that need to monitor markets, adapt over time, or manage multiple executors in parallel.
 
 - **Scripts** (inheriting from `StrategyV2Base`) are the entry point for simple, self-contained strategies. Create a config with `create --v2-config`, then start via `start --v2 <config_file_name.yml>`. Scripts are ideal for **testing, learning, and prototyping** — all logic lives in one file and is easy to read and modify. All V2 scripts now inherit from `StrategyV2Base`.
 - **Controllers** are production-grade, modular sub-strategies designed for **advanced and long-running deployments**. They are not started directly — a special launcher script (`v2_with_controllers.py`) loads one or more controllers into a single bot instance, enabling multiple independent strategies to run in parallel. Controllers are more configurable, testable, and reusable than scripts.
@@ -38,13 +38,11 @@ Examples: `PositionExecutor`, `DCAExecutor`, `GridExecutor`, `TWAPExecutor`, `XE
 
 ### Market Data Provider
 
-[**Market Data Provider**](data/index): Single point of access to exchange market data — historical OHLCV [Candles](./candles/index), order book data, and trades. Used by both scripts and controllers to make trading decisions.
+[**Market Data Provider**](/documentation/strategies/v2-strategies/data): Single point of access to exchange market data — historical OHLCV [Candles](/documentation/strategies/v2-strategies/candles), order book data, and trades. Used by both scripts and controllers to make trading decisions.
 
 ## Inheritance
 
 All V2 components are built on the same base class hierarchy:
-
-![](/images/strategies/v2-strategies/strategy-inheritance-hierarchy.png)
 
 * **V1 Strategies**: `StrategyBase` is the Cython base class for all strategies, while `StrategyPyBase` extends it for Python-based strategies.
 * **V2 Scripts**: All scripts now inherit from `StrategyV2Base` (which itself extends `ScriptStrategyBase`). Use `StrategyV2Base` for all new script implementations — it uses Executors for order management instead of raw `buy()` / `sell()` calls.
@@ -52,4 +50,4 @@ All V2 components are built on the same base class hierarchy:
 
 ## Strategy Guides
 
-Check out [Walkthrough - Script](./walkthrough) and [Walkthrough - Controller](./walkthrough-controller) to learn how to create strategies.
+Check out [Walkthrough - Script](/documentation/strategies/v2-strategies/walkthrough) and [Walkthrough - Controller](/documentation/strategies/v2-strategies/walkthrough-controller) to learn how to create strategies.

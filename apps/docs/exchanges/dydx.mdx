@@ -27,7 +27,6 @@ title: "Dydx"
 - **Fees**: [https://docs.dydx.exchange/introduction-trading_fees](https://docs.dydx.exchange/introduction-trading_fees)
 - **Supported Countries**: [https://dydx.trade/terms](https://dydx.trade/terms) 
 
-
 ## ⚙️ Install Instructions
 
 At the moment there are some issues with dependencies and installing dydx can be a bit trickier due to some software conflicts. We've created these simple instructions to get you up and running quickly using either Docker or Source. 
@@ -50,7 +49,6 @@ For development version:
 image: hummingbot/hummingbot:development_dydx
 ```
 
-
 ### Source
 
 After cloning the Hummingbot repo, use the `--dydx ` flag when running the `install` command
@@ -68,7 +66,6 @@ cd hummingbot
 conda activate hummingbot
 ./compile
 ```
-
 
 ## 🔑 How to Connect to dYdX (v4)
 
@@ -89,7 +86,6 @@ conda activate hummingbot
 5. **Export Your Secret Phrase**: 
    - Scroll down within the wallet connection settings to find the option that says **Export your secret phrase**. Click on it to reveal and securely save your **dYdX v4 Secret Phrase**. This phrase is essential for account recovery and authentication.
 
-
 ### Add Keys to Hummingbot
 
 You will need the following to connect Hummingbot to `dydx_v4_perpetual`:
@@ -103,8 +99,6 @@ From inside the Hummingbot client, run `connect dydx_v4_perpetual` in Hummingbot
 Enter your dydx v4 secret_phrase(24 words) >>>
 Enter your dydx_v4 chain address (starts with dydx)>>>
 ```
-
-
 
 ## 🔀 Perp Connector
 *Integration to perpetual futures markets API endpoints*

@@ -34,7 +34,6 @@ title: "Hyperliquid"
 >
 > See the [Hyperliquid Vault Guide](../blog/posts/using-hyperliquid-vaults-with-hummingbot/index) for more details on how to use Hyperliquid VauLts.
 
-
 ### New: Hyperliquid API Key Support
 
 Hummingbot now supports **API key authentication** for both the `hyperliquid` (spot) and `hyperliquid_perpetual` (perp) connectors, in addition to the existing **Arbitrum wallet + private key** mode. 
@@ -122,15 +121,12 @@ This connector supports the following `OrderType` constants:
 - `LIMIT_MAKER`
 - `MARKET`
 
-
-
 ## 🔀 Perp Connector
 *Integration to perpetual futures markets API endpoints*
 
 - **ID**: `hyperliquid_perpetual`
 - **Connection Type**: WebSocket
 - **Folder**: [https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/derivative/hyperliquid_perpetual](https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/derivative/hyperliquid_perpetual)
-
 
 ### Usage
 
@@ -225,7 +221,6 @@ In a Hummingbot script, import `CandlesFactory` to create the candles that you w
                                         trading_pair="ETH-USDC",
                                         interval="1m", max_records=50)
 ```
-
 
 ## 🕯 Perp Candles Feed
 *OHLCV candles data collector from perpetual futures markets*

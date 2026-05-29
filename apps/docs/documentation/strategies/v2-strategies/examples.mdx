@@ -1,11 +1,11 @@
 ---
 title: "Examples"
-description: "The main logic in a V2 strategy is contained in the [Controller](../controllers/index.md), which inherits from a base class in [hummingbot/strategyv2/"
+description: "The main logic in a V2 strategy is contained in the Controller, which inherits from a base class in hummingbot/strategyv2/controllers/. Controllers or"
 ---
 
 ## Running V2 Strategies
 
-The main logic in a V2 strategy is contained in the [Controller](../controllers/index), which inherits from a base class in [`hummingbot/strategy_v2/controllers/`](https://github.com/hummingbot/hummingbot/tree/master/hummingbot/strategy_v2/controllers). Controllers orchestrate [Candles](../candles/index) and [Executors](../executors/index).
+The main logic in a V2 strategy is contained in the [Controller](/documentation/strategies/v2-strategies/controllers), which inherits from a base class in [`hummingbot/strategy_v2/controllers/`](https://github.com/hummingbot/hummingbot/tree/master/hummingbot/strategy_v2/controllers). Controllers orchestrate [Candles](/documentation/strategies/v2-strategies/candles) and [Executors](/documentation/strategies/v2-strategies/executors).
 
 **Configurable scripts** (files in `/scripts` that define a config class): create a YAML file with `create --v2-config [SCRIPT_NAME]`, then start with:
 
@@ -15,26 +15,24 @@ start --v2 [CONFIG_FILE_NAME.yml]
 
 The file must live in `conf/scripts/` and include `script_file_name` (the quickstart and CLI resolve the script from that field).
 
-**Controllers** are not started alone. Create controller YAML with `create --controller-config [CONTROLLER_NAME]`, then use the [`v2_with_controllers`](https://github.com/hummingbot/hummingbot/blob/master/scripts/v2_with_controllers.py) loader (`create --v2-config v2_with_controllers`) so the YAML lists one or more controller configs. See the [Controller Walkthrough](../walkthrough-controller) for screenshots and the full flow.
+**Controllers** are not started alone. Create controller YAML with `create --controller-config [CONTROLLER_NAME]`, then use the [`v2_with_controllers`](https://github.com/hummingbot/hummingbot/blob/master/scripts/v2_with_controllers.py) loader (`create --v2-config v2_with_controllers`) so the YAML lists one or more controller configs. See the [Controller Walkthrough](/documentation/strategies/v2-strategies/walkthrough-controller) for screenshots and the full flow.
 
 Controller names use the path under [`/controllers`](https://github.com/hummingbot/hummingbot/tree/master/controllers) with `.` instead of slashes (for example `directional_trading.bollinger_v1`, `market_making.pmm_simple`).
-
 
 ## Directional Strategies
 
 Directional strategies inherit from the [DirectionalTradingControllerBase](https://github.com/hummingbot/hummingbot/blob/master/hummingbot/strategy_v2/controllers/directional_trading_controller_base.py) class.
 
-In the controller's signal logic, a directional strategy uses indicators (often from [Candles](../data/index)) so that:
+In the controller's signal logic, a directional strategy uses indicators (often from [Candles](/documentation/strategies/v2-strategies/data)) so that:
 
-* `1`: Long [Position Executor](../executors/positionexecutor) is created  
-* `-1`: Short [Position Executor](../executors/positionexecutor) is created  
+* `1`: Long [Position Executor](/documentation/strategies/v2-strategies/executors/positionexecutor) is created  
+* `-1`: Short [Position Executor](/documentation/strategies/v2-strategies/executors/positionexecutor) is created  
 
 For each controller below: run `create --controller-config …`, add the generated YAML to a `v2_with_controllers` script config, then `start --v2` that loader config.
 
-
 ### Bollinger V1
 
-A simple directional strategy using [Bollinger Band Percent (BBP)](../../../glossary/index).
+A simple directional strategy using [Bollinger Band Percent (BBP)](/documentation/glossary).
 
 **Code:** [bollinger_v1.py](https://github.com/hummingbot/hummingbot/blob/master/controllers/directional_trading/bollinger_v1.py)
 
@@ -66,9 +64,6 @@ create --controller-config directional_trading.bollinger_v1
 | bb_short_threshold | strategy     | Define the short threshold for Bollinger Bands (e.g., 0.7): |
 
 **Status**
-
-[![](/images/strategies/v2-strategies/examples/status-bollinger.png)](./status-bollinger.png)
-
 
 ### MACD-BB
 
@@ -108,13 +103,9 @@ create --controller-config directional_trading.macd_bb_v1
 
 **Status**
 
-[![](/images/strategies/v2-strategies/examples/status-macdbb.png)](./status-macdbb.png)
-
-
 ## Market Making Strategies
 
 Market-making controllers inherit from [MarketMakingControllerBase](https://github.com/hummingbot/hummingbot/blob/master/hummingbot/strategy_v2/controllers/market_making_controller_base.py). Use the same `v2_with_controllers` workflow as above. Additional controllers in the tree (for example `market_making.dman_maker_v2`, `market_making.pmm_dynamic`) appear in the `create --controller-config` autocomplete.
-
 
 ### Dman V3
 
@@ -150,5 +141,3 @@ create --controller-config directional_trading.dman_v3
 | trailing_stop_trailing_delta         | PositionExecutor     | Set the trailing delta for the trailing stop (e.g., 0.003 for 0.3%) |
 
 **Status**
-
-[![](/images/strategies/v2-strategies/examples/status-dmanv3.png)](./status-dmanv3.png)

@@ -5,7 +5,7 @@ description: "This page provides detailed installation instructions for the Humm
 
 This page provides detailed installation instructions for the Hummingbot Client, including both Docker and source installation methods.
 
-For a quick Docker-based setup, see the [Hummingbot Client Quickstart](../installation/hummingbot-client).
+For a quick Docker-based setup, see the [Hummingbot Client Quickstart](/documentation/installation/hummingbot-client).
 
 ## System Requirements
 
@@ -68,8 +68,6 @@ docker attach hummingbot
 ```
 
 You should see the Hummingbot welcome screen:
-
-![welcome screen](/images/assets/img/welcome.png)
 
 ### Docker Commands
 
@@ -192,8 +190,6 @@ Launch Hummingbot:
 ./start
 ```
 
-![launch from source](/images/assets/img/launch-from-source.gif)
-
 ### Development or Older Versions
 
 **Development Branch:**
@@ -227,7 +223,7 @@ hummingbot/
 
 | Folder | Description |
 |--------|-------------|
-| `/conf/connectors` | Exchange API keys encrypted by your [password](./password) |
+| `/conf/connectors` | Exchange API keys encrypted by your [password](/documentation/client/password) |
 | `/conf/strategies` | Strategy configs created with `create` command |
 | `/conf/scripts` | Script configs created with `create --v2-config` |
 | `/logs` | Log files from your trading sessions |
@@ -292,13 +288,13 @@ Use `exit -f` to force close in case of errors.
 >
 > To trade on decentralized exchanges (Uniswap, PancakeSwap, Raydium, etc.), you need to install Gateway separately.
 
-See [Gateway Installation](../gateway/installation) for setup instructions.
+See [Gateway Installation](/documentation/gateway/installation) for setup instructions.
 
 ---
 
 ## Next Steps
 
-- [Basic Features](./index) - Learn the Hummingbot CLI
-- [V2 Strategy Walkthrough](../strategies/v2-strategies/walkthrough) - Create your first strategy
-- [Hummingbot FAQ](../faq) - Common questions
-- [Updating to New Versions](../installation/update) - Update your installation
+- [Basic Features](/documentation/client) - Learn the Hummingbot CLI
+- [V2 Strategy Walkthrough](/documentation/strategies/v2-strategies/walkthrough) - Create your first strategy
+- [Hummingbot FAQ](/documentation/faq) - Common questions
+- [Updating to New Versions](/documentation/installation/update) - Update your installation

@@ -5,7 +5,7 @@ description: "This guide walks you through installing the Hummingbot Client usin
 
 This guide walks you through installing the Hummingbot Client using Docker, the simplest method for most users.
 
-For source installation or detailed configuration options, see [Client Installation](../client/installation).
+For source installation or detailed configuration options, see [Client Installation](/documentation/client/installation).
 
 ## What You'll Set Up
 
@@ -64,8 +64,6 @@ docker attach hummingbot
 ```
 
 You should see the Hummingbot welcome screen:
-
-![welcome screen](/images/assets/img/welcome.png)
 
 ## Step 4: Set Your Password
 
@@ -169,14 +167,14 @@ After setting your password, you should see **Gateway: ONLINE** in the upper rig
 
 > **Development Mode**
 >
-> By default, Gateway runs in development mode (`DEV=true`) which uses HTTP for easier setup. For production environments requiring HTTPS, set `DEV=false` and ensure certificates are properly configured. See [Gateway Installation](../gateway/installation) for details.
+> By default, Gateway runs in development mode (`DEV=true`) which uses HTTP for easier setup. For production environments requiring HTTPS, set `DEV=false` and ensure certificates are properly configured. See [Gateway Installation](/documentation/gateway/installation) for details.
 
 ## Next Steps
 
-- [Basic Features](../client/index) - Learn the Hummingbot CLI commands
-- [Connect to Exchanges](../client/connect) - Add your exchange credentials
-- [Create a Strategy](../strategies/index) - Start trading
-- [Updating to New Versions](./update) - Keep your installation current
+- [Basic Features](/documentation/client) - Learn the Hummingbot CLI commands
+- [Connect to Exchanges](/documentation/client/connect) - Add your exchange credentials
+- [Create a Strategy](/documentation/strategies) - Start trading
+- [Updating to New Versions](/documentation/installation/update) - Keep your installation current
 
 ## Source Installation
 
@@ -192,8 +190,8 @@ make run
 * `make install` creates and configures the conda environment
 * `make run` starts the Hummingbot client (supports same arguments as the old `./start` script, e.g., `make run -p -f strategy.yml`)
 
-For detailed source installation options, see [Client Installation](../client/installation).
+For detailed source installation options, see [Client Installation](/documentation/client/installation).
 
 ## Need More Options?
 
-For development setup or advanced configuration, see the detailed [Client Installation](../client/installation) page.
+For development setup or advanced configuration, see the detailed [Client Installation](/documentation/client/installation) page.

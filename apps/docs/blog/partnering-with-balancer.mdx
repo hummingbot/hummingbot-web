@@ -1,11 +1,9 @@
 ---
 title: "Partnering with Balancer"
-description: "We're incredibly excited to announce a new partnership with [Balancer](https://balancer.finance/), a leading Ethereum decentralized exchange, that allows H"
+description: "We're incredibly excited to announce a new partnership with Balancer, a leading Ethereum decentralized exchange, that allows Hummingbot users to earn arbit"
 date: "2020-11-11"
 category: "Announcements"
 ---
-
-![cover](/images/blog/partnering-with-balancer/cover.jpg)
 
 We're incredibly excited to announce a new partnership with [Balancer](https://balancer.finance/), a leading Ethereum decentralized exchange, that allows Hummingbot users to earn arbitage profits from reconciling differences between Balancer and other exchanges.
 
@@ -13,11 +11,7 @@ The Balancer connector is included with the v0.33 release of Hummingbot that shi
 
 This new strategy allows allows users to arbitrage price differences between automatic market maker (AMM) protocols like Balancer and other Hummingbot supported exchanges such as Binance, Coinbase Pro, and Huobi.
 
-
-
 ## How it works
-
-![Sample arbitage trade between Balancer and Binance](/images/blog/partnering-with-balancer/./2.jpg)
 
 The new `amm-arb` strategy lets you exploit the differences between AMMs like Balancer and order book exchanges like Binance. Extending the `celo-arb` strategy [released](../introducing-the-celo-arbitrage-bot/index) a few months ago, `amm-arb` uses a new, simpler design that works with any AMM protocol, on both Ethereum and non-Ethereum chains!
 
@@ -26,8 +20,6 @@ In the example above (with screenshots taken at the same time), there appears to
 You could constantly refresh your browser and make calculations in a spreasheet to detect when a profitable opportunity arises, but that's a lot of work. Instead, run Hummingbot's `amm-arb` strategy and spin up an bot that runs 24/7 and automatically checks for arbitrage opportunities and executes them when they arise.
 
 ## Highly customizable
-
-![Control every aspect of your gas settings](/images/blog/partnering-with-balancer/./ethgasstation.png)
 
 Gas optimization is an important part of Ethereum trading, and the `amm-arb` strategy allows you to customize exactly how you handle gas, using either dynamic gas prices from [ETH Gas Station](https://ethgasstation.info/) or manual gas levels.
 
@@ -44,8 +36,6 @@ Like a superset of Uniswap, Balancer allows liquidity providers to deposit a **p
 **Balancer's protocol design may result in a long tail of arbitrage opportunities, which are ideal for individuals and small firms running Hummingbot.**
 
 ## Developing protocol connectors with Hummingbot Gateway
-
-![](/images/blog/partnering-with-balancer/gateway.jpg)
 
 To build the connector to Balancer, we created a separate open source repository called [Hummingbot Gateway](https://github.com/hummingbot/gateway) that helps the Hummingbot client interact with protocols that utilize Javascript-based SDKs, which are common for blockchain protocols. This provides a simpler entry point for external developers who may want to add connectors for their own protocols or extend the functionality of an existing connector.
 

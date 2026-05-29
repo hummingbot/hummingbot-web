@@ -1,6 +1,6 @@
 ---
 title: "Using Injective Helix with Hummingbot"
-description: "by [Emerald](https://github.com/peterwilli)"
+description: "Welcome to the Injective Helix Hummingbot Connector Guide, your comprehensive resource for integrating and trading on Injective's decentralized exchange us"
 date: "2024-10-08"
 category: "Connectors"
 ---
@@ -20,8 +20,6 @@ The platform supports various trading pairs both on spot and margin. Combined wi
 - Tips and tricks when making your own strategies on Injective and Hummingbot
 
 Let's get started!
-
-
 
 ## Prerequisites
 
@@ -72,9 +70,9 @@ Note: In the real world, you want these 2 accounts separated, but for now this i
 
 #### Create the Portfolio account
 
-1. Open the extension in your browser, you should see this screen. Click the "Create new wallet" button: ![](/images/blog/injective-connector-guide/705f8cb92a52c56738575421236411a2.png)
+1. Open the extension in your browser, you should see this screen. Click the "Create new wallet" button: 
 
-2. Click "Create new recovery phrase": ![](/images/blog/injective-connector-guide/a0ee03251d5df6ad9533584f4ea7fd30.png)
+2. Click "Create new recovery phrase": 
 
 3. When the warning appears, select "understood" and choose between a 12 or 24 word seed in the next screen. This seed will give you access to all your coins that you keep on Keplr!
 
@@ -82,17 +80,17 @@ Note: In the real world, you want these 2 accounts separated, but for now this i
 
 5. If you ever lose access to your computer or your data, you can recover your entire wallet using the paper with the words
 
-6. In the next screen, the application will ask you to enter 2 random words that you have written down, this is to double-check if you have written them down correctly. ![](/images/blog/injective-connector-guide/41ad3d314ac18e01f0095dd20e94ee36.png)
+6. In the next screen, the application will ask you to enter 2 random words that you have written down, this is to double-check if you have written them down correctly. 
 
 7. Find the 2 words it asked for and write them down in the verification window
 8. Name the wallet "Hummingbot Portfolio"
 9. If this is the first time setting up, create a password that is used to log in to Keplr, then hit "next".
-10. In the chain selection screen, find Injective and turn it on, then hit save: ![](/images/blog/injective-connector-guide/60fd6d124c5b101546d468915af53142.png)
+10. In the chain selection screen, find Injective and turn it on, then hit save: 
 
 #### Create the Trading account
 
 1. Repeat the process above, but name the wallet "Hummingbot Trading"
-2. You should have something like this now when you click on the account icon on the top right of the extension pane: ![](/images/blog/injective-connector-guide/bee4a6fba0a4a92532d75c6a918d105d.png)
+2. You should have something like this now when you click on the account icon on the top right of the extension pane: 
 
 While you have Keplr open, note a few things (we will need these later):
 
@@ -135,13 +133,9 @@ Now we will connect the trading account to Hummingbot! Exit the Hummingbot conta
 
 2. After you set up your password, you're in the main area, that looks like this:
 
-![](/images/blog/injective-connector-guide/04b68cc4736b8d70b16f2eea17af52bb.png)
-
 3. Now we will connect the Injective trading wallet to the Hummingbot, in the main window, type `connect injective_v2` or `connect injective_v2_perpetual` depending on if you want to use spot or perpetual markets and press enter.
 
 4. You are being asked a few questions. Answer as follows and press enter:
-
-![](/images/blog/injective-connector-guide/c1bbb92721f5681e616f10cd2adfbfb3.png)
 
 5. After all is done, you should see "connected to injective_v2". You can now start using strategies with Injective in the most secure way!
 

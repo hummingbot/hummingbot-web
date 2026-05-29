@@ -9,7 +9,6 @@ This feature allows users to test Hummingbot and simulate trading strategies wit
 >
 > Exchange APIs are not required to run the bot on paper_trade for Pure Market making, Cross Exchange Market Making and Avellaneda Market Making. 
 
-
 ## Adding Exchanges
 
 Users can now add paper exchanges by adding the exchange of choice in `conf_client.yml`. Previously, it was only available for AscendEX, Binance, Gate io, and Kucoin. Users can find `conf_client.yml` in `hummingbot/conf/conf_client.yml`
@@ -34,16 +33,9 @@ Enter your maker spot connector >>> kraken_paper_trade
 
 Paper trading can be enabled when creating a strategy and choosing an exchange when prompted `Enter your maker spot connector` during the creation of the strategy.
 
-![papertrade1](/images/assets/img/binance_papertrade.png)
-
 Alternatively, you can enable paper trading by inputting `config exchange` then choose the exchange that supports paper trade. 
 
-![papertrade2](/images/assets/img/config_exchange.png)
-
 To choose a different connector and go live, simply choose the exchange name without the `paper_trade` suffix then do the command `stop` and `start` so the changes will reflect on your configuration.
-
-![papertrade3](/images/assets/img/papertrade_binance.png)
-
 
 ## Adding Paper Trade Balance
 

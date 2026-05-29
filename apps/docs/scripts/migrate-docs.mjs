@@ -1,31 +1,29 @@
 #!/usr/bin/env node
 /**
  * Migrate the mkdocs "Documentation" section (~/hummingbot-site) into the
- * Mintlify Documentation tab, namespaced under /documentation/* to avoid
- * colliding with the existing Condor docs at the root.
+ * Mintlify Documentation tab, namespaced under /documentation/*.
  *
- * Input: /tmp/doc-nav.json (the pruned nav tree from mkdocs.yml — Strategies V1
- * and script examples already removed). Produced by the Python step in this PR.
- *
+ * Input: /tmp/doc-nav.json (pruned nav tree). Produced by the Python step.
  *   node scripts/migrate-docs.mjs
  *
- * Patches docs.json's Documentation tab groups. A `mint dev` pass is recommended
- * to catch residual MDX / cross-link edge cases.
+ * - Images/GIFs are stripped (the new site doesn't use migrated media).
+ * - Internal mkdocs-relative links are rewritten:
+ *     migrated doc page  → /documentation/<id>
+ *     exchanges/<name>   → /exchanges/<name>
+ *     blog/<...>         → /blog/<...>
+ *     anything else      → https://hummingbot.org/<path>/ (live fallback)
  */
-import {
-  cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync,
-} from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { convertAdmonitions, escapeForMdx, stripMdLinks } from "./_sanitize.mjs";
+import { convertAdmonitions, escapeForMdx, stripImages } from "./_sanitize.mjs";
 
 const HOME = homedir();
 const DOCS_SRC = join(HOME, "hummingbot-site", "docs");
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const tree = JSON.parse(readFileSync("/tmp/doc-nav.json", "utf8"));
 
-// clean previous run (namespaced dir only)
 rmSync(join(root, "documentation"), { recursive: true, force: true });
 
 function pageId(p) {
@@ -33,9 +31,42 @@ function pageId(p) {
   if (id === "docs") id = "overview";
   return `documentation/${id}`;
 }
+const suffix = (p) => pageId(p).replace(/^documentation\//, "");
+
+// Collect every migrated page's normalized suffix (for link resolution).
+const docSuffixes = new Set();
+(function collect(nodes) {
+  for (const n of nodes) {
+    if (n.page !== undefined) docSuffixes.add(suffix(n.page));
+    else if (n.children) collect(n.children);
+  }
+})(tree);
+
+function rewriteLinks(body, srcDir) {
+  return body.replace(/\]\(([^)]+)\)/g, (m, target) => {
+    if (/^(https?:|mailto:|tel:|#|\/)/.test(target)) return m;
+    const [pathPart, anchor = ""] = target.split("#");
+    if (!pathPart) return m;
+    const abs = resolve(srcDir, pathPart);
+    const rel = relative(DOCS_SRC, abs);
+    if (rel.startsWith("..")) return m; // outside docs tree — leave alone
+    const key = rel.replace(/\.md$/, "").replace(/\/index$/, "");
+    const hash = anchor ? `#${anchor}` : "";
+    const docKey = key === "docs" ? "overview" : key;
+    if (docSuffixes.has(docKey)) return `](/documentation/${docKey}${hash})`;
+    if (key === "exchanges" || key.startsWith("exchanges/"))
+      return `](/${key}${hash})`;
+    if (key.startsWith("blog/category")) return `](/blog/overview)`;
+    if (key.startsWith("blog/")) return `](/${key}${hash})`;
+    return `](https://hummingbot.org/${key}/${hash})`;
+  });
+}
 
 function firstParagraph(body) {
-  const text = body.replace(/!\[[^\]]*\]\([^)]*\)/g, "").replace(/<[^>]+>/g, "").replace(/[#*_>`|]/g, "");
+  const text = stripImages(body)
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/<[^>]+>/g, "")
+    .replace(/[#*_>`|]/g, "");
   for (const para of text.split(/\n\s*\n/)) {
     const t = para.trim().replace(/\s+/g, " ");
     if (t.length > 30) return t.slice(0, 150).trim();
@@ -43,28 +74,10 @@ function firstParagraph(body) {
   return "";
 }
 
-function copyImage(refPath, srcFileDir) {
-  if (/^https?:/.test(refPath) || refPath.startsWith("/")) return null;
-  const abs = resolve(srcFileDir, refPath.split("#")[0]);
-  if (!existsSync(abs) || !abs.startsWith(DOCS_SRC)) return null;
-  const rel = relative(DOCS_SRC, abs);
-  const dest = join(root, "images", rel);
-  mkdirSync(dirname(dest), { recursive: true });
-  cpSync(abs, dest);
-  return `/images/${rel}`;
-}
-
-function sanitize(body, srcFileDir) {
-  let out = convertAdmonitions(body);
-  out = out.replace(/!\[([^\]]*)\]\(([^)\s]+?)(#only-[a-z]+)?\)/g, (_m, alt, p) => {
-    const np = copyImage(p, srcFileDir);
-    return `![${alt}](${np ?? p})`;
-  });
-  out = out.replace(/(<img[^>]*\ssrc=")(?!https?:|\/)([^"]+)(")/g, (_m, a, p, b) => {
-    const np = copyImage(p, srcFileDir);
-    return `${a}${np ?? p}${b}`;
-  });
-  out = stripMdLinks(out);
+function sanitize(body, srcDir) {
+  let out = stripImages(body);
+  out = convertAdmonitions(out);
+  out = rewriteLinks(out, srcDir);
   out = escapeForMdx(out);
   return out.trim();
 }
@@ -93,7 +106,6 @@ function writePage(node) {
   return true;
 }
 
-// Build Mintlify group tree while migrating files.
 function toPages(children) {
   const pages = [];
   for (const node of children) {
@@ -117,12 +129,10 @@ for (const node of tree) {
   }
 }
 
-// Patch docs.json Documentation tab
 const docsJsonPath = join(root, "docs.json");
 const config = JSON.parse(readFileSync(docsJsonPath, "utf8"));
-const docTab = config.navigation.tabs.find((t) => t.tab === "Documentation");
-docTab.groups = groups;
+config.navigation.tabs.find((t) => t.tab === "Documentation").groups = groups;
 writeFileSync(docsJsonPath, JSON.stringify(config, null, 2) + "\n");
 
-console.log(`[migrate-docs] migrated ${migrated} pages into ${groups.length} groups`);
-if (missing.length) console.log(`  missing source (skipped): ${missing.length}`, missing.slice(0, 5));
+console.log(`[migrate-docs] ${migrated} pages, ${groups.length} groups, ${docSuffixes.size} link targets`);
+if (missing.length) console.log(`  missing (skipped): ${missing.length}`);

@@ -29,7 +29,7 @@ Below are the available commands in the current Hummingbot release.
 
 ## Gateway Commands
 
-Gateway v2.8.0 introduces comprehensive commands for managing wallets, executing swaps, and managing liquidity positions on decentralized exchanges. For detailed usage and examples, see the [Gateway Commands Reference](../gateway/commands).
+Gateway v2.8.0 introduces comprehensive commands for managing wallets, executing swaps, and managing liquidity positions on decentralized exchanges. For detailed usage and examples, see the [Gateway Commands Reference](/documentation/gateway/commands).
 
 | Command           | Function                                                      |
 | ----------------- | ------------------------------------------------------------- |
@@ -145,14 +145,12 @@ For more information about basic Linux commands, check out [The Linux command li
 
 _\* Used for text edit in input pane only._
 
-
 ## Search
 
 1. Press &lt;kbd>Ctrl&lt;/kbd> + &lt;kbd>F&lt;/kbd> to trigger display the search field
 2. Enter your search keyword (not case sensitive)
 3. Hit `Enter` to jump to the next matching keyword (incremental search)
 4. When you are done, press &lt;kbd>Ctrl&lt;/kbd> + &lt;kbd>F&lt;/kbd> again to go back to reset
-
 
 ## Copy and Paste   
 
@@ -176,11 +174,7 @@ To highlight, hold &lt;kbd>SHIFT&lt;/kbd> + LMB (left mouse button) and drag acr
 >
 > To select text on macOS, you may need to enable the **Allow Mouse Reporting** option by pressing &lt;kbd>⌘&lt;/kbd> + &lt;kbd>R&lt;/kbd> or selecting **View > Allow Mouse Reporting** in the menu bar.
 
-![allowmouse](/images/assets/img/allow_mouse_reporting.png)
-
 Then you should be able to select text by holding `LMB` (left mouse button) and drag. You can also hold down `⌥ + shift` to select specific lines like the image below.
-
-![highlightmacos](/images/assets/img/highlight_macos.png)
 
 When accessing Hummingbot on a Linux cloud server through `ssh` using a macOS terminal, hold down the `Option ⌥` key or `⌥ + ⌘` to highlight text.
 
@@ -193,13 +187,9 @@ When accessing Hummingbot on a Linux cloud server through `ssh` using a macOS te
 
 To use this shortcut, check this box by doing a right-click on the title bar at the top of the Hummingbot window, then select **Properties**.
 
-![](/images/assets/img/properties_windows.png)
-
 ## Adding New Commands
 
 Currently, Hummingbot supports the following commands:
-
-[![Supported Commands](/images/assets/img/all-commands.png)](../assets/img/all-commands.png)
 
 Depending on the usage of the hummingbot client, you may need to add new commands to the client. This is done by adding a new command class to the `hummingbot/client/command` directory.
 
@@ -210,8 +200,6 @@ The new class should be called `<CommandName>Command` and adhere to the CamelCas
 The new class should have a function called `command_name` which will be ran when the command is called in the Hummingbot client.
 
 Add the new class to the `__init__.py` file in the `hummingbot/client/command` directory and add any necessary imports to the `__init__.py` file.
-
-[![__init__.py File](/images/assets/img/command-init.png)](../assets/img/command-init.png)
 
 The last step is to add any other functions that the new command class may need.
 

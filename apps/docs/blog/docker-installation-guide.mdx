@@ -9,7 +9,6 @@ category: "Tutorials"
 
 This brief guide will introduce you to the process of installing and deploying Hummingbot using Docker. You will learn step-by-step how to set up Hummingbot using [Docker Compose](https://docs.docker.com/compose/), a tool for defining and running multi-container Docker applications, and then run your first algo trading strategy!
 
-
 ## What You Will Learn
 
 1. **Install Docker**: Step-by-step instructions to installing Docker and Docker Compose,
@@ -20,12 +19,9 @@ This brief guide will introduce you to the process of installing and deploying H
 
 4. **Connecting API Keys**: Master the crucial process of integrating API keys with Hummingbot, ensuring secure API-based bot trading across various exchanges.
 
-
-
 ## Let's Begin!
 
 With all the groundwork in place, it's time to unlock the full capabilities of your trading tools. Let's dive in!
-
 
 ## Installation
 
@@ -47,7 +43,6 @@ Hummingbot uses [Docker Compose](https://docs.docker.com/compose/), a tool for d
 > **For Windows users**
 >
 > To install Docker on Windows, [Windows Subsystem for Linux 2](https://learn.microsoft.com/en-us/windows/wsl/about) is needed. Follow [this link](https://learn.microsoft.com/en-us/windows/wsl/install) to install WSL2 on your Windows system. 
-
 
 ### Clone Hummingbot Repo
 
@@ -78,14 +73,11 @@ docker attach hummingbot
 
 We should now have Hummingbot running and in the next section we'll go over the Hummingbot Interface 
 
-
 ## User Interface
 
 Hummingbot operates through a **Command Line Interface (CLI)**, a text-based system ideal for automated cryptocurrency trading. Unlike graphical interfaces, CLIs rely on text commands to function. Let's dive into how to use it effectively.
 
 ### Create a Password
-
-![Alt text](/images/blog/docker-installation-guide/password.png)
 
 If you are using Hummingbot for the first time, the system will prompt you to create a password. There are no character requirements, although we recommend using a strong password for additional security.
 
@@ -94,8 +86,6 @@ The password in Hummingbot encrypts sensitive data such as API keys, secret keys
 After you set a password you should now be in the main Hummingbot screen
 
 ### User Interface Guide
-
-![Alt text](/images/blog/docker-installation-guide/interface.png)
 
 The CLI is organized into several key areas:
 
@@ -127,9 +117,7 @@ For a more in-depth look, visit [User Interface](../../../client/user-interface)
 
     - &lt;kbd>SHIFT&lt;/kbd> + &lt;kbd>INS&lt;/kbd>
 
-
 Next, let's learn about running a simple PMM script in Hummingbot
-
 
 ## Running a Script
 
@@ -144,15 +132,9 @@ create --script-config v2_directional_rsi.py
 
 When you enter the `create --script-config` command and press &lt;kbd>SPACE&lt;/kbd> Hummingbot will display available scripts in the scripts folder, as shown below.
 
-[![Alt text](/images/blog/docker-installation-guide/create-script-config.png)](create-script-config.png)
-
 Select the `v2_directional_rsi.py` script and press &lt;kbd>ENTER&lt;/kbd>. 
 
-[![Alt text](/images/blog/docker-installation-guide/create-script-config2.png)](create-script-config2.png)
-
 You will then be guided to configure the settings. At this stage, you may modify the options or simply hit &lt;kbd>ENTER&lt;/kbd> to accept the default values. 
-
-[![Alt text](/images/blog/docker-installation-guide/config-script.png)](config-script.png)
 
 Give the config a name and press press &lt;kbd>ENTER&lt;/kbd> to save it.
 
@@ -164,8 +146,6 @@ start --script v2_directional_rsi.py --conf conf_v2_directional_rsi_config_1.yml
 
 Note that the autocomplete will popup after pressing &lt;kbd>SPACE&lt;/kbd> after both the `--script` and `--conf` parameters so you can just select the correct script / config file from the list and then press &lt;kbd>ENTER&lt;/kbd>
 
-[![Alt text](/images/blog/docker-installation-guide/load-config-script.png)](load-config-script.png)
-
 After pressing &lt;kbd>ENTER&lt;/kbd> you should be able to see activity in the log pane. Use the `status` command for more details or press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>S&lt;/kbd>. It should resemble the screen below.
 
 ```
@@ -175,9 +155,6 @@ status
 > **Default Configs**
 >
 > Please note that the default values for the script config may not work for each and every exchange / scenario. You may need to tweak the script config in order for the bot to be able to place orders. If you encounter any issues check the log pane and the log files for more information on what the issue may be. 
-
-
-[![Alt text](/images/blog/docker-installation-guide/script-status.png)](script-status.png)
 
 To stop the script from running, type the `stop` command in the Hummingbot terminal
 
@@ -211,8 +188,6 @@ In the Hummingbot run the `connect` command for the exchange we want to connect 
 connect binance
 ```
 
-![Alt text](/images/blog/docker-installation-guide/connect.png)
-
 You should get a prompt to enter in your API keys - you can use the following commands below to paste them into the Hummingbot terminal. Note that `CTRL + V` doesn't work and you'll get a `Pyperclip error` in the log panel if you try to use it. 
 
   - &lt;kbd>CTRL&lt;/kbd>+&lt;kbd>SHIFT&lt;/kbd>+&lt;kbd>V&lt;/kbd>
@@ -221,12 +196,7 @@ You should get a prompt to enter in your API keys - you can use the following co
 
   - &lt;kbd>SHIFT&lt;/kbd> + &lt;kbd>INS&lt;/kbd>
 
-![Alt text](/images/blog/docker-installation-guide/binance.png)
-
 After entering your API keys you should get a success message if everything went through okay. You can also confirm by running the `connect` command again and check that both columns next to Binance are showing `Yes`. 
-
-![Alt text](/images/blog/docker-installation-guide/connected.png)
-
 
 Now your Binance API keys are connected to Hummingbot. Repeat these steps for other exchanges as needed.
 

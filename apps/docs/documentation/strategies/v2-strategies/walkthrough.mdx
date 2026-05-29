@@ -5,8 +5,6 @@ description: "Below, we provide a walkthrough to illustrate the StrategyV2 frame
 
 Below, we provide a walkthrough to illustrate the StrategyV2 framework, which we recommend for new users who want to understand how the framework works.
 
-![simple](/images/strategies/v2-strategies/diagrams/9.png)
-
 ## What we'll cover
 
 In this example, we'll show you how to configure and run a simple market-making script using [`simple_pmm.py`](https://github.com/hummingbot/hummingbot/blob/master/scripts/simple_pmm.py).
@@ -14,8 +12,6 @@ In this example, we'll show you how to configure and run a simple market-making 
 This strategy places bid and ask limit orders around the mid (or last trade) price on a single trading pair. Every `order_refresh_time` seconds it cancels and replaces those orders using parameters you set in the script config.
 
 ## Create script config
-
-[![script config](/images/strategies/v2-strategies/diagrams/21.png)](diagrams/21.png)
 
 First, let's create a script config file that defines the key strategy parameters.
 
@@ -35,8 +31,6 @@ Enter a new file name for your configuration >> conf_simple_pmm_1.yml
 
 ## Run the script 
 
-[![controller](/images/strategies/v2-strategies/diagrams/22.png)](diagrams/22.png)
-
 Execute the command below to start the script:
 
 ```shell
@@ -47,14 +41,12 @@ Hummingbot loads the YAML from `conf/scripts`, reads `script_file_name` inside i
 
 ## Check status and performance
 
-Run the [Status](../../client/status) command to see the status (asset balances, active orders and positions) of the running strategy:
+Run the [Status](/documentation/client/status) command to see the status (asset balances, active orders and positions) of the running strategy:
 
-[![status](/images/strategies/v2-strategies/diagrams/23.png)](diagrams/23.png)
-
-After there have been trades, you can use the [History](../../client/history) to see your bot's performance.
+After there have been trades, you can use the [History](/documentation/client/history) to see your bot's performance.
 
 ## Next steps
 
-We encourage you check out [Dashboard](../../dashboard/index), the new entry point for Hummingbot users that will be officially launched at the [Hummingbot 2.0 launch event](https://lu.ma/ieyvhcft).
+We encourage you check out [Dashboard](/documentation/dashboard), the new entry point for Hummingbot users that will be officially launched at the [Hummingbot 2.0 launch event](https://lu.ma/ieyvhcft).
 
-Also, see [Walkthrough - Controller](./walkthrough-controller) to learn how to run scripts that deploy strategies as [Controllers](controllers/index).
+Also, see [Walkthrough - Controller](/documentation/strategies/v2-strategies/walkthrough-controller) to learn how to run scripts that deploy strategies as [Controllers](/documentation/strategies/v2-strategies/controllers).

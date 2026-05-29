@@ -41,6 +41,20 @@ export function convertAdmonitions(src) {
   return out.join("\n");
 }
 
+/**
+ * Remove all images/GIFs (the new site doesn't use migrated media): markdown
+ * images, linked images, and raw <img> tags.
+ */
+export function stripImages(src) {
+  return src
+    .replace(/\[!\[[^\]]*\]\([^)]*\)\]\([^)]*\)/g, "") // linked image [![..](..)](..)
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "") // ![alt](url)
+    .replace(/!\[[^\]]*\]\[[^\]]*\]/g, "") // ![alt][ref]
+    .replace(/!\[[^\]]*\]/g, "") // ![alt] (bare/reference)
+    .replace(/<img[^>]*\/?>/gi, "")
+    .replace(/\n{3,}/g, "\n\n");
+}
+
 /** Strip the `.md` (and optional #anchor) from internal markdown links. */
 export function stripMdLinks(src) {
   return src.replace(/\]\(([^)]+?)\.md(#[^)]*)?\)/g, (_m, p, anchor) => `](${p}${anchor ?? ""})`);

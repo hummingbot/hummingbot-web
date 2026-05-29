@@ -5,9 +5,6 @@ date: "2024-03-25"
 category: "Connectors"
 ---
 
-![cover](/images/blog/using-vega-protocol-with-hummingbot/cover.png)
-
-
 ## Introduction
 
 In this guide, we'll walk you through the detailed steps required to seamlessly set up a Vega Wallet, link it with Hummingbot, and start running powerful algo trading strategies on the Vega decentralized exchange. 
@@ -15,8 +12,6 @@ In this guide, we'll walk you through the detailed steps required to seamlessly 
 Watch the guide on Youtube and let's get started!
 
 &lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/kZM8YeRAb8M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
-
-
 
 ## Create Vega Wallet
 
@@ -26,15 +21,11 @@ A **Vega Wallet** is essential for interacting with Vega, whether it's for staki
 
 To get started, visit [Vega Console](https://console.vega.xyz/) and click **Connect to Vega**. Afterwards, you will be presented with several options for creating a Vega wallet:
 
-[![image](/images/blog/using-vega-protocol-with-hummingbot/vega-console.png)](vega-console.png)
-
 Below, we show you how to use **MetaMask Snap**, our recommended approach for Hummingbot users.
 
 Select **MetaMask Snap** in the menu above and connect with your preferred Ethereum address in [Metamask](https://metamask.io/).
 
 You should get a pop-up informing you of the permissions needed - click **Install**. 
-
-[![image](/images/blog/using-vega-protocol-with-hummingbot/vega-install-snap.png)](vega-install-snap.png)
 
 Afterwards, agree to the remaining pop-ups and you should eventually see a notice saying that you are **Successfully Connected**. You're now ready to deposit assets and use your new Vega wallet.
 
@@ -42,15 +33,9 @@ Afterwards, agree to the remaining pop-ups and you should eventually see a notic
 
 After creating a the Vega wallet, go to [Vega Console](https://console.vega.xyz/), where you will be redirected to the MAINNET exchange, by default.
 
-[![image](/images/blog/using-vega-protocol-with-hummingbot/vega-deposit.png)](vega-deposit.png)
-
 If you want to change to Fairground TESTNET, exit out of the pop-up and click the upper-left hand corner of the Vega exchange website to change the network. 
 
-[![image](/images/blog/using-vega-protocol-with-hummingbot/vega-network.png)](vega-network.png)
-
 Once you have selected your network, click the **Deposit** button in the pop-up above and connect your Ethereum wallet to approve and deposit eligible tokens to your new Vega wallet.
-
-[![image](/images/blog/using-vega-protocol-with-hummingbot/vega-deposit-3.png)](vega-deposit-3.png)
 
 ## Connect Hummingbot to Vega
 
@@ -65,11 +50,7 @@ Let's go through how you can find these items:
 
 After connecting your Vega Wallet, look for your **Snap Key** in the top right corner of the screen.
 
-[![image](/images/blog/using-vega-protocol-with-hummingbot/snap_key.png)](snap_key.png)
-
 The Snap Key 0 address should be the **Vega key** address where you deposited assets from your Ethereum wallet earlier. Click it to copy it to your clipboard which you can then paste when prompted for the **Vega public key (party id)** in Hummingbot.
-
-[![image](/images/blog/using-vega-protocol-with-hummingbot/metamask_snap_02.gif)](metamask_snap_02.gif)
 
 ### Get Wallet Seed Phrase
 
@@ -98,8 +79,6 @@ docker attach hummingbot
 
 In the Hummingbot client, connect to **Vega mainnet** by running `connect vega_perpetual`. To connect to the **Vega Fairground testnet**, run `connect vega_perpetual_testnet`.
 
-[![image](/images/blog/using-vega-protocol-with-hummingbot/connect_vega.gif)](connect_vega.gif)
-
 First, you will be prompted to enter your Vega public key - enter your Snap Key here. Then, enter your Wallet Seed Phrase.
 
 If both credentials are valid, you should should see this message:
@@ -108,8 +87,6 @@ You are now connected to vega_perpetual.
 ```
 
 To confirm the connection, run the `balance` command. Your asset balances should match the amount that you deposited into Vega.
-
-[![image](/images/blog/using-vega-protocol-with-hummingbot/balance.png)](balance.png)
 
 ## Run Directional Strategy
 
@@ -123,8 +100,6 @@ First, let's create a Vega-specific configuration for this strategy. Run:
 ```
 create --script v2_directional_rsi
 ```
-
-[![image](/images/blog/using-vega-protocol-with-hummingbot/config.png)](config.png)
 
 Follow the prompts and enter in your desired values, and save the file. This file is located under the **/conf/scripts** folder, and you can use any text editor or IDE like VSCode to open the YAML file and make changes to it.
 
@@ -166,21 +141,13 @@ Now, we can run the script using the `start` command:
 start --script v2_directional_rsi.py --conf conf_rsi_vega.yml
 ```
 
-[![image](/images/blog/using-vega-protocol-with-hummingbot/logs.png)](logs.png)
-
 The bot has entered into a short position. Afterwards, it placed a buy limit stop loss order.
 
 You can run `status` or press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>S&lt;/kbd> to check the real-time status of the bot:
 
-[![image](/images/blog/using-vega-protocol-with-hummingbot/status.png)](status.png)
-
-
 ## Vega Data Nodes
 
 In the logs above, note that the bot connects to the Vega Protocol endpoint [https://darling.network](https://darling.network). This is the Vega [Data Node](https://docs.vega.xyz/testnet/concepts/vega-chain/data-nodes) that streams market data to Hummingbot.
-
-[![image](/images/blog/using-vega-protocol-with-hummingbot/data-node.png)](data-node.png)
-
 
 ### List of Data Nodes
 
@@ -268,7 +235,6 @@ Here are various pairs on the Mainet and Vega networks and how to enter them int
 
 - The first time you start the script the log pane might spam the message shown above, this is normal as the bot is trying to connect to the node. Just give the bot a minute or so as it tries to connect. 
 
-
 > **Failed to submit buy order**
 >
 > ```   
@@ -295,7 +261,6 @@ Here are various pairs on the Mainet and Vega networks and how to enter them int
 > 2024-02-06 12:25:12,360 - 15 - hummingbot.connector.derivative.vega_perpetual.vega_perpetual_derivative.VegaPerpetualDerivative - WARNING - Failed to submit BUY order to Vega_perpetual. Check API key and network connection. 
 > ```
 > Github Issue Link - [https://github.com/hummingbot/hummingbot/issues/6835](https://github.com/hummingbot/hummingbot/issues/6835)
-
 
 - When using a public node, there may be instances where the bot attempts to create orders but fails. This failure could be attributed to losing connection with the node. The bot is designed to automatically attempt reconnection. However, if reconnection efforts fail, consider stopping the bot and restarting it.
 

@@ -1,17 +1,15 @@
 ---
 title: "Controller Walkthrough"
-description: "!!! tip You can configure and deploy controllers using the [Hummingbot API](../../hummingbot-api/index.md) and manage them via [Condor](../../condor/i"
+description: "!!! tip You can configure and deploy controllers using the Hummingbot API and manage them via Condor (Telegram) or Hummingbot MCP (AI assistants)."
 ---
 
 > **Tip**
 >
-> You can configure and deploy controllers using the [Hummingbot API](../../hummingbot-api/index) and manage them via [Condor](../../condor/index) (Telegram) or [Hummingbot MCP](../../mcp/index) (AI assistants).
+> You can configure and deploy controllers using the [Hummingbot API](/documentation/hummingbot-api) and manage them via [Condor](/documentation/condor) (Telegram) or [Hummingbot MCP](/documentation/mcp) (AI assistants).
 
-In this more complex example, the strategy logic is housed in a [Controller](../v2-strategies/controllers/index), and the user generates a controller configuration that is run with a generic script, which acts as a controller loader.
+In this more complex example, the strategy logic is housed in a [Controller](/documentation/strategies/v2-strategies/controllers), and the user generates a controller configuration that is run with a generic script, which acts as a controller loader.
 
 This allows users to run multiple configurations, as well as multiple controllers, in a single script.
-
-![advanced](/images/strategies/v2-strategies/diagrams/11.png)
 
 ## What we'll cover
 
@@ -21,12 +19,9 @@ Now, this can be handled in a single strategy using the [pmm_simple.py](https://
 
 First, we will generate pair-specific configurations. Then, we can run these configurations all at once with the [v2_with_controllers.py](https://github.com/hummingbot/hummingbot/blob/development/scripts/v2_with_controllers.py) generic script.
 
-
 ## Create the controller configs
 
 The initial step involves generating a separate controller configuration for each trading pair.
-
-[![controller](/images/strategies/v2-strategies/diagrams/15.png)](diagrams/15.png)
 
 Execute the command below to generate the controller config:
 
@@ -69,9 +64,6 @@ conf_market_making.pmm_simple_2.yml
 
 ## Create the generic script config
 
-[![script-config](/images/strategies/v2-strategies/diagrams/16.png)](diagrams/16.png)
-
-
 Execute the command below to generate the script config file:
 
 ```
@@ -91,10 +83,7 @@ Enter a new file name for your configuration >>> conf_v2_with_controllers_1.yml
 >
 > Once you create the initial generic script config, it might be easier to edit this file and replace it with new controller names rather than having to re-generate it each time. 
 
-
 ## Start the script 
-
-[![script-config](/images/strategies/v2-strategies/diagrams/17.png)](diagrams/17.png)
 
 Execute the command below to start the script:
 
@@ -107,8 +96,6 @@ The bot should now be running and start placing orders for both pairs. Run the `
 ```
 status --live
 ```
-
-[![status](/images/strategies/v2-strategies/diagrams/20.png)](diagrams/20.png)
 
 ## Changing configs
 
@@ -151,9 +138,7 @@ trailing_stop:
   activation_price: 0.013
   trailing_delta: 0.003
 
-
 ```
-
 
 Make the necessary changes you want here then press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>O&lt;/kbd> to save, then &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>X&lt;/kbd> to exit. 
 

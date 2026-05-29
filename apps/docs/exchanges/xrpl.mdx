@@ -36,7 +36,6 @@ title: "Xrpl"
 |----------|----------------------|
 | `xrpl` | `mainnet`, `testnet`, `devnet` |
 
-
 ### Add XRP Credentials to Hummingbot
 
 From inside the Hummingbot client, run `connect xrpl` in order to connect your wallet:
@@ -50,12 +49,9 @@ Enter the `seed` from the account creation script, which starts with "s".
 
 Afterwards, run `balance` If your keys are correct and the node is online, you should see your XRPL balances:
 
-
 ### Modify the XRPL configuration file
 
 Open the newly created `/conf/connectors/xrpl.yml` file:
-
-[![](/images/assets/img/xrpl.png)](../assets/img/xrpl.png)
 
 ```bash
 connector: xrpl
@@ -72,7 +68,6 @@ custom_markets:
 wss_node_url: wss://s1.ripple.com/
 
 wss_second_node_url: wss://s1.ripple.com/
-
 
 ```
 
@@ -458,8 +453,6 @@ wss_second_node_url: wss://s1.ripple.com/
         
 - If you can’t find your trading pairs, add them as an entry in `custom_markets` in the connector config file at `/conf/connectors/xrpl.yml`, please note that `custom_markets` will overwrite the default trading pairs. Example:
 
-
-
 ```python
 custom_markets:
   SOLO-XRP:
@@ -488,7 +481,6 @@ custom_markets:
     - XRDOGE/XRP
     - XMEME/XRP
 - Top 10 AMM pairs on Bithomp: [https://bithomp.com/en/amms](https://bithomp.com/en/amms)
-
 
 ## 🔀 Spot Connector
 *Integration to spot markets API endpoints*

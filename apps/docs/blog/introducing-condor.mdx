@@ -1,15 +1,11 @@
 ---
 title: "Introducing Condor: The Open Source Harness for Trading Agents"
-description: "We're excited to introduce [Condor](https://condor.hummingbot.org), an open source harness that connects LLMs to the Hummingbot trading infrastructure. Con"
+description: "We're excited to introduce Condor, an open source harness that connects LLMs to the Hummingbot trading infrastructure. Condor lets you use natural language"
 date: "2026-04-21"
 category: "Roadmap"
 ---
 
-![cover](/images/blog/introducing-condor/cover.png)
-
 We're excited to introduce **[Condor](https://condor.hummingbot.org)**, an open source harness that connects LLMs to the Hummingbot trading infrastructure. Condor lets you use natural language to execute trades, run trading bots, and deploy autonomous trading agents across 50+ exchanges and blockchains.
-
-
 
 ## The Condor Harness
 
@@ -18,8 +14,6 @@ Condor is an open source AI agent harness, similar to [OpenClaw](https://github.
 ### Motivation
 
 When Hummingbot launched in 2019, it democratized market making. For the first time, individual traders and small firms could run the same strategies that professional market makers use on Wall Street.
-
-![](/images/blog/introducing-condor/interface.png)
 
 But there was a ceiling. As traders grew their operations — more exchanges, more chains, more clients, more capital — they hit the limits of what a single person could manage. Monitoring bots, adjusting parameters, responding to market conditions, handling edge cases: these tasks don't scale.
 
@@ -44,8 +38,6 @@ Unlike broader agent frameworks, Condor strictly separates reasoning from execut
 
 Condor provides AI-mediated trading tools—a free, open source alternative to products like [Binance AI Pro](https://www.binance.com/en/academy/articles/binance-ai-pro-guide-what-it-is-and-how-to-use-it). It integrates with LLMs (Claude, GPT, Gemini, etc.) to help you:
 
-![](/images/blog/introducing-condor/condor.png)
-
 #### 1. Execute Trades
 
 Use natural language to place orders, swap tokens, and manage positions across centralized and decentralized exchanges. Query your portfolio, check balances, and analyze market data—all through conversation.
@@ -63,8 +55,6 @@ See the [Condor documentation](https://condor.hummingbot.org) for installation i
 ### Telegram Interface
 
 After you start Condor and message your bot on Telegram, you'll see a menu of available commands:
-
-![](/images/blog/introducing-condor/menu.png)
 
 Most users start with `/start` to check server status, then `/keys` to configure exchange API credentials, and `/portfolio` to verify their balances are loading correctly.
 
@@ -90,8 +80,6 @@ http://localhost:8088/login?token=XSNKl6bjWKGce-mcCYSWWgcyC5EvgzFrFqgCGIIop0s
 
 Link valid for 5 minutes.
 ```
-
-![](/images/blog/introducing-condor/web-dashboard.png)
 
 The dashboard offers:
 
@@ -133,8 +121,6 @@ By cleanly separating these concerns, you can audit, test, and improve each laye
 
 Trading Agents follow an iterative process based on the [**OODA loop**](https://en.wikipedia.org/wiki/OODA_loop), a decision-making framework developed by military strategist John Boyd for fighter pilots. Fighter pilots use OODA to make split-second decisions in dynamic, adversarial environments. Markets share similar characteristics: incomplete information, adversarial participants, and a premium on speed and adaptability.
 
-![](/images/blog/introducing-condor/jet.webp)
-
 ```mermaid
 flowchart LR
     O[Observe] --> OR[Orient] --> D[Decide] --> A[Act]
@@ -144,8 +130,6 @@ flowchart LR
 The key insight: **different phases have different requirements**. Observe and Act must be deterministic—fetching data and placing orders should produce consistent results. Orient and Decide benefit from probabilistic reasoning—interpreting complex situations and weighing tradeoffs is where LLMs excel.
 
 The `/agent` command enters Agent Builder mode, which connects your LLM to Hummingbot API via [MCP tools](/mcp). Agent Builder mode guides you through creating a Trading Agent using this framework:
-
-![](/images/blog/introducing-condor/agent-builder.png)
 
 - **Observe**: Define what data your agent needs—order books, candles, positions, balances, funding rates
 - **Orient**: Build routines to process the data—custom indicators, signal generators, market filters

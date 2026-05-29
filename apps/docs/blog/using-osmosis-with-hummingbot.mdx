@@ -5,13 +5,9 @@ date: "2024-03-21"
 category: "Connectors"
 ---
 
-![cover](/images/blog/using-osmosis-with-hummingbot/cover.png)
-
 ## Introduction
 
 These instructions help users navigate the installation, configuration, and operation of (OSS) Hummingbot high-frequency trading bot running Automated Market Making Arbitrage or Range Automated Market Making strategies on **Osmosis DEX** over the Hummingbot Gateway.
-
-
 
 ## Prerequisites
 
@@ -90,10 +86,10 @@ To get around this, export the seed instead and then restore with a different Os
 To get a Keplr private key without a linked Google Account:
 
 1. Export Keplr seed phrase.
-   ![image](/images/blog/using-osmosis-with-hummingbot/view-keplr-seed.png)
+   
 
 2. Restore the wallet using the seed phrase, in a different Cosmos-based wallet (such as Leap wallet) which allows exporting the private key.
-   ![image](/images/blog/using-osmosis-with-hummingbot/import-seed-leap.png)
+   
 
 3. Export the private key from the newly restored wallet.
 
@@ -110,12 +106,12 @@ To export a private key from Leap wallet:
 1. Open Leap wallet and then open the wallet menu.
 
 2. Scroll down to the ‘Security’ section and select ‘Export Private Key’.
-   ![image](/images/blog/using-osmosis-with-hummingbot/export-private-key-leap-1.png)
+   
 
 3. Enter the wallet password and proceed to view the private key by hovering the cursor over the blurred area.
 
 4. Copy down the private key and _be sure to discard_ the ‘0x’ at the beginning of the displayed key.
-   ![image](/images/blog/using-osmosis-with-hummingbot/export-private-key-leap-2.png)
+   
 
 > **Note**
 >
@@ -128,8 +124,6 @@ Run `gateway connect osmosis` and follow the prompts to add a trading wallet to 
 > **Note**
 >
 > Hummingbot stores both API keys and private keys on the local machine in encrypted form, with the Hummingbot client password as the key.
-
-![image](/images/blog/using-osmosis-with-hummingbot/gateway-connect-osmosis.png)
 
 #### Gateway Connect
 
@@ -199,8 +193,6 @@ amount: 1.0
 min_profitability: 1.0
 ```
 
-![image](/images/blog/using-osmosis-with-hummingbot/create-amm-v3-lp-osmosis.png)
-
 ### Import a Strategy
 
 Run `import` to get a list of locally stored files, use the arrow keys or tab to scroll and select one. Or, you can also skip the prompt by running `import <file_name.yml>` directly.
@@ -209,11 +201,7 @@ Run `import` to get a list of locally stored files, use the arrow keys or tab to
 >>> import
 ```
 
-![image](/images/blog/using-osmosis-with-hummingbot/import-list.png)
-
 If successful, you will see:
-
-![image](/images/blog/using-osmosis-with-hummingbot/imported.png)
 
 ### Start a Strategy
 
@@ -226,8 +214,6 @@ To run a trading strategy:
 > **Note**
 >
 > The `amm_arb` strategy will first request confirmation of selected wallets.
-
-![image](/images/blog/using-osmosis-with-hummingbot/run-strat.png)
 
 ### Use a Script
 

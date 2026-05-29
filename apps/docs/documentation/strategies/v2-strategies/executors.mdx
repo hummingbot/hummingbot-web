@@ -3,18 +3,16 @@ title: "LP Executor"
 description: "Executors in Hummingbot are self-managing components that handle the execution of orders according to predefined conditions set by Controllers, which,"
 ---
 
-![executors](/images/strategies/v2-strategies/diagrams/13.png)
-
 **Executors** in Hummingbot are self-managing components that handle the execution of orders according to predefined conditions set by **Controllers**, which, in turn, utilize data from the **MarketDataProvider** (Candles, Orderbook, Trades). Executors are tasked with managing the state of orders — initiating, refreshing, and canceling orders, as well as halting their own operation when certain conditions are met.
 
 ## **Types of Executors**
 
-* [Position Executor](positionexecutor)
-* [DCA Executor](dcaexecutor)
-* [Grid Executor](gridexecutor)
-* [Arbitrage Executor](arbitrage-executor)
-* [TWAP Executor](twapexecutor)
-* [XEMM Executor](xemm-executor)
+* [Position Executor](/documentation/strategies/v2-strategies/executors/positionexecutor)
+* [DCA Executor](/documentation/strategies/v2-strategies/executors/dcaexecutor)
+* [Grid Executor](/documentation/strategies/v2-strategies/executors/gridexecutor)
+* [Arbitrage Executor](/documentation/strategies/v2-strategies/executors/arbitrage-executor)
+* [TWAP Executor](/documentation/strategies/v2-strategies/executors/twapexecutor)
+* [XEMM Executor](/documentation/strategies/v2-strategies/executors/xemm-executor)
 * [LP Executor](#lp-executor) *(new in v2.13.0)*
 
 ## **LP Executor**
@@ -56,7 +54,7 @@ This is useful for evaluating the performance of `lp_rebalancer` strategies over
 
 ### Usage via Hummingbot API
 
-Use the [`lp-agent`](../../../mcp/skills) skill or call the API directly:
+Use the [`lp-agent`](/documentation/mcp/skills) skill or call the API directly:
 
 ```bash
 
@@ -81,7 +79,6 @@ POST /executors/create
 * Autonomy: Executors independently manage order states, offloading complex logic from the user.
 * Simplicity: They simplify strategy code, enabling users to create powerful strategies with ease.
 * Flexibility: By dynamically adjusting to market data, Executors can set spreads and shift prices, offering greater strategy adaptability.
-
 
 ## **Executor Orchestrator**
 

@@ -11,12 +11,12 @@ Gateway is a companion service to the Python-based [Hummingbot client](https://g
 
 ## In This Section
 
-- **[Installation & Setup](installation)**: Complete installation guide for source and Docker
-- **[Configuration](configuration)**: How to configure chains, connectors, and settings
-- **[Commands](commands)**: Comprehensive reference of all Gateway-related Hummingbot commands
-- **[Chains](chains)**: Detailed information about supported chains
-- **[DEX Connectors](connectors)**: Guide to all supported DEX in Gateway
-- **[Strategies & Scripts](strategies)**: Using Gateway with Hummingbot strategies
+- **[Installation & Setup](/documentation/gateway/installation)**: Complete installation guide for source and Docker
+- **[Configuration](/documentation/gateway/configuration)**: How to configure chains, connectors, and settings
+- **[Commands](/documentation/gateway/commands)**: Comprehensive reference of all Gateway-related Hummingbot commands
+- **[Chains](/documentation/gateway/chains)**: Detailed information about supported chains
+- **[DEX Connectors](/documentation/gateway/connectors)**: Guide to all supported DEX in Gateway
+- **[Strategies & Scripts](/documentation/gateway/strategies)**: Using Gateway with Hummingbot strategies
 
 ## Key Features
 
@@ -33,11 +33,11 @@ Gateway is a companion service to the Python-based [Hummingbot client](https://g
 - **AMM** (Automated Market Maker): Traditional V2-style constant product pools using the x*y=k formula, where liquidity is distributed uniformly across the entire price range, making it simpler but less capital efficient
 - **CLMM** (Concentrated Liquidity Market Maker): V3-style pools that allow liquidity providers to concentrate their capital within custom price ranges, dramatically improving capital efficiency and enabling better pricing for traders
 
-For detailed implementation guides and examples for each schema, see [DEX Connectors](connectors).
+For detailed implementation guides and examples for each schema, see [DEX Connectors](/documentation/gateway/connectors).
 
 ## Installation
 
-Gateway can be installed alongside [Hummingbot](https://github.com/hummingbot/hummingbot) to enable trading on AMM DEXs, or as a standalone API server. For detailed installation instructions, see [Installation & Setup](installation).
+Gateway can be installed alongside [Hummingbot](https://github.com/hummingbot/hummingbot) to enable trading on AMM DEXs, or as a standalone API server. For detailed installation instructions, see [Installation & Setup](/documentation/gateway/installation).
 
 When running Gateway in `DEV` mode, access the interactive Swagger API documentation at: [http://localhost:15888/docs](http://localhost:15888/docs)
 
@@ -66,9 +66,9 @@ Gateway follows a modular architecture with clear separation of concerns:
 
 Like other connectors, Gateway DEX connectors require ongoing maintenance: fixing bugs, addressing user issues, and keeping up with updates to both the exchange/blockchain API as well as improvements to the Hummingbot connector standard.
 
-Hummingbot Foundation maintains certain reference connectors as the standard and utilizes a community-based maintenance process. We assign [Bounties](../bounties/index) to community developers to upgrade and fix bugs for each exchange's connectors in the codebase.
+Hummingbot Foundation maintains certain reference connectors as the standard and utilizes a community-based maintenance process. We assign [Bounties](https://hummingbot.org/bounties/) to community developers to upgrade and fix bugs for each exchange's connectors in the codebase.
 
-The community can propose changes to connector maintenance, bounty allocations, and connector removals through [Hummingbot Governance Proposals (HGP)](../about/proposals). This process also determines which blockchains and networks that Gateway supports.
+The community can propose changes to connector maintenance, bounty allocations, and connector removals through [Hummingbot Governance Proposals (HGP)](https://hummingbot.org/about/proposals/). This process also determines which blockchains and networks that Gateway supports.
 
 See the **Connector Pots** tab in [HBOT Tracker](https://docs.google.com/spreadsheets/d/1UNAumPMnXfsghAAXrfKkPGRH9QlC8k7Cu1FGQVL1t0M/edit?usp=sharing) for the current allocations for each exchange.
 
@@ -76,7 +76,7 @@ See the **Connector Pots** tab in [HBOT Tracker](https://docs.google.com/spreads
 
 Gateway is part of the open source Hummingbot project. Ways to contribute:
 
-- **Build new connectors**: See [DEX Connectors](../connectors/gateway-connectors/index) for implementation guide
+- **Build new connectors**: See [DEX Connectors](/documentation/connectors/gateway-connectors) for implementation guide
 - **File issues**: Report bugs at [GitHub Issues](https://github.com/hummingbot/gateway/issues)
 - **Submit pull requests**: Contribute code at [GitHub](https://github.com/hummingbot/gateway/pulls)
 - **Edit documentation**: Improve docs at [GitHub](https://github.com/hummingbot/hummingbot-site/)
@@ -86,5 +86,5 @@ Gateway is part of the open source Hummingbot project. Ways to contribute:
 
 For more information about Gateway's history and architecture decisions, see:
 
-* [Hummingbot Gateway V2 Architecture - Part 1](../blog/posts/hummingbot-gateway-architecture-part-1/index)
-* [Hummingbot Gateway V2 Architecture - Part 2](../blog/posts/hummingbot-gateway-architecture-part-2/index)
+* [Hummingbot Gateway V2 Architecture - Part 1](/blog/posts/hummingbot-gateway-architecture-part-1)
+* [Hummingbot Gateway V2 Architecture - Part 2](/blog/posts/hummingbot-gateway-architecture-part-2)

@@ -7,8 +7,6 @@ category: "Tutorials"
 
 Welcome to the inaugural post in our Strategy Experiments series, where we publish hypotheses, code, and performance analyses of live bot strategies.
 
-![](/images/blog/directional-trading-experiment/cover.webp)
-
 We're thrilled to return to the Hummingbot blog with an exciting experiment: developing a crypto trading bot using the open-source Hummingbot platform. This bot employs an **indicator-based directional strategy** on the Binance Futures exchange, leveraging MACD and Bollinger Bands.
 
 Sign up for Binance Futures using our [Hummingbot referral code](https://www.binance.com/en/futures/ref?code=hummingbot) to receive a **10% fee rebate**!
@@ -20,8 +18,6 @@ As the first entry in our **Strategy Experiments** series, we aim to foster a co
 We invite everyone to contribute their Strategy Experiments, regardless of outcome, as there is valuable learning in each experience. Through sharing insights and discussing novel concepts, we aspire to cultivate a vibrant ecosystem for continual improvement and refinement of trading strategies.
 
 Below is a detailed account of our first experiment. You can watch the accompanying video or read the following description.
-
-
 
 &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/uKFBu2bSU1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>&lt;/iframe>
 
@@ -47,14 +43,10 @@ By merging these indicators, we seek to pinpoint potential mean reversion points
 
 Our strategy employs the Directional Framework, which combines two novel features in Hummingbot: [Candles Feed](../../../strategies/v2-strategies/candles/index) and [PositionExecutor](../../../strategies/v2-strategies/executors/positionexecutor).
 
-![](/images/blog/directional-trading-experiment/./Screen-Shot-2023-04-21-at-3.04.45-PM.png)
-
 These components enhance the creation of custom indicators and self-executing positions, leading to a more efficient trading strategy.
 
 1. **CandlesFeed**: This feature enables the generation of custom indicators using historical and real-time exchange data. In our experiment, CandlesFeed calculates the MACD and Bollinger Bands values, forming our custom indicator that signals potential mean reversion points.
 2. **PositionExecutor**: This tool enables Hummingbot to execute positions autonomously based on custom indicator signals. It manages Long and Short positions, considering the decision rules derived from the %BB and MACD histogram values, and the current MACD line value. Integrated with the [Triple Barrier Method](https://www.mlfinlab.com/en/latest/labeling/tb_meta_labeling.html) from [Advances in Financial Machine Learning](https://www.amazon.com/Advances-Financial-Machine-Learning-Marcos/dp/1119482089?ref=hummingbot.org), our strategy effectively manages positions while maintaining a defined risk profile.
-
-![](/images/blog/directional-trading-experiment/./Screen-Shot-2023-04-21-at-3.04.54-PM-1.png)
 
 We set dynamic Take Profit and Stop Loss based on the standard deviation of the last 100 periods, multiplied by 1.5 for TP and 0.75 for SL, adapting to market conditions. The time limit was established at 55 minutes.
 
@@ -74,8 +66,6 @@ Binance Futures, a Gold connector in Hummingbot, ensures high-standard maintenan
 - **Order Amount**: 15 USD
 
 ## Performance Analysis
-
-![](/images/blog/directional-trading-experiment/./Untitled.png)
 
 - **Start Date**: 03/11/2023 | **End Date**: 03/22/2023
 - **Total Uptime**: 11 days, 16:42:14

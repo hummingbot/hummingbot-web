@@ -1,20 +1,19 @@
 ---
 title: "Scripts Cheatsheet"
-description: "See below for reference docs that help you create Scripts that inherit from the [ScriptStrategy](https://github.com/hummingbot/hummingbot/blob/master/"
+description: "See below for reference docs that help you create Scripts that inherit from the ScriptStrategy base class."
 ---
 
 See below for reference docs that help you create Scripts that inherit from the [`ScriptStrategy`](https://github.com/hummingbot/hummingbot/blob/master/hummingbot/strategy/script_strategy_base.py) base class.
 
-This Script Strategies Cheatsheet is also available in [PDF form](./cheatsheet.pdf).
+This Script Strategies Cheatsheet is also available in [PDF form](https://hummingbot.org/strategies/scripts/cheatsheet.pdf/).
 
 Watch the full video that accompanies this page:
 
 &lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/GTxBKeq52vw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
-
 ## Getting started
 
-- Follow the [Installation](../../installation/index) docs for your environment
+- Follow the [Installation](/documentation/installation) docs for your environment
 - Code your script inside the [/scripts](https://github.com/hummingbot/hummingbot/tree/master/scripts) folder
 - Create a YAML config with `create --v2-config [SCRIPT_NAME]`, then run `start --v2 [CONFIG_FILE].yml` (file under `conf/scripts`)
 
@@ -78,7 +77,6 @@ did_expire_order(self, event: OrderExpiredEvent)
 did_complete_buy_order(self, event: BuyOrderCompletedEvent)
 did_complete_sell_order(self, event: SellOrderCompletedEvent)
 ```
-
 
 ## Other
 

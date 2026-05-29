@@ -13,7 +13,7 @@ import {
 import { homedir } from "node:os";
 import { basename, dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { convertAdmonitions, escapeForMdx, stripMdLinks } from "./_sanitize.mjs";
+import { convertAdmonitions, escapeForMdx, stripImages, stripMdLinks } from "./_sanitize.mjs";
 
 const HOME = homedir();
 const SRC = join(HOME, "hummingbot-site/docs/exchanges");
@@ -51,14 +51,9 @@ function copyAsset(srcRelFromExchanges, slugDir, srcFileDir) {
   return `/images/${rel}`;
 }
 
-function sanitize(body, slug, srcFileDir) {
-  let out = convertAdmonitions(body);
-  // image refs: strip mkdocs #only-light/#only-dark, copy + rewrite
-  out = out.replace(/!\[([^\]]*)\]\(([^)\s]+?)(#only-[a-z]+)?\)/g, (_m, alt, p) => {
-    if (/^https?:/.test(p)) return `![${alt}](${p})`;
-    const np = copyAsset(p, slug, srcFileDir);
-    return `![${alt}](${np ?? p})`;
-  });
+function sanitize(body) {
+  let out = stripImages(body);
+  out = convertAdmonitions(out);
   out = stripMdLinks(out);
   out = escapeForMdx(out);
   return out.trim();
@@ -78,7 +73,7 @@ for (const file of walk(SRC)) {
   const dest = join(OUT, `${slug}.mdx`);
   mkdirSync(dirname(dest), { recursive: true });
   const fm = `---\ntitle: ${JSON.stringify(title)}\n---\n\n`;
-  writeFileSync(dest, fm + sanitize(bodyNoH1, slug, dirname(file)) + "\n");
+  writeFileSync(dest, fm + sanitize(bodyNoH1) + "\n");
   count++;
 }
 

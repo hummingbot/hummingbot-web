@@ -1,11 +1,9 @@
 ---
 title: "What is Arbitrage?"
-description: "Last week we published the [first article](../what-is-market-making/index.md) of the Hummingbot Academy, covering an introduction to what is Market Making,"
+description: "Last week we published the first article of the Hummingbot Academy, covering an introduction to what is Market Making, and today we discuss Arbitrage in or"
 date: "2020-09-11"
 category: "Tutorials"
 ---
-
-![cover](/images/blog/what-is-arbitrage/cover.webp)
 
 ## Welcome to Hummingbot Academy!
 
@@ -16,10 +14,7 @@ Last week we published the [first article](../what-is-market-making/index) of th
 - **How to run arbitrage operations?**
 - **How do I create my arbitrage robot?**
 
-
-
 Here at **Hummingbot Academy** our goal is to help you learn more about **market making** and **arbitrage**, and how to use our [free open-source robot](https://docs.hummingbot.org) to implement your own strategy.
-
 
 ### But what is arbitrage?
 
@@ -29,7 +24,7 @@ The concept of **arbitrage** is pretty simple:
 
 To better explain exactly how an **arbitrage** operation happens, let's talk about bananas. Yes, bananas.
 
-![Photo by Adam Jones (http://adamjones.freeservers.com/)](/images/blog/what-is-arbitrage/banana_market.png) 
+ 
 
 Picture a small town, where a big part of its economy is based on bananas production, with a lot of farms selling their crop on the local market.
 
@@ -65,13 +60,9 @@ To illustrate this, we will take a look at the Dollar-Yen (USD-JPY) prices on tw
 
 Let's assume that at some point in time, the order book of a New York and a Japan exchanges are exactly the same:
 
-![](/images/blog/what-is-arbitrage/spread1.png)
-
 Then, an investor decides to send a order to buy 360 JPY on the Japan Exchange at market price.
 
 What will happen next is that there will be a new Ask price on the Japan Exchange book, and usually, the Market Makers will create new Bid orders on the book to fill the spread gap that was created by that order:
-
-![](/images/blog/what-is-arbitrage/spread2.png)
 
 This is when the **arbitrageur** makes his move, buying 100 JPY at the New York exchange at the price 106.207 and selling them **immediately** on the Japan Exchange for 106.29, netting a total profit of 8.70 USD (0.082%) on the trade.
 

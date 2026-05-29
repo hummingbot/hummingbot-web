@@ -5,8 +5,6 @@ date: "2024-08-03"
 category: "Engineering"
 ---
 
-![cover](/images/blog/coding-a-custom-v2-controller/cover.webp)
-
 *by Patrick Meier*
 
 In this article, we'll explore how to create a custom V2 Controller for Hummingbot to snipe future liquidations on Binance. We'll use a generic controller to demonstrate the correct usage and implementation of this strategy.
@@ -17,13 +15,9 @@ This strategy shall be able to exploit liquidations that happen regularly in Cry
 
 The goal of this trading strategy is to capitalize on the quick rebounds that often follow liquidation events in the cryptocurrency futures market. These liquidations, caused by traders being forcibly closed out of their leveraged positions, create sharp price movements that can temporarily disrupt market equilibrium.
 
-
-
 ### Example
 
 On this 30-minute BTC/USDT chart, the sharp downward price movements indicated by the red candles coincide with a spike in long liquidations, suggesting a cascade of forced closures of leveraged long positions. Directly following this event is a marked price recovery, highlighting a rebound where the price corrects upwards as the market absorbs the impact of the liquidations.
-
-![](/images/blog/coding-a-custom-v2-controller/liquidation_example.png)
 
 ## Coding the Strategy
 
@@ -32,8 +26,6 @@ I intentionally omit the imports here for better readability. You can download t
 ### Control flow
 
 Let's quickly understand the high-level control flow of the controller we are going to build.
-
-![](/images/blog/coding-a-custom-v2-controller/control_flow.png)
 
 - We monitor the liquidations that happen on binance and aggregate them for the specified amount of seconds
 - If a specific amount in quote currency (usually USDⓈ-M) is reached within that time interval and no active position exists we open a DCA-Trade
@@ -376,8 +368,6 @@ Now that we did all the coding it's time to actually run it. Assuming you have c
 
 Add the file [liquidations_sniper.py](liquidations_sniper.py) to your Hummingbot installation like this:
 
-![](/images/blog/coding-a-custom-v2-controller/hummingbot_controllers.png)
-
 ### Create the controller configuration
 
 Now start Hummingbot and create a configuration with this command:
@@ -385,8 +375,6 @@ Now start Hummingbot and create a configuration with this command:
 ```
 create --controller-config generic.liquidation_sniper
 ```
-
-![](/images/blog/coding-a-custom-v2-controller/configuration.png)
 
 Here you see the result using all the default values. A file named `conf_generic.liquidation_sniper_1.yml` is created.
 
@@ -406,8 +394,6 @@ create --script-config v2_with_controllers
 
 **Important**: use the name of the config file of the controller that you created in the last step as input here for everything to work!
 
-![](/images/blog/coding-a-custom-v2-controller/strategy_configuration.png)
-
 Finally the script config `conf_v2_with_controllers_1.yml` was created and we can run our controller.
 
 #### Run the strategy
@@ -418,13 +404,9 @@ Let's run the strategy live on KuCoin...
 start --script v2_with_controllers.py --conf conf_v2_with_controllers_1.yml
 ```
 
-![](/images/blog/coding-a-custom-v2-controller/running_strategy.png)
-
 #### Monitor live status
 
 You can monitor the actual execution with the command: `status --live`
-
-![](/images/blog/coding-a-custom-v2-controller/live_status.png)
 
 ## Conclusion
 

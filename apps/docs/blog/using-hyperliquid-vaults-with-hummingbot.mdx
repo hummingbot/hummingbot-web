@@ -5,19 +5,13 @@ date: "2024-02-15"
 category: "Connectors"
 ---
 
-![Cover](/images/blog/using-hyperliquid-vaults-with-hummingbot/cover.png)
-
 &lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/Ly8R5g3juxw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
-
 
 ## What Are Vaults?
 
 **Hyperliquid Vaults** serve as an exchange wallet where funds are used by an individual trader or automated market maker (`Vault Leader`). Anyone can deposit (`Vault Depositors`) in the vault and earn a share of the profits.
 
 The Hyperliquidity Provider (HLP) vault, operated by Hyperliquid, runs market-making strategies on each trading pair. Anyone can provide liquidity for HLP and share in the P&L of the vault. HLP doesn’t collect any fees directly, and its P&L is shared proportionally based on each depositor’s share of the vault. HLP is community-owned.
-
-
-
 
 The minimum deposit to create a vault is 100 USDC.
 
@@ -37,19 +31,13 @@ The minimum deposit to create a vault is 100 USDC.
 
 Log in to [https://app.hyperliquid.xyz/](https://app.hyperliquid.xyz/) using your preferred wallet (Metamask). You may have to switch to the **Arbitrum** network.
 
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image1.png)](image1.png)
-
 Go to Vaults and then click the **Enable Trading** button.
 
 Deposit some amount of USDC to start trading. The minimum trading deposit is 0.01 USDC, but note that you will need a minimum of 100 USDC to create a vault.
 
 **Create a Vault**
 
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image2.png)](image2.png)
-
 Enter the name for the vault and a short description.
-
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image3.png)](image3.png)
 
 **Important Tips**
 
@@ -87,8 +75,6 @@ Guides for various environments:
 
 Go to the Trade page.
 
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image4.png)](image4.png)
-
 On the upper right corner, there is a dropdown to select which account to use. Select `Vault` here.
 
 Launch Hummingbot and in the terminal run the `connect` command to connect Hummingbot to your Hyperliquid account:
@@ -96,8 +82,6 @@ Launch Hummingbot and in the terminal run the `connect` command to connect Hummi
 ```
 connect hyperliquid_perpetual
 ```
-
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image7.png)](image7.png)
 
 You should get a prompt to use the Vault address - enter Yes here.
 
@@ -107,17 +91,11 @@ You should get a prompt to use the Vault address - enter Yes here.
 
 Next, you'll be prompted to enter your `Vault address`. If you don't know what the Vault address is, go to your Vault page, and the address would be at the top left under the Vault name. You can click the copy icon to copy the address to the clipboard and paste it in Hummingbot.
 
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image8.png)](image8.png)
-
 Next, start a trading strategy in Hummingbot, and your bot trades should match the trades shown under the Vault.
-
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image11.png)](image11.png)
 
 **Closing the Vault**
 
 On your vault’s dedicated page, click the Leader Actions dropdown and select “Close Vault”. A modal will appear to confirm that you want to close your vault.
-
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image5.png)](image5.png)
 
 - All positions must be closed before the vault can close. All depositors will receive their share of the vault when it is closed.
 - What happens to open positions in a vault when someone withdraws?
@@ -130,11 +108,7 @@ On your vault’s dedicated page, click the Leader Actions dropdown and select �
 
 **Choose a Vault**
 
-[![Image](/images/blog/using-hyperliquid-vaults-with-hummingbot/image6.png)](image6.png)
-
 Users just need to go to the [Vault](https://app.hyperliquid.xyz/vaults) page and select Vaults they want to deposit into.
-
-[![HLP](/images/blog/using-hyperliquid-vaults-with-hummingbot/hlp.png)](hlp.png)
 
 Click "Deposit" and specify an amount. Afterwards, funds will be deducted from your trading account and transferred into the vault. There is a 24-hour lockup period for  deposits on user vaults and 4 days for HLP vaults.
 

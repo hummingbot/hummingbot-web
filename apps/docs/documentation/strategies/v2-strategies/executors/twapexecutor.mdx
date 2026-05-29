@@ -71,7 +71,6 @@ class TWAPMultiplePairsConfig(StrategyV2ConfigBase):
 
 - Utilizes a validator to parse and validate the TWAP configurations from a string format into TWAPExecutorConfig objects, ensuring each configuration adheres to expected parameters such as connector name, trading pair, trade side, leverage, total amount in quote currency, total duration, order interval, and execution mode (e.g., MAKER or TAKER).
 
-
 ### Conclusion:
 
 The `TWAPExecutor` class is designed to execute orders following a TWAP strategy, aiming to reduce market impact by distributing the execution of a large order across multiple smaller orders over time. It involves complex logic for scheduling orders, managing their lifecycle, and calculating execution performance, making it a sophisticated component within the Hummingbot trading bot framework for algorithmic trading strategies.

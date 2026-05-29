@@ -18,12 +18,9 @@ The error message above indicates a permission issue while trying to access the 
 ```bash
 sudo usermod -aG docker $USER
 
-
-
 sudo chmod 666 /var/run/docker.sock
 
 ```
-
 
 ### Source: conda command not found
 
@@ -44,13 +41,9 @@ This error shows up during installation, typically on systems with 2GB RAM or le
 
 ### Source: Could not find conda environment: hummingbot
 
-![Alt text](/images/troubleshooting/conda.png)
-
 This is related to the issue above. Check if there are any errors after running the `./install` script. If there are, you'll need to solve those first otherwise creating the hummingbot conda environment will fail. 
 
 ### Source: unable to execute `gcc`: No such file or directory
-
-![Alt text](/images/troubleshooting/gcc.png)
 
 If getting this error you'll need to install the `build-essential` package. Run the command below to install - 
 
@@ -69,16 +62,11 @@ sudo apt update && sudo apt upgrade -y && sudo apt install -y build-essential
 
 If you get this error, this usually means the Hummingbot Broker is not running, start the Broker from the Instances page and then restart all Hummingbot client instances. 
 
-
 ### Docker is not running. Please start Docker and refresh the page.
-
-![Alt text](/images/troubleshooting/instances.png)
 
 Make sure you have Docker installed. On Windows and MacOS machines make sure you have Docker Desktop running in the background. 
 
 ### No module named hummingbot
-
-![Alt text](/images/troubleshooting/wheel.png)
 
 Note: The name of the missing module could be something else like `st_pages` etc. If you get this message this means the environment wasn't installed properly. Run the following steps in a terminal to reinstall - 
 
@@ -140,11 +128,9 @@ KeyError: 'result'
     raise ValueError(f"No order book exists for '{trading_pair}'.")
 ValueError: No order book exists for 'BTC-USD'.
 
-
 ```
 
 If you get this error make sure that when you created the API keys you also checked the **Access Websockets API** option.
-
 
 ## Gateway
 
@@ -162,17 +148,13 @@ gateway approve-tokens uniswap_ethereum_mainnet WETH
 
 ### Tokens not showing in `balance` command
 
-![Alt text](/images/troubleshooting/tokens.png)
-
 Use the following command to display token balances for different networks. 
 
 ```bash
 >>> gateway connector-tokens uniswap_ethereum_goerli WETH,DAI
 ```
 
-
 ## Misc
-
 
 ### Unable to paste, getting an error message
 
@@ -191,13 +173,9 @@ CTRL + SHIFT + V
 
 ### How to exit a config
 
-![Alt text](/images/troubleshooting/config.png)
-
 Press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>X&lt;/kbd> if you want to cancel out of the configuration 
 
 ### Balance showing but it's not showing Total in ($)
-
-![Alt text](/images/troubleshooting/balance.png)
 
 If one or more tokens is showing 0 `Total in ($)`, use the command below to change your rate oracle source. By default, the `rate_oracle_source` is set to `Binance` and if the token is not available in Binance then the `Total in ($)` will show 0. 
 

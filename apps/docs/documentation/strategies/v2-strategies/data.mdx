@@ -1,6 +1,6 @@
 ---
 title: "Market Data Provider"
-description: "The [Market Data Provider](https://github.com/hummingbot/hummingbot/blob/development/hummingbot/datafeed/marketdataprovider.py) service simplifies acc"
+description: "The Market Data Provider service simplifies access to real-time market data with the following methods."
 ---
 
 The [Market Data Provider](https://github.com/hummingbot/hummingbot/blob/development/hummingbot/data_feed/market_data_provider.py) service simplifies access to real-time market data with the following methods. 
@@ -12,7 +12,6 @@ from hummingbot.data_feed.market_data_provider import MarketDataProvider
 ```
 
 Below are a some methods that it contains. Each method receives the connector name, trading pair, and other arguments that can be defined as config parameters.
-
 
 ## Price
 
@@ -60,7 +59,6 @@ price = self.market_data_provider.get_price_by_type('binance', 'BTC-USDT', Price
 price = self.market_data_provider.get_price_by_volume('binance', 'BTC-USDT', volume: 10000, True)
 ```
 
-
 ## Volume
 
 ```python
@@ -107,7 +105,7 @@ price = self.market_data_provider.get_order_book_snapshot('binance', 'BTC-USDT')
 
 ## Candles
 
-[Candles](../candles/index) are trailing intervals of OHCLV data that can be used to generate custom indicators.
+[Candles](/documentation/strategies/v2-strategies/candles) are trailing intervals of OHCLV data that can be used to generate custom indicators.
 
 ```python
     def get_candles_df(self, connector_name: str, trading_pair: str, interval: str, max_records: int = 500):

@@ -1,11 +1,9 @@
 ---
 title: "Hummingbot Gateway Architecture - Part 1"
-description: "Update (February 2023): Hummingbot Gateway v2 is now available as a standalone Github repository: [https://github.com/hummingbot/gateway](https://github.co"
+description: "Update (February 2023): Hummingbot Gateway v2 is now available as a standalone Github repository: https://github.com/hummingbot/gateway. Most of the functi"
 date: "2021-10-07"
 category: "Engineering"
 ---
-
-![cover](/images/blog/hummingbot-gateway-architecture-part-1/cover.jpg)
 
 *by Martin Kou*
 
@@ -18,15 +16,11 @@ Hummingbot Gateway is a software that allows Hummingbot to connect to decentrali
 
 The Hummingbot Gateway is a separate piece of software apart from Hummingbot, because software libraries needed for accessing decentralized exchanges, e.g. the Uniswap Smart Order Router, are usually not written in Python. The gateway provides Hummingbot access to these decentralized exchanges with their differing software stacks, by exposing a secure and unified API interface to Hummingbot. This API interface can also be used by other potential gateway clients, such as proprietary trading software.
 
-
-
 In this series of Hummingbot Gateway v2 Architecture blog posts, we will outline the architectural changes we will be making to Gateway v2 to bring it up to production quality - and why changes are needed.
-
-
 
 ### **History**
 
-![gate-img1](https://images.ctfassets.net/h07e7qaokuyy/4utYNpq89nETXDme9z7LNG/f358007f79d373ee71341ad6250dea7f/photo-1568315128481-99b456a7cf86.jfif?w=750&h=533&fl=progressive&q=100&fm=jpg)Hummingbot Gateway was originally conceived as an interface for Hummingbot to interact with Celo, Balancer and Terra around mid 2020. While the concept of decentralized exchanges were already well known at the time, trading activity was relatively nascent compared to now.
+Hummingbot Gateway was originally conceived as an interface for Hummingbot to interact with Celo, Balancer and Terra around mid 2020. While the concept of decentralized exchanges were already well known at the time, trading activity was relatively nascent compared to now.
 
 As a result, the original Hummingbot Gateway had a relatively simple architecture, and did not account for many of the failure modes seen in modern DEXes like Uniswap. e.g. stuck blockchain transactions. As a result, the original Hummingbot Gateway could not provide the reliability expected of production trading systems.
 
@@ -34,7 +28,7 @@ We have decided to do a major overhaul of the Hummingbot Gateway architecture. W
 
 ### **Gateway V2 design goals**
 
-![gate-img2](https://images.ctfassets.net/h07e7qaokuyy/5X1juF7ZPawFwDrk0BLXZX/9ba2bfdfa14fba3ea8afc4f3fd9977fb/photo-1615281144933-17ae60439da2.jfif?w=750&h=500&fl=progressive&q=100&fm=jpg)Gateway v2 is a redesign of the original Hummingbot Gateway, with the following design goals:
+Gateway v2 is a redesign of the original Hummingbot Gateway, with the following design goals:
 
 **Robustness and reliability:** The gateway should continue to work despite encountering errors and failures; and when an operation in the gateway has to fail, it should fail gracefully rather than catastrophically.
 
@@ -45,7 +39,7 @@ We have decided to do a major overhaul of the Hummingbot Gateway architecture. W
 Robustness and Reliability
 --------------------------
 
-![gate-img3](https://images.ctfassets.net/h07e7qaokuyy/3k6GjmLmU8pmE5mJmSiujf/37d429f1e45466dda14141886f078128/photo-1622322789114-475a83808d89.jfif?w=750&h=562&fl=progressive&q=100&fm=jpg)Hummingbot Gateway and Hummingbot itself, are more similar to backend systems than frontend systems in nature. In particular, these systems deal with transactions that can have significant financial consequences. Thus, Hummingbot gateway needs to be built with the same or superior reliability assurances as seen in large scale backend systems:
+Hummingbot Gateway and Hummingbot itself, are more similar to backend systems than frontend systems in nature. In particular, these systems deal with transactions that can have significant financial consequences. Thus, Hummingbot gateway needs to be built with the same or superior reliability assurances as seen in large scale backend systems:
 
 * High availability and resilience against errors
 * Good test coverage and monitoring
@@ -112,7 +106,7 @@ Gateway v2 will carry the following architectural changes to reduce the number o
 Test Coverage and Monitoring
 ----------------------------
 
-![gate-img4](https://images.ctfassets.net/h07e7qaokuyy/UBFphEEP1aBlrepmlSCds/3d6118cb7eaf1f14be4922c67e5abde5/photo-1616458964840-5108e4d3adb3.jfif?w=750&h=499&fl=progressive&q=100&fm=jpg)Test cases and monitoring metrics are the other side of the coin for any resilient and reliable software. In general, we can only improve the reliability of a piece of software, if we constantly measure the software's behavior in different cases via test cases and metrics.
+Test cases and monitoring metrics are the other side of the coin for any resilient and reliable software. In general, we can only improve the reliability of a piece of software, if we constantly measure the software's behavior in different cases via test cases and metrics.
 
 While the original Hummingbot gateway carried some test cases - they were not useful for uncovering problems because almost all of them focused on only the happy cases. As a result, most of the error paths were not tested, and effective test coverage was poor.
 
@@ -151,7 +145,7 @@ Telemetry will only be enabled on Gateway v2 with user consent, and all the metr
 Information Security
 --------------------
 
-![gate-img5](https://images.ctfassets.net/h07e7qaokuyy/4xJcBgxBJ4FTwW2M4dzcQe/ed4634b4d4ab97775b2e2e4e2007f2e6/photo-1554279652-51eee9372f32.jfif?w=750&h=422&fl=progressive&q=100&fm=jpg)Since gateway API calls often carry the wallet private key in plaintext form, it is important to make sure gateway and gateway clients (including Hummingbot) authenticate each other before sending anything to the other side.
+Since gateway API calls often carry the wallet private key in plaintext form, it is important to make sure gateway and gateway clients (including Hummingbot) authenticate each other before sending anything to the other side.
 
 The original Hummingbot gateway already comes with SSL authentication for both sides, which already provides some protection against malicious software trying to intercept the private keys in transit. However, the mechanisms to protect the passphrase to the SSL private key is weak in the original Hummingbot gateway, and we are going to strengthen the security around the SSL private keys in Gateway v2.
 

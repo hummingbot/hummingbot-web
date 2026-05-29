@@ -5,15 +5,11 @@ date: "2023-11-13"
 category: "Announcements"
 ---
 
-![cover](/images/blog/retrospective-on-the-october-2023-bot-battle/./cover.webp)
-
 October 2023 was a particularly notable month since it marked the official Bot Battle, an exclusive monthly bot trading competition for Botcamp members. With eyes set on the prize and minds focused on performance, we embarked on a journey that tested both our strategic prowess and our bots' capabilities.
 
 ## Diving into the October Bot Battle
 
 Commencing on October 27th and running through to October 30th, I, alongside my fellow active Botcamp members, took part in a vibrant competition designed to pit our automated trading strategies against one another. As per the rules, our arsenal included any Hummingbot strategy or script, with a starting capital of no more than 200 USDT and the mandate that no additional top-ups were allowed post-competition commencement.
-
-
 
 ## Beta Battle Recap
 
@@ -30,8 +26,6 @@ Here's [my version](https://github.com/fengtality/hummingbot/blob/master/scripts
 With 392 trades executed over two days, my bot was pretty active and aggressive! My average buy price was an impressive 0.1245 USDT versus an average sell price of 0.1244 USDT. Given the volatile market conditions, this narrow margin demonstrated the bot's capability to adjust spreads dynamically based on market volatility.
 
 Mostly due to fees, the result was total P&L of -4.84 USDT. While not the outcome I had hoped for, it was a valuable learning experience, providing insights into the nuances of market dynamics and bot behavior.
-
-![history-sept](/images/blog/retrospective-on-the-october-2023-bot-battle/history-sept.png)
 
 ## What Changed in October: Using a V2 Strategy
 
@@ -52,8 +46,6 @@ In terms of architecture, V2 strategies are constituted of components that can b
 I used [a modified version] of the [base DManV2 script](https://github.com/hummingbot/hummingbot/blob/master/scripts/v2_market-making_dman_v2.py). My modifications, mainly reducing the order levels and widening spreads, were designed to make the strategy more conservative.
 
 ## October Performance
-
-![history](/images/blog/retrospective-on-the-october-2023-bot-battle/history.png)
 
 I decided to use the strategy on the SEI-USDT pair again, albeit on Binance Futures.
 
@@ -77,23 +69,17 @@ The average prices at which buys and sells were executed remained tight in both 
 
 ### Analyzing Performance in Dashboard
 
-![Dashboard Performance](/images/blog/retrospective-on-the-october-2023-bot-battle/dashboard.png)
-
 Throughout the Bot Battle, I relied heavily on the Hummingbot Dashboard to track my performance. The Dashboard's Strategy Performance page was instrumental, allowing me to upload the sqlite database directly and zoom in on the intricacies of my trades. This feature enabled me to drill down into the details of what worked and what didn't, providing a granular view of my strategy's execution.
 
 While the Dashboard UI is a fantastic tool, I found it more efficient to use Docker to connect to my instance directly. This approach offered me the flexibility of starting and stopping bots without navigating away from the command-line interface, streamlining the entire process.
 
 ### Executors Allow for Easy Win/Loss Analysis
 
-![Executor Status](/images/blog/retrospective-on-the-october-2023-bot-battle/status.png)
-
 One significant advantage of the V2 executors is their transparent lifecycle, which clearly indicates how each executor is closed and in what state. This level of clarity is not just convenient for real-time analysis but also makes backtesting a breeze. By evaluating the performance of each executor, I can refine my strategy with precise adjustments, optimizing for better win/loss ratios in future trades.
 
 For instance, seeing the number of executors that expired versus those that hit their stop loss or trailing stop provides a direct feedback loop for tweaking strategy parameters. By analyzing the executors that closed at a take-profit compared to those that didn't, I can adjust my take-profit thresholds to better capture market movements.
 
 The lifecycle of a V2 PositionExecutor is a core aspect of Hummingbot's V2 strategies, offering a level of transparency and control that significantly enhances the strategic decision-making process.
-
-![Lifecycle of a V2 PositionExecutor](/images/blog/retrospective-on-the-october-2023-bot-battle/lifecycle.png)
 
 Understanding the lifecycle of an Executor is essential for optimizing V2 strategies:
 

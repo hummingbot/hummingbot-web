@@ -5,13 +5,9 @@ date: "2024-09-18"
 category: "Connectors"
 ---
 
-![cover](/images/blog/using-dydx-v4-with-hummingbot/dydx-connector-guide.png)
-
 Welcome to the new dYdX v4 Hummingbot Connector Guide, your comprehensive resource for integrating and trading on dYdX's perpetual contracts using Hummingbot. Using the latest version of dYdX Chain based on the Cosmos SDK and Tendermint Proof-of-stake consensus protocol, dYdX v4 improves the trading experience with more seamless onboarding, enhanced security, and improved speed and performance!
 
 In this guide, we'll walk you through the process of integrating your dYdX account into Hummingbot and running a directional algorithmic trading bot. Let's dive in!
-
-
 
 ## Connecting Your MetaMask Wallet to dYdX
 
@@ -27,46 +23,45 @@ If you haven’t already, download and install the [MetaMask](https://metamask.i
 
 Open your web browser and go to [https://dydx.exchange/](https://dydx.exchange/). On the dYdX homepage, click the **"Connect Wallet"** button, typically located in the top-right corner of the page.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/1.png)](1.png)
+   
 
 From the list of available options, select **"MetaMask"**.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/2.png)](2.png)
+   
 
 MetaMask will open a pop-up asking you to confirm the connection.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/3.png)](3.png)  
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/4.png)](4.png)
+     
+   
 
 After the wallet is connected, dYdX will prompt you to sign a message to generate the dYdX Chain Wallet.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/5.png)](5.png)  
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/6.png)](6.png)
+     
+   
 
 ### Deposit Funds
 
 Once your wallet is connected, you will need to deposit USDC into your dYdX account. USDC is the required trading currency on dYdX.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/8.png)](8.png)
+   
 
 ### Get dYdX Chain Address
 
 After connecting, locate your **dYdX Chain Address** in the wallet connection settings. Copy this address and store it securely for future reference.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/9.png)](9.png)
+   
 
 ### Get dYdX Secret Phrase
 
 To export your secret passphrase, go to the wallet connection settings dropdown and click **"Export Secret Phrase"**.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/10.png)](10.png)
+   
 
 A window will appear. Check the box to confirm that you understand the risks. There may be a short delay before the export button becomes available.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/11.png)](11.png)
+   
 
 Once available, copy the secret phrase and store it safely in a secure location. You will need this phrase later to connect to Hummingbot.
-
 
 ## Using dYdX with Hummingbot Client
 
@@ -188,7 +183,7 @@ To connect Hummingbot to dYdX's v4 perpetual market, you'll need the dYdX v4 sec
    balance
    ```
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/balance.png)](balance.png)
+   
 
 ### Run a Strategy
 
@@ -228,12 +223,11 @@ For this example, we'll use the [**bollinger_v1**](https://github.com/hummingbot
    Enter the trading pair for the candles data, leave empty to use the same trading pair as the connector:
    
    ```
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/12.png)](12.png)
-
+   
 
   - Once the configuration is done, give the controller config a name or use the default one:
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/21.png)](21.png)
+   
 
  **Create a script config**
 
@@ -245,16 +239,15 @@ For this example, we'll use the [**bollinger_v1**](https://github.com/hummingbot
    create --script-config v2_with_controllers
    ```
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/script.png)](script.png)
+   
 
    - Make sure to enter the file name of the controller config we created earlier 
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/script2.png)](script2.png)
+   
 
    - Lastly, give the script config a name
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/script3.png)](script3.png)
-
+   
 
  **Start the strategy**
 
@@ -264,7 +257,7 @@ For this example, we'll use the [**bollinger_v1**](https://github.com/hummingbot
    start --script v2_with_controllers.py --conf conf_v2_with_controllers_1.yml
    ```
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/22.png)](22.png) 
+    
  
  **Monitor the Strategy**
 
@@ -274,7 +267,7 @@ For this example, we'll use the [**bollinger_v1**](https://github.com/hummingbot
    status
    ```
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/23.png)](23.png)
+   
 
  **Stop the Bot**
 
@@ -284,10 +277,9 @@ For this example, we'll use the [**bollinger_v1**](https://github.com/hummingbot
    stop
    ```
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/24.png)](24.png)
+   
 
 For more details on V2 Strategies or other available controllers, check out the Controllers section of [V2 Strategies](../../../strategies/v2-strategies/controllers/index) documentation. Please note that since dYdX only supports **one-way mode** some V2 Strategies that use Hedge mode may not work correctly with the controller.    
-
 
 ## Using dYdX with Hummingbot Dashboard
 
@@ -343,11 +335,9 @@ Hummingbot Dashboard is a web-based interface for Hummingbot introduced recently
 
    in your web browser.
 
-
 > **Cloud Servers**
 >
 > If you are using a cloud server or VPS, replace `localhost` with the IP of your server. You may need to edit the firewall rules to allow inbound connections to the necessary ports.  
-
 
 ### Adding Credentials
 
@@ -359,21 +349,19 @@ To trade on dYdX, you need to add your API credentials via the Dashboard. You ca
    - Choose the account (e.g., `master_account`) where you'd like to add the API keys.
    - From the "Select Connector" dropdown, select **dydx_v4_perpetual**.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/13.png)](13.png)
+   
 
 - Enter your dYdX secret phrase and chain address, then click **Submit Credentials**.
 
 - If the credentials are valid, they will appear under the **Available Accounts and Credentials** section, with `dydx_v4_perpetual` listed under the respective account.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/14.png)](14.png)
+   
 
 ### Portfolio Page
 
 Once your API keys are added, you can view the tokens and balances in your account under the **Portfolio** page. You can filter by account, exchange, or token to see more details.
 
 For example, in this screenshot, there is a balance of $77.47 USD in the account:
-
-[![image](/images/blog/using-dydx-v4-with-hummingbot/15.png)](15.png)
 
 ### Generate Configs
 
@@ -382,7 +370,7 @@ Before running a bot, you need to generate a configuration. Head over to the **C
 - You can either use default configuration settings or customize them to suit your needs.
 - Since dYdX only supports **ONEWAY** mode (not HEDGE mode), make sure to set **Position Mode** to **ONEWAY**.
 
-   [![image](/images/blog/using-dydx-v4-with-hummingbot/16.png)](16.png)
+   
 
 After setting your config:
 
@@ -391,8 +379,6 @@ After setting your config:
 
 Once uploaded, navigate to the **Deploy V2** page to launch your bot.
 
-[![image](/images/blog/using-dydx-v4-with-hummingbot/17.png)](17.png)
-
 ### Launching Instances
 
 On the **Deploy V2** page, you should see the configuration you just saved.
@@ -400,8 +386,6 @@ On the **Deploy V2** page, you should see the configuration you just saved.
 1. Give the instance a name.
 2. Select the Hummingbot image (make sure to choose **hummingbot/hummingbot:latest_dydx** or **hummingbot/hummingbot:development_dydx**).
 3. For credentials, choose `master_account` or the specific account with your dYdX API keys.
-
-[![image](/images/blog/using-dydx-v4-with-hummingbot/18.png)](18.png)
 
 Click **Launch Bot** to start the instance. The bot will then appear under the **Instances** page.
 
@@ -415,8 +399,6 @@ On the **Instances** page, you can monitor all running bots (both active and sto
 
 It also shows active controllers and the current configuration for each bot. You can easily access error logs and general logs to monitor the bot's status.
 
-[![image](/images/blog/using-dydx-v4-with-hummingbot/19.png)](19.png)
-
 ### Stopping Instances
 
 To stop a bot:
@@ -425,7 +407,6 @@ To stop a bot:
 - Alternatively, you can click the stop icon in the top-right corner, which will cancel all active orders immediately.
 
 Note: The instance name will include **hummingbot** + the current date and time. This name appears in the top-left corner under **Local Instances**. If you need to manually attach to the Docker container, use this complete name to identify the bot instance.
-
 
 ## Known Issues
 

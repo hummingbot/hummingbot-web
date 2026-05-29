@@ -7,7 +7,6 @@ description: "PositionExecutor: Manages opening and closing positions of equal a
 
 The **PositionExecutor** uses a configuration object, **PositionExecutorConfig**, to manage an order after it is placed, following the [Triple Barrier Method](https://www.mlfinlab.com/en/latest/labeling/tb_meta_labeling.html). This configuration sets pre-defined stop loss, take profit, time limit, and trailing stop parameters.
 
-
 ```python
 class TripleBarrierConf(BaseModel):
     # Configure the parameters for the position
@@ -33,8 +32,6 @@ Key Configs:
 
 Example:
 
-![triple barrier](/images/strategies/v2-strategies/executors/triple_barrier.png)
-
 The [PositionExecutor](https://github.com/hummingbot/hummingbot/blob/master/hummingbot/strategy_v2/executors/position_executor/position_executor.py) class implements the [Triple Barrier Method](https://www.mlfinlab.com/en/latest/labeling/tb_meta_labeling.html) popularized in Martin Prado's famous book [Advances in Financial Machine Learning](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086).
 
 The triple barrier method is a structured approach to position management, where three "barriers" determine the outcome of a trade:
@@ -45,14 +42,12 @@ The triple barrier method is a structured approach to position management, where
 
 Additionally, `PositionExecutor` also contains a **Trailing Stop** mechanism, which dynamically adjusts the stop loss level as favorable price movements occur.
 
-
 ### Spot vs Perpetual Behavior
  
 The `PositionExecutor` class is designed to work on both spot and perpetual exchanges, allowing you to write strategies that be used on either type:
 
 * On perpetual exchanges, they apply the take-profit and stop-loss levels described below to manage a long or short position after it has been created.
-* On spot exchanges, they place take-profit and stop-loss orders to manage an order after it has been filled. This is similar to [Hanging Orders](../../../strategies/v1-strategies/strategy-configs/hanging-orders) but on an individual order level.
-
+* On spot exchanges, they place take-profit and stop-loss orders to manage an order after it has been filled. This is similar to [Hanging Orders](https://hummingbot.org/strategies/v1-strategies/strategy-configs/hanging-orders/) but on an individual order level.
 
 ### Configuration
 
@@ -72,22 +67,13 @@ triple_barrier_confs = TripleBarrierConf(
 
 Activated when the price moves against the position beyond a specified threshold.
 
-![](/images/strategies/v2-strategies/executors/stop_loss.png)
-
-
-
 #### Take Profit
 
 Triggered when the price reaches a pre-set level that represents a desired profit.
 
-![](/images/strategies/v2-strategies/executors/take_profit.png)
-
-
 #### Time Limit
 
 When the time limit is reached, the position will be closed or an opposing trade will be executed.
-
-![](/images/strategies/v2-strategies/executors/time_limit.png)
 
 #### Trailing Stop
 
@@ -95,9 +81,6 @@ The trailing stop evaluates the position after a certain time has passed and may
 
 - `trailing_stop_activation_price_delta`: The price movement required to activate a trailing stop.
 - `trailing_stop_trailing_delta`: The distance maintained behind the price as a trailing stop, which adjusts as the price moves favorably.
-
-![](/images/strategies/v2-strategies/executors/trailing_stop.png)
-
 
 ### Execution Flow
 

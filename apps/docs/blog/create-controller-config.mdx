@@ -5,17 +5,11 @@ date: "2025-06-10"
 category: "Engineering"
 ---
 
-![cover](/images/blog/create-controller-config/cover.png)
-
 ## What are Controllers?
 
 In Hummingbot’s new Strategy V2 framework, **Controllers** are tools that manage your trading strategies. They gather market data (such as price information and trading volumes) and use it to make trading decisions automatically.
 
 Controllers allow you to handle multiple trading strategies or trading pairs without needing separate bots. This helps simplify management and saves resources.
-
-
-
-[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/11.png)](../../../strategies/v2-strategies/diagrams/11.png)
 
 ## Example Scenario
 
@@ -29,8 +23,6 @@ Previously, you'd need multiple bots for this. But with Hummingbot’s V2 Contro
 ## Step-by-Step Guide
 
 ### Step 1: Create Controller Configurations
-
-[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/15.png)](../../../strategies/v2-strategies/diagrams/15.png)
 
 To set up your controllers, run the following command:
 
@@ -72,7 +64,6 @@ Enter a new file name for your configuration >> conf_market_making.pmm_simple_1.
 
 ```
 
-
 Save your configurations with distinct names, such as:
 
 * `conf_market_making.pmm_simple_1.yml`
@@ -85,8 +76,6 @@ These files will be located at:
 ```
 
 ### Step 2: Create the Generic Script
-
-[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/16.png)](../../../strategies/v2-strategies/diagrams/16.png)
 
 Now, create a generic script to run both controller configurations simultaneously:
 
@@ -118,8 +107,6 @@ Check its status using:
 ```shell
 status --live
 ```
-
-[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/20.png)](../../../strategies/v2-strategies/diagrams/20.png)
 
 ## Making Dynamic Updates
 

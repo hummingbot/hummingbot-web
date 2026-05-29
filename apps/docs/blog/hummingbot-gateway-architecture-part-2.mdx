@@ -1,11 +1,9 @@
 ---
 title: "Hummingbot Gateway Architecture - Part 2"
-description: "Update (February 2023): Hummingbot Gateway v2 is now available as a standalone Github repository: [https://github.com/hummingbot/gateway](https://github.co"
+description: "Update (February 2023): Hummingbot Gateway v2 is now available as a standalone Github repository: https://github.com/hummingbot/gateway. Most of the functi"
 date: "2021-10-18"
 category: "Engineering"
 ---
-
-![cover](/images/blog/hummingbot-gateway-architecture-part-2/cover.jpg)
 
 *by Martin Kou*
 
@@ -16,16 +14,12 @@ Introduction
 
 In [Part 1](../hummingbot-gateway-architecture-part-1/index) of this series, we have discussed the architectural changes we are making to Hummingbot Gateway v2 to improve its robustness and reliability, to bring it up to the service quality level expected of production trading systems.
 
-
-
 In part 2 of this blog series, we will be talking about architectural changes that concerns Gateway v2 interacts with you. In particular, we will be discussion improvements we're going to make to first-time user experience, and also improvements to community developer experience.
 
 User Experience
 ---------------
 
-![gateway-user-experience](https://images.ctfassets.net/h07e7qaokuyy/3C4cZzXV5hyhbYrXiVjRL4/f737e39d5ae420358541e3174c8f8d63/photo-1623043453741-11aef9cb59b5?w=750&h=1125&fl=progressive&q=100&fm=jpg)Hummingbot Gateway is a backend system, where the ideal user experience is it's easy to set up, and then it runs reliably in the background and let the user focus on trading. In occasion the user needs to reconfigure or upgrade the gateway, the documentations and instructions should be clear, and the configuration steps should be easy to carry out.
-
-
+Hummingbot Gateway is a backend system, where the ideal user experience is it's easy to set up, and then it runs reliably in the background and let the user focus on trading. In occasion the user needs to reconfigure or upgrade the gateway, the documentations and instructions should be clear, and the configuration steps should be easy to carry out.
 
 Gateway v2 is going to come with a series of improvements to bring its user experience more in-line with major production server software like Apache or MySQL. We will be focusing our efforts in the following major areas:
 
@@ -100,7 +94,7 @@ The installation documentation for Gateway v2 will be greatly expanded, and we w
 Developer Experience
 --------------------
 
-![gateway-developer-experience](https://images.ctfassets.net/h07e7qaokuyy/3N5kWVhYs07AtybGo0c9c3/8247d3f17950c9176fcb9cafee42b8ba/photo-1598520106830-8c45c2035460?w=750&h=563&fl=progressive&q=100&fm=jpg)Hummingbot is an open source project. We expect that in the long term, community members will be making the majority of contributions for DEX connectors, feature requests and bug fixes.
+Hummingbot is an open source project. We expect that in the long term, community members will be making the majority of contributions for DEX connectors, feature requests and bug fixes.
 
 This implies we will also need to account for the user experience from the point of view of community developers. For example, consider somebody who wants to develop a new DEX connector for Hummingbot Gateway - we will need to plan for things like documentations, community support, the process of proposing and adding new connectors, the acceptance standards on our side, etc.
 
@@ -133,7 +127,7 @@ This includes documentations for every available API endpoint in Gateway v2, wit
 
 ### **Feedback Loop**
 
-![gateway-feedback-loop](https://images.ctfassets.net/h07e7qaokuyy/3hRlrECY2vKXLRrtU1VHg3/cca8f2877fd6a97a20a98a222cd8c0cb/photo-1562877773-a37120131ec4?w=750&h=501&fl=progressive&q=100&fm=jpg)After reading through the documentations, community developers will need guidance from the moment they got the first "Hello World"-style API working, to the moment the new connector is approved and accepted by the Hummingbot team.
+After reading through the documentations, community developers will need guidance from the moment they got the first "Hello World"-style API working, to the moment the new connector is approved and accepted by the Hummingbot team.
 
 This feedback to the developer can come in many forms in addition to community feedback and discussions. Test cases, documentations and certification standards are also useful for the community developer to pace himself and make sure he's on the right track.
 
