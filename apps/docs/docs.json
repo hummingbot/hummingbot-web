@@ -153,58 +153,9 @@
             ]
           },
           {
-            "group": "Gateway DEX Middleware",
-            "pages": [
-              "documentation/gateway",
-              "documentation/gateway/installation",
-              "documentation/gateway/configuration",
-              "documentation/gateway/commands",
-              "documentation/gateway/chains",
-              "documentation/gateway/connectors",
-              "documentation/gateway/rpc",
-              "documentation/gateway/strategies"
-            ]
-          },
-          {
-            "group": "Hummingbot API",
-            "pages": [
-              "documentation/hummingbot-api",
-              "documentation/hummingbot-api/installation",
-              "documentation/hummingbot-api/quickstart",
-              "documentation/hummingbot-api/routers"
-            ]
-          },
-          {
-            "group": "Hummingbot MCP & Skills",
-            "pages": [
-              "documentation/mcp",
-              "documentation/mcp/installation",
-              "documentation/mcp/tools",
-              "documentation/mcp/skills"
-            ]
-          },
-          {
-            "group": "Condor",
-            "pages": [
-              "documentation/condor"
-            ]
-          },
-          {
             "group": "Dashboard",
             "pages": [
-              "documentation/dashboard",
-              "documentation/dashboard/credentials",
-              "documentation/dashboard/portfolio",
-              "documentation/dashboard/config",
-              "documentation/dashboard/backtest",
-              "documentation/dashboard/deploy",
-              "documentation/dashboard/instances"
-            ]
-          },
-          {
-            "group": "Quants Lab",
-            "pages": [
-              "documentation/quants-lab"
+              "documentation/dashboard"
             ]
           },
           {
@@ -314,7 +265,16 @@
         "tab": "Hummingbot API",
         "groups": [
           {
-            "group": "Overview",
+            "group": "Hummingbot API",
+            "pages": [
+              "documentation/hummingbot-api",
+              "documentation/hummingbot-api/installation",
+              "documentation/hummingbot-api/quickstart",
+              "documentation/hummingbot-api/routers"
+            ]
+          },
+          {
+            "group": "API Reference",
             "pages": [
               "api-reference",
               "api-reference/architecture",
@@ -324,6 +284,42 @@
           }
         ],
         "openapi": "api-reference/openapi.json"
+      },
+      {
+        "tab": "Other Repos",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "other-repos/overview"
+            ]
+          },
+          {
+            "group": "Gateway",
+            "pages": [
+              "documentation/gateway",
+              "documentation/gateway/installation",
+              "documentation/gateway/configuration",
+              "documentation/gateway/commands",
+              "documentation/gateway/chains",
+              "documentation/gateway/connectors",
+              "documentation/gateway/rpc",
+              "documentation/gateway/strategies"
+            ]
+          },
+          {
+            "group": "Deploy",
+            "pages": [
+              "documentation/deploy"
+            ]
+          },
+          {
+            "group": "Quants Lab",
+            "pages": [
+              "documentation/quants-lab"
+            ]
+          }
+        ]
       },
       {
         "tab": "Exchanges",
@@ -610,8 +606,8 @@
     ]
   },
   "logo": {
-    "light": "/logo/hummingbot-icon-dark.png",
-    "dark": "/logo/hummingbot-icon-light.png"
+    "light": "/logo/hummingbot-icon-light.png",
+    "dark": "/logo/hummingbot-icon-dark.png"
   },
   "navbar": {
     "links": [
