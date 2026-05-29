@@ -63,7 +63,7 @@ export default async function BrowsePage({
 
         <div className="flex flex-col gap-8 lg:flex-row">
           <FilterSidebar categories={allCategories()} exchanges={allExchanges()} />
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             {rows.length === 0 ? (
               <div className="rounded-xl border border-dashed border-ink-800 p-12 text-center text-ink-500">
                 No {plural} match your filters.

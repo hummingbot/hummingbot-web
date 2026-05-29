@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# @hummingbot/site
 
-## Getting Started
+Marketing site for Hummingbot (`hummingbot.org`) — home, volumes, and about.
+Part of the `hummingbot-web` Turborepo; consumes `@hummingbot/brand`,
+`@hummingbot/tokens`, and `@hummingbot/ui`.
 
-First, run the development server:
+- **Framework:** Next.js (App Router) + React, Tailwind v4, shadcn/ui
+- **Type/display font:** Satoshi (shipped via `@hummingbot/tokens`)
+
+## Develop
+
+Run from the repo root (uses a non-3000 port to avoid clashing with the other apps):
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev --workspace @hummingbot/site -- --port 3101
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3101.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The Docs (Mintlify) and Hub live on their own domains in production. Point them
+at local instances with env overrides:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+NEXT_PUBLIC_DOCS_URL=http://localhost:3103 \
+NEXT_PUBLIC_HUB_URL=http://localhost:3102 \
+  npm run dev --workspace @hummingbot/site -- --port 3101
+```
 
-## Learn More
+## Checks
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run typecheck --workspace @hummingbot/site
+npm run lint --workspace @hummingbot/site
+npm run build --workspace @hummingbot/site
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Newsletter signup is the Substack embed in `src/components/home/newsletter-discord.tsx`.
+- `/install.sh` and `/condor.sh` are 302 vanity redirects to the `deploy` repo
+  (see `next.config.ts`).
+- GitHub stars / release tags are fetched at build/ISR (`src/lib/github.ts`);
+  set `GITHUB_TOKEN` to raise the API rate limit.

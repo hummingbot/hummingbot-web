@@ -3,7 +3,7 @@
 import { ArrowUpRight, ChevronDown, Github, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { Button, cn } from "@hummingbot/ui";
+import { buttonVariants, cn } from "@hummingbot/ui";
 import { nav, urls, type NavItem } from "@/config/site";
 import { Logo } from "./logo";
 
@@ -90,8 +90,13 @@ export function SiteHeader() {
           >
             <Github className="size-5" aria-hidden="true" />
           </a>
-          <a href={urls.docs} target="_blank" rel="noreferrer">
-            <Button size="sm">Get Started</Button>
+          <a
+            href={urls.docs}
+            target="_blank"
+            rel="noreferrer"
+            className={buttonVariants({ size: "sm" })}
+          >
+            Get Started
           </a>
         </div>
 
@@ -125,6 +130,22 @@ export function SiteHeader() {
                   {item.label}
                   {item.external && <ArrowUpRight className="size-4 opacity-60" aria-hidden="true" />}
                 </Link>
+                {item.children?.length ? (
+                  <ul className="ml-3 border-l border-ink-800 pl-3">
+                    {item.children.map((c) => (
+                      <li key={c.label}>
+                        <Link
+                          href={c.href}
+                          {...(/^https?:/.test(c.href) ? { target: "_blank", rel: "noreferrer" } : {})}
+                          onClick={() => setOpen(false)}
+                          className="flex items-center gap-1 rounded-md px-3 py-2 text-sm text-ink-400 hover:bg-ink-900 hover:text-foreground"
+                        >
+                          {c.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </li>
             ))}
             {[
@@ -146,15 +167,23 @@ export function SiteHeader() {
             ))}
           </ul>
           <div className="mt-4 flex gap-2">
-            <a href={urls.docs} className="flex-1">
-              <Button size="md" className="w-full">
-                Get Started
-              </Button>
+            <a
+              href={urls.docs}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setOpen(false)}
+              className={cn(buttonVariants({ size: "md" }), "flex-1")}
+            >
+              Get Started
             </a>
-            <a href={urls.github} target="_blank" rel="noreferrer" className="flex-1">
-              <Button size="md" variant="outline" className="w-full">
-                GitHub
-              </Button>
+            <a
+              href={urls.github}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setOpen(false)}
+              className={cn(buttonVariants({ size: "md", variant: "outline" }), "flex-1")}
+            >
+              GitHub
             </a>
           </div>
         </nav>

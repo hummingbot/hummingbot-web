@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, GradientText } from "@hummingbot/ui";
+import { buttonVariants, GradientText } from "@hummingbot/ui";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { urls } from "@/config/site";
@@ -19,13 +19,16 @@ export default function NotFound() {
           The page you&apos;re looking for doesn&apos;t exist or may have moved.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link href="/">
-            <Button size="lg">Back to home</Button>
+          <Link href="/" className={buttonVariants({ size: "lg" })}>
+            Back to home
           </Link>
-          <a href={urls.docs} target="_blank" rel="noreferrer">
-            <Button size="lg" variant="outline">
-              Read the docs
-            </Button>
+          <a
+            href={urls.docs}
+            target="_blank"
+            rel="noreferrer"
+            className={buttonVariants({ size: "lg", variant: "outline" })}
+          >
+            Read the docs
           </a>
         </div>
       </main>

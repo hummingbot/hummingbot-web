@@ -1,5 +1,5 @@
 import { ArrowRight, Github, Star } from "lucide-react";
-import { Button, GradientText } from "@hummingbot/ui";
+import { buttonVariants, GradientText } from "@hummingbot/ui";
 import { urls } from "@/config/site";
 import { formatStars, getLatestRelease, getRepoStars } from "@/lib/github";
 import { InstallTabs } from "./install-tabs";
@@ -46,22 +46,28 @@ export async function Hero() {
         />
 
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <a href={urls.docs} target="_blank" rel="noreferrer">
-            <Button size="lg">
-              Get Started <ArrowRight className="size-4" aria-hidden="true" />
-            </Button>
+          <a
+            href={urls.docs}
+            target="_blank"
+            rel="noreferrer"
+            className={buttonVariants({ size: "lg" })}
+          >
+            Get Started <ArrowRight className="size-4" aria-hidden="true" />
           </a>
-          <a href={urls.github} target="_blank" rel="noreferrer">
-            <Button size="lg" variant="outline">
-              <Github className="size-4" aria-hidden="true" />
-              Star on GitHub
-              {hbStars != null && (
-                <span className="ml-1 inline-flex items-center gap-1 tabular-nums text-ink-400">
-                  <Star className="size-3.5 fill-current" aria-hidden="true" />
-                  {formatStars(hbStars)}
-                </span>
-              )}
-            </Button>
+          <a
+            href={urls.github}
+            target="_blank"
+            rel="noreferrer"
+            className={buttonVariants({ size: "lg", variant: "outline" })}
+          >
+            <Github className="size-4" aria-hidden="true" />
+            Star on GitHub
+            {hbStars != null && (
+              <span className="ml-1 inline-flex items-center gap-1 tabular-nums text-ink-400">
+                <Star className="size-3.5 fill-current" aria-hidden="true" />
+                {formatStars(hbStars)}
+              </span>
+            )}
           </a>
         </div>
       </div>

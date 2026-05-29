@@ -13,6 +13,8 @@ export type Logo = {
   /** filename for light backgrounds (falls back to `dark` if absent) */
   light?: string;
   kind: "exchange" | "investor" | "press" | "partner";
+  /** docs Exchanges-tab slug (apps/docs/exchanges/<slug>); omit if no page exists */
+  slug?: string;
 };
 
 const logo = (
@@ -20,22 +22,31 @@ const logo = (
   base: string,
   kind: Logo["kind"],
   paired = true,
-): Logo =>
-  paired
-    ? { name, kind, dark: `${base}-dark.png`, light: `${base}-light.png` }
-    : { name, kind, dark: `${base}.png` };
+  slug?: string,
+): Logo => ({
+  name,
+  kind,
+  ...(paired
+    ? { dark: `${base}-dark.png`, light: `${base}-light.png` }
+    : { dark: `${base}.png` }),
+  ...(slug ? { slug } : {}),
+});
 
-/** Exchanges / protocols (CLOB + DEX) shown in the "used by" + exchanges grids. */
+/**
+ * Exchanges / protocols (CLOB + DEX) shown in the "used by" + exchanges grids.
+ * `slug` deep-links each logo into the docs Exchanges tab; Vega/Ripple have no
+ * dedicated connector page yet, so they fall back to the exchanges index.
+ */
 export const exchanges: Logo[] = [
-  logo("Binance", "binance", "exchange"),
-  logo("Gate.io", "gate", "exchange"),
-  logo("OKX", "okx", "exchange"),
-  logo("Hyperliquid", "hyperliquid", "exchange"),
-  logo("Derive", "derive", "exchange"),
-  logo("dYdX", "dydx", "exchange"),
-  logo("KuCoin", "kucoin-logo", "exchange"),
-  logo("HTX", "htx-logo", "exchange"),
-  logo("XRPL", "xrpl", "exchange"),
+  logo("Binance", "binance", "exchange", true, "binance"),
+  logo("Gate.io", "gate", "exchange", true, "gate-io"),
+  logo("OKX", "okx", "exchange", true, "okx"),
+  logo("Hyperliquid", "hyperliquid", "exchange", true, "hyperliquid"),
+  logo("Derive", "derive", "exchange", true, "derive"),
+  logo("dYdX", "dydx", "exchange", true, "dydx"),
+  logo("KuCoin", "kucoin-logo", "exchange", true, "kucoin"),
+  logo("HTX", "htx-logo", "exchange", true, "htx"),
+  logo("XRPL", "xrpl", "exchange", true, "xrpl"),
   logo("Vega", "vega", "exchange"),
   logo("Ripple", "ripple", "exchange"),
 ];

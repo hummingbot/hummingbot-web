@@ -16,16 +16,23 @@ export function CopyButton({
   const [copied, setCopied] = useState(false);
 
   const onCopy = useCallback(() => {
-    navigator.clipboard.writeText(value).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    navigator.clipboard.writeText(value).then(
+      () => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      },
+      (err) => {
+        // Clipboard can reject (insecure context / denied permission).
+        console.warn(`[copy] clipboard write failed: ${(err as Error).message}`);
+      },
+    );
   }, [value]);
 
   return (
     <button
       type="button"
       onClick={onCopy}
+      data-state={copied ? "copied" : "idle"}
       aria-label={copied ? "Copied" : label}
       className={cn(
         "inline-flex size-8 items-center justify-center rounded-md text-ink-400 transition-colors hover:bg-ink-800 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",

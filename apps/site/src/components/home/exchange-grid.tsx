@@ -20,17 +20,18 @@ export function ExchangeGrid() {
         {exchanges.map((ex) => (
           <li key={ex.name}>
             <a
-              href={urls.exchanges}
+              href={ex.slug ? `${urls.exchanges}/${ex.slug}` : urls.exchanges}
               target="_blank"
               rel="noreferrer"
-              className="flex h-20 items-center justify-center rounded-xl border border-ink-800 bg-card transition-colors hover:border-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              title={ex.name}
+              className="group flex h-20 items-center justify-center rounded-xl border border-ink-800 bg-card transition-colors hover:border-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`/brand/logos/${ex.dark}`}
                 alt={ex.name}
                 height={24}
-                className="h-6 w-auto max-w-[70%] opacity-70 grayscale transition group-hover:opacity-100"
+                className="h-6 w-auto max-w-[70%] opacity-80 grayscale transition group-hover:opacity-100 group-hover:grayscale-0"
                 loading="lazy"
               />
             </a>

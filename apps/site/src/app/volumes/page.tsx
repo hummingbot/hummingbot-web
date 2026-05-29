@@ -13,10 +13,15 @@ export const metadata: Metadata = {
 export default function VolumesPage() {
   const data = getVolumesData();
   const nf = (n: number) => new Intl.NumberFormat("en-US").format(n);
+  // Format date-only ISO strings in UTC so e.g. "2026-03-16" never shifts to
+  // the prior day in negative-offset timezones (was rendering "March 15" in PT).
   const fmtDate = (iso: string) =>
-    new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(
-      new Date(iso),
-    );
+    new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    }).format(new Date(iso));
 
   return (
     <>

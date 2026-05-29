@@ -29,7 +29,7 @@ export function PrimitiveCard({ p }: { p: Primitive }) {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               href={href}
-              className="font-mono text-sm text-foreground hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+              className="break-all font-mono text-sm text-foreground hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
               translate="no"
             >
               {slugOf(p)}
@@ -39,7 +39,7 @@ export function PrimitiveCard({ p }: { p: Primitive }) {
           <p className="mt-1 text-sm text-ink-400 text-pretty">{p.summary}</p>
 
           <div className="mt-3 flex items-center gap-2 rounded-md bg-ink-950 px-3 py-1.5">
-            <code className="flex-1 truncate font-mono text-xs text-ink-400" translate="no">
+            <code className="min-w-0 flex-1 truncate font-mono text-xs text-ink-400" translate="no">
               {installCommand(p)}
             </code>
             <CopyButton value={installCommand(p)} label="Copy install command" className="size-6 shrink-0" />
