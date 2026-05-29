@@ -15,7 +15,7 @@ hummingbot/  (Turborepo, npm workspaces)
 ├─ apps/
 │  ├─ site/   → hummingbot.org      (marketing: home, volumes, about, install vanity routes)
 │  ├─ hub/    → hub.hummingbot.org  (ClawHub-style registry: UI + API + Prisma/Neon + OAuth + jobs)
-│  └─ docs/   → docs.hummingbot.org (Mintlify, points at this subdir; docs + Exchanges tab + blog/releases)
+│  └─ docs/   → docs.hummingbot.org (Mintlify; tabs: Documentation, Condor, Hummingbot API, Exchanges, Blog, Podcast)
 ├─ packages/
 │  ├─ brand/   logos, favicons, OG images        (site+hub import; docs references files)
 │  ├─ tokens/  design tokens as CSS @theme + TS   (one source of truth — §3.1)
@@ -26,11 +26,11 @@ hummingbot/  (Turborepo, npm workspaces)
 | Nav item | Where | Notes |
 |---|---|---|
 | **Home** | `apps/site` | New build |
-| **Docs** | `apps/docs` (Mintlify) | `~/condor-docs` + new Hummingbot sections. **Exchanges = a tab here.** |
+| **Docs** | `apps/docs` (Mintlify) | `~/condor-docs` + new Hummingbot sections. Six tabs: **Documentation, Condor, Hummingbot API, Exchanges, Blog, Podcast.** |
 | **Hub** | `apps/hub` | ClawHub-style registry; own deploy + DB. Linked from nav. |
 | **Education** | external ↗ | → Botcamp |
 | **Rewards** | external ↗ | → XRPLiquid |
-| **Blog + Releases** | `apps/docs` (Mintlify) | Unified MDX store (103 posts + ~47 release notes), Mintlify search — §8 |
+| **Blog + Releases** | `apps/docs` (Mintlify) | Unified MDX store (103 posts + 48 release notes), Mintlify search — §8 |
 | **Volumes** (`/volumes`) | `apps/site` | Rebuild [`hummingbot/datadog`](https://github.com/hummingbot/datadog) natively |
 | **About** | `apps/site` | Foundation, Bounties, HBOT, Governance |
 
@@ -55,7 +55,7 @@ Aligned with `~/botcamp-site`'s stack so the **data patterns and tokens** carry 
 - **TypeScript**.
 - **Tailwind CSS v4 + shadcn/ui** ✅ (decided) — CSS-first `@theme inline` config (use the `tailwind-v4-shadcn` skill for the four-step setup). We **redesign all components from scratch** in a clean, modern bun.sh-inspired style rather than lifting Botcamp's v3 components 1:1.
 - **Shared Hummingbot Design System tokens** defined in Botcamp's `globals.css` (`--hb-teal #5FFFD7`, `--hb-yellow #FCDB17`, `--hb-magenta #E549FF`, `--hb-orange #EF8728`, `--hb-cyan #00C2CE`, full ink scale, bull/bear semantics). We **port the token values into the v4 `@theme`** (in `packages/tokens`) so brand colors stay consistent across Hummingbot / Condor / Botcamp — but the component layer is new.
-- **MDX** for the unified blog + release notes (§8 — 103 posts + ~47 release notes).
+- **MDX** for the unified blog + release notes (§8 — 103 posts + 48 release notes).
 - **Deploy on Vercel.**
 - **Runtime / package manager: npm** ✅ (decided) — matches Botcamp; bun.sh is an *aesthetic* reference only, not a tooling mandate.
 
@@ -88,7 +88,7 @@ Logo   Home   Docs ↗   Hub ▾   Volumes   Blog ↗   About ▾    [Education 
                                                         └ Governance
 ```
 
-- **Docs ↗** → `docs.hummingbot.org` (Mintlify) — Documentation + **Exchanges tab** + **Blog tab**.
+- **Docs ↗** → `docs.hummingbot.org` (Mintlify) — six tabs: **Documentation, Condor, Hummingbot API, Exchanges, Blog, Podcast**.
 - **Blog ↗** → `docs.hummingbot.org/blog` (Mintlify), with a **Releases** group; both Docs and Blog point into the same Mintlify app.
 - **Hub ▾** → `hub.hummingbot.org` (Strategies / Routines / Agents browse views).
 - **Education** and **Rewards** are external `↗` redirects.
@@ -102,7 +102,7 @@ Modeled closely on [bun.sh](https://bun.sh): a dark, dense, scroll-driven single
 
 ### 5.0 Announcement bar — `<AnnouncementBar>`
 Slim dismissible bar above the nav (bun.sh: *"Bun is joining Anthropic →"*). Single line, centered, accent left-border or gradient underline, `↗`/`→` affordance, dismiss `✕` persisted to `localStorage`.
-- **Content:** editable single entry (text + href) from a small config (`/config/announcement.ts`). **Use the current site's banner:** *"**Introducing Condor 🦅** — The Open Source Harness for Trading Agents ➡️"*, linking to the Condor intro blog post (now `docs.hummingbot.org/blog/introducing-condor-the-open-source-harness-for-trading-agents`).
+- **Content:** editable single entry (text + href) from a small config (`/config/announcement.ts`). **Use the current site's banner:** *"**Introducing Condor 🦅** — The Open Source Harness for Trading Agents ➡️"*, linking to the Condor intro blog post (`docs.hummingbot.org/blog/introducing-condor`).
 - **A11y:** `role="region" aria-label="Announcement"`; dismiss is a real `<button aria-label="Dismiss announcement">`; height collapses without layout shift (animate `height`/`opacity`, honor `prefers-reduced-motion`).
 
 ### 5.1 Hero + install — `<Hero>`, `<InstallCommand>`
@@ -145,7 +145,7 @@ bun.sh's 6-category grid where each category is an icon+title header over a list
 Compact stat strip — "**$X** traded · **N** exchanges · **N** bots" (top-line aggregates read from the `/volumes` dataset, §7), tabular-nums + `Intl.NumberFormat`, with "View full dashboard →" → `/volumes`. Optional small sparkline of daily volume.
 
 ### 5.6 Exchanges — `<ExchangeGrid>`
-Logo grid of 50+ supported exchanges, grouped/labeled by type (CLOB CEX / CLOB DEX / Gateway DEX). Each logo links into the **Docs Exchanges tab** (keeps existing slugs). Data: the exchange list under `~/hummingbot-site/docs/exchanges` (+ logo assets). "View all exchanges →" link.
+Logo grid of supported exchanges, grouped/labeled by type (CLOB CEX / CLOB DEX / Gateway DEX). The Docs Exchanges tab currently ships **35 CEX/DEX connectors + 12 Gateway DEXs** (47 pages); "50+" is the marketing aggregate (connectors + Gateway blockchain networks). Each logo links into the **Docs Exchanges tab** (keeps existing slugs). Data: the exchange list under `~/hummingbot-site/docs/exchanges` (+ logo assets). "View all exchanges →" link.
 
 ### 5.7 "Market Makers love Hummingbot" — `<TweetMarquee>` *(NEW — models bun.sh "Developers love Bun")*
 Heading "**Market Makers love Hummingbot.**" (brand-gradient, like bun's pink title) over **3 rows of horizontally-scrolling tweet cards**, adjacent rows scrolling **opposite directions**, edges fading via a CSS mask.
@@ -354,7 +354,7 @@ Four sections (own pages or one page with anchors): **Foundation**, **Bounties**
 **Track C — `apps/docs` (Mintlify — docs + blog):**
 1. Move `~/condor-docs` (incl. `docs.json`) into `apps/docs`; enable Mintlify **Git Settings → "Set up as monorepo"**, path `/apps/docs`; mirror brand colors in `docs.json`.
 2. Add Hummingbot doc sections + **Exchanges tab** (keep slugs) + release-process page.
-3. **Blog + Release Notes** (§8) — migration script (103 posts + ~47 release notes) → `apps/docs/blog`, "Blog" tab with category groups + Releases group; cross-domain redirect map for `/release-notes/*` and `/blog/*`.
+3. **Blog + Release Notes** (§8) — migration script (103 posts + 48 release notes) → `apps/docs/blog`, "Blog" tab with category groups + Releases group; cross-domain redirect map for `/release-notes/*` and `/blog/*`.
 
 ## 11. Decisions
 
@@ -390,6 +390,8 @@ All deploys managed via the **Vercel CLI** (`vercel`, `vercel deploy`, `vercel e
 | `apps/site` | `apps/site` | **`dev.hummingbot.org`** (soft-launch) → later apex `hummingbot.org` | Test the real prod build on `dev` before the apex cutover from the old mkdocs site. |
 | `apps/hub` | `apps/hub` | **`hub.hummingbot.org`** | New site goes live here directly (no legacy to replace). Own env (DB, OAuth). |
 | `apps/docs` | `apps/docs` (Mintlify) | **`docs.hummingbot.org`** | Deployed by Mintlify's GitHub app (monorepo path `/apps/docs`), not Vercel — domain still managed in DNS. Hosts docs + blog + releases. |
+
+> **Note — `condor.hummingbot.org`:** the docs content (e.g. `blog/introducing-condor`, `documentation/condor`, podcast pages) links to `https://condor.hummingbot.org` as the Condor product destination. This subdomain is **not** one of the three apps above; either keep it as an existing external Condor landing page (and list it as a known destination), or update those in-doc links to `docs.hummingbot.org` if Condor has no standalone site.
 
 **Sequencing:**
 1. Build `apps/site` → deploy to `dev.hummingbot.org` (prod build, validate end-to-end).

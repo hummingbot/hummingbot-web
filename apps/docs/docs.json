@@ -9,7 +9,7 @@
   },
   "favicon": "/logo/hummingbot-icon-light.png",
   "metadata": {
-    "og:site_name": "Condor"
+    "og:site_name": "Hummingbot"
   },
   "api": {
     "playground": {
@@ -85,8 +85,7 @@
                   "documentation/strategies/v2-strategies/executors/dcaexecutor",
                   "documentation/strategies/v2-strategies/executors/arbitrage-executor",
                   "documentation/strategies/v2-strategies/executors/xemm-executor",
-                  "documentation/strategies/v2-strategies/executors/twapexecutor",
-                  "documentation/strategies/v2-strategies/executors"
+                  "documentation/strategies/v2-strategies/executors/twapexecutor"
                 ]
               }
             ]
@@ -96,7 +95,6 @@
             "pages": [
               "documentation/connectors",
               "documentation/connectors/clob",
-              "documentation/gateway/connectors",
               {
                 "group": "Building CLOB Connectors",
                 "pages": [
@@ -366,6 +364,23 @@
               "exchanges/pacifica",
               "exchanges/vertex",
               "exchanges/xrpl"
+            ]
+          },
+          {
+            "group": "Gateway DEXs",
+            "pages": [
+              "exchanges/gateway/uniswap",
+              "exchanges/gateway/pancakeswap",
+              "exchanges/gateway/sushiswap",
+              "exchanges/gateway/quickswap",
+              "exchanges/gateway/traderjoe",
+              "exchanges/gateway/curve",
+              "exchanges/gateway/balancer",
+              "exchanges/gateway/etcSwap",
+              "exchanges/gateway/jupiter",
+              "exchanges/gateway/raydium",
+              "exchanges/gateway/orca",
+              "exchanges/gateway/meteora"
             ]
           }
         ]
