@@ -29,6 +29,10 @@ describe("slugOf / installCommand", () => {
       "hummingbot install @condor/market-scanner",
     );
   });
+  it("uses the skills CLI for skill-type entries", () => {
+    const skill = { type: "skill", namespace: "hummingbot", name: "hummingbot-deploy", runtime: "mcp" } as Primitive;
+    expect(installCommand(skill)).toBe("npx skills add hummingbot/skills --skill hummingbot-deploy");
+  });
 });
 
 describe("browse", () => {
@@ -138,7 +142,7 @@ describe("aggregates", () => {
   });
 
   it("countByType sums to the total", () => {
-    const total = (["strategy", "routine", "agent"] as const).reduce(
+    const total = (["strategy", "routine", "skill"] as const).reduce(
       (n, t) => n + countByType(t),
       0,
     );

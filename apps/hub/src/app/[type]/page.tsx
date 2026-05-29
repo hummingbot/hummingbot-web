@@ -17,7 +17,7 @@ export function generateStaticParams() {
 const LABEL: Record<string, string> = {
   strategy: "Strategies",
   routine: "Routines",
-  agent: "Agents",
+  skill: "Skills",
 };
 
 const INTRO: Record<string, string> = {
@@ -25,7 +25,7 @@ const INTRO: Record<string, string> = {
     "Trading bots — market-making, arbitrage and directional — that run on Hummingbot. Includes example scripts, v1 strategies and certified community builds.",
   routine:
     "Analysis, monitoring and reporting workflows for Condor. Routines don't trade — they scan markets, watch prices and generate interactive reports, one-shot or on a schedule.",
-  agent: "Autonomous trading harnesses that combine strategies and routines.",
+  skill: "Installable skills that let AI assistants like Claude, ChatGPT and Gemini operate Hummingbot — checking balances, monitoring markets, managing orders and running strategies through natural language.",
 };
 
 type SP = Record<string, string | string[] | undefined>;

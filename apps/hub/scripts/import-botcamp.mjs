@@ -35,7 +35,6 @@ const slugify = (s) =>
 
 const classify = (r) => {
   const text = `${r.title} ${r.summary ?? ""} ${(r.tags ?? []).join(" ")}`.toLowerCase();
-  if (r.stype === "AGENT" || /\bagents?\b/.test(text)) return "agent";
   if (/\broutines?\b/.test(text)) return "routine";
   return "strategy";
 };

@@ -10,9 +10,9 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Hummingbot Hub — Strategies, Routines & Agents",
+  title: "Hummingbot Hub — Strategies, Routines & Skills",
   description:
-    "The community registry of installable trading strategies, routines, and agents.",
+    "The community registry of installable trading strategies, routines, and skills.",
 };
 
 export default function RootLayout({

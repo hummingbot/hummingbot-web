@@ -22,7 +22,7 @@ function HubLogo() {
 const navItems = [
   { label: "Strategies", href: "/strategies" },
   { label: "Routines", href: "/routines" },
-  { label: "Agents", href: "/agents" },
+  { label: "Skills", href: "/skills" },
   { label: "Publishers", href: "/publishers" },
 ];
 

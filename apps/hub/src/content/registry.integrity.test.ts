@@ -9,8 +9,8 @@ const primitives = data.primitives as Primitive[];
 const publishers = data.publishers as { handle: string }[];
 const handles = new Set(publishers.map((p) => p.handle));
 
-const TYPES = new Set(["strategy", "routine", "agent"]);
-const RUNTIMES = new Set(["hummingbot", "condor"]);
+const TYPES = new Set(["strategy", "routine", "skill"]);
+const RUNTIMES = new Set(["hummingbot", "condor", "mcp"]);
 const isISODate = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s);
 
 describe("registry.json schema", () => {
@@ -70,11 +70,21 @@ describe("first-party primitives", () => {
     expect(firstParty.length).toBeGreaterThanOrEqual(29);
   });
 
-  it("all bundle source and link to a GitHub repo", () => {
-    for (const p of firstParty) {
+  it("strategies & routines bundle source and link to a GitHub repo", () => {
+    // Skills are referenced from the hummingbot/skills repo, not bundled on disk.
+    for (const p of firstParty.filter((p) => p.type !== "skill")) {
       expect(p.hasSource, `${p.name} hasSource`).toBe(true);
       expect(p.files?.length, `${p.name} files`).toBeGreaterThan(0);
       expect(p.repoURL, `${p.name} repoURL`).toMatch(/^https:\/\/github\.com\/hummingbot\//);
+    }
+  });
+
+  it("skills are mcp-runtime and link to the skills repo", () => {
+    const skills = primitives.filter((p) => p.type === "skill");
+    expect(skills.length).toBeGreaterThan(0);
+    for (const s of skills) {
+      expect(s.runtime, `${s.name} runtime`).toBe("mcp");
+      expect(s.repoURL, `${s.name} repoURL`).toMatch(/^https:\/\/github\.com\/hummingbot\/skills\//);
     }
   });
 

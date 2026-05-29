@@ -17,6 +17,12 @@ import { loadSources } from "@/lib/sources";
 import data from "@/content/registry.json";
 import { fmtDate, fmtNum, PLURAL, SUBTYPE_LABEL, toSingular } from "@/lib/types";
 
+const RUNTIME_LABEL: Record<string, string> = {
+  hummingbot: "Hummingbot",
+  condor: "Condor",
+  mcp: "an MCP-compatible AI assistant",
+};
+
 export function generateStaticParams() {
   return (data.primitives as { type: keyof typeof PLURAL; namespace: string; name: string }[]).map(
     (p) => ({ type: PLURAL[p.type], namespace: p.namespace, name: p.name }),
@@ -52,7 +58,6 @@ export default async function DetailPage({
               <h1 className="font-mono text-2xl font-semibold sm:text-3xl" translate="no">
                 {slugOf(p)}
               </h1>
-              <Badge variant="default">v{p.latest}</Badge>
               {p.certified && <Badge variant="brand">Certified</Badge>}
               {p.subtype && p.subtype !== "routine" && (
                 <Badge variant="default">{SUBTYPE_LABEL[p.subtype]}</Badge>
@@ -90,7 +95,6 @@ export default async function DetailPage({
             />
           )}
           {isRoutine && <Stat label="Mode" value={p.continuous ? "Continuous" : "One-shot"} />}
-          <Stat label="Versions" value={String(p.versions.length)} />
           <Stat label="Updated" value={fmtDate(p.updated)} />
           <Stat label="License" value={p.license} />
           {p.cohort != null && <Stat label="Cohort" value={String(p.cohort)} />}
@@ -165,7 +169,7 @@ export default async function DetailPage({
                   </>
                 ) : (
                   <>
-                    Requires {p.runtime === "condor" ? "Condor" : "Hummingbot"}. See the{" "}
+                    Requires {RUNTIME_LABEL[p.runtime]}. See the{" "}
                     <a href="https://docs.hummingbot.org" target="_blank" rel="noreferrer" className="text-brand-teal hover:underline">
                       docs
                     </a>{" "}
@@ -173,23 +177,6 @@ export default async function DetailPage({
                   </>
                 )}
               </p>
-            </section>
-
-            {/* Versions */}
-            <section>
-              <h2 className="mb-3 text-lg font-semibold">Versions</h2>
-              <ul className="divide-y divide-ink-900 rounded-lg border border-ink-800">
-                {p.versions.map((v, i) => (
-                  <li key={v} className="flex items-center justify-between px-4 py-2.5 text-sm">
-                    <span className="font-mono">v{v}</span>
-                    {i === 0 ? (
-                      <Badge variant="brand">latest</Badge>
-                    ) : (
-                      <span className="text-ink-600">{fmtDate(p.updated)}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
             </section>
 
             {related.length > 0 && (
@@ -223,7 +210,7 @@ export default async function DetailPage({
               <ul className="flex flex-col gap-1.5 text-sm text-ink-300">
                 <li className="flex items-center gap-2">
                   <Check className="size-4 text-brand-teal" aria-hidden="true" />
-                  Runtime: {p.runtime === "condor" ? "Condor" : "Hummingbot"}
+                  Runtime: {RUNTIME_LABEL[p.runtime]}
                 </li>
                 {p.exchanges.length > 0 && (
                   <li className="flex items-start gap-2">

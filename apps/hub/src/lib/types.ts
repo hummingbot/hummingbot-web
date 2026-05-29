@@ -3,13 +3,13 @@ import type { PrimitiveType } from "./registry";
 export const PLURAL: Record<PrimitiveType, string> = {
   strategy: "strategies",
   routine: "routines",
-  agent: "agents",
+  skill: "skills",
 };
 
 const SINGULAR: Record<string, PrimitiveType> = {
   strategies: "strategy",
   routines: "routine",
-  agents: "agent",
+  skills: "skill",
 };
 
 export function toSingular(plural: string): PrimitiveType | null {
@@ -27,6 +27,8 @@ export const fmtNum = (n: number) =>
   new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 }).format(n);
 
 export const fmtDate = (iso: string) =>
+  // Parse as local time, not UTC — a bare "YYYY-MM-DD" parses as UTC midnight,
+  // which shifts to the previous day when formatted in a negative-offset zone.
   new Intl.DateTimeFormat("en-US", { year: "numeric", month: "short", day: "numeric" }).format(
-    new Date(iso),
+    new Date(`${iso}T00:00:00`),
   );

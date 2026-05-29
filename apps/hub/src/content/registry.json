@@ -587,7 +587,7 @@
       "authorName": "Jacob Shiohira"
     },
     {
-      "type": "agent",
+      "type": "strategy",
       "namespace": "james-lo-tsz",
       "name": "meteora-lp-agent",
       "summary": "Autonomous concentrated liquidity market-maker on Meteora Dynamic Liquidity Market Maker (DLMM) on Solana. Each tick, it scans Meteora DLMM pools via GeckoTerminal, selects the pool with the highest volume-to-total-value-locked (V/T) ratio that passes structural and routability checks, rebalances the wallet via Jupiter if needed, and deploys a managed liquidity-providing (LP) position — closing it automatically when defined exit conditions are met.",
@@ -615,11 +615,11 @@
       "authorName": "James LO"
     },
     {
-      "type": "agent",
+      "type": "strategy",
       "namespace": "raj",
       "name": "market-making-at-the-touch",
-      "summary": "A market-making strategy optimised for posting at the top of the order book (the \"touch\") on both sides. \nIt decides, at every tick, whether to keep a buy LO at the best bid and/or a sell LO at the best ask, based on the agent's current inventory and how much time is left in a rolling horizon. \nThe decision rule comes from solving an offline stochastic-control problem; the live controller is just a fast lookup against a pre-baked table.",
-      "description": "A market-making strategy optimised for posting at the top of the order book (the \"touch\") on both sides. \nIt decides, at every tick, whether to keep a buy LO at the best bid and/or a sell LO at the best ask, based on the agent's current inventory and how much time is left in a rolling horizon. \nThe decision rule comes from solving an offline stochastic-control problem; the live controller is just a fast lookup against a pre-baked table.",
+      "summary": "A market-making strategy optimised for posting at the top of the order book (the \"touch\") on both sides. \nIt decides, at every tick, whether to keep a buy LO at the best bid and/or a sell LO at the best ask, based on the strategy's current inventory and how much time is left in a rolling horizon. \nThe decision rule comes from solving an offline stochastic-control problem; the live controller is just a fast lookup against a pre-baked table.",
+      "description": "A market-making strategy optimised for posting at the top of the order book (the \"touch\") on both sides. \nIt decides, at every tick, whether to keep a buy LO at the best bid and/or a sell LO at the best ask, based on the strategy's current inventory and how much time is left in a rolling horizon. \nThe decision rule comes from solving an offline stochastic-control problem; the live controller is just a fast lookup against a pre-baked table.",
       "tags": [
         "Market Making",
         "V2 Controller"
@@ -4392,6 +4392,204 @@
           "lines": 181
         }
       ]
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "connectors-available",
+      "summary": "Check which exchanges work from your location and search for tokens with trading rules (min order size, price increment, order types).",
+      "description": "Check which exchanges work from your location and search for tokens with trading rules (min order size, price increment, order types).",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/connectors-available"
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "find-arbitrage-opps",
+      "summary": "Find arbitrage opportunities across exchanges by comparing prices for fungible token pairs like BTC/WBTC and USDT/USDC.",
+      "description": "Find arbitrage opportunities across exchanges by comparing prices for fungible token pairs like BTC/WBTC and USDT/USDC.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/find-arbitrage-opps"
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "find-xemm-opps",
+      "summary": "Find Cross-Exchange Market Making (XEMM) opportunities by comparing order book depth and liquidity across exchanges. Identifies pairs where one exchange has thin liquidity (ideal for quoting) and another has deep liquidity (ideal for hedging).",
+      "description": "Find Cross-Exchange Market Making (XEMM) opportunities by comparing order book depth and liquidity across exchanges. Identifies pairs where one exchange has thin liquidity (ideal for quoting) and another has deep liquidity (ideal for hedging).",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/find-xemm-opps"
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "hummingbot-deploy",
+      "summary": "Deploy Hummingbot trading infrastructure including API server, MCP server, and Condor Telegram bot. Use this skill when the user wants to install, deploy, set up, or configure Hummingbot.",
+      "description": "Deploy Hummingbot trading infrastructure including API server, MCP server, and Condor Telegram bot. Use this skill when the user wants to install, deploy, set up, or configure Hummingbot.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-deploy"
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "hummingbot-developer",
+      "summary": "Developer skill for running Hummingbot and Gateway from source, building wheel and Docker images, and testing against Hummingbot API running from source. Use this skill when a developer wants to build, run, or test Hummingbot components locally.",
+      "description": "Developer skill for running Hummingbot and Gateway from source, building wheel and Docker images, and testing against Hummingbot API running from source. Use this skill when a developer wants to build, run, or test Hummingbot components locally.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-developer"
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "hummingbot-heartbeat",
+      "summary": "OpenClaw cron job that delivers hourly Hummingbot status updates to your chat — API health, Gateway container, active bots/controllers, executors, and portfolio balances.",
+      "description": "OpenClaw cron job that delivers hourly Hummingbot status updates to your chat — API health, Gateway container, active bots/controllers, executors, and portfolio balances.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-heartbeat"
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "hummingbot",
+      "summary": "Agent skill that faithfully reproduces Hummingbot CLI commands (connect, balance, create, start, stop, status, history) via Hummingbot API. V1 focuses on core trading workflows. For DEX/LP strategies on Solana, use lp-agent instead.",
+      "description": "Agent skill that faithfully reproduces Hummingbot CLI commands (connect, balance, create, start, stop, status, history) via Hummingbot API. V1 focuses on core trading workflows. For DEX/LP strategies on Solana, use lp-agent instead.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot"
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "lp-agent",
+      "summary": "Run automated liquidity provision strategies on concentrated liquidity (CLMM) DEXs using Hummingbot API.",
+      "description": "Run automated liquidity provision strategies on concentrated liquidity (CLMM) DEXs using Hummingbot API.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/lp-agent"
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "slides-generator",
+      "summary": "Create Hummingbot-branded PDF slides from markdown with Mermaid diagram support. Use for presentations, decks, and technical documentation with professional diagrams.",
+      "description": "Create Hummingbot-branded PDF slides from markdown with Mermaid diagram support. Use for presentations, decks, and technical documentation with professional diagrams.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/slides-generator"
     }
   ]
 }

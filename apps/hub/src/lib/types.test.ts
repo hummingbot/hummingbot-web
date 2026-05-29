@@ -3,7 +3,7 @@ import { fmtDate, fmtNum, PLURAL, SUBTYPE_LABEL, toSingular } from "./types";
 
 describe("PLURAL / toSingular", () => {
   it("round-trips every primitive type", () => {
-    for (const t of ["strategy", "routine", "agent"] as const) {
+    for (const t of ["strategy", "routine", "skill"] as const) {
       expect(toSingular(PLURAL[t])).toBe(t);
     }
   });

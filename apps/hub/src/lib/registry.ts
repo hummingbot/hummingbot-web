@@ -8,7 +8,7 @@ import data from "@/content/registry.json";
  * the same.
  */
 
-export type PrimitiveType = "strategy" | "routine" | "agent";
+export type PrimitiveType = "strategy" | "routine" | "skill";
 
 export type Primitive = {
   type: PrimitiveType;
@@ -20,7 +20,7 @@ export type Primitive = {
   exchanges: string[];
   categories: string[];
   license: string;
-  runtime: "hummingbot" | "condor";
+  runtime: "hummingbot" | "condor" | "mcp";
   latest: string;
   versions: string[];
   updated: string;
@@ -64,7 +64,9 @@ export const slugOf = (p: Pick<Primitive, "namespace" | "name">) =>
   `@${p.namespace}/${p.name}`;
 
 export const installCommand = (p: Primitive) =>
-  `${p.runtime} install @${p.namespace}/${p.name}`;
+  p.type === "skill"
+    ? `npx skills add hummingbot/skills --skill ${p.name}`
+    : `${p.runtime} install @${p.namespace}/${p.name}`;
 
 export type Sort =
   | "featured"

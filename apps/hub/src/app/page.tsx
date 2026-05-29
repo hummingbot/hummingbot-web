@@ -10,7 +10,7 @@ import { fmtNum } from "@/lib/types";
 const browseCards = [
   { type: "strategy", label: "Strategies", href: "/strategies", icon: LineChart, desc: "Market-making, arbitrage & directional bots." },
   { type: "routine", label: "Routines", href: "/routines", icon: Workflow, desc: "Schedulable Condor workflows." },
-  { type: "agent", label: "Agents", href: "/agents", icon: Bot, desc: "Autonomous trading harnesses." },
+  { type: "skill", label: "Skills", href: "/skills", icon: Bot, desc: "AI assistant skills for Hummingbot." },
 ] as const;
 
 export default function HubHome() {
@@ -26,7 +26,7 @@ export default function HubHome() {
             <GradientText>Built by the community.</GradientText>
           </h1>
           <p className="max-w-xl text-pretty text-lg text-ink-400">
-            Trading strategies, routines, and agents — installable in one command.
+            Trading strategies, routines, and skills — installable in one command.
           </p>
           <SearchBar />
           <dl className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-ink-500">

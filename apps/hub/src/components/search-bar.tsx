@@ -37,7 +37,7 @@ export function SearchBar() {
             name="q"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Search strategies, routines, and agents…"
+            placeholder="Search strategies, routines, and skills…"
             autoComplete="off"
             spellCheck={false}
             className="h-14 w-full rounded-xl border border-ink-700 bg-ink-950 pl-12 pr-4 text-base text-foreground placeholder:text-ink-600 focus-visible:border-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

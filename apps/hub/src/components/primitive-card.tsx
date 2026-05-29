@@ -12,7 +12,7 @@ import { fmtDate, fmtNum, PLURAL, SUBTYPE_LABEL } from "@/lib/types";
 const typeIcon: Record<PrimitiveType, typeof Bot> = {
   strategy: LineChart,
   routine: Workflow,
-  agent: Bot,
+  skill: Bot,
 };
 
 export function PrimitiveCard({ p }: { p: Primitive }) {
@@ -52,7 +52,6 @@ export function PrimitiveCard({ p }: { p: Primitive }) {
           </div>
 
           <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-500">
-            <span className="font-mono">v{p.latest}</span>
             {p.installs != null && (
               <span className="tabular-nums">{fmtNum(p.installs)} installs</span>
             )}
