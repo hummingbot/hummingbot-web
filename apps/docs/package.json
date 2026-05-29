@@ -4,6 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "mint dev",
-    "migrate": "node scripts/migrate-blog.mjs && node scripts/migrate-exchanges.mjs && node scripts/generate-nav.mjs"
+    "migrate": "node scripts/migrate-blog.mjs && node scripts/migrate-exchanges.mjs && node scripts/generate-nav.mjs",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
   }
 }
