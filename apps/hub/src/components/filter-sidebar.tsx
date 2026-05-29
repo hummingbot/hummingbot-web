@@ -44,7 +44,8 @@ export function FilterSidebar({
   const toggleInList = useCallback(
     (key: string, value: string) => {
       const cur = new Set((params.get(key) ?? "").split(",").filter(Boolean));
-      cur.has(value) ? cur.delete(value) : cur.add(value);
+      if (cur.has(value)) cur.delete(value);
+      else cur.add(value);
       setParam(key, [...cur].join(","));
     },
     [params, setParam],

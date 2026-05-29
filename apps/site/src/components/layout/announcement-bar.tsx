@@ -1,17 +1,36 @@
 "use client";
 
 import { ArrowRight, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { announcement } from "@/config/site";
 
 const KEY = "hb-announce:condor";
 
-export function AnnouncementBar() {
-  const [dismissed, setDismissed] = useState(true);
+// Read the dismissed flag from localStorage via useSyncExternalStore so the
+// client-only state never triggers a hydration mismatch or a setState-in-effect.
+// SSR + first paint render hidden (server snapshot = true), then reveal after
+// hydration if the user hasn't dismissed it.
+const listeners = new Set<() => void>();
 
-  useEffect(() => {
-    setDismissed(localStorage.getItem(KEY) === "1");
-  }, []);
+function subscribe(cb: () => void) {
+  listeners.add(cb);
+  window.addEventListener("storage", cb);
+  return () => {
+    listeners.delete(cb);
+    window.removeEventListener("storage", cb);
+  };
+}
+
+function dismiss() {
+  localStorage.setItem(KEY, "1");
+  listeners.forEach((l) => l());
+}
+
+const getSnapshot = () => localStorage.getItem(KEY) === "1";
+const getServerSnapshot = () => true;
+
+export function AnnouncementBar() {
+  const dismissed = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   if (dismissed) return null;
 
@@ -34,10 +53,7 @@ export function AnnouncementBar() {
       <button
         type="button"
         aria-label="Dismiss announcement"
-        onClick={() => {
-          localStorage.setItem(KEY, "1");
-          setDismissed(true);
-        }}
+        onClick={dismiss}
         className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex size-7 items-center justify-center rounded-md text-ink-500 hover:bg-ink-800 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <X className="size-4" aria-hidden="true" />
