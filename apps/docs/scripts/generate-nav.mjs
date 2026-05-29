@@ -52,7 +52,14 @@ if (existsSync(exDir)) {
   }
 }
 
-config.navigation.tabs = [...tabs, ...exTab, { tab: "Blog", groups: blogGroups }];
+// Enforce tab order; unknown tabs fall to the end in their existing order.
+const TAB_ORDER = ["Documentation", "Condor", "Hummingbot API", "Exchanges", "Blog", "Podcast"];
+const all = [...tabs, ...exTab, { tab: "Blog", groups: blogGroups }];
+config.navigation.tabs = all.sort((a, b) => {
+  const ai = TAB_ORDER.indexOf(a.tab);
+  const bi = TAB_ORDER.indexOf(b.tab);
+  return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi);
+});
 
 writeFileSync(docsJsonPath, JSON.stringify(config, null, 2) + "\n");
 console.log(

@@ -7,7 +7,7 @@
     "light": "#5FFFD7",
     "dark": "#00B1BB"
   },
-  "favicon": "/logo/condor-logo-square.png",
+  "favicon": "/logo/hummingbot-icon-light.png",
   "metadata": {
     "og:site_name": "Condor"
   },
@@ -20,6 +20,18 @@
     "tabs": [
       {
         "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Hummingbot",
+            "pages": [
+              "documentation/overview",
+              "documentation/installation"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Condor",
         "groups": [
           {
             "group": "Condor",
@@ -102,7 +114,7 @@
         ]
       },
       {
-        "tab": "Hummingbot API Reference",
+        "tab": "Hummingbot API",
         "groups": [
           {
             "group": "Overview",
@@ -115,25 +127,6 @@
           }
         ],
         "openapi": "api-reference/openapi.json"
-      },
-      {
-        "tab": "🎙️ Podcast",
-        "groups": [
-          {
-            "group": "Podcast",
-            "pages": [
-              "podcast/overview",
-              "podcast/ep8",
-              "podcast/ep7",
-              "podcast/ep6",
-              "podcast/ep5",
-              "podcast/ep4",
-              "podcast/ep3",
-              "podcast/ep2",
-              "podcast/ep1"
-            ]
-          }
-        ]
       },
       {
         "tab": "Exchanges",
@@ -380,12 +373,31 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Podcast",
+        "groups": [
+          {
+            "group": "Podcast",
+            "pages": [
+              "podcast/overview",
+              "podcast/ep8",
+              "podcast/ep7",
+              "podcast/ep6",
+              "podcast/ep5",
+              "podcast/ep4",
+              "podcast/ep3",
+              "podcast/ep2",
+              "podcast/ep1"
+            ]
+          }
+        ]
       }
     ]
   },
   "logo": {
-    "light": "/logo/condor-light.png",
-    "dark": "/logo/condor-dark.png"
+    "light": "/logo/hummingbot-icon-dark.png",
+    "dark": "/logo/hummingbot-icon-light.png"
   },
   "navbar": {
     "links": [

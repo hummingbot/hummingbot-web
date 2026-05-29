@@ -74,6 +74,14 @@ export function SiteHeader() {
             Education <ArrowUpRight className="size-3.5 opacity-60" aria-hidden="true" />
           </a>
           <a
+            href={urls.rewards}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm text-ink-400 hover:text-foreground"
+          >
+            Rewards <ArrowUpRight className="size-3.5 opacity-60" aria-hidden="true" />
+          </a>
+          <a
             href={urls.github}
             target="_blank"
             rel="noreferrer"
@@ -117,6 +125,23 @@ export function SiteHeader() {
                   {item.label}
                   {item.external && <ArrowUpRight className="size-4 opacity-60" aria-hidden="true" />}
                 </Link>
+              </li>
+            ))}
+            {[
+              { label: "Education", href: urls.education },
+              { label: "Rewards", href: urls.rewards },
+            ].map((i) => (
+              <li key={i.label}>
+                <a
+                  href={i.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-1 rounded-md px-3 py-2.5 text-base text-ink-200 hover:bg-ink-900"
+                >
+                  {i.label}
+                  <ArrowUpRight className="size-4 opacity-60" aria-hidden="true" />
+                </a>
               </li>
             ))}
           </ul>

@@ -1,0 +1,39 @@
+---
+title: "Install Hummingbot"
+description: "Deploy the Hummingbot stack with a single command."
+---
+
+The fastest way to run Hummingbot is the deploy script, which sets up the
+client and supporting services via Docker.
+
+## Prerequisites
+
+- A machine running Linux (Ubuntu 20.04+) or macOS
+- [Docker](https://docs.docker.com/get-docker/) installed and running
+
+## Install
+
+From an empty directory, run:
+
+```bash
+curl -fsSL https://hummingbot.org/install.sh | bash
+```
+
+The installer pulls the latest images and guides you through configuration.
+
+<Note>
+  To run an AI agent harness (Telegram + LLM control) on top of Hummingbot,
+  install **Condor** instead — see the Condor tab's
+  [installation guide](/installation).
+</Note>
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Connect an exchange" href="/exchanges/binance">
+    Add API keys for any of 50+ supported venues.
+  </Card>
+  <Card title="Find a strategy" href="https://hub.hummingbot.org">
+    Install a community strategy from the Hub in one command.
+  </Card>
+</CardGroup>
