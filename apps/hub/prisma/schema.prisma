@@ -1,0 +1,104 @@
+// Hummingbot Hub registry — PRODUCTION schema (Postgres/Neon).
+//
+// v1 of the app reads a seed JSON via src/lib/registry.ts. This schema is the
+// production target: provision Neon, set DATABASE_URL, `prisma migrate`, seed
+// from the Botcamp DB, then point src/lib/registry.ts at Prisma. Full-text
+// search uses a generated tsvector + pg_trgm (see migration notes).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PrimitiveType {
+  STRATEGY
+  ROUTINE
+  AGENT
+  CONTROLLER
+  SCRIPT
+}
+
+enum Runtime {
+  HUMMINGBOT
+  CONDOR
+}
+
+enum ScanStatus {
+  PENDING
+  PASSED
+  HELD
+  BLOCKED
+}
+
+model Publisher {
+  id         String      @id @default(cuid())
+  handle     String      @unique
+  name       String
+  bio        String?
+  avatarUrl  String?
+  githubId   String?     @unique
+  createdAt  DateTime    @default(now())
+  primitives Primitive[]
+}
+
+model Primitive {
+  id          String        @id @default(cuid())
+  type        PrimitiveType
+  runtime     Runtime
+  namespace   String
+  name        String
+  summary     String
+  description String // MDX
+  tags        String[]
+  exchanges   String[]
+  categories  String[]
+  license     String
+  repoUrl     String?
+  // denormalized pointer to latest version
+  latest      String
+  // metrics
+  installs    Int           @default(0)
+  stars       Int           @default(0)
+  downloads   Int           @default(0)
+  certified   Boolean       @default(false)
+  certifiedAt DateTime?
+  scanStatus  ScanStatus    @default(PENDING)
+  yankedAt    DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  publisher   Publisher     @relation(fields: [namespace], references: [handle])
+  versions    Version[]
+  installDays InstallDay[]
+
+  @@unique([namespace, name])
+  @@index([type])
+  @@index([installs])
+}
+
+model Version {
+  id          String    @id @default(cuid())
+  primitive   Primitive @relation(fields: [primitiveId], references: [id], onDelete: Cascade)
+  primitiveId String
+  semver      String
+  changelog   String?
+  downloads   Int       @default(0)
+  files       Json // [{ path, size, url, mime }]
+  createdAt   DateTime  @default(now())
+
+  @@unique([primitiveId, semver])
+}
+
+model InstallDay {
+  id          String    @id @default(cuid())
+  primitive   Primitive @relation(fields: [primitiveId], references: [id], onDelete: Cascade)
+  primitiveId String
+  day         DateTime  @db.Date
+  count       Int       @default(0)
+
+  @@unique([primitiveId, day])
+}

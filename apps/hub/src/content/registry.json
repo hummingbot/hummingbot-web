@@ -1,0 +1,3667 @@
+{
+  "publishers": [
+    {
+      "handle": "xnikos",
+      "name": "\\xNikos",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "adam-torgerson",
+      "name": "Adam Torgerson",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 13.",
+      "joined": "2026-05-22"
+    },
+    {
+      "handle": "alan-coppola",
+      "name": "Alan Coppola",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 1.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "alec-otto",
+      "name": "Alec Otto",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "aleksandrs-savkins",
+      "name": "Aleksandrs Savkins",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "alex-mellusco",
+      "name": "Alex Mellusco",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 8.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "alex-mukhachou",
+      "name": "Alex Mukhachou",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 6.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "alexia-quan",
+      "name": "Alexia  Quan",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 12.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "ali-ihsan",
+      "name": "Ali Ihsan",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "andy-fajar-handika",
+      "name": "Andy Fajar Handika",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 3.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "barnabas-debreczeni",
+      "name": "Barnabas Debreczeni",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "ben-smeaton",
+      "name": "Ben Smeaton",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 1.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "botcamp",
+      "name": "Botcamp",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 10.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "brett-mollin",
+      "name": "Brett Mollin",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 8.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "calum-macleod",
+      "name": "Calum MacLeod",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "christian-schroer",
+      "name": "Christian Schroer",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 12.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "christoph-richter",
+      "name": "Christoph Richter",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "christophe-verdot",
+      "name": "Christophe Verdot",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 10.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "christopher-bram",
+      "name": "Christopher Bram",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 9.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "christopher-mercer",
+      "name": "Christopher Mercer",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 9.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "daniel-sigurbjornsson",
+      "name": "Daníel Sigurbjörnsson",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 6.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "roland-kofler",
+      "name": "Danniel Kobler",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 4.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "danny-almaden",
+      "name": "Danny Almaden",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 5.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "dingsen-shi",
+      "name": "Dingsen Shi",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "dmitri-rykunov",
+      "name": "Dmitri Rykunov",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "dolm-chen",
+      "name": "Dolm Chen",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 4.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "elliot-lee",
+      "name": "Elliot Lee",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 8.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "loo-yin-ng",
+      "name": "ethng",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 12.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "federico-cardoso",
+      "name": "Federico Cardoso",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 5.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "floren-bariod",
+      "name": "Floren Bariod",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 6.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "george-burry",
+      "name": "George Burry",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "gerald-luzangi",
+      "name": "Gerald Luzangi",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 9.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "gregor-zavcer",
+      "name": "Gregor Žavcer",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 3.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "gunnlaugur-hreidarsson",
+      "name": "Gunnlaugur Hreidarsson",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 6.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "hafthor-gunnlaugsson",
+      "name": "Hafþór Gunnlaugsson",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 6.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "hummingbot",
+      "name": "Hummingbot Botcamp",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 0.",
+      "joined": "2026-05-20"
+    },
+    {
+      "handle": "hyder-alkhalifah-2",
+      "name": "Hyder Alkhalifah",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 1.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "isreallee82",
+      "name": "Israel Ajayi",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 13.",
+      "joined": "2026-05-22"
+    },
+    {
+      "handle": "ivan-anashkin",
+      "name": "Ivan Anashkin",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "jaanus-varus",
+      "name": "Jaanus Varus",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "jacky-wong",
+      "name": "Jacky Wong",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 3.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "jacob",
+      "name": "Jacob Shiohira",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 13.",
+      "joined": "2026-05-22"
+    },
+    {
+      "handle": "james-lo-tsz",
+      "name": "James LO",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 13.",
+      "joined": "2026-05-22"
+    },
+    {
+      "handle": "john-cheong",
+      "name": "John Cheong",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "john-young",
+      "name": "John Young",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "jonathan-wagner",
+      "name": "Jonathan Wagner",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "joris-zierold",
+      "name": "Joris Zierold",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 12.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "konstantin-smirnov",
+      "name": "Konstantin Smirnov",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "linus-henriksson",
+      "name": "Linus Henriksson",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "makir-volcy",
+      "name": "Makir Volcy",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "marcus-lindley",
+      "name": "Marcus Lindley",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 9.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "matt-marooney",
+      "name": "Matt Marooney",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 9.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "max-gnesi",
+      "name": "Max Gnesi",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 12.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "michael-feng",
+      "name": "Michael Feng",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 4.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "nancy-meng",
+      "name": "Nancy Meng",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 8.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "nathan-gray",
+      "name": "Nathan Gray",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 1.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "nathan-le",
+      "name": "Nathan Le",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "nicolas-lopez",
+      "name": "Nicolas Lopez",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "pasha",
+      "name": "Pasha",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 12.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "patrick-meier",
+      "name": "Patrick Meier",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "patrick-poirier",
+      "name": "Patrick Poirier",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 10.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "pavel-shibanov",
+      "name": "Pavel Shibanov",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 1.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "peter-chong",
+      "name": "Peter Chong",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 3.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "petr-valasek",
+      "name": "Petr Valasek",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "raj",
+      "name": "Raj Kundi",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 13.",
+      "joined": "2026-05-22"
+    },
+    {
+      "handle": "rohit-varma-bhetalam",
+      "name": "Rohit Varma Bhetalam",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 2.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "siam-thongnak",
+      "name": "Siam Thongnak",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 9.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "simon-moxon",
+      "name": "Simon Moxon",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 9.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "shahmat",
+      "name": "Sol Bergren",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 13.",
+      "joined": "2026-05-22"
+    },
+    {
+      "handle": "stanislav-viyachev",
+      "name": "Stanislav Viyachev",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "steven-chen4hao",
+      "name": "Steven Chen",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "tee-srisantithum",
+      "name": "Tee Srisantithum",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "tobias-rethmeyer",
+      "name": "Tobias Rethmeyer",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 3.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "todd-griggs",
+      "name": "Todd Griggs",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 12.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "tolulope-shekoni",
+      "name": "Tolulope Shekoni",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 3.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "tri",
+      "name": "Tri",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 12.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "valentin-balaschenko",
+      "name": "Valentin Balaschenko",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 3.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "vassilis-papapanagiotou",
+      "name": "Vassilis Papapanagiotou",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 11.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "viktoria-tsybko",
+      "name": "Viktoria Tsybko",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 10.",
+      "joined": "2026-02-27"
+    },
+    {
+      "handle": "vzmievski",
+      "name": "Vlad",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 13.",
+      "joined": "2026-05-22"
+    },
+    {
+      "handle": "vlad-ragulin",
+      "name": "Vlad Ragulin",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 7.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "wan-hong-lau",
+      "name": "Wan Hong Lau",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 4.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "wei-hong",
+      "name": "Wei hong",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 13.",
+      "joined": "2026-05-22"
+    },
+    {
+      "handle": "wilfred-lau",
+      "name": "Wilfred Lau",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 5.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "yeyun-chen",
+      "name": "Yeyun Chen",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 6.",
+      "joined": "2026-03-01"
+    },
+    {
+      "handle": "yue-wang",
+      "name": "Yue Wang",
+      "bio": "Certified Hummingbot developer — Botcamp Cohort 6.",
+      "joined": "2026-03-01"
+    }
+  ],
+  "primitives": [
+    {
+      "type": "routine",
+      "namespace": "adam-torgerson",
+      "name": "ancient-finch",
+      "summary": "A set of condor routines to to monitor market conditions and maintain a pmm_mister controller in times of low volatility, and a grid_strike controller in times of high volatility.",
+      "description": "A set of condor routines to to monitor market conditions and maintain a pmm_mister controller in times of low volatility, and a grid_strike controller in times of high volatility.",
+      "tags": [
+        "Market Making",
+        "Directional"
+      ],
+      "exchanges": [
+        "kraken"
+      ],
+      "categories": [
+        "Market Making",
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "condor",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-22",
+      "cohort": 13,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://drive.google.com/file/d/17iwaMzEUQNRQIrpJWyIIEwEPEMqglNQ3/view?usp=drivesdk",
+      "authorName": "Adam Torgerson"
+    },
+    {
+      "type": "strategy",
+      "namespace": "jacob",
+      "name": "hat-rebalancer",
+      "summary": "The Hat Rebalancer is a multi-layer concentrated liquidity controller that deploys capital across N overlapping LP positions at progressively tighter price ranges. The shape of a liquidity forms a hat-shaped distribution, taking advantage of highly correlated assets.",
+      "description": "The Hat Rebalancer is a multi-layer concentrated liquidity controller that deploys capital across N overlapping LP positions at progressively tighter price ranges. The shape of a liquidity forms a hat-shaped distribution, taking advantage of highly correlated assets.",
+      "tags": [
+        "LP",
+        "basic",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "orca",
+        "meteora",
+        "raydium"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-22",
+      "cohort": 13,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/YOUdTMoI1nA",
+      "authorName": "Jacob Shiohira"
+    },
+    {
+      "type": "agent",
+      "namespace": "james-lo-tsz",
+      "name": "meteora-lp-agent",
+      "summary": "Autonomous concentrated liquidity market-maker on Meteora Dynamic Liquidity Market Maker (DLMM) on Solana. Each tick, it scans Meteora DLMM pools via GeckoTerminal, selects the pool with the highest volume-to-total-value-locked (V/T) ratio that passes structural and routability checks, rebalances the wallet via Jupiter if needed, and deploys a managed liquidity-providing (LP) position — closing it automatically when defined exit conditions are met.",
+      "description": "Autonomous concentrated liquidity market-maker on Meteora Dynamic Liquidity Market Maker (DLMM) on Solana. Each tick, it scans Meteora DLMM pools via GeckoTerminal, selects the pool with the highest volume-to-total-value-locked (V/T) ratio that passes structural and routability checks, rebalances the wallet via Jupiter if needed, and deploys a managed liquidity-providing (LP) position — closing it automatically when defined exit conditions are met.",
+      "tags": [
+        "LP"
+      ],
+      "exchanges": [
+        "jupiter",
+        "meteora"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "condor",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-22",
+      "cohort": 13,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://drive.google.com/file/d/1MymtXNM-Wt8L4yPHK8SnjR8JM-_kzJ2S/view?usp=sharing",
+      "authorName": "James LO"
+    },
+    {
+      "type": "agent",
+      "namespace": "raj",
+      "name": "market-making-at-the-touch",
+      "summary": "A market-making strategy optimised for posting at the top of the order book (the \"touch\") on both sides. \nIt decides, at every tick, whether to keep a buy LO at the best bid and/or a sell LO at the best ask, based on the agent's current inventory and how much time is left in a rolling horizon. \nThe decision rule comes from solving an offline stochastic-control problem; the live controller is just a fast lookup against a pre-baked table.",
+      "description": "A market-making strategy optimised for posting at the top of the order book (the \"touch\") on both sides. \nIt decides, at every tick, whether to keep a buy LO at the best bid and/or a sell LO at the best ask, based on the agent's current inventory and how much time is left in a rolling horizon. \nThe decision rule comes from solving an offline stochastic-control problem; the live controller is just a fast lookup against a pre-baked table.",
+      "tags": [
+        "Market Making",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "hyperliquid"
+      ],
+      "categories": [
+        "Market Making"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "condor",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-22",
+      "cohort": 13,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://drive.google.com/file/d/14pp8o9Tc1ijK5DTfPPOncFIcg4Umav2c/view?pli=1",
+      "authorName": "Raj Kundi"
+    },
+    {
+      "type": "strategy",
+      "namespace": "shahmat",
+      "name": "hyperliquid-pullback",
+      "summary": "Trend following strategy that finds a \"pullback\" pattern using keltner channels and sets a measured move target based on pivot lows to calculate TP/SL.",
+      "description": "Trend following strategy that finds a \"pullback\" pattern using keltner channels and sets a measured move target based on pivot lows to calculate TP/SL.",
+      "tags": [
+        "Directional",
+        "Candles",
+        "V2 Controller",
+        "Trend"
+      ],
+      "exchanges": [
+        "hyperliquid"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-22",
+      "cohort": 13,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/dbbGo2_3FE4",
+      "authorName": "Sol Bergren"
+    },
+    {
+      "type": "strategy",
+      "namespace": "wei-hong",
+      "name": "perp-xemm",
+      "summary": "Perp XEMM",
+      "description": "Perp XEMM",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-22",
+      "cohort": 13,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=z72SQjwZpaE",
+      "authorName": "Wei hong"
+    },
+    {
+      "type": "strategy",
+      "namespace": "vzmievski",
+      "name": "pmm-mister-dynamic",
+      "summary": "PMMMisterDynamic is a modification of PMM Mister strategy where some of original PMM Mister static parameters are replaced with a dynamically adjusted functions of the market volatility and trend",
+      "description": "PMMMisterDynamic is a modification of PMM Mister strategy where some of original PMM Mister static parameters are replaced with a dynamically adjusted functions of the market volatility and trend",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-22",
+      "cohort": 13,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://drive.google.com/file/d/1IcClukfyLedEt_ca71UHrrmwdSqgmFnu/view?usp=sharing",
+      "authorName": "Vlad"
+    },
+    {
+      "type": "strategy",
+      "namespace": "isreallee82",
+      "name": "flowedge",
+      "summary": "Regime-adaptive directional controller with multi-timeframe signal generation, NATR-scaled DCA entries, funding rate bias, and embedded self-adaptive threshold. Uses ADX regime detection to suppress entries in choppy markets and fire 3-level maker DCA positions when both fast (3m) and slow (15m) timeframes confirm a trending regime.",
+      "description": "Regime-adaptive directional controller with multi-timeframe signal generation, NATR-scaled DCA entries, funding rate bias, and embedded self-adaptive threshold. Uses ADX regime detection to suppress entries in choppy markets and fire 3-level maker DCA positions when both fast (3m) and slow (15m) timeframes confirm a trending regime.",
+      "tags": [
+        "Directional",
+        "NATR",
+        "RSI",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "hyperliquid",
+        "binance",
+        "bybit"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-22",
+      "cohort": 13,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://drive.google.com/file/d/1QCzP-jr0QZejJddk1rTjHWOz0sb9SN3C/view?usp=share_link",
+      "authorName": "Israel Ajayi"
+    },
+    {
+      "type": "strategy",
+      "namespace": "loo-yin-ng",
+      "name": "divergence-signal-to-macd-bb-directional-strategy",
+      "summary": "This script improves a standard trading strategy by requiring an extra confirmation before making a move. In addition to using common signals from Bollinger Bands and MACD, it specifically looks for MACD divergence, which happens when the asset's price and the indicator start moving in opposite directions. A trade is only placed when this powerful divergence signal is present, making the strategy more selective and reliable.",
+      "description": "This script improves a standard trading strategy by requiring an extra confirmation before making a move. In addition to using common signals from Bollinger Bands and MACD, it specifically looks for MACD divergence, which happens when the asset's price and the indicator start moving in opposite directions. A trade is only placed when this powerful divergence signal is present, making the strategy more selective and reliable.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/LhaeP7jZY40",
+      "authorName": "ethng"
+    },
+    {
+      "type": "strategy",
+      "namespace": "tri",
+      "name": "shufflemania",
+      "summary": "This strategy involves placing both buy and sell orders on a Decentralized Exchange (DEX) to act as a market maker. When one of those orders is filled, an opposite trade is then executed on a different exchange. This allows a trader to operate across two separate markets.",
+      "description": "This strategy involves placing both buy and sell orders on a Decentralized Exchange (DEX) to act as a market maker. When one of those orders is filled, an opposite trade is then executed on a different exchange. This allows a trader to operate across two separate markets.",
+      "tags": [
+        "LP",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "raydium"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/OA2vEd3-CA0",
+      "authorName": "Tri"
+    },
+    {
+      "type": "strategy",
+      "namespace": "todd-griggs",
+      "name": "tradingviewhummingbot-webhook-trading-strategy",
+      "summary": "This automated trading system works like a three-part assembly line. \nFirst, a strategy on TradingView generates the initial buy or sell signal and sends it out. Next, a secure server acts as a middleman, catching the signal, verifying it, and passing it along. Finally, the Hummingbot execution engine receives the command and places the actual trade on the correct crypto exchange, managing the position from there.",
+      "description": "This automated trading system works like a three-part assembly line. \nFirst, a strategy on TradingView generates the initial buy or sell signal and sends it out. Next, a secure server acts as a middleman, catching the signal, verifying it, and passing it along. Finally, the Hummingbot execution engine receives the command and places the actual trade on the correct crypto exchange, managing the position from there.",
+      "tags": [
+        "Directional",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "coinbase",
+        "jupiter",
+        "meteora",
+        "pancakeswap",
+        "raydium",
+        "uniswap"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/AtNbnrZ5VFk",
+      "authorName": "Todd Griggs"
+    },
+    {
+      "type": "strategy",
+      "namespace": "pasha",
+      "name": "multi-exchange-funding-arb",
+      "summary": "This is an automated trading script that profits from funding rate arbitrage—the small differences in fees between two crypto exchanges for the same asset. \nIt works by simultaneously opening opposite positions (a long on one exchange and a short on the other), which allows it to collect the rate difference while being hedged against price movements. The script includes numerous safety controls, only entering trades when the potential profit is high enough and automatically closing them when the opportunity disappears.",
+      "description": "This is an automated trading script that profits from funding rate arbitrage—the small differences in fees between two crypto exchanges for the same asset. \nIt works by simultaneously opening opposite positions (a long on one exchange and a short on the other), which allows it to collect the rate difference while being hedged against price movements. The script includes numerous safety controls, only entering trades when the potential profit is high enough and automatically closing them when the opportunity disappears.",
+      "tags": [
+        "Arbitrage",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "bybit",
+        "hyperliquid"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/FYg8cRD4_Ok",
+      "authorName": "Pasha"
+    },
+    {
+      "type": "strategy",
+      "namespace": "max-gnesi",
+      "name": "meteora-dlmm-micro-structure-analysis",
+      "summary": "This system acts as an early warning tool by analyzing the underlying structure of a crypto market instead of just its price. It automatically studies how traders place buy and sell orders to distinguish between normal retail activity, large institutional moves, and automated bot strategies. When the system detects a significant change in these deep market patterns, it sends a Telegram alert, often before a major price movement happens.",
+      "description": "This system acts as an early warning tool by analyzing the underlying structure of a crypto market instead of just its price. It automatically studies how traders place buy and sell orders to distinguish between normal retail activity, large institutional moves, and automated bot strategies. When the system detects a significant change in these deep market patterns, it sends a Telegram alert, often before a major price movement happens.",
+      "tags": [
+        "LP",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "meteora"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/V0Sasb_H_yQ",
+      "authorName": "Max Gnesi"
+    },
+    {
+      "type": "strategy",
+      "namespace": "joris-zierold",
+      "name": "jlpusdc-leveraged-lending-strategy",
+      "summary": "This is a framework for testing crypto investment strategies on the Kamino Protocol by closely tracking their performance and risk.  The system monitors your investments, warns you on Discord if they become too risky, and provides instructions on how to protect your funds. It saves all the data for analysis and is designed to be easily upgraded for future use.",
+      "description": "This is a framework for testing crypto investment strategies on the Kamino Protocol by closely tracking their performance and risk.  The system monitors your investments, warns you on Discord if they become too risky, and provides instructions on how to protect your funds. It saves all the data for analysis and is designed to be easily upgraded for future use.",
+      "tags": [
+        "LP",
+        "Quants Lab Notebook"
+      ],
+      "exchanges": [
+        "kamino"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/RuWo2LgBaCg",
+      "authorName": "Joris Zierold"
+    },
+    {
+      "type": "strategy",
+      "namespace": "james-lo-tsz",
+      "name": "pmm-for-liquidity-mining-hedged-regime-switching",
+      "summary": "This strategy aims to earn weekly XRP rewards by making it easier for others to trade on the XRP Ledger, all while using safeguards to protect against investment risk.",
+      "description": "This strategy aims to earn weekly XRP rewards by making it easier for others to trade on the XRP Ledger, all while using safeguards to protect against investment risk.",
+      "tags": [
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "XRPL"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/4c9HIKr-qSQ",
+      "authorName": "James LO"
+    },
+    {
+      "type": "strategy",
+      "namespace": "christian-schroer",
+      "name": "following-spot-orderbook-skew-and-fading-open-interest-rsi",
+      "summary": "This script watches the balance of buy/sell orders and the total number of open contracts for major cryptocurrencies like BTC, ETH, and SOL. When these two indicators show opposing extremes (e.g., one is \"overbought\" while the other is \"oversold\"), it automatically opens a trade to bet on a price reversal. The script then closes the position once the market imbalance has corrected and returned to a more neutral level.",
+      "description": "This script watches the balance of buy/sell orders and the total number of open contracts for major cryptocurrencies like BTC, ETH, and SOL. When these two indicators show opposing extremes (e.g., one is \"overbought\" while the other is \"oversold\"), it automatically opens a trade to bet on a price reversal. The script then closes the position once the market imbalance has corrected and returned to a more neutral level.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance",
+        "bybit"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/HgWPgUKc6xg",
+      "authorName": "Christian Schroer"
+    },
+    {
+      "type": "strategy",
+      "namespace": "alexia-quan",
+      "name": "vwad-enhanced-bollinger-strategy",
+      "summary": "VWAD is an advanced trading strategy that analyzes trading volume to better predict which way the price will move. It constantly watches the amount of buying and selling activity and uses this information to automatically place smarter trade orders. This allows it to make more informed decisions based on the real momentum in the market.",
+      "description": "VWAD is an advanced trading strategy that analyzes trading volume to better predict which way the price will move. It constantly watches the amount of buying and selling activity and uses this information to automatically place smarter trade orders. This allows it to make more informed decisions based on the real momentum in the market.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "kraken"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 12,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/Exjch0DNGiQ",
+      "authorName": "Alexia  Quan"
+    },
+    {
+      "type": "strategy",
+      "namespace": "vassilis-papapanagiotou",
+      "name": "lp-hedging-with-shorting-on-cex",
+      "summary": "This strategy allows you to safely earn high yields from liquidity pools by hedging the risk of holding a volatile crypto asset. It constantly monitors your exact exposure to the volatile coin within the pool and maintains a short position of the same size on a separate centralized exchange. This approach is designed to neutralize losses from any price drops, allowing you to primarily benefit from the interest earned in the liquidity pool.",
+      "description": "This strategy allows you to safely earn high yields from liquidity pools by hedging the risk of holding a volatile crypto asset. It constantly monitors your exact exposure to the volatile coin within the pool and maintains a short position of the same size on a separate centralized exchange. This approach is designed to neutralize losses from any price drops, allowing you to primarily benefit from the interest earned in the liquidity pool.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "OKX"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/5n_n0_Pjk5I",
+      "authorName": "Vassilis Papapanagiotou"
+    },
+    {
+      "type": "strategy",
+      "namespace": "stanislav-viyachev",
+      "name": "bootstrapping-lp-on-clmm-pools",
+      "summary": "This strategy actively manages a liquidity position by splitting it into three dynamic ranges set around the current market price. As the market moves, it automatically shifts these three positions to follow along, constantly rebalancing your capital. This approach ensures your investment remains active and optimized for earning fees in real-time.",
+      "description": "This strategy actively manages a liquidity position by splitting it into three dynamic ranges set around the current market price. As the market moves, it automatically shifts these three positions to follow along, constantly rebalancing your capital. This approach ensures your investment remains active and optimized for earning fees in real-time.",
+      "tags": [
+        "LP",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "raydium"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/VRSe4BwhznI",
+      "authorName": "Stanislav Viyachev"
+    },
+    {
+      "type": "strategy",
+      "namespace": "jonathan-wagner",
+      "name": "hedgedoge",
+      "summary": "This strategy buys a target crypto and immediately hedges a specific percentage of that position by depositing it into a liquidity pool. The entire trade is managed by a \"Triple Barrier\" method, which automatically sells the asset if it hits a predefined profit target, stop-loss level, or time limit. To get the best prices and reduce market impact, the system can also spread its trades across multiple decentralized exchanges.",
+      "description": "This strategy buys a target crypto and immediately hedges a specific percentage of that position by depositing it into a liquidity pool. The entire trade is managed by a \"Triple Barrier\" method, which automatically sells the asset if it hits a predefined profit target, stop-loss level, or time limit. To get the best prices and reduce market impact, the system can also spread its trades across multiple decentralized exchanges.",
+      "tags": [
+        "LP",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "raydium"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/BlYt_W2YwRc",
+      "authorName": "Jonathan Wagner"
+    },
+    {
+      "type": "strategy",
+      "namespace": "ali-ihsan",
+      "name": "adaptive-yield-farming-with-supported-cex-price-signals",
+      "summary": "This strategy helps maximize your yield farming profits by automatically rebalancing your investment based on two key triggers. It will adjust your position if it sits inactive for too long and stops earning fees. Additionally, it will also rebalance if the price on your decentralized exchange (DEX) diverges too far from a major centralized exchange (CEX), prompting a strategic reset.",
+      "description": "This strategy helps maximize your yield farming profits by automatically rebalancing your investment based on two key triggers. It will adjust your position if it sits inactive for too long and stops earning fees. Additionally, it will also rebalance if the price on your decentralized exchange (DEX) diverges too far from a major centralized exchange (CEX), prompting a strategic reset.",
+      "tags": [
+        "LP",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/QStutdLRQjY",
+      "authorName": "Ali Ihsan"
+    },
+    {
+      "type": "strategy",
+      "namespace": "steven-chen4hao",
+      "name": "asymmetric-barbell-strategy",
+      "summary": "This enhanced strategy combines MACD and Bollinger Bands to generate high-conviction trading signals, improving upon the original with smarter position management. Its key feature is using dynamic risk parameters, where stop-loss and take-profit levels automatically adjust to current market volatility. Furthermore, it scales into trades using sophisticated, multi-part order distributions instead of placing a single order.",
+      "description": "This enhanced strategy combines MACD and Bollinger Bands to generate high-conviction trading signals, improving upon the original with smarter position management. Its key feature is using dynamic risk parameters, where stop-loss and take-profit levels automatically adjust to current market volatility. Furthermore, it scales into trades using sophisticated, multi-part order distributions instead of placing a single order.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "bybit"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/B2Y8cAV8Szs",
+      "authorName": "Steven Chen"
+    },
+    {
+      "type": "strategy",
+      "namespace": "xnikos",
+      "name": "leader-follower-directional-divergence",
+      "summary": "This strategy monitors a \"leader\" coin and a \"follower\" coin, automatically opening a trade whenever their price trends diverge and start moving in opposite directions. It operates on the assumption that this divergence is temporary. The position is then automatically closed as soon as the two coins align and begin trending in the same direction again.",
+      "description": "This strategy monitors a \"leader\" coin and a \"follower\" coin, automatically opening a trade whenever their price trends diverge and start moving in opposite directions. It operates on the assumption that this divergence is temporary. The position is then automatically closed as soon as the two coins align and begin trending in the same direction again.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/QlPPU26QMYw",
+      "authorName": "\\xNikos"
+    },
+    {
+      "type": "strategy",
+      "namespace": "christoph-richter",
+      "name": "dynamic-cross-exchange-market-making-strategy",
+      "summary": "This strategy provides liquidity by placing orders on a smaller exchange and instantly hedging every trade on a larger one to capture price differences. Its key feature is a smart volatility filter that only permits trading when the market is in a not too calm and not too chaotic. This defense mechanism allows the strategy to earn profits during stable conditions while preserving its capital by automatically pausing during unpredictable periods.",
+      "description": "This strategy provides liquidity by placing orders on a smaller exchange and instantly hedging every trade on a larger one to capture price differences. Its key feature is a smart volatility filter that only permits trading when the market is in a not too calm and not too chaotic. This defense mechanism allows the strategy to earn profits during stable conditions while preserving its capital by automatically pausing during unpredictable periods.",
+      "tags": [
+        "XEMM",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "HTX",
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/tAYP_QkQ9ZA",
+      "authorName": "Christoph Richter"
+    },
+    {
+      "type": "strategy",
+      "namespace": "tee-srisantithum",
+      "name": "grid-amount-scaler",
+      "summary": "This grid trading strategy automatically increases the size of its orders the further they are from the current market price. This design allows it to aggressively buy into significant price drops and sell heavily into major rallies, maximizing impact at these key levels. The strategy operates mechanically with a fixed amount of capital, relying purely on this price-based logic rather than any technical analysis signals.",
+      "description": "This grid trading strategy automatically increases the size of its orders the further they are from the current market price. This design allows it to aggressively buy into significant price drops and sell heavily into major rallies, maximizing impact at these key levels. The strategy operates mechanically with a fixed amount of capital, relying purely on this price-based logic rather than any technical analysis signals.",
+      "tags": [
+        "PMM",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "gate_io"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/UJ8Tzn2v85U",
+      "authorName": "Tee Srisantithum"
+    },
+    {
+      "type": "strategy",
+      "namespace": "konstantin-smirnov",
+      "name": "pure-market-making-with-dynamic-spread-control",
+      "summary": "This controller is an enhanced version of the PMM V2 strategy, now with the ability to use technical indicators like MACD and NATR to automatically adjust its trading prices and spreads. For more flexibility, it can also pull price information from a custom, external source. Additionally, the strategy now makes smarter decisions by considering its starting asset inventory before it begins trading.",
+      "description": "This controller is an enhanced version of the PMM V2 strategy, now with the ability to use technical indicators like MACD and NATR to automatically adjust its trading prices and spreads. For more flexibility, it can also pull price information from a custom, external source. Additionally, the strategy now makes smarter decisions by considering its starting asset inventory before it begins trading.",
+      "tags": [
+        "PMM",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "MEXC"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/n_1DS5OlP84",
+      "authorName": "Konstantin Smirnov"
+    },
+    {
+      "type": "strategy",
+      "namespace": "ivan-anashkin",
+      "name": "directional-strategy-on-wld-usdt-perp",
+      "summary": "This strategy is like \"riding the wave\" of the market by betting that a strong price trend will continue in its current direction. It uses perpetual futures contracts to place these bets on either an upward (long) or downward (short) momentum.",
+      "description": "This strategy is like \"riding the wave\" of the market by betting that a strong price trend will continue in its current direction. It uses perpetual futures contracts to place these bets on either an upward (long) or downward (short) momentum.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 11,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/NtcStwfhv4s",
+      "authorName": "Ivan Anashkin"
+    },
+    {
+      "type": "strategy",
+      "namespace": "patrick-poirier",
+      "name": "fixed-grid-strategy-on-binance",
+      "summary": "My grid trading bot for PEPE made a 3.26% profit, but I stopped it when the price quickly trended above my set trading range. This return was less than the 6.8% I could have earned by simply holding PEPE during the same period. This outcome is expected, as grid bots are designed to profit from sideways-moving markets and tend to underperform in strong, directional trends.",
+      "description": "My grid trading bot for PEPE made a 3.26% profit, but I stopped it when the price quickly trended above my set trading range. This return was less than the 6.8% I could have earned by simply holding PEPE during the same period. This outcome is expected, as grid bots are designed to profit from sideways-moving markets and tend to underperform in strong, directional trends.",
+      "tags": [
+        "Directional",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 10,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/NILE9lvmVfA",
+      "authorName": "Patrick Poirier"
+    },
+    {
+      "type": "strategy",
+      "namespace": "christophe-verdot",
+      "name": "arbitrage-cexdex",
+      "summary": "This bot is designed to ensure there's always liquidity for the BAI token and that its price is consistent across different exchanges. It performs market-making duties by keeping the buy and sell prices close together, which is often a requirement for exchange listings. Furthermore, it constantly monitors prices on MEXC, Uniswap, and Pancakeswap, automatically trading between them to eliminate any price discrepancies.",
+      "description": "This bot is designed to ensure there's always liquidity for the BAI token and that its price is consistent across different exchanges. It performs market-making duties by keeping the buy and sell prices close together, which is often a requirement for exchange listings. Furthermore, it constantly monitors prices on MEXC, Uniswap, and Pancakeswap, automatically trading between them to eliminate any price discrepancies.",
+      "tags": [
+        "Arbitrage",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "MEXC",
+        "uniswap"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 10,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/uVt7shUnJxY",
+      "authorName": "Christophe Verdot"
+    },
+    {
+      "type": "strategy",
+      "namespace": "viktoria-tsybko",
+      "name": "xemm-explorer",
+      "summary": "This script is designed to find and confirm profitable Cross-Exchange Market Making opportunities across multiple crypto pairs. It works by systematically placing a sequence of individual buy and sell orders on one exchange (the \"maker\"). Throughout this process, it continuously monitors the price on a second, separate exchange (the \"taker\") to validate if a worthwhile trading opportunity exists between them.",
+      "description": "This script is designed to find and confirm profitable Cross-Exchange Market Making opportunities across multiple crypto pairs. It works by systematically placing a sequence of individual buy and sell orders on one exchange (the \"maker\"). Throughout this process, it continuously monitors the price on a second, separate exchange (the \"taker\") to validate if a worthwhile trading opportunity exists between them.",
+      "tags": [
+        "XEMM",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "HTX",
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 10,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/Qh2_kFo1U1Y",
+      "authorName": "Viktoria Tsybko"
+    },
+    {
+      "type": "strategy",
+      "namespace": "botcamp",
+      "name": "multimarket-pure-market-making-strategy",
+      "summary": "This market-making strategy places buy and sell orders on multiple exchanges at the same time, using a shared inventory to make smarter decisions. It automatically adjusts its trading spreads based on its total holdings, encouraging buys or sells to keep its inventory balanced. For risk management, every position is protected by a \"triple barrier\" system that sets automatic take-profit, stop-loss, and time-based exits.",
+      "description": "This market-making strategy places buy and sell orders on multiple exchanges at the same time, using a shared inventory to make smarter decisions. It automatically adjusts its trading spreads based on its total holdings, encouraging buys or sells to keep its inventory balanced. For risk management, every position is protected by a \"triple barrier\" system that sets automatic take-profit, stop-loss, and time-based exits.",
+      "tags": [
+        "PMM",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-27",
+      "cohort": 10,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/X71j90rBqm8",
+      "authorName": "Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "marcus-lindley",
+      "name": "market-maker-certification-strategy-operator",
+      "summary": "Market Maker Certification - Strategy Operator",
+      "description": "Market Maker Certification - Strategy Operator",
+      "tags": [
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 9,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Marcus Lindley"
+    },
+    {
+      "type": "strategy",
+      "namespace": "christopher-bram",
+      "name": "dynamic-mm-based-on-bollinger-bands",
+      "summary": "This is a dynamic market-making strategy that uses Bollinger Bands to read the market's current condition. It automatically adjusts how it trades whenever it detects that the market is either trending strongly or experiencing a period of high volatility.",
+      "description": "This is a dynamic market-making strategy that uses Bollinger Bands to read the market's current condition. It automatically adjusts how it trades whenever it detects that the market is either trending strongly or experiencing a period of high volatility.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "OKX"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 9,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/i2_a-l8HZHw",
+      "authorName": "Christopher Bram"
+    },
+    {
+      "type": "strategy",
+      "namespace": "siam-thongnak",
+      "name": "multi-asset-xemm",
+      "summary": "This strategy aims to increase profits by narrowing its focus to only the three most stable assets available. By avoiding highly volatile options, it seeks out more consistent and predictable trading opportunities.",
+      "description": "This strategy aims to increase profits by narrowing its focus to only the three most stable assets available. By avoiding highly volatile options, it seeks out more consistent and predictable trading opportunities.",
+      "tags": [
+        "XEMM",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance",
+        "gate_io"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 9,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/9sQljJgNWsQ",
+      "authorName": "Siam Thongnak"
+    },
+    {
+      "type": "strategy",
+      "namespace": "simon-moxon",
+      "name": "pc-yay",
+      "summary": "PC-Yay!",
+      "description": "PC-Yay!",
+      "tags": [
+        "V2 Controller"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 9,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Simon Moxon"
+    },
+    {
+      "type": "strategy",
+      "namespace": "matt-marooney",
+      "name": "shamu-dynamic-clmm-strategy-on-orca",
+      "summary": "This strategy requires direct interaction with the Orca protocol on the Solana blockchain, which isn't currently supported by Hummingbot. To work around this limitation, I built a custom, standalone bot that includes the necessary code to test the concept. The code was written in a modular way, so it can be easily integrated into Hummingbot in the future.",
+      "description": "This strategy requires direct interaction with the Orca protocol on the Solana blockchain, which isn't currently supported by Hummingbot. To work around this limitation, I built a custom, standalone bot that includes the necessary code to test the concept. The code was written in a modular way, so it can be easily integrated into Hummingbot in the future.",
+      "tags": [
+        "LP",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "orca"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 9,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/s6FcUU-p7a8",
+      "authorName": "Matt Marooney"
+    },
+    {
+      "type": "strategy",
+      "namespace": "gerald-luzangi",
+      "name": "liquidhood-cex-dex",
+      "summary": "This strategy acts as a liquidity bridge between busy and quiet markets. It involves taking assets from high-volume exchanges, where liquidity is plentiful, and using them to provide liquidity or execute trades on less active, illiquid exchanges. This approach aims to profit from the wider price spreads and better trading opportunities that often exist in markets with lower trading volume.",
+      "description": "This strategy acts as a liquidity bridge between busy and quiet markets. It involves taking assets from high-volume exchanges, where liquidity is plentiful, and using them to provide liquidity or execute trades on less active, illiquid exchanges. This approach aims to profit from the wider price spreads and better trading opportunities that often exist in markets with lower trading volume.",
+      "tags": [
+        "XEMM",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "dexalot",
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 9,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/f4_aa42lV3I",
+      "authorName": "Gerald Luzangi"
+    },
+    {
+      "type": "strategy",
+      "namespace": "christopher-mercer",
+      "name": "triangular-arbitrage-etcusdc-btcusdc",
+      "summary": "A triangular arbitrage trade was executed on Coinbase using the V1 client, involving the ETC/USDC, ETC/BTC, and BTC/USDC markets. This strategy involved a rapid, three-step conversion between the assets to capitalize on a temporary price imbalance and generate a profit.",
+      "description": "A triangular arbitrage trade was executed on Coinbase using the V1 client, involving the ETC/USDC, ETC/BTC, and BTC/USDC markets. This strategy involved a rapid, three-step conversion between the assets to capitalize on a temporary price imbalance and generate a profit.",
+      "tags": [
+        "Arbitrage",
+        "V1 Strategy"
+      ],
+      "exchanges": [
+        "coinbase"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 9,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/ndTn6tv9mi4",
+      "authorName": "Christopher Mercer"
+    },
+    {
+      "type": "strategy",
+      "namespace": "brett-mollin",
+      "name": "cross-exchange-making-with-xrpl-lessgreater-kraken",
+      "summary": "Provide liquidity to XRPL by leveraging Kraken, a more liquid exchange",
+      "description": "Provide liquidity to XRPL by leveraging Kraken, a more liquid exchange",
+      "tags": [
+        "XEMM",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "XRPL",
+        "kraken"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 8,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://vimeo.com/996719654",
+      "authorName": "Brett Mollin"
+    },
+    {
+      "type": "strategy",
+      "namespace": "elliot-lee",
+      "name": "trinity-strategy-fee-efficient-market-making-strategy-arbitrage-neural-net-mm",
+      "summary": "The purpose of this strategy is to provide liquidity to the market by placing limit buy and sell orders around the current market price without canceling them, thereby minimizing transaction fees from order cancellations. The aim is to profit from the spread between the buy and sell prices while maintaining efficient inventory management and adapting to market conditions. This strategy is cost-effective while ensuring continuous market participation and risk management.",
+      "description": "The purpose of this strategy is to provide liquidity to the market by placing limit buy and sell orders around the current market price without canceling them, thereby minimizing transaction fees from order cancellations. The aim is to profit from the spread between the buy and sell prices while maintaining efficient inventory management and adapting to market conditions. This strategy is cost-effective while ensuring continuous market participation and risk management.",
+      "tags": [
+        "Arbitrage",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "XRPL"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 8,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://vimeo.com/996719654",
+      "authorName": "Elliot Lee"
+    },
+    {
+      "type": "strategy",
+      "namespace": "nancy-meng",
+      "name": "xrpl-okx-xemm",
+      "summary": "This strategy extends the cross-exchange market making strategy by leveraging XRPL DEX as the maker exchange and OKX (CEX) as the taker exchange to enhance liquidity, optimize trading efficiency, and capitalize on arbitrage opportunities.",
+      "description": "This strategy extends the cross-exchange market making strategy by leveraging XRPL DEX as the maker exchange and OKX (CEX) as the taker exchange to enhance liquidity, optimize trading efficiency, and capitalize on arbitrage opportunities.",
+      "tags": [
+        "XEMM",
+        "V1 Strategy"
+      ],
+      "exchanges": [
+        "XRPL"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 8,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://vimeo.com/996719654",
+      "authorName": "Nancy Meng"
+    },
+    {
+      "type": "strategy",
+      "namespace": "alex-mellusco",
+      "name": "fair-price-xrpl-xemm",
+      "summary": "To provide liquidity on an illiquid exchange like the XRPL DEX, you can algorithmically quote buy and sell orders around a Fair Price derived from a liquid venue’s volume-weighted mid price. By mirroring the liquid exchange’s tighter spreads and applying necessary cross-currency conversion rates, you ensure competitive pricing despite the lower local volume.",
+      "description": "To provide liquidity on an illiquid exchange like the XRPL DEX, you can algorithmically quote buy and sell orders around a Fair Price derived from a liquid venue’s volume-weighted mid price. By mirroring the liquid exchange’s tighter spreads and applying necessary cross-currency conversion rates, you ensure competitive pricing despite the lower local volume.",
+      "tags": [
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "XRPL"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 8,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Alex Mellusco"
+    },
+    {
+      "type": "strategy",
+      "namespace": "dmitri-rykunov",
+      "name": "cex-dex-spot-xemm",
+      "summary": "In Uniswap v3, liquidity can be provided within a very specific and narrow price range, which functions like a \"box.\" This feature allows for the creation of a limit order by setting a narrow box just above or below the current market price. When the price moves into this range, the protocol automatically swaps one asset for the other, effectively executing a buy or sell order at the target price.",
+      "description": "In Uniswap v3, liquidity can be provided within a very specific and narrow price range, which functions like a \"box.\" This feature allows for the creation of a limit order by setting a narrow box just above or below the current market price. When the price moves into this range, the protocol automatically swaps one asset for the other, effectively executing a buy or sell order at the target price.",
+      "tags": [
+        "LP",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "uniswap"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/l4FZgTLMIQ4",
+      "authorName": "Dmitri Rykunov"
+    },
+    {
+      "type": "strategy",
+      "namespace": "linus-henriksson",
+      "name": "vwap-scalper",
+      "summary": "This strategy identifies the true average price of an asset using VWAP and then creates a trading channel around it with two volatility bands. It operates on a \"mean reversion\" principle, looking for trades when the price stretches just outside the first band but not beyond the second. When this specific condition is met, the bot places a trade, betting that the price will quickly snap back toward the average.",
+      "description": "This strategy identifies the true average price of an asset using VWAP and then creates a trading channel around it with two volatility bands. It operates on a \"mean reversion\" principle, looking for trades when the price stretches just outside the first band but not beyond the second. When this specific condition is met, the bot places a trade, betting that the price will quickly snap back toward the average.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/OKn-eSfPgP4",
+      "authorName": "Linus Henriksson"
+    },
+    {
+      "type": "strategy",
+      "namespace": "john-young",
+      "name": "cross-sectional-momentum",
+      "summary": "This strategy constantly scans a universe of cryptocurrencies to identify the top performers with the strongest recent price momentum. It automatically builds a portfolio by buying these \"winners,\" operating on the principle that assets performing well will continue to do so in the short term. The script then regularly rebalances the portfolio, selling assets that have \"cooled off\" and replacing them with the new \"hottest\" coins to continuously chase the market's momentum.",
+      "description": "This strategy constantly scans a universe of cryptocurrencies to identify the top performers with the strongest recent price momentum. It automatically builds a portfolio by buying these \"winners,\" operating on the principle that assets performing well will continue to do so in the short term. The script then regularly rebalances the portfolio, selling assets that have \"cooled off\" and replacing them with the new \"hottest\" coins to continuously chase the market's momentum.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "kraken"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/__qzE6VevJs",
+      "authorName": "John Young"
+    },
+    {
+      "type": "strategy",
+      "namespace": "vlad-ragulin",
+      "name": "multi-indicator-directional-strategy",
+      "summary": "This predictive model was trained on nearly two years of historical Solana data to forecast the next price move by analyzing long and short-term moving averages. Based on its forecast, it calculates a target position but uses a built-in buffer to avoid over-trading and save on fees. This means it will only execute a trade if the predicted move is significant enough to be worthwhile after transaction costs.",
+      "description": "This predictive model was trained on nearly two years of historical Solana data to forecast the next price move by analyzing long and short-term moving averages. Based on its forecast, it calculates a target position but uses a built-in buffer to avoid over-trading and save on fees. This means it will only execute a trade if the predicted move is significant enough to be worthwhile after transaction costs.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "kraken"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/sDYb92n8eio",
+      "authorName": "Vlad Ragulin"
+    },
+    {
+      "type": "strategy",
+      "namespace": "alec-otto",
+      "name": "chop-cutter",
+      "summary": "This mean reversion strategy is designed to profit from small price fluctuations in sideways or \"choppy\" markets. It uses Bollinger Bands to define the trading range, automatically placing a leveraged sell order at the upper band and a buy order at the lower band. A key safety feature pauses all trading activity during high-volatility events to avoid large losses when a strong trend emerges.",
+      "description": "This mean reversion strategy is designed to profit from small price fluctuations in sideways or \"choppy\" markets. It uses Bollinger Bands to define the trading range, automatically placing a leveraged sell order at the upper band and a buy order at the lower band. A key safety feature pauses all trading activity during high-volatility events to avoid large losses when a strong trend emerges.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "phemex"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/utXNxVxOGfE",
+      "authorName": "Alec Otto"
+    },
+    {
+      "type": "strategy",
+      "namespace": "dingsen-shi",
+      "name": "avellaneda-and-stoikov-v2",
+      "summary": "This bot performs a classic market-making strategy by placing one buy and one sell order on either side of the current market price. To keep up with price changes, it automatically cancels and replaces these orders every few seconds. This constant refresh ensures your orders always track the live market.",
+      "description": "This bot performs a classic market-making strategy by placing one buy and one sell order on either side of the current market price. To keep up with price changes, it automatically cancels and replaces these orders every few seconds. This constant refresh ensures your orders always track the live market.",
+      "tags": [
+        "PMM",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/_fOb5hewm0A",
+      "authorName": "Dingsen Shi"
+    },
+    {
+      "type": "strategy",
+      "namespace": "petr-valasek",
+      "name": "spot-perpetual-arbitrage-v2",
+      "summary": "Spot-Perpetual Arbitrage V2",
+      "description": "Spot-Perpetual Arbitrage V2",
+      "tags": [
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.loom.com/share/1a4d668f44db41e1bf8a1d77622316a1?sid=35d25324-a869-4107-ad72-273ea326509f",
+      "authorName": "Petr Valasek"
+    },
+    {
+      "type": "strategy",
+      "namespace": "patrick-meier",
+      "name": "liquidation-sniper",
+      "summary": "This strategy acts like a \"liquidation sniper,\" monitoring Binance for large, forced-selling events that cause temporary price crashes. When a significant liquidation is detected, the bot automatically buys into the dip in stages, betting on the quick price rebound that often follows. The position is managed with a \"triple barrier\" system, which sets automatic take-profit, stop-loss, and time-based exits for risk control.",
+      "description": "This strategy acts like a \"liquidation sniper,\" monitoring Binance for large, forced-selling events that cause temporary price crashes. When a significant liquidation is detected, the bot automatically buys into the dip in stages, betting on the quick price rebound that often follows. The position is managed with a \"triple barrier\" system, which sets automatic take-profit, stop-loss, and time-based exits for risk control.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "kucoin"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/pFERDd7OC0Y",
+      "authorName": "Patrick Meier"
+    },
+    {
+      "type": "strategy",
+      "namespace": "nicolas-lopez",
+      "name": "dynamic-range-management-for-uniswap-v3",
+      "summary": "This strategy lets you provide liquidity to a Uniswap V3 pool by defining both a custom starting ratio for your two assets and a specific price range for your investment. It actively manages your position to ensure it is always earning trading fees. If the market price moves outside your set range, causing your liquidity to become inactive, the strategy automatically rebalances it for you.",
+      "description": "This strategy lets you provide liquidity to a Uniswap V3 pool by defining both a custom starting ratio for your two assets and a specific price range for your investment. It actively manages your position to ensure it is always earning trading fees. If the market price moves outside your set range, causing your liquidity to become inactive, the strategy automatically rebalances it for you.",
+      "tags": [
+        "LP",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "uniswap"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 7,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/K2H8eS1AeJE",
+      "authorName": "Nicolas Lopez"
+    },
+    {
+      "type": "strategy",
+      "namespace": "floren-bariod",
+      "name": "spot-perp-arbitrage",
+      "summary": "This market-neutral strategy generates yield by capturing the funding rate from perpetual futures markets. It is executed through a \"basis trade,\" where a long position in a collateral asset, such as staked Ethereum, is perfectly hedged with an equivalent short position in the perpetual futures market. This neutralizes exposure to price volatility, making the funding rate payments the main source of profit.",
+      "description": "This market-neutral strategy generates yield by capturing the funding rate from perpetual futures markets. It is executed through a \"basis trade,\" where a long position in a collateral asset, such as staked Ethereum, is perfectly hedged with an equivalent short position in the perpetual futures market. This neutralizes exposure to price volatility, making the funding rate payments the main source of profit.",
+      "tags": [
+        "Arbitrage",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 6,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=W2e-vAmNWhI",
+      "authorName": "Floren Bariod"
+    },
+    {
+      "type": "strategy",
+      "namespace": "yue-wang",
+      "name": "dynamic-ratio-pairs",
+      "summary": "This is a market-neutral pairs trading strategy designed to profit from temporary price imbalances between two historically linked crypto assets. It uses statistical methods like co-integration and EMA analysis to identify when the pair's price ratio has deviated from its normal pattern. The bot then executes opposing trades—buying the undervalued asset and selling the overvalued one—betting on the prices to \"mean revert\" or snap back together.",
+      "description": "This is a market-neutral pairs trading strategy designed to profit from temporary price imbalances between two historically linked crypto assets. It uses statistical methods like co-integration and EMA analysis to identify when the pair's price ratio has deviated from its normal pattern. The bot then executes opposing trades—buying the undervalued asset and selling the overvalued one—betting on the prices to \"mean revert\" or snap back together.",
+      "tags": [
+        "Directional",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "hyperliquid"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 6,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=AM5DwRBj1nQ",
+      "authorName": "Yue Wang"
+    },
+    {
+      "type": "strategy",
+      "namespace": "daniel-sigurbjornsson",
+      "name": "volvolmom",
+      "summary": "A trading strategy was implemented and tested using Hummingbot on the XRP Ledger's decentralized exchange. Real-world application revealed significant challenges in achieving consistent profitability. The key lesson learned is that success in this environment requires a continuous cycle of rapid strategy adjustments and detailed analysis of past trades.",
+      "description": "A trading strategy was implemented and tested using Hummingbot on the XRP Ledger's decentralized exchange. Real-world application revealed significant challenges in achieving consistent profitability. The key lesson learned is that success in this environment requires a continuous cycle of rapid strategy adjustments and detailed analysis of past trades.",
+      "tags": [
+        "Directional",
+        "V2 Script"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 6,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=9us7EC1oh7k",
+      "authorName": "Daníel Sigurbjörnsson"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hafthor-gunnlaugsson",
+      "name": "perp-arb",
+      "summary": "This is a market-neutral arbitrage strategy that profits from temporary price differences for the same perpetual futures contract on two different exchanges, like Binance and Hyperliquid. The strategy works by simultaneously buying the contract on the exchange where it's cheaper while short-selling it on the exchange where it's more expensive. This captures the price spread as profit when the two prices eventually converge, making money regardless of whether the overall market goes up or down.",
+      "description": "This is a market-neutral arbitrage strategy that profits from temporary price differences for the same perpetual futures contract on two different exchanges, like Binance and Hyperliquid. The strategy works by simultaneously buying the contract on the exchange where it's cheaper while short-selling it on the exchange where it's more expensive. This captures the price spread as profit when the two prices eventually converge, making money regardless of whether the overall market goes up or down.",
+      "tags": [
+        "Arbitrage",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "binance",
+        "hyperliquid"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 6,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=aDsNPP4vDSQ",
+      "authorName": "Hafþór Gunnlaugsson"
+    },
+    {
+      "type": "strategy",
+      "namespace": "gunnlaugur-hreidarsson",
+      "name": "automated-cash-and-carry",
+      "summary": "This video demonstrates a market-making strategy that uses two indicators to trade more intelligently. It uses RSI to gauge market momentum and shift its orders to be better positioned for the next price swing. Simultaneously, it uses ATR to measure volatility, automatically widening its spreads for safety in choppy markets and tightening them when things are calm.",
+      "description": "This video demonstrates a market-making strategy that uses two indicators to trade more intelligently. It uses RSI to gauge market momentum and shift its orders to be better positioned for the next price swing. Simultaneously, it uses ATR to measure volatility, automatically widening its spreads for safety in choppy markets and tightening them when things are calm.",
+      "tags": [
+        "Directional",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 6,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=3nE2We1zsoE",
+      "authorName": "Gunnlaugur Hreidarsson"
+    },
+    {
+      "type": "strategy",
+      "namespace": "alex-mukhachou",
+      "name": "neural-network-augmented-market-maker-algo-nama",
+      "summary": "This trading system operates as a two-part team: a \"researcher\" and a \"trader.\" First, a signal module acts as the researcher, constantly collecting and analyzing market data to generate a clear buy or sell signal. Then, a separate Hummingbot module acts as the trader, reading that signal and executing the actual orders on the exchange.",
+      "description": "This trading system operates as a two-part team: a \"researcher\" and a \"trader.\" First, a signal module acts as the researcher, constantly collecting and analyzing market data to generate a clear buy or sell signal. Then, a separate Hummingbot module acts as the trader, reading that signal and executing the actual orders on the exchange.",
+      "tags": [
+        "Directional",
+        "V2 Controller"
+      ],
+      "exchanges": [
+        "XRPL",
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 6,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/M0c4OLMcnpU",
+      "authorName": "Alex Mukhachou"
+    },
+    {
+      "type": "strategy",
+      "namespace": "yeyun-chen",
+      "name": "rsi-adaptive-market-maker-rsi-amm",
+      "summary": "This smart market-making strategy uses the RSI indicator to sense the market's current momentum, much like a surfer feeling the power of a wave. It then automatically adjusts its buy and sell orders to be in a better position for the next expected price move. This adaptive approach aims to increase profits by anticipating short-term price swings instead of remaining static.",
+      "description": "This smart market-making strategy uses the RSI indicator to sense the market's current momentum, much like a surfer feeling the power of a wave. It then automatically adjusts its buy and sell orders to be in a better position for the next expected price move. This adaptive approach aims to increase profits by anticipating short-term price swings instead of remaining static.",
+      "tags": [
+        "Directional",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 6,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=3nE2We1zsoE",
+      "authorName": "Yeyun Chen"
+    },
+    {
+      "type": "strategy",
+      "namespace": "wilfred-lau",
+      "name": "statistical-arbitrage",
+      "summary": "This strategy first finds two cryptocurrencies that have a historically stable price relationship. When their prices temporarily drift too far apart, the script simultaneously buys the underperforming asset and sells the outperforming one, betting that their price gap will soon snap back to normal.",
+      "description": "This strategy first finds two cryptocurrencies that have a historically stable price relationship. When their prices temporarily drift too far apart, the script simultaneously buys the underperforming asset and sells the outperforming one, betting that their price gap will soon snap back to normal.",
+      "tags": [
+        "Arbitrage",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 5,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/QGBEVue2XEk",
+      "authorName": "Wilfred Lau"
+    },
+    {
+      "type": "strategy",
+      "namespace": "danny-almaden",
+      "name": "ai-assistant-directional-strategy",
+      "summary": "First, a conversational AI assistant helps you create a custom trading strategy by asking for your desired risk settings, such as stop-loss and take-profit. Once you confirm the setup, a second AI automatically writes the code for the strategy. The strategy itself is designed to be very disciplined, using three moving averages to trade only when they all perfectly align to confirm a strong, sustained uptrend or a clear downtrend.",
+      "description": "First, a conversational AI assistant helps you create a custom trading strategy by asking for your desired risk settings, such as stop-loss and take-profit. Once you confirm the setup, a second AI automatically writes the code for the strategy. The strategy itself is designed to be very disciplined, using three moving averages to trade only when they all perfectly align to confirm a strong, sustained uptrend or a clear downtrend.",
+      "tags": [
+        "Directional",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 5,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/w0jS6hVLFh4",
+      "authorName": "Danny Almaden"
+    },
+    {
+      "type": "strategy",
+      "namespace": "federico-cardoso",
+      "name": "arbitrage-with-smart-compnent",
+      "summary": "Hummingbot maintainer and Botcamp instructor Federico showcases the Arbitrage Executor, a tool enabling arbitrage across CEXes and DEXes. He details how it calculates profitability, offers a script for executing the strategy, and underlines the need for sufficient balance.",
+      "description": "Hummingbot maintainer and Botcamp instructor Federico showcases the Arbitrage Executor, a tool enabling arbitrage across CEXes and DEXes. He details how it calculates profitability, offers a script for executing the strategy, and underlines the need for sufficient balance.",
+      "tags": [
+        "Arbitrage",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance",
+        "uniswap"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 5,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=VqJxpWZzCG4",
+      "authorName": "Federico Cardoso"
+    },
+    {
+      "type": "strategy",
+      "namespace": "federico-cardoso",
+      "name": "funding-rate-arbitrage",
+      "summary": "Hummingbot CTO Federico introduces Funding Rate Arbitrage, a new Hummingbot strategy that exploits the differential between funding rates on perpetual futures exchanges like Hyperliquid and Binance Futures.",
+      "description": "Hummingbot CTO Federico introduces Funding Rate Arbitrage, a new Hummingbot strategy that exploits the differential between funding rates on perpetual futures exchanges like Hyperliquid and Binance Futures.",
+      "tags": [
+        "Arbitrage",
+        "V2 Script"
+      ],
+      "exchanges": [
+        "binance",
+        "hyperliquid"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 4,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.youtube.com/watch?v=Ly8R5g3juxw",
+      "authorName": "Federico Cardoso"
+    },
+    {
+      "type": "strategy",
+      "namespace": "wan-hong-lau",
+      "name": "spot-perp-arbitrage",
+      "summary": "This strategy acts like an arbitrageur, profiting from temporary price gaps between an asset's spot and perpetual futures markets. When it detects a significant price difference, it simultaneously buys the asset on the cheaper market and sells it on the more expensive one. The bot then holds this hedged position until the two prices converge, closing both trades to capture the difference as profit.",
+      "description": "This strategy acts like an arbitrageur, profiting from temporary price gaps between an asset's spot and perpetual futures markets. When it detects a significant price difference, it simultaneously buys the asset on the cheaper market and sells it on the more expensive one. The bot then holds this hedged position until the two prices converge, closing both trades to capture the difference as profit.",
+      "tags": [
+        "Arbitrage",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "bybit"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 4,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/om1EasvPW4c",
+      "authorName": "Wan Hong Lau"
+    },
+    {
+      "type": "strategy",
+      "namespace": "michael-feng",
+      "name": "backtestable-market-making-strategy",
+      "summary": "This script is a backtesting tool that simulates the performance of a simple market-making strategy using historical data. You provide the basic strategy parameters, like spreads and order size, and select a past time period for the test. The script then runs the simulation and generates a summary report showing you how your strategy would have performed during that time.",
+      "description": "This script is a backtesting tool that simulates the performance of a simple market-making strategy using historical data. You provide the basic strategy parameters, like spreads and order size, and select a past time period for the test. The script then runs the simulation and generates a summary report showing you how your strategy would have performed during that time.",
+      "tags": [
+        "PMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 4,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/iwok_W_Hk0g",
+      "authorName": "Michael Feng"
+    },
+    {
+      "type": "strategy",
+      "namespace": "dolm-chen",
+      "name": "leeks-reaper-okcoin",
+      "summary": "这是一个在OKCoin比特币交易平台上的高频交易机器人程序，从2016年6月策略基本定型，到2017年1月中旬，这个策略成功的把最初投入的6000块钱刷到了250000。由于近日央行对比特币实行高压政策，各大平台都停止了配资，并且开始征收交易费，该策略实际上已经失效了。",
+      "description": "这是一个在OKCoin比特币交易平台上的高频交易机器人程序，从2016年6月策略基本定型，到2017年1月中旬，这个策略成功的把最初投入的6000块钱刷到了250000。由于近日央行对比特币实行高压政策，各大平台都停止了配资，并且开始征收交易费，该策略实际上已经失效了。",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 4,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Dolm Chen"
+    },
+    {
+      "type": "strategy",
+      "namespace": "roland-kofler",
+      "name": "1n-index-portfolio",
+      "summary": "This strategy builds a diversified portfolio by investing an equal amount of money into a curated list of top cryptocurrencies, excluding stablecoins. This list of approved assets is regularly hand-picked by a committee. The script then automates the portfolio's management, continuously rebalancing it to ensure each coin always makes up an equal share of the total investment.",
+      "description": "This strategy builds a diversified portfolio by investing an equal amount of money into a curated list of top cryptocurrencies, excluding stablecoins. This list of approved assets is regularly hand-picked by a committee. The script then automates the portfolio's management, continuously rebalancing it to ensure each coin always makes up an equal share of the total investment.",
+      "tags": [
+        "Index",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 4,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/_GpOk9eBMoU",
+      "authorName": "Danniel Kobler"
+    },
+    {
+      "type": "strategy",
+      "namespace": "peter-chong",
+      "name": "running-multiple-mm-strategies",
+      "summary": "Integrate my existing bots (multiple volume control bots and 1 hummingbot PMM bot) in one hummingbot script. This is because running in isolated bots will reach API limits quickly and cause multiple bots to halt.",
+      "description": "Integrate my existing bots (multiple volume control bots and 1 hummingbot PMM bot) in one hummingbot script. This is because running in isolated bots will reach API limits quickly and cause multiple bots to halt.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 3,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Peter Chong"
+    },
+    {
+      "type": "strategy",
+      "namespace": "tolulope-shekoni",
+      "name": "dex-darbdyield",
+      "summary": "This is a leveraged yield farming strategy that aims to amplify returns. It begins by borrowing a large amount of cryptocurrency from a lending protocol like Aave or Compound. The borrowed funds are then immediately deposited into a separate, high-yield farm to generate rewards, which are later withdrawn to repay the original loan, with the excess kept as profit.",
+      "description": "This is a leveraged yield farming strategy that aims to amplify returns. It begins by borrowing a large amount of cryptocurrency from a lending protocol like Aave or Compound. The borrowed funds are then immediately deposited into a separate, high-yield farm to generate rewards, which are later withdrawn to repay the original loan, with the excess kept as profit.",
+      "tags": [
+        "Arbitrage",
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 3,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/dv-pzzzsKiA",
+      "authorName": "Tolulope Shekoni"
+    },
+    {
+      "type": "strategy",
+      "namespace": "tobias-rethmeyer",
+      "name": "cexxemmwrebalancing",
+      "summary": "This is a cross-exchange market-making bot that provides liquidity on a quiet (illiquid) exchange by intelligently setting its prices based on a busier, liquid exchange to ensure profitability. When one of its orders is filled, the bot instantly places an opposite trade on the liquid exchange to lock in a guaranteed profit. Additionally, the script actively manages its own inventory, periodically making rebalancing trades to maintain its target ratio of assets.",
+      "description": "This is a cross-exchange market-making bot that provides liquidity on a quiet (illiquid) exchange by intelligently setting its prices based on a busier, liquid exchange to ensure profitability. When one of its orders is filled, the bot instantly places an opposite trade on the liquid exchange to lock in a guaranteed profit. Additionally, the script actively manages its own inventory, periodically making rebalancing trades to maintain its target ratio of assets.",
+      "tags": [
+        "XEMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance",
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 3,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/u2eI5L1knbc",
+      "authorName": "Tobias Rethmeyer"
+    },
+    {
+      "type": "strategy",
+      "namespace": "wan-hong-lau",
+      "name": "cross-dex-arbitrage-on-same-chain",
+      "summary": "This is an arbitrage strategy designed to profit from price differences for the same token on two different decentralized exchanges (DEXs). It works by simultaneously buying a token on the DEX where it's cheaper and selling it on the DEX where it's more expensive. Before executing any trades, the script runs a series of pre-flight checks to ensure the wallet is connected, token permissions are set, and there are enough funds for both the trade and transaction fees.",
+      "description": "This is an arbitrage strategy designed to profit from price differences for the same token on two different decentralized exchanges (DEXs). It works by simultaneously buying a token on the DEX where it's cheaper and selling it on the DEX where it's more expensive. Before executing any trades, the script runs a series of pre-flight checks to ensure the wallet is connected, token permissions are set, and there are enough funds for both the trade and transaction fees.",
+      "tags": [
+        "Arbitrage",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "pancakeswap",
+        "sushiswap"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 3,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/Kqr0p2b_wgM",
+      "authorName": "Wan Hong Lau"
+    },
+    {
+      "type": "strategy",
+      "namespace": "andy-fajar-handika",
+      "name": "trailing-geometric-grid",
+      "summary": "This script will execute trailing grid strategy with geometric price increment & decrement. Trailing means it will follow whatever the asset price is and continuously having active trades on the asset.",
+      "description": "This script will execute trailing grid strategy with geometric price increment & decrement. Trailing means it will follow whatever the asset price is and continuously having active trades on the asset.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 3,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Andy Fajar Handika"
+    },
+    {
+      "type": "strategy",
+      "namespace": "valentin-balaschenko",
+      "name": "small-tokens-portfolio-rebalancing-strategy",
+      "summary": "This strategy actively manages a crypto portfolio by analyzing each token's performance every few hours using CoinMarketCap data. Based on this analysis, it calculates a new target allocation, assigning a larger share of the portfolio to the assets that are currently performing the best. The bot then automatically rebalances the funds to match these new targets, but includes a minimum trade size to avoid making small, inefficient adjustments.",
+      "description": "This strategy actively manages a crypto portfolio by analyzing each token's performance every few hours using CoinMarketCap data. Based on this analysis, it calculates a new target allocation, assigning a larger share of the portfolio to the assets that are currently performing the best. The bot then automatically rebalances the funds to match these new targets, but includes a minimum trade size to avoid making small, inefficient adjustments.",
+      "tags": [
+        "Index",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 3,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/92DUjWyvVZU",
+      "authorName": "Valentin Balaschenko"
+    },
+    {
+      "type": "strategy",
+      "namespace": "gregor-zavcer",
+      "name": "multi-maker-xemm-strategy",
+      "summary": "This bot provides liquidity by placing buy and sell orders on a \"maker\" exchange. It constantly monitors prices on a second \"taker\" exchange and adjusts its own orders in real-time. This dynamic adjustment ensures that for every trade it makes, a profitable counter-trade is always available on the other exchange, locking in a small profit from the price difference.",
+      "description": "This bot provides liquidity by placing buy and sell orders on a \"maker\" exchange. It constantly monitors prices on a second \"taker\" exchange and adjusts its own orders in real-time. This dynamic adjustment ensures that for every trade it makes, a profitable counter-trade is always available on the other exchange, locking in a small profit from the price difference.",
+      "tags": [
+        "XEMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance",
+        "gate_io",
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 3,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/yzJV0EcjPN0",
+      "authorName": "Gregor Žavcer"
+    },
+    {
+      "type": "strategy",
+      "namespace": "jacky-wong",
+      "name": "xemm-triangular-arbitrage",
+      "summary": "This strategy aims at finding more opportunities from being a maker on low liquidity exchange with those illiquid pairs, and also being a taker to execute triangular arbitrage on high liquidity exchange.",
+      "description": "This strategy aims at finding more opportunities from being a maker on low liquidity exchange with those illiquid pairs, and also being a taker to execute triangular arbitrage on high liquidity exchange.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance",
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 3,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Jacky Wong"
+    },
+    {
+      "type": "strategy",
+      "namespace": "george-burry",
+      "name": "market-neutral-xemm",
+      "summary": "The XEMM strategy requires that one hold inventory (base assets) on two exchanges, where maker orders are placed one exchange and taker orders are placed on the other exchange. If a buy order is filled on one exchange and more of the base asset is accumulated, one needs to be able to sell the same amount of base asset on the other exchange, in order to exploit a price differential and earn a profit. This means that it is a necessity to assume inventory risk on both exchanges. In order to operate in a market-neutral manner, this inventory risk needs to be somehow hedged against. The solution proposed here is to hedge against all inventory risk by opening and maintaining a short position by means of a perpetual contract via a third venue. The total amount of base asset held should not change because when more of the asset is bought on one side, the same amount is sold on the other side. This means that the short position should not need to be adjusted often, if at all. However, there is the chance that the total amount of the base asset changes over time due to orders not being completely filled on both sides or a difference in fees charged. It is therefore necessary to manage the size of the hedge every time the maker and taker orders are filled.",
+      "description": "The XEMM strategy requires that one hold inventory (base assets) on two exchanges, where maker orders are placed one exchange and taker orders are placed on the other exchange. If a buy order is filled on one exchange and more of the base asset is accumulated, one needs to be able to sell the same amount of base asset on the other exchange, in order to exploit a price differential and earn a profit. This means that it is a necessity to assume inventory risk on both exchanges. In order to operate in a market-neutral manner, this inventory risk needs to be somehow hedged against. The solution proposed here is to hedge against all inventory risk by opening and maintaining a short position by means of a perpetual contract via a third venue. The total amount of base asset held should not change because when more of the asset is bought on one side, the same amount is sold on the other side. This means that the short position should not need to be adjusted often, if at all. However, there is the chance that the total amount of the base asset changes over time due to orders not being completely filled on both sides or a difference in fees charged. It is therefore necessary to manage the size of the hedge every time the maker and taker orders are filled.",
+      "tags": [
+        "XEMM",
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "George Burry"
+    },
+    {
+      "type": "strategy",
+      "namespace": "calum-macleod",
+      "name": "mm-on-multiple-pairs-with-external-source",
+      "summary": "This market-making script is highly optimized to manage many trading pairs on a single exchange without exceeding API rate limits. It achieves this by breaking its actions into three efficient, prioritized loops: it first cancels all unprofitable orders, then all uncompetitive orders, and finally places new, intelligently-priced orders based on an external price feed. This structured approach allows the bot to react quickly and prioritize its most important actions across all markets.",
+      "description": "This market-making script is highly optimized to manage many trading pairs on a single exchange without exceeding API rate limits. It achieves this by breaking its actions into three efficient, prioritized loops: it first cancels all unprofitable orders, then all uncompetitive orders, and finally places new, intelligently-priced orders based on an external price feed. This structured approach allows the bot to react quickly and prioritize its most important actions across all markets.",
+      "tags": [
+        "PMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "bittrex"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/gKP6zrHpm-4",
+      "authorName": "Calum MacLeod"
+    },
+    {
+      "type": "strategy",
+      "namespace": "john-cheong",
+      "name": "hedged-xemining",
+      "summary": "This is an adaptive Cross-Exchange Market Making (XEMM) strategy that hedges its trades using perpetual futures. Every minute, it analyzes current market volatility and its own recent profitability to intelligently adjust its trading spreads. For critical risk management, it includes a safety switch that automatically closes all positions if its margin usage exceeds 90%.",
+      "description": "This is an adaptive Cross-Exchange Market Making (XEMM) strategy that hedges its trades using perpetual futures. Every minute, it analyzes current market volatility and its own recent profitability to intelligently adjust its trading spreads. For critical risk management, it includes a safety switch that automatically closes all positions if its margin usage exceeds 90%.",
+      "tags": [
+        "XEMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance",
+        "gate_io",
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/rTUyxBPH1OQ",
+      "authorName": "John Cheong"
+    },
+    {
+      "type": "strategy",
+      "namespace": "aleksandrs-savkins",
+      "name": "optimal-price-for-liquidity-mining",
+      "summary": "This market-making strategy determines an \"optimal\" price for its orders by first identifying the largest trade from recent market history. It then uses this size as a measuring stick to place its own buy and sell orders deep enough in the current order book to absorb a similarly large trade. The bot continuously manages these orders, adjusting them to ensure they are always positioned at this calculated depth rather than at the very front of the market.",
+      "description": "This market-making strategy determines an \"optimal\" price for its orders by first identifying the largest trade from recent market history. It then uses this size as a measuring stick to place its own buy and sell orders deep enough in the current order book to absorb a similarly large trade. The bot continuously manages these orders, adjusting them to ensure they are always positioned at this calculated depth rather than at the very front of the market.",
+      "tags": [
+        "PMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/aRJkB0th4nY",
+      "authorName": "Aleksandrs Savkins"
+    },
+    {
+      "type": "strategy",
+      "namespace": "nathan-le",
+      "name": "micro-price-calculator",
+      "summary": "This script calculates a more accurate \"fair\" price for an asset by analyzing the imbalance between buy and sell orders in the order book. Before it can work, it needs about five hours of recent market data, which it will automatically start collecting if the data is not available. This calculated \"microprice\" is a valuable signal that can then be used as a building block for high-frequency trading strategies.",
+      "description": "This script calculates a more accurate \"fair\" price for an asset by analyzing the imbalance between buy and sell orders in the order book. Before it can work, it needs about five hours of recent market data, which it will automatically start collecting if the data is not available. This calculated \"microprice\" is a valuable signal that can then be used as a building block for high-frequency trading strategies.",
+      "tags": [
+        "PMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/BzlSN-DHgoA",
+      "authorName": "Nathan Le"
+    },
+    {
+      "type": "strategy",
+      "namespace": "makir-volcy",
+      "name": "cross-exchange-market-making-with-arbitrage",
+      "summary": "This bot provides liquidity by placing buy and sell orders on a quiet exchange and instantly hedges every filled order on a busier, more liquid exchange. Its key feature is adaptive hedging: it constantly measures volatility on the busy exchange to choose the best order type. In calm markets, it uses a fast market order to hedge instantly, but switches to a safer limit order during periods of high volatility to avoid bad prices.",
+      "description": "This bot provides liquidity by placing buy and sell orders on a quiet exchange and instantly hedges every filled order on a busier, more liquid exchange. Its key feature is adaptive hedging: it constantly measures volatility on the busy exchange to choose the best order type. In calm markets, it uses a fast market order to hedge instantly, but switches to a safer limit order during periods of high volatility to avoid bad prices.",
+      "tags": [
+        "XEMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "gate_io",
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/AvKm4rcdte4",
+      "authorName": "Makir Volcy"
+    },
+    {
+      "type": "strategy",
+      "namespace": "jaanus-varus",
+      "name": "flexible-savings",
+      "summary": "This toolkit lets your trading bot automatically deposit its idle funds into an exchange's flexible savings account to earn passive interest. It's designed for low-frequency strategies, ensuring your capital is still generating a yield even while you're waiting for the next trade signal.",
+      "description": "This toolkit lets your trading bot automatically deposit its idle funds into an exchange's flexible savings account to earn passive interest. It's designed for low-frequency strategies, ensuring your capital is still generating a yield even while you're waiting for the next trade signal.",
+      "tags": [
+        "Directional",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://www.loom.com/share/d7887499ae4d410c9f0529ca7cf2491f",
+      "authorName": "Jaanus Varus"
+    },
+    {
+      "type": "strategy",
+      "namespace": "barnabas-debreczeni",
+      "name": "volume-pumpr",
+      "summary": "This strategy is designed specifically to generate a high trading volume, helping you quickly qualify for lower fees and VIP benefits on an exchange. Its primary goal is not to make a profit from the trades themselves, but to execute a large volume of transactions with the lowest possible risk. The real profit comes from the valuable fee discounts unlocked by this high-volume activity.",
+      "description": "This strategy is designed specifically to generate a high trading volume, helping you quickly qualify for lower fees and VIP benefits on an exchange. Its primary goal is not to make a profit from the trades themselves, but to execute a large volume of transactions with the lowest possible risk. The real profit comes from the valuable fee discounts unlocked by this high-volume activity.",
+      "tags": [
+        "PMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Barnabas Debreczeni"
+    },
+    {
+      "type": "strategy",
+      "namespace": "rohit-varma-bhetalam",
+      "name": "identify-opportunities",
+      "summary": "This script acts as a powerful market scanner, first identifying all trading pairs on an exchange with a specific base currency like USD. It then analyzes the live order book for every pair, calculating and comparing key metrics such as trading volume, price spreads, and market depth. The final result is a ranked list that allows you to easily see which markets are the most active and have the best trading conditions at a glance.",
+      "description": "This script acts as a powerful market scanner, first identifying all trading pairs on an exchange with a specific base currency like USD. It then analyzes the live order book for every pair, calculating and comparing key metrics such as trading volume, price spreads, and market depth. The final result is a ranked list that allows you to easily see which markets are the most active and have the best trading conditions at a glance.",
+      "tags": [
+        "Screener",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 2,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/94B133Wvc7s",
+      "authorName": "Rohit Varma Bhetalam"
+    },
+    {
+      "type": "strategy",
+      "namespace": "dolm-chen",
+      "name": "rebalance-strategy",
+      "summary": "This bot will maintain a specific proportion of each asset value as you set.",
+      "description": "This bot will maintain a specific proportion of each asset value as you set.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Dolm Chen"
+    },
+    {
+      "type": "strategy",
+      "namespace": "federico-cardoso",
+      "name": "pmm-with-price-shift-and-dynamic-spreads",
+      "summary": "Extends the Simple Pure Market Making script example with custom mid price and dynamic spreads based on technical indicators.",
+      "description": "Extends the Simple Pure Market Making script example with custom mid price and dynamic spreads based on technical indicators.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Federico Cardoso"
+    },
+    {
+      "type": "strategy",
+      "namespace": "ben-smeaton",
+      "name": "cross-exchange-mining",
+      "summary": "Simpler XEMM strategy with automatic rebalancing",
+      "description": "Simpler XEMM strategy with automatic rebalancing",
+      "tags": [
+        "V1 Strategy"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Ben Smeaton"
+    },
+    {
+      "type": "strategy",
+      "namespace": "nathan-gray",
+      "name": "spread-adjusted-on-price-range",
+      "summary": "The purpose of this strategy is to adjust the spread for the bid and ask orders based on the spread between the high and low prices over the past x seconds.",
+      "description": "The purpose of this strategy is to adjust the spread for the bid and ask orders based on the spread between the high and low prices over the past x seconds.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Nathan Gray"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hyder-alkhalifah-2",
+      "name": "buy-low-and-sell-high",
+      "summary": "The goal of this strategy is to let traders buy low and sell high. It will depend on the crossover of simple moving averages.",
+      "description": "The goal of this strategy is to let traders buy low and sell high. It will depend on the crossover of simple moving averages.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hyder Alkhalifah"
+    },
+    {
+      "type": "strategy",
+      "namespace": "alan-coppola",
+      "name": "vwap-market-making",
+      "summary": "This strategy operates in distinct \"episodes,\" each with the goal of executing a predefined total dollar amount of trades. It intelligently places its buy and sell limit orders using a VWAP calculation to find price levels where they are likely to be filled easily. The episode concludes and performance is measured as soon as the target trading volume is met on either the buy or sell side.",
+      "description": "This strategy operates in distinct \"episodes,\" each with the goal of executing a predefined total dollar amount of trades. It intelligently places its buy and sell limit orders using a VWAP calculation to find price levels where they are likely to be filled easily. The episode concludes and performance is measured as soon as the target trading volume is met on either the buy or sell side.",
+      "tags": [
+        "PMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/YgsjGokBlhQ",
+      "authorName": "Alan Coppola"
+    },
+    {
+      "type": "strategy",
+      "namespace": "viktoria-tsybko",
+      "name": "triangular-arbitrage",
+      "summary": "This is a triangular arbitrage bot that constantly scans three trading pairs, calculating potential profits based on live order book depth to find a looping trade opportunity. Its defining feature is its linear execution: it places and waits for each of the three trades in the sequence to complete one by one, rather than all at once. For risk management, the strategy includes a kill-switch that automatically halts trading if it accumulates too many losses.",
+      "description": "This is a triangular arbitrage bot that constantly scans three trading pairs, calculating potential profits based on live order book depth to find a looping trade opportunity. Its defining feature is its linear execution: it places and waits for each of the three trades in the sequence to complete one by one, rather than all at once. For risk management, the strategy includes a kill-switch that automatically halts trading if it accumulates too many losses.",
+      "tags": [
+        "Arbitrage",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "kucoin"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/BPYAIruN5Bc",
+      "authorName": "Viktoria Tsybko"
+    },
+    {
+      "type": "strategy",
+      "namespace": "pavel-shibanov",
+      "name": "simple-rsi",
+      "summary": "This script aims to buy when RSI is below 30 and sell when above 70.",
+      "description": "This script aims to buy when RSI is below 30 and sell when above 70.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Pavel Shibanov"
+    },
+    {
+      "type": "strategy",
+      "namespace": "federico-cardoso",
+      "name": "simple-vwap",
+      "summary": "The purpose of this strategy is to buy a large amount of tokens without moving the price.",
+      "description": "The purpose of this strategy is to buy a large amount of tokens without moving the price.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Federico Cardoso"
+    },
+    {
+      "type": "strategy",
+      "namespace": "michael-feng",
+      "name": "simple-xemm",
+      "summary": "This script places buy and sell orders on maker exchange if none exist. Then, it monitors prices on the maker and taker exchange and adjusts the maker orders to ensure that it can hedge filled orders",
+      "description": "This script places buy and sell orders on maker exchange if none exist. Then, it monitors prices on the maker and taker exchange and adjusts the maker orders to ensure that it can hedge filled orders",
+      "tags": [
+        "XEMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "gate_io",
+        "kucoin"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-04-25",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": true,
+      "videoURL": "https://youtu.be/3mqQMo7UhV4",
+      "authorName": "Michael Feng"
+    },
+    {
+      "type": "strategy",
+      "namespace": "federico-cardoso",
+      "name": "simple-pmm",
+      "summary": "This script implements a simple version of Hummingbot’s flagship https://docs.hummingbot.org/strategies/pure-market-making/ strategy that will be useful as a baseline.",
+      "description": "This script implements a simple version of Hummingbot’s flagship https://docs.hummingbot.org/strategies/pure-market-making/ strategy that will be useful as a baseline.",
+      "tags": [
+        "PMM",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Federico Cardoso"
+    },
+    {
+      "type": "strategy",
+      "namespace": "federico-cardoso",
+      "name": "simple-arbitrage",
+      "summary": "This strategy implements a simple version of an arbitrage strategy between to centralized exchanges.",
+      "description": "This strategy implements a simple version of an arbitrage strategy between to centralized exchanges.",
+      "tags": [
+        "Arbitrage",
+        "V1 Script"
+      ],
+      "exchanges": [
+        "binance",
+        "kucoin"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-03-01",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Federico Cardoso"
+    },
+    {
+      "type": "strategy",
+      "namespace": "alan-coppola",
+      "name": "reward-factors",
+      "summary": "Implement rewards based functions, to initially drive simple thresholding strategies.",
+      "description": "Implement rewards based functions, to initially drive simple thresholding strategies.",
+      "tags": [
+        "V1 Script"
+      ],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-02-25",
+      "cohort": 1,
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Alan Coppola"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-simple-vwap-example",
+      "summary": "A VWAP (Volume Weighted Average Price) execution strategy that accumulates a position by taking a percentage of available order book volume at regular intervals.",
+      "description": "A VWAP (Volume Weighted Average Price) execution strategy that accumulates a position by taking a percentage of available order book volume at regular intervals.",
+      "tags": [
+        "vwap"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-pmm-inventory-shift",
+      "summary": "Market making with inventory-based and trend-based price shifting",
+      "description": "Market making with inventory-based and trend-based price shifting",
+      "tags": [
+        "Market Making",
+        "Inventory",
+        "RSI",
+        "Script"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Market Making"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-pmm-candles",
+      "summary": "Basic Pure Market Making script with Candles Feed integration",
+      "description": "Basic Pure Market Making script with Candles Feed integration",
+      "tags": [
+        "Market Making",
+        "Candles",
+        "Script"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Market Making"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-pmm-volatility-spread",
+      "summary": "Market making with dynamic spreads based on NATR volatility",
+      "description": "Market making with dynamic spreads based on NATR volatility",
+      "tags": [
+        "Market Making",
+        "Volatility",
+        "NATR",
+        "Script"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Market Making"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-pmm-trend-shift",
+      "summary": "Market making with RSI-based reference price shifting",
+      "description": "Market making with RSI-based reference price shifting",
+      "tags": [
+        "Market Making",
+        "RSI",
+        "Trend",
+        "Script"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Market Making"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-format-status-example",
+      "summary": "Demonstrates how to create a custom status display with order book depth analysis across multiple exchanges.",
+      "description": "Demonstrates how to create a custom status display with order book depth analysis across multiple exchanges.",
+      "tags": [
+        "basic"
+      ],
+      "exchanges": [
+        "binance",
+        "kucoin",
+        "gate_io"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-simple-order-example",
+      "summary": "A comprehensive example showing how to place market or limit orders with configurable parameters and full event handling.",
+      "description": "A comprehensive example showing how to place market or limit orders with configurable parameters and full event handling.",
+      "tags": [
+        "basic"
+      ],
+      "exchanges": [
+        "kraken"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-log-price-example",
+      "summary": "A minimal example that logs real-time bid, ask, and mid prices from multiple exchanges every tick.",
+      "description": "A minimal example that logs real-time bid, ask, and mid prices from multiple exchanges every tick.",
+      "tags": [
+        "basic"
+      ],
+      "exchanges": [
+        "binance",
+        "kucoin",
+        "gate_io"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-buy-only-three-times-example",
+      "summary": "A simple script that places exactly three buy orders in the market, demonstrating event-driven order counting and automatic strategy termination.",
+      "description": "A simple script that places exactly three buy orders in the market, demonstrating event-driven order counting and automatic strategy termination.",
+      "tags": [
+        "basic"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-macd-bb",
+      "summary": "Directional strategy combining MACD and Bollinger Bands indicators",
+      "description": "Directional strategy combining MACD and Bollinger Bands indicators",
+      "tags": [
+        "Directional"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-bb-rsi-multi-timeframe",
+      "summary": "Directional strategy combining Bollinger Bands and RSI across multiple timeframes",
+      "description": "Directional strategy combining Bollinger Bands and RSI across multiple timeframes",
+      "tags": [
+        "Directional"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-rsi-spot",
+      "summary": "Simple RSI-based directional strategy for spot trading",
+      "description": "Simple RSI-based directional strategy for spot trading",
+      "tags": [
+        "Directional"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-trend-follower",
+      "summary": "Trend following strategy using SMA crossovers and Bollinger Bands",
+      "description": "Trend following strategy using SMA crossovers and Bollinger Bands",
+      "tags": [
+        "Directional"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "example-widening-ema-bands",
+      "summary": "Strategy based on the distance between short and long EMAs",
+      "description": "Strategy based on the distance between short and long EMAs",
+      "tags": [
+        "Directional"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Directional"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-20",
+      "cohort": 0,
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "videoURL": null,
+      "authorName": "Hummingbot Botcamp"
+    }
+  ]
+}
