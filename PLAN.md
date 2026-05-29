@@ -319,7 +319,7 @@ The `hummingbot/datadog` repo is a static HTML/JS dashboard backed by four CSVs 
 
 ### 8.3 Migration (into `apps/docs/blog`)
 - **Blog (103):** `~/hummingbot-site/docs/blog/posts/*/index.md` → `apps/docs/blog/<slug>.mdx` (front-matter normalization, image paths → Mintlify `/images`, internal-link rewriting, infer `category`).
-- **Release notes (~47):** `~/hummingbot-site/docs/release-notes/<version>.md` (1.0.0 → 2.14.0) → `apps/docs/blog/hummingbot-v<version>.mdx` with `category: Releases`, `version`, `date` from the "*Released on …*" line.
+- **Release notes (48):** `~/hummingbot-site/docs/release-notes/<version>.md` (1.0.0 → 2.14.0) → `apps/docs/blog/hummingbot-v<version>.mdx` with `category: Releases`, `version`, `date` from the "*Released on …*" line.
 - **NOT blog:** `release-notes/index.md` + `releases.md` are PR/QA **process docs** → a docs page in the Documentation tab, not the blog.
 
 ### 8.4 Redirects (cross-domain → `docs.hummingbot.org`)
