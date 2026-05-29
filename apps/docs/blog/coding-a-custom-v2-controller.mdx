@@ -27,7 +27,7 @@ On this 30-minute BTC/USDT chart, the sharp downward price movements indicated b
 
 ## Coding the Strategy
 
-I intentionally omit the imports here for better readability. You can download the full source-code here: [liquidations_sniper.py](/images/blog/coding-a-custom-v2-controller/liquidations_sniper.py)
+I intentionally omit the imports here for better readability. You can download the full source-code here: [liquidations_sniper.py](liquidations_sniper.py)
 
 ### Control flow
 
@@ -232,7 +232,7 @@ class LiquidationSniperConfig(ControllerConfigBase):
             return [Decimal(x.strip()) for x in value.split(',')]
         elif isinstance(value, list) and len(value) != len(values['dca_levels_percent']):
             raise ValueError(
-                f"The number of \{field.name\} must match the number of levels (\{len(values['dca_levels_percent'])\}).")
+                f"The number of {field.name} must match the number of levels ({len(values['dca_levels_percent'])}).")
         elif isinstance(value, list):
             return [Decimal(amount) for amount in value]
         raise ValueError("DCA amounts per level is invalid!")
@@ -241,14 +241,14 @@ class LiquidationSniperConfig(ControllerConfigBase):
     def validate_position_mode(cls, value: str) -> PositionMode:
         if isinstance(value, str) and value.upper() in PositionMode.__members__:
             return PositionMode[value.upper()]
-        raise ValueError(f"Invalid position mode: \{value\}. Valid options are: \{', '.join(PositionMode.__members__)\}")
+        raise ValueError(f"Invalid position mode: {value}. Valid options are: {', '.join(PositionMode.__members__)}")
 
     @validator('liquidation_side', pre=True, always=True)
     def validate_liquidation_side(cls, value: str) -> LiquidationSide:
         if isinstance(value, str) and value.upper() in LiquidationSide.__members__:
             return LiquidationSide[value.upper()]
         raise ValueError(
-            f"Invalid liquidation side: \{value\}. Valid options are: \{', '.join(LiquidationSide.__members__)\}")
+            f"Invalid liquidation side: {value}. Valid options are: {', '.join(LiquidationSide.__members__)}")
 
     # ---------------------------------------------------------------------------------------
     # Market Config
@@ -296,7 +296,7 @@ class LiquidationSniper(ControllerBase):
 
     def on_start(self):
         self.liquidations_feed.start()
-        self.logger().info("Watching for \{\} liquidations happening on \{\} (Binance) within \{\}s to exceed \{\} USD"
+        self.logger().info("Watching for {} liquidations happening on {} (Binance) within {}s to exceed {} USD"
                            .format(self.config.liquidation_side,
                                    self.config.liquidations_pair,
                                    self.config.liquidations_interval_seconds,
@@ -321,8 +321,8 @@ class LiquidationSniper(ControllerBase):
 
         # Only initiate a trade when both criteria is met
         if liquidated_usd_amount >= self.config.liquidations_trigger_usd_amount and len(trading_executors) == 0:
-            self.logger().info("The current liquidation-amount (\{\} USD) in the last \{\}s is above threshold "
-                               "of \{\} USD => entering trade!".format(liquidated_usd_amount,
+            self.logger().info("The current liquidation-amount ({} USD) in the last {}s is above threshold "
+                               "of {} USD => entering trade!".format(liquidated_usd_amount,
                                                                      self.config.liquidations_interval_seconds,
                                                                      self.config.liquidations_trigger_usd_amount))
             executor_actions.append(CreateExecutorAction(
@@ -360,7 +360,7 @@ class LiquidationSniper(ControllerBase):
         )
 
     def to_format_status(self) -> List[str]:
-        return ["Currently liquidated \{\} of pair \{\} in the last \{\} seconds: \{\} USD".format(
+        return ["Currently liquidated {} of pair {} in the last {} seconds: {} USD".format(
             self.config.liquidation_side,
             self.config.liquidations_pair,
             self.config.liquidations_interval_seconds,
@@ -374,7 +374,7 @@ Now that we did all the coding it's time to actually run it. Assuming you have c
 
 ### Add controller to your Hummingbot
 
-Add the file [liquidations_sniper.py](/images/blog/coding-a-custom-v2-controller/liquidations_sniper.py) to your Hummingbot installation like this:
+Add the file [liquidations_sniper.py](liquidations_sniper.py) to your Hummingbot installation like this:
 
 ![](/images/blog/coding-a-custom-v2-controller/hummingbot_controllers.png)
 
@@ -394,7 +394,7 @@ Here you see the result using all the default values. A file named `conf_generic
 
 In the last and final step we need to create a very simple configuration for the generic strategy (shipped with Hummingbot) to actually run the controller. 
 
-If you are unsure about the reason for this, just read the docs: [Strategies V2 Architecture](/images/blog/coding-a-custom-v2-controller/../../../strategies/v2-strategies/index.md)
+If you are unsure about the reason for this, just read the docs: [Strategies V2 Architecture](../../../strategies/v2-strategies/index)
 
 #### Create the strategy configuration
 

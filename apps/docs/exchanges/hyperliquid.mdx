@@ -2,8 +2,9 @@
 title: "Hyperliquid"
 ---
 
-<Tip> **Foundation Sponsor**
-    Hyperliquid is a [sponsor](../about/sponsors) of Hummingbot Foundation, so when you use Hummingbot to run bots on Hyperliquid, you're supporting the Foundation and our mission to democratize algo trading with open source software.
+> **Foundation Sponsor**
+>
+> Hyperliquid is a [sponsor](../about/sponsors) of Hummingbot Foundation, so when you use Hummingbot to run bots on Hyperliquid, you're supporting the Foundation and our mission to democratize algo trading with open source software.
 
 ## 🛠 Connector Info
 
@@ -20,16 +21,20 @@ title: "Hyperliquid"
 
 ## ℹ️ Exchange Info
 
-- **Website**: <https://app.hyperliquid.xyz/>
-- **CoinMarketCap**: <https://coinmarketcap.com/exchanges/hyperliquid/>
-- **CoinGecko**: <https://www.coingecko.com/en/exchanges/hyperliquid>
-- **API Docs**: <https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api>
-- **Fees**: <https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees>
+- **Website**: [https://app.hyperliquid.xyz/](https://app.hyperliquid.xyz/)
+- **CoinMarketCap**: [https://coinmarketcap.com/exchanges/hyperliquid/](https://coinmarketcap.com/exchanges/hyperliquid/)
+- **CoinGecko**: [https://www.coingecko.com/en/exchanges/hyperliquid](https://www.coingecko.com/en/exchanges/hyperliquid)
+- **API Docs**: [https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api)
+- **Fees**: [https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees)
 - **Supported Countries**: Not available
 
 ## 🔑 How to Connect
 
-<Tip> **See the [Hyperliquid Vault Guide](../blog/posts/using-hyperliquid-vaults-with-hummingbot/index) for more details on how to use Hyperliquid VauLts.**
+> **Tip**
+>
+> See the [Hyperliquid Vault Guide](../blog/posts/using-hyperliquid-vaults-with-hummingbot/index) for more details on how to use Hyperliquid VauLts.
+
+
 ### New: Hyperliquid API Key Support
 
 Hummingbot now supports **API key authentication** for both the `hyperliquid` (spot) and `hyperliquid_perpetual` (perp) connectors, in addition to the existing **Arbitrum wallet + private key** mode. 
@@ -46,7 +51,7 @@ Follow these steps to create API keys on Hyperliquid:
 
     - Log in to your Hyperliquid account.
 
-    - In the top menu, go to **More → API**, or open: <https://app.hyperliquid.xyz/API>. 
+    - In the top menu, go to **More → API**, or open: [https://app.hyperliquid.xyz/API](https://app.hyperliquid.xyz/API). 
 
 2. **Create an API wallet**
 
@@ -106,7 +111,7 @@ You are now connected to hyperliquid.
 
 - **ID**: `hyperliquid`
 - **Connection Type**: WebSocket
-- **API Docs**: <https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api>
+- **API Docs**: [https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api)
 - **[Github Folder](https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/exchange/hyperliquid)** 
 
 ### Order Types
@@ -124,7 +129,7 @@ This connector supports the following `OrderType` constants:
 
 - **ID**: `hyperliquid_perpetual`
 - **Connection Type**: WebSocket
-- **Folder**: <https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/derivative/hyperliquid_perpetual>
+- **Folder**: [https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/derivative/hyperliquid_perpetual](https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/derivative/hyperliquid_perpetual)
 
 
 ### Usage
@@ -163,7 +168,7 @@ This connector supports the following position modes:
 
 ### Paper Trading
 
-This perp exchange offers a paper trading mode: <https://app.hyperliquid-testnet.xyz/trade>
+This perp exchange offers a paper trading mode: [https://app.hyperliquid-testnet.xyz/trade](https://app.hyperliquid-testnet.xyz/trade)
 
 Afer you create an account and create the API keys, you can enter them by using the `connect hyperliquid_perpetual_testnet` command within the Hummingbot client. Once connected, you should be able to use the testnet with the available perpetual strategies / scripts. 
 
@@ -208,7 +213,7 @@ For more details, see the [Hyperliquid HIP-3 documentation](https://hyperliquid.
 
 - **ID**: `hyperliquid`
 - **Supported Intervals**: 1m | 3m | 5m | 15m | 30m | 1h | 2h | 4h | 6h | 8h | 12h | 1d | 1w | 1M
-- **API Docs**: <https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api>
+- **API Docs**: [https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api)
 - **[Github Folder](https://github.com/hummingbot/hummingbot/tree/master/hummingbot/data_feed/candles_feed/hyperliquid_spot_candles)** 
 
 ### Usage

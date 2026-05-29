@@ -5,13 +5,13 @@ date: "2025-10-07"
 category: "Tutorials"
 ---
 
-**Grid Strike** (`grid_strike`) is a [Controller](/images/blog/strategy-guide-grid-strike/../../../strategies/v2-strategies/controllers/index.md) in Hummingbot's StrategyV2 framework that automatically places a grid of buy or sell orders within a set price range.
+**Grid Strike** (`grid_strike`) is a [Controller](../../../strategies/v2-strategies/controllers/index) in Hummingbot's StrategyV2 framework that automatically places a grid of buy or sell orders within a set price range.
 
-Unlike [basic grid strategies](https://www.binance.com/en/square/post/24240367765730), Grid Strike utilizes [Executors](/images/blog/strategy-guide-grid-strike/../../../strategies/v2-strategies/executors/index.md) which dynamically manage each order level with configurable take profit and stop loss settings. This means every position opened by the strategy is automatically monitored and closed according to your risk parameters. It can be configured to move with the market trend —- either up or down -- letting you adapt the strategy to changing market conditions.
+Unlike [basic grid strategies](https://www.binance.com/en/square/post/24240367765730), Grid Strike utilizes [Executors](../../../strategies/v2-strategies/executors/index) which dynamically manage each order level with configurable take profit and stop loss settings. This means every position opened by the strategy is automatically monitored and closed according to your risk parameters. It can be configured to move with the market trend —- either up or down -- letting you adapt the strategy to changing market conditions.
 
 This guide explains how the Grid Strike strategy works and helps you decide when to use it. You'll learn how to configure and run the strategyt, as well as the key concepts and how to set it up for trending markets.
 
-**Strategy Code**: <https://github.com/hummingbot/hummingbot/blob/master/controllers/generic/grid_strike.py>
+**Strategy Code**: [https://github.com/hummingbot/hummingbot/blob/master/controllers/generic/grid_strike.py](https://github.com/hummingbot/hummingbot/blob/master/controllers/generic/grid_strike.py)
 
 
 ## Strategy Overview
@@ -27,15 +27,16 @@ This guide explains how the Grid Strike strategy works and helps you decide when
 
 ## Running the Strategy
 
-<Tip> **Recommendations for New Users**
-    If you're new to Grid Strike, it's highly recommended to review [**Strategy Configuration**](#strategy-configuration) section below before running the strategy. These sections explain the essential concepts, parameters, and setup steps that will help you understand how the strategy works and how to configure it safely for your trading goals. Taking time to learn these basics will help you avoid common mistakes and get the most out of the strategy.
+> **Recommendations for New Users**
+>
+> If you're new to Grid Strike, it's highly recommended to review [**Strategy Configuration**](#strategy-configuration) section below before running the strategy. These sections explain the essential concepts, parameters, and setup steps that will help you understand how the strategy works and how to configure it safely for your trading goals. Taking time to learn these basics will help you avoid common mistakes and get the most out of the strategy.
 
 ### Prerequisites
 
 Before you run Grid Strike, make sure you have Hummingbot installed, either:
  
-* [**Hummingbot Client**](/images/blog/strategy-guide-grid-strike/../../../client/index.md): See [Installation Guide](/images/blog/strategy-guide-grid-strike/../../../installation/index.md) or [Source Installation](/images/blog/strategy-guide-grid-strike/../../../client/installation.md#source-installation) to get started
-* [**Hummingbot API + Dashboard**](/images/blog/strategy-guide-grid-strike/../../../hummingbot-api/index.md): See the [Hummingbot Dashboard Quickstart Guide](/images/blog/strategy-guide-grid-strike/../quickstart-dashboard/index.md) for a guide with step-by-step setup instructions
+* [**Hummingbot Client**](../../../client/index): See [Installation Guide](../../../installation/index) or [Source Installation](../../../client/installation#source-installation) to get started
+* [**Hummingbot API + Dashboard**](../../../hummingbot-api/index): See the [Hummingbot Dashboard Quickstart Guide](../quickstart-dashboard/index) for a guide with step-by-step setup instructions
 
 ### Create Controller Config 
 
@@ -53,7 +54,7 @@ See [Strategy Configuration](#strategy-configuration) below for an in-depth guid
 
 ### Create Script Config 
 
-Once you are satisfied with your Grid Strike configuration, add the name of the file to the [Loader Script](/images/blog/strategy-guide-grid-strike/../../../strategies/scripts/examples.md#v2-controller-loader):
+Once you are satisfied with your Grid Strike configuration, add the name of the file to the [Loader Script](../../../strategies/scripts/examples#v2-controller-loader):
 
 ```
 create --script-config v2_with_controllers
@@ -63,7 +64,7 @@ create --script-config v2_with_controllers
 If you have an existing load script configuration file, simply modify it to add the Grid Strike configuration you just made (e.g `conf_generic.grid_strike_1.yml`):
 
 ```yaml
-markets: \{\}
+markets: {}
 candles_config: []
 controllers_config:
 - conf_generic.grid_strike_1.yml
@@ -93,7 +94,7 @@ When you start the Grid Strike strategy, it first looks at your configuration to
 
 Run the `status` command (or `status --live` for constant refresh) to get an in-depth overview of the strategy performance:
 
-[![image-1.png](/images/blog/strategy-guide-grid-strike/./image-1.png)](/images/blog/strategy-guide-grid-strike/./image-1.png)
+[![image-1.png](/images/blog/strategy-guide-grid-strike/./image-1.png)](./image-1.png)
 
 When an order gets filled and opens a position, the Triple Barrier system immediately takes over to manage that specific trade. This system acts a personal risk manager for each filled order or position: it will automatically close the position if it reaches the `take_profit` or if it moves from the set `stop_loss` against you. This happens automatically without you having to watch the screen. 
 
@@ -140,7 +141,7 @@ triple_barrier_config:
 
 ### Key Parameters
 
-[![](/images/blog/strategy-guide-grid-strike/./long-grid-order-executor.png)](/images/blog/strategy-guide-grid-strike/./long-grid-order-executor.png)
+[![](/images/blog/strategy-guide-grid-strike/./long-grid-order-executor.png)](./long-grid-order-executor.png)
 
 Here are some of the most important settings:
 
@@ -172,7 +173,7 @@ Make sure to set the most important parameters like:
 
 ![](/images/blog/strategy-guide-grid-strike/./triple_barrier.png)
 
-Grid Strike creates Grid Executors that implement the Triple Barrier Method, similar to [Position Executors](/images/blog/strategy-guide-grid-strike/../../../strategies/v2-strategies/executors/positionexecutor.md). Set these parameters to define how each order is managed if it is filled:
+Grid Strike creates Grid Executors that implement the Triple Barrier Method, similar to [Position Executors](../../../strategies/v2-strategies/executors/positionexecutor). Set these parameters to define how each order is managed if it is filled:
 
 | Setting | Meaning |
 | --- | --- |
@@ -236,7 +237,7 @@ Your final grid will be a balance of these three factors. The bot will create th
 
 ### Long vs Short Grids
 
-[![](/images/blog/strategy-guide-grid-strike/./long-vs-short-grids.png)](/images/blog/strategy-guide-grid-strike/./long-vs-short-grids.png)
+[![](/images/blog/strategy-guide-grid-strike/./long-vs-short-grids.png)](./long-vs-short-grids.png)
 
 Think of Grid Strike as a way to “ride the wave” of a trend:
 

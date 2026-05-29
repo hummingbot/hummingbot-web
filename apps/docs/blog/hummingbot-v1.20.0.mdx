@@ -23,8 +23,9 @@ To update to the latest version, clone the latest [`hummingbot/deploy-examples`]
 docker pull hummingbot/hummingbot:latest
 ```
 
-<Tip> **New Start Command**
-    If you're using the source version, use the `./start` command to launch Hummingbot.
+> **New Start Command**
+>
+> If you're using the source version, use the `./start` command to launch Hummingbot.
 
 ## Monthly Community Call
 
@@ -32,7 +33,7 @@ Join the **Wednesday Oct 4th** community call on [Discord](https://discord.gg/hu
 
 Here is the recording of the event:
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/dD_erU5pdaM?si=-3GT8hfAw0OuL7XK" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/dD_erU5pdaM?si=-3GT8hfAw0OuL7XK" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 For more community events, check out the [Hummingbot Events Calendar](https://lu.ma/u/hummingbot).
 
@@ -50,15 +51,16 @@ We're introducing specialized templates for different trading paradigms, startin
 
 Watch this video for a preview:
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/GhvTaIWHqrU?si=-3GT8hfAw0OuL7XK" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/GhvTaIWHqrU?si=-3GT8hfAw0OuL7XK" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 
 **Pull Request:** [#6520](https://github.com/hummingbot/hummingbot/pull/6520)
 
 ## New Dashboard Features
 
-<Warning> **Under Active Development**
-    Dashboard is slated for incorporation into official Hummingbot releases before end of this year, but it is still under active development and new features and improvements are being added continuously. We highly encourage user feedback at this stage; feel free to share your thoughts and suggestions on Discord or Github. If you're excited to explore its capabilities, check out the [beta](https://github.com/hummingbot/dashboard).
+> **Under Active Development**
+>
+> Dashboard is slated for incorporation into official Hummingbot releases before end of this year, but it is still under active development and new features and improvements are being added continuously. We highly encourage user feedback at this stage; feel free to share your thoughts and suggestions on Discord or Github. If you're excited to explore its capabilities, check out the [beta](https://github.com/hummingbot/dashboard).
 
 Additions to [Dashboard](/dashboard/) in the past month include:
 
@@ -89,7 +91,7 @@ async def collect_candles():
     candles = CandlesFactory.get_candle(CandlesConfig(connector="binance_perpetual", trading_pair="BTC-USDT", interval="3m", max_records=1440))
     candles.start()
     while not candles.is_ready:
-        print(f"Candles not ready yet! Missing \{candles._candles.maxlen - len(candles._candles)\}")
+        print(f"Candles not ready yet! Missing {candles._candles.maxlen - len(candles._candles)}")
         await asyncio.sleep(1)
     df = candles.candles_df
     df.to_csv("candles_test.csv", index=False)
@@ -121,7 +123,7 @@ See Kujira for the chain docs and Kujira Fin for the exchange connector docs.
 
 **Pull Requests:** [#6399](https://github.com/hummingbot/hummingbot/pull/6399),  [#138](https://github.com/hummingbot/gateway/pull/138)
 
-**Snapshot Proposal:** <https://snapshot.org/#/hbot-prp.eth/proposal/0x7dbd4a6f3cc7460ca6f56415a57b9727ca7a9227be625efdc4e71dee3d0d0781>
+**Snapshot Proposal:** [https://snapshot.org/#/hbot-prp.eth/proposal/0x7dbd4a6f3cc7460ca6f56415a57b9727ca7a9227be625efdc4e71dee3d0d0781](https://snapshot.org/#/hbot-prp.eth/proposal/0x7dbd4a6f3cc7460ca6f56415a57b9727ca7a9227be625efdc4e71dee3d0d0781)
 
 **Thanks to [funttastic](https://github.com/funttastic) and [yourtrading-ai](https://github.com/yourtrading-ai) for this contribution! 🙏**
 
@@ -133,7 +135,7 @@ Launched in 2019, [WOO X](https://woo.org) is a trading platform featuring deep 
 
 **Pull Requests:** [#6380](https://github.com/hummingbot/hummingbot/pull/6380)
 
-**Snapshot Proposal:** <https://snapshot.org/#/hbot-prp.eth/proposal/0x46c15f8b9cbbd97ebc8b83340bd748d5f68e84082d24383b91abdc3d8b9168c6>
+**Snapshot Proposal:** [https://snapshot.org/#/hbot-prp.eth/proposal/0x46c15f8b9cbbd97ebc8b83340bd748d5f68e84082d24383b91abdc3d8b9168c6](https://snapshot.org/#/hbot-prp.eth/proposal/0x46c15f8b9cbbd97ebc8b83340bd748d5f68e84082d24383b91abdc3d8b9168c6)
 
 **Thanks to [waterquarks](https://github.com/waterquarks) for this contribution! 🙏**
 
@@ -152,18 +154,18 @@ Users can obtain an API key [here](https://coincap.io/api-key).
 
 ### Hummingbot
 
-* [#6525](https://github.com/hummingbot/hummingbot/pull/6525) Refactored [MEXC](/images/blog/hummingbot-v1.20.0/../exchanges/mexc/index) spot connector to the latest standard **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏** 
-* [#6530](https://github.com/hummingbot/hummingbot/pull/6530) Fixed issue with [Gate.io](/images/blog/hummingbot-v1.20.0/../exchanges/gate-io/index) showing inconsistent order amount **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
-* [#6536](https://github.com/hummingbot/hummingbot/pull/6536) Fixed bug with [DyDx](/images/blog/hummingbot-v1.20.0/../exchanges/dydx) market orders **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏** 
-* [#6551](https://github.com/hummingbot/hummingbot/pull/6551) Fixed issue with [Gate.io](/images/blog/hummingbot-v1.20.0/../exchanges/gate-io/index) derivative position error **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
-* [#6552](https://github.com/hummingbot/hummingbot/pull/6552) Refactored [Injective](/images/blog/hummingbot-v1.20.0/../exchanges/injective) to use v2 rate limits **Thanks to [aarmoa](https://github.com/aarmoa) for this contribution! 🙏**
+* [#6525](https://github.com/hummingbot/hummingbot/pull/6525) Refactored [MEXC](../exchanges/mexc/index) spot connector to the latest standard **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏** 
+* [#6530](https://github.com/hummingbot/hummingbot/pull/6530) Fixed issue with [Gate.io](../exchanges/gate-io/index) showing inconsistent order amount **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
+* [#6536](https://github.com/hummingbot/hummingbot/pull/6536) Fixed bug with [DyDx](../exchanges/dydx) market orders **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏** 
+* [#6551](https://github.com/hummingbot/hummingbot/pull/6551) Fixed issue with [Gate.io](../exchanges/gate-io/index) derivative position error **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
+* [#6552](https://github.com/hummingbot/hummingbot/pull/6552) Refactored [Injective](../exchanges/injective) to use v2 rate limits **Thanks to [aarmoa](https://github.com/aarmoa) for this contribution! 🙏**
 * [#6556](https://github.com/hummingbot/hummingbot/pull/6556) Removed restriction of the diff cover lib
 * [#6558](https://github.com/hummingbot/hummingbot/pull/6558) Refactored Polkadex to use v2 API  **Thanks to [CoinAlpha](https://github.com/CoinAlpha) for this fix! 🙏**
-* [#6565](https://github.com/hummingbot/hummingbot/pull/6565) Refactored [Injective](/images/blog/hummingbot-v1.20.0/../exchanges/injective) cpnnector configuration to use SDK v0.8 **Thanks to [aarmoa](https://github.com/aarmoa) for this contribution! 🙏**
+* [#6565](https://github.com/hummingbot/hummingbot/pull/6565) Refactored [Injective](../exchanges/injective) cpnnector configuration to use SDK v0.8 **Thanks to [aarmoa](https://github.com/aarmoa) for this contribution! 🙏**
 * [#6566](https://github.com/hummingbot/hummingbot/pull/6566) Modified `start` command to use quickstart arguments
-* [#6571](https://github.com/hummingbot/hummingbot/pull/6571) Fixed issue with [DyDx](/images/blog/hummingbot-v1.20.0/../exchanges/dydx) market order accuracy **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏** 
-* [#6573](https://github.com/hummingbot/hummingbot/pull/6573) Fixed [Bitmart](/images/blog/hummingbot-v1.20.0/../exchanges/bitmart/index) order detail **Thanks to [yancong001](https://github.com/tomasgaudino) for this fix! 🙏**
-* [#6578](https://github.com/hummingbot/hummingbot/pull/6578) Fixed incorrect position size for market orders in [Kucoin Perpetual](/images/blog/hummingbot-v1.20.0/../exchanges/kucoin/index) **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
+* [#6571](https://github.com/hummingbot/hummingbot/pull/6571) Fixed issue with [DyDx](../exchanges/dydx) market order accuracy **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏** 
+* [#6573](https://github.com/hummingbot/hummingbot/pull/6573) Fixed [Bitmart](../exchanges/bitmart/index) order detail **Thanks to [yancong001](https://github.com/tomasgaudino) for this fix! 🙏**
+* [#6578](https://github.com/hummingbot/hummingbot/pull/6578) Fixed incorrect position size for market orders in [Kucoin Perpetual](../exchanges/kucoin/index) **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
 
 
 ### Gateway

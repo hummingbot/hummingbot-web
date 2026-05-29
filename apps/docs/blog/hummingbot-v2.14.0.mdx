@@ -12,7 +12,10 @@ category: "Releases"
 | [Hummingbot Client](https://github.com/hummingbot/hummingbot) | Core Client | [`v2.14.0 changelog`](https://github.com/hummingbot/hummingbot/releases/tag/v2.14.0) | [`version-2.14.0`](https://hub.docker.com/r/hummingbot/hummingbot/tags?name=version-2.14.0) |
 | [Gateway](https://github.com/hummingbot/gateway) | DEX Middleware | [`v2.14.0 changelog`](https://github.com/hummingbot/gateway/releases/tag/v2.14.0) | [`version-2.14.0`](https://hub.docker.com/r/hummingbot/gateway/tags?name=version-2.14.0) |
 
-<Note> **Other Hummingbot repositories such as [Hummingbot-API](https://github.com/hummingbot/hummingbot-api), [Hummingbot MCP](https://github.com/hummingbot/mcp), [Hummingbot Skills](https://github.com/hummingbot/skills), [Quants-Lab](https://github.com/hummingbot/quant-lab), and [Condor](https://github.com/hummingbot/condor) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.**
+> **Note**
+>
+> Other Hummingbot repositories such as [Hummingbot-API](https://github.com/hummingbot/hummingbot-api), [Hummingbot MCP](https://github.com/hummingbot/mcp), [Hummingbot Skills](https://github.com/hummingbot/skills), [Quants-Lab](https://github.com/hummingbot/quant-lab), and [Condor](https://github.com/hummingbot/condor) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.
+
 ## How to Install / Update
 
 - **Condor + Hummingbot API**: See the [Condor Quickstart](/installation/condor) or full documentation at [condor.hummingbot.org](https://condor.hummingbot.org)
@@ -86,7 +89,10 @@ This release upgrades the backtesting framework with richer executor simulation,
 * **Visualization:** Extends `BacktestingResult` with optional Plotly charts (candles with executor entry/exit markers, cumulative P&L, and position held over time).
 * **Core Integration:** Merged via PR [#8177](https://github.com/hummingbot/hummingbot/pull/8177).
 
-<Note> **The backtest scripts ([backtest_bollinger_v2.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/backtest_bollinger_v2.py), [backtest_grid_strike.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/backtest_grid_strike.py), [backtest_pmm_mister.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/backtest_pmm_mister.py)) are included for testing/validation purposes and will be removed in a future PR.**
+> **Note**
+>
+> The backtest scripts ([backtest_bollinger_v2.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/backtest_bollinger_v2.py), [backtest_grid_strike.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/backtest_grid_strike.py), [backtest_pmm_mister.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/backtest_pmm_mister.py)) are included for testing/validation purposes and will be removed in a future PR.
+
 ### 💱 Rate Oracle Refactor
 
 This release refactors **fee and PnL calculation for perpetuals** so quote conversions flow through the **Rate Oracle** instead of threading exchange instances through orders, fees, and `MarketsRecorder`. The Rate Oracle is wired up with your connectors at initialization and can resolve **inverse trading pairs** when a direct quote is unavailable—yielding more consistent fee and PnL reporting across spot and perpetual workflows, including Strategy V2 executors.

@@ -36,8 +36,11 @@ There are multiple bridges to Cosmos available, but the easiest way is to direct
 - [How to Deposit Funds](https://docs.osmosis.zone/overview/educate/getting-started#deposit-funds)
 - [Osmosis Interface](https://app.osmosis.zone/assets)
 
-<Note> **Please ensure your wallet has sufficient balance, including OSMO for gas fees**
-<br>
+> **Note**
+>
+>   Please ensure your wallet has sufficient balance, including OSMO for gas fees
+
+&lt;br>
 
 ## Install Hummingbot
 
@@ -47,7 +50,7 @@ There are two main methods to install Hummingbot:
 
 The **recommended** method for installing Hummingbot is using Docker.
 
-- [Installation Guide](/images/blog/using-osmosis-with-hummingbot/../../../installation/index.md)
+- [Installation Guide](../../../installation/index)
 
 ### Source
 
@@ -55,19 +58,19 @@ For advanced users who are comfortable using command line interface, installing 
 
 Guides for various environments:
 
-- [Linux](/images/blog/using-osmosis-with-hummingbot/../../../installation/index.md)
-- [Windows](/images/blog/using-osmosis-with-hummingbot/../../../installation/index.md)
-- [MacOS](/images/blog/using-osmosis-with-hummingbot/../../../installation/index.md)
+- [Linux](../../../installation/index)
+- [Windows](../../../installation/index)
+- [MacOS](../../../installation/index)
 
-<br>
+&lt;br>
 
-<!-- Configure Osmosis Wallet for Hummingbot Gateway -->
+
 
 ## Add Osmosis Wallet to Hummingbot
 
 You will need to export the private key for your designated trading wallet. It is highly advised to have a dedicated account for this purpose.
 
-<Warning> **An Osmosis Private Key has 64 characters**
+!!! Warning An Osmosis Private Key has 64 characters
     Be aware an exported private key may have an 0x at the start, which may need to be removed to fit the private key format check.
 
     → Before: 0x1234567890...
@@ -78,7 +81,10 @@ You will need to export the private key for your designated trading wallet. It i
 
 Keplr is the most popular Cosmos-based wallet. However, when creating a Keplr wallet, **only users who link a Google Account are able to export their private key** directly from Keplr.
 
-<Note> **For a linked Keplr-Google wallet, find instructions to export the private key [here](https://help.keplr.app/articles/how-to-view-your-private-key).**
+> **Note**
+>
+> For a linked Keplr-Google wallet, find instructions to export the private key [here](https://help.keplr.app/articles/how-to-view-your-private-key).
+
 To get around this, export the seed instead and then restore with a different Osmosis wallet which allows exporting private key.
 
 To get a Keplr private key without a linked Google Account:
@@ -91,8 +97,11 @@ To get a Keplr private key without a linked Google Account:
 
 3. Export the private key from the newly restored wallet.
 
-<Warning> **Your wallet seed phrase is extremely sensitive. Keep it confidential and never share it online or with anyone you don't trust. Always ensure you're in a secure and private environment when handling your seed phrase.**
-<br>
+> **Warning**
+>
+> Your wallet seed phrase is extremely sensitive. Keep it confidential and never share it online or with anyone you don't trust. Always ensure you're in a secure and private environment when handling your seed phrase.
+
+&lt;br>
 
 ### Export Private Key from Leap
 
@@ -108,12 +117,18 @@ To export a private key from Leap wallet:
 4. Copy down the private key and _be sure to discard_ the ‘0x’ at the beginning of the displayed key.
    ![image](/images/blog/using-osmosis-with-hummingbot/export-private-key-leap-2.png)
 
-<Note> **Images made with Leap version 0.10.7 and Keplr version 0.12.70; in Chrome.**
+> **Note**
+>
+> Images made with Leap version 0.10.7 and Keplr version 0.12.70; in Chrome.
+
 ### Add Private Key to Hummingbot
 
 Run `gateway connect osmosis` and follow the prompts to add a trading wallet to the Osmosis DEX connector.
 
-<Note> **Hummingbot stores both API keys and private keys on the local machine in encrypted form, with the Hummingbot client password as the key.**
+> **Note**
+>
+> Hummingbot stores both API keys and private keys on the local machine in encrypted form, with the Hummingbot client password as the key.
+
 ![image](/images/blog/using-osmosis-with-hummingbot/gateway-connect-osmosis.png)
 
 #### Gateway Connect
@@ -126,7 +141,7 @@ Run `gateway connect osmosis` and follow the prompts to add a trading wallet to 
 
 - To connect to the **Osmosis testnet**, select _'testnet'_ instead of 'mainnet' when prompted.
 
-- You will be prompted to enter your **Osmosis private key**. If valid, you should get a message saying **The connector osmosis_osmosis_mainnet is now using wallet osmo<public_key>**
+- You will be prompted to enter your **Osmosis private key**. If valid, you should get a message saying **The connector osmosis_osmosis_mainnet is now using wallet osmo&lt;public_key>**
 
 - To confirm the connection, you can run the balance command below to see if Hummingbot is able to pull the available balance from the exchange
 
@@ -134,11 +149,11 @@ Run `gateway connect osmosis` and follow the prompts to add a trading wallet to 
 >>> gateway balance
 ```
 
-<!-- Creating a Strategy and Executing -->
+
 
 ## Run a Strategy
 
-To begin trading, a strategy must be configured. The two strategies supported natively by the Osmosis connector are [**amm_arb**](/images/blog/using-osmosis-with-hummingbot/../../../strategies/v1-strategies/amm-arbitrage.md) and **amm_v3_lp**.
+To begin trading, a strategy must be configured. The two strategies supported natively by the Osmosis connector are [**amm_arb**](../../../strategies/v1-strategies/amm-arbitrage) and **amm_v3_lp**.
 
 ### Prepare
 
@@ -208,7 +223,10 @@ To run a trading strategy:
 
 2. Run `start`.
 
-<Note> **The `amm_arb` strategy will first request confirmation of selected wallets.**
+> **Note**
+>
+> The `amm_arb` strategy will first request confirmation of selected wallets.
+
 ![image](/images/blog/using-osmosis-with-hummingbot/run-strat.png)
 
 ### Use a Script
@@ -239,17 +257,20 @@ Or, if using scripts:
 start --script <script_name.py>
 ```
 
-<br>
+&lt;br>
 
 ## Useful Commands
 
-You can run the `status` command shown below or press <kbd>CTRL</kbd> + <kbd>S</kbd> to check the bot status:
+You can run the `status` command shown below or press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>S&lt;/kbd> to check the bot status:
 
 ```
 status
 ```
 
-<Note> **The `status` command currently has a [issue](https://github.com/hummingbot/gateway/issues/294) with amm_v3_lp strategy.**
+> **Note**
+>
+> The `status` command currently has a [issue](https://github.com/hummingbot/gateway/issues/294) with amm_v3_lp strategy.
+
 ## Known Issues
 
 - V1 Strategy compatibility for amm_arb and amm_v3_lp are in development.
@@ -259,13 +280,13 @@ status
 
 ## Potential Improvements
 
-If you are interested in contributing or funding a bounty for development of additional features or improvements for this connector or related strategies, please feel free to contact [Pecunia.Finance](/images/blog/using-osmosis-with-hummingbot/mailto:pecuniafinancedao@protonmail.com).
+If you are interested in contributing or funding a bounty for development of additional features or improvements for this connector or related strategies, please feel free to contact [Pecunia.Finance](mailto:pecuniafinancedao@protonmail.com).
 
 - V1 strategy bugs
 - V2 strategy development
 - Data Feed
 - Custom CLMM range input (strategy development - amm_lp_v3 or new)
-- Future Osmosis Development - <https://forum.osmosis.zone/c/site-feedback/2>
+- Future Osmosis Development - [https://forum.osmosis.zone/c/site-feedback/2](https://forum.osmosis.zone/c/site-feedback/2)
 
 ---
 

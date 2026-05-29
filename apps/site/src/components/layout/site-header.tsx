@@ -36,6 +36,7 @@ function NavLink({ item }: { item: NavItem }) {
           <Link
             key={c.label}
             href={c.href}
+            {...(/^https?:/.test(c.href) ? { target: "_blank", rel: "noreferrer" } : {})}
             className="block rounded-lg px-3 py-2 text-sm text-ink-300 hover:bg-ink-900 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <span className="font-medium text-foreground">{c.label}</span>

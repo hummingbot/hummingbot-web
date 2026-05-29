@@ -16,11 +16,11 @@ title: "Kraken"
 
 ## ℹ️ Exchange Info
 
-- **Website**: <https://www.kraken.com/>
-- **CoinMarketCap**: <https://coinmarketcap.com/exchanges/kraken/>
-- **CoinGecko**: <https://www.coingecko.com/en/exchanges/kraken>
-- **API Docs**: <https://docs.kraken.com/rest/>
-- **Fees**: <https://www.kraken.com/en-us/features/fee-schedule>
+- **Website**: [https://www.kraken.com/](https://www.kraken.com/)
+- **CoinMarketCap**: [https://coinmarketcap.com/exchanges/kraken/](https://coinmarketcap.com/exchanges/kraken/)
+- **CoinGecko**: [https://www.coingecko.com/en/exchanges/kraken](https://www.coingecko.com/en/exchanges/kraken)
+- **API Docs**: [https://docs.kraken.com/rest/](https://docs.kraken.com/rest/)
+- **Fees**: [https://www.kraken.com/en-us/features/fee-schedule](https://www.kraken.com/en-us/features/fee-schedule)
 - **Supported Countries**: Not available
 
 ## 🔑 How to Connect
@@ -35,7 +35,10 @@ title: "Kraken"
 
 [![Create API](/images/exchanges/kraken/1.png)](1.png)
 
-<Note> **Ensure the **Access Websockets connection box is on**. This step is necessary to obtain an authentication token for the WebSocket APIs through the GetWebSocketsToken endpoint. Without this, the Kraken connector will be unable to reconstruct the order book and place trades. See [Troubleshooting](../../troubleshooting#valueerror-no-order-book-exists-for-btc-usd) for an example of an error message in Hummingbot when this box is left unchecked**
+> **Important**
+>
+>  Ensure the **Access Websockets connection box is on**. This step is necessary to obtain an authentication token for the WebSocket APIs through the GetWebSocketsToken endpoint. Without this, the Kraken connector will be unable to reconstruct the order book and place trades. See [Troubleshooting](../../troubleshooting#valueerror-no-order-book-exists-for-btc-usd) for an example of an error message in Hummingbot when this box is left unchecked
+
 - Once the API key settings have been configured appropriately, the new API key can be created by clicking on the Generate key button. Make sure to store the API keys in a safe place. 
 
 ### Add Keys to Hummingbot
@@ -60,7 +63,7 @@ You are now connected to kraken
 
 - **ID**: `kraken`
 - **Connection Type**: WebSocket
-- **Folder**: <https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/exchange/kraken>
+- **Folder**: [https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/exchange/kraken](https://github.com/hummingbot/hummingbot/tree/master/hummingbot/connector/exchange/kraken)
 
 ### Order Types
 

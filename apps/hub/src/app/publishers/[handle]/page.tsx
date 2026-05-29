@@ -32,7 +32,7 @@ export default async function PublisherPage({
           </p>
         </header>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
           {items.map((p) => (
             <PrimitiveCard key={`${p.namespace}/${p.name}`} p={p} />
           ))}

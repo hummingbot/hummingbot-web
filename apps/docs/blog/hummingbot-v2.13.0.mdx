@@ -12,13 +12,17 @@ category: "Releases"
 | [Hummingbot Client](https://github.com/hummingbot/hummingbot) | Core Client | [`v2.13.0 changelog`](https://github.com/hummingbot/hummingbot/releases/tag/v2.13.0) | [`version-2.13.0`](https://hub.docker.com/r/hummingbot/hummingbot/tags?name=version-2.13.0) |
 | [Gateway](https://github.com/hummingbot/gateway) | DEX Middleware | [`v2.13.0 changelog`](https://github.com/hummingbot/gateway/releases/tag/v2.13.0) | [`version-2.13.0`](https://hub.docker.com/r/hummingbot/gateway/tags?name=version-2.13.0) |
 
-<Note> **Other Hummingbot repositories such as [Hummingbot-API](https://github.com/hummingbot/hummingbot-api), [Hummingbot MCP](https://github.com/hummingbot/mcp), [Hummingbot Skills](https://github.com/hummingbot/skills), [Quants-Lab](https://github.com/hummingbot/quant-lab), and [Condor](https://github.com/hummingbot/condor) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.**
+> **Note**
+>
+> Other Hummingbot repositories such as [Hummingbot-API](https://github.com/hummingbot/hummingbot-api), [Hummingbot MCP](https://github.com/hummingbot/mcp), [Hummingbot Skills](https://github.com/hummingbot/skills), [Quants-Lab](https://github.com/hummingbot/quant-lab), and [Condor](https://github.com/hummingbot/condor) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.
+
 ## How to Install / Update
 
-- **New Installation**: See the newly revamped [Installation](/images/blog/hummingbot-v2.13.0/../installation/index) to get started with Hummingbot API with Condor, or the traditional Hummingbot Client.
+- **New Installation**: See the newly revamped [Installation](../installation/index) to get started with Hummingbot API with Condor, or the traditional Hummingbot Client.
 
-<Warning> **⚡ Upgrade Required**
-    This release includes breaking changes across `hummingbot-api`, `hummingbot-mcp`, and `condor`. Older hummingbot client versions will no longer work — see [Updating to New Versions](/images/blog/hummingbot-v2.13.0/../installation/update) for update instructions.
+> **⚡ Upgrade Required**
+>
+> This release includes breaking changes across `hummingbot-api`, `hummingbot-mcp`, and `condor`. Older hummingbot client versions will no longer work — see [Updating to New Versions](../installation/update) for update instructions.
 
 
 ## Release Highlights
@@ -113,7 +117,7 @@ We are continuing to evolve our strategy framework by unifying the V2 strategy a
 * **[#118](https://github.com/hummingbot/hummingbot-api/pull/118)** - Utilized market data to accurately quote holding positions.
 * **[#119](https://github.com/hummingbot/hummingbot-api/pull/119)** - Added validation checks to the candles initialization process.
 * **[#120](https://github.com/hummingbot/hummingbot-api/pull/120)** - Added `lp_executor` support: registered `LPExecutor` and `LPExecutorConfig` in the executor registry, exposed `/executors/types/available` and `/executors/types/lp_executor/config` endpoints, added `lp_rebalancer` controller, and updated Gateway connector handling to support AMM/CLMM connectors without order book trackers.
-* **[#128](https://github.com/hummingbot/hummingbot-api/pull/128)** - Introduced executor log capture with per-executor ring buffers and a new `GET /executors/\{id\}/logs` endpoint; cleaned up orphaned executors on startup; consolidated bot deployment to controller-based path; and added new controllers.
+* **[#128](https://github.com/hummingbot/hummingbot-api/pull/128)** - Introduced executor log capture with per-executor ring buffers and a new `GET /executors/{id}/logs` endpoint; cleaned up orphaned executors on startup; consolidated bot deployment to controller-based path; and added new controllers.
 
 
 **hummingbot/mcp**

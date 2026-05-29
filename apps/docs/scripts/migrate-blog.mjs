@@ -27,6 +27,7 @@ import {
 import { homedir } from "node:os";
 import { basename, dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { convertAdmonitions, escapeForMdx, stripMdLinks } from "./_sanitize.mjs";
 
 const HOME = homedir();
 const POSTS = join(HOME, "hummingbot-site/docs/blog/posts");
@@ -91,18 +92,13 @@ function firstParagraph(body) {
 
 function sanitizeMdx(body, slug) {
   let out = body;
-  // mkdocs admonitions → Mintlify callouts (best-effort, single-line title)
-  out = out.replace(/^!!!\s*(\w+)\s*"?([^"\n]*)"?\s*$/gm, (_m, kind, title) => {
-    const tag = /warn|caution|danger/i.test(kind) ? "Warning" : /tip|success/i.test(kind) ? "Tip" : "Note";
-    return `<${tag}>${title ? ` **${title}**` : ""}`;
-  });
-  // rewrite relative image refs → /images/blog/<slug>/<file>
-  out = out.replace(/\]\((?!https?:|\/|#)([^)]+)\)/g, (_m, p) => `](/images/blog/${slug}/${p})`);
-  out = out.replace(/(src=")(?!https?:|\/)([^"]+)(")/g, (_m, a, p, b) => `${a}/images/blog/${slug}/${p}${b}`);
-  // escape stray curly braces (MDX treats {} as JS expressions)
-  out = out.replace(/\{/g, "\\{").replace(/\}/g, "\\}");
-  // strip mkdocs attr lists / "more" markers
   out = out.replace(/<!--\s*more\s*-->/g, "");
+  out = convertAdmonitions(out);
+  // rewrite relative image refs → /images/blog/<slug>/<file>
+  out = out.replace(/!\[([^\]]*)\]\((?!https?:|\/|#)([^)\s]+)(#only-[a-z]+)?\)/g, (_m, alt, p) => `![${alt}](/images/blog/${slug}/${p})`);
+  out = out.replace(/(src=")(?!https?:|\/)([^"]+)(")/g, (_m, a, p, b) => `${a}/images/blog/${slug}/${p}${b}`);
+  out = stripMdLinks(out);
+  out = escapeForMdx(out);
   return out.trim();
 }
 
@@ -124,6 +120,20 @@ function writePost({ slug, title, description, date, category, body }) {
 }
 
 const manifest = [];
+
+// ---- Blog overview (landing page for the Blog tab) ----
+writeFileSync(
+  join(BLOG_OUT, "overview.mdx"),
+  `---
+title: "Blog"
+description: "Releases, roadmaps, governance, connectors, interviews, and tutorials from the Hummingbot community."
+---
+
+The Hummingbot blog — product releases, roadmaps, governance recaps, connector
+guides, community interviews, and trading tutorials. Browse by category in the
+sidebar, or jump to the latest **[Releases](/blog/releases)**.
+`,
+);
 
 // ---- Blog posts ----
 for (const slug of readdirSync(POSTS)) {

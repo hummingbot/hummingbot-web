@@ -1,11 +1,16 @@
 /** Single source of truth for marketing-site config: nav, socials, links. */
 
+// Docs (Mintlify) + Hub live on their own domains in prod; override with
+// NEXT_PUBLIC_DOCS_URL / NEXT_PUBLIC_HUB_URL to point at local instances.
+const DOCS = process.env.NEXT_PUBLIC_DOCS_URL ?? "https://docs.hummingbot.org";
+const HUB = process.env.NEXT_PUBLIC_HUB_URL ?? "https://hub.hummingbot.org";
+
 export const urls = {
-  docs: "https://docs.hummingbot.org",
-  blog: "https://docs.hummingbot.org/blog",
-  releases: "https://docs.hummingbot.org/blog/releases",
-  exchanges: "https://docs.hummingbot.org/exchanges",
-  hub: "https://hub.hummingbot.org",
+  docs: DOCS,
+  blog: `${DOCS}/blog`,
+  releases: `${DOCS}/blog/releases`,
+  exchanges: `${DOCS}/exchanges`,
+  hub: HUB,
   github: "https://github.com/hummingbot",
   discord: "https://discord.gg/hummingbot",
   x: "https://x.com/_hummingbot",
@@ -51,7 +56,7 @@ export const nav: NavItem[] = [
 
 export const announcement = {
   text: "Introducing Condor 🦅 — The Open Source Harness for Trading Agents",
-  href: `${urls.blog}/introducing-condor-the-open-source-harness-for-trading-agents`,
+  href: `${urls.blog}/introducing-condor`,
 } as const;
 
 /** GitHub org repos grouped for the EcosystemGrid (descriptions/stars fetched live). */

@@ -46,7 +46,7 @@ Where,
 *   σ = market volatility
 *   T = normalized closing time (1)
 *   t = current time as a fraction of T
-*   δ<sup>a</sup>, δ<sup>b</sup> = symmetrical bid/ask spread
+*   δ&lt;sup>a&lt;/sup>, δ&lt;sup>b&lt;/sup> = symmetrical bid/ask spread
 *   γ = inventory risk aversion parameter
 *   κ = order book liquidity parameter
 
@@ -69,7 +69,7 @@ Avellaneda & Stoikov's approach calculates a new reference price for order place
 
 The value of q in the formula represents the deviation from the target inventory. For example:
 *   At q = 0, the reservation price equals the market mid-price;
-*   At q < 0, the trader is short, raising the reservation price to favor buy orders;
+*   At q &lt; 0, the trader is short, raising the reservation price to favor buy orders;
 *   At q > 0, the trader is long, lowering the reservation price to favor sell orders.
 
 Hummingbot calculates q based on your specified target inventory percentage.

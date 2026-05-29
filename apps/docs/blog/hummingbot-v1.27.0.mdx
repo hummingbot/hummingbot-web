@@ -64,15 +64,15 @@ Join the next community call on [Discord](https://discord.gg/hummingbot) to lear
 * **Date**: Wednesday May 1st
 * **Time**: 4pm GMT / 12am SIN (May 1st) / 11am EST / 8am PST 
 * **Location**: [Hummingbot Discord](https://discord.gg/hummingbot)
-* **Event Link**: <https://discord.gg/8TsJdCnc?event=1199751917715329064>
+* **Event Link**: [https://discord.gg/8TsJdCnc?event=1199751917715329064](https://discord.gg/8TsJdCnc?event=1199751917715329064)
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/3wVcoOpdwus" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/3wVcoOpdwus" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 For more community events, check out the [Hummingbot Events Calendar](https://lu.ma/u/hummingbot).
 
 ## New Strategy: Funding Rate Arbitrage
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/Ly8R5g3juxw?si=bW_5vralw6zZd-0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/Ly8R5g3juxw?si=bW_5vralw6zZd-0s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 The new [**Funding Rate Arbitrage**](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/funding_rate_arb.py) sample script works by exploiting differences in funding rates across different cryptocurrency exchanges to make a profit. 
 
@@ -82,7 +82,7 @@ It evaluates the current funding rates across all configured connectors for the 
 
 ## New Strategy: Cross Exchange Market Making (XEMM)
 
-[XEMM Executor](/images/blog/hummingbot-v1.27.0/../strategies/v2-strategies/executors/xemm-executor) is a new **Strategy V2 component**  which is designed to handle cross-exchange market making (XEMM) operations within the Hummingbot framework. 
+[XEMM Executor](../strategies/v2-strategies/executors/xemm-executor) is a new **Strategy V2 component**  which is designed to handle cross-exchange market making (XEMM) operations within the Hummingbot framework. 
 
 You can use the [v2_xemm.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/v2_xemm.py) script to run it. We have also added a Controller version taht supports multiple order levels: [xemm_multiple_levels.py](https://github.com/hummingbot/hummingbot/blob/master/controllers/generic/xemm_multiple_levels.py).
 
@@ -106,7 +106,7 @@ The page includes [advanced configuration examples ](/installation/hummingbot-cl
 
 This connector has been developed by the **Robotter.ai** team, most notably **Wojak**, who put in a massive effort to deliver a high-quality integration of Cube into Hummingbot. 
 
-For more information, refer to the [Cube](/images/blog/hummingbot-v1.27.0/../exchanges/cube/index) connector docs.
+For more information, refer to the [Cube](../exchanges/cube/index) connector docs.
 
 **Pull Request:**  [#6930](https://github.com/hummingbot/hummingbot/pull/6930)
 
@@ -120,12 +120,12 @@ For more information, refer to the [Cube](/images/blog/hummingbot-v1.27.0/../exc
 ### Hummingbot
 
 - [#6787](https://github.com/hummingbot/hummingbot/pull/6787) - Refactored `balance` command and add allowances **Thanks to [isreallee82](https://github.com/isreallee82) for this fix! 🙏**
-- [#6937](https://github.com/hummingbot/hummingbot/pull/6937) - Added `injective_fee_calculator_multiplier_config` for [Injective](/images/blog/hummingbot-v1.27.0/../exchanges/injective) **Thanks to [aarmoa](https://github.com/aarmoa) for this fix! 🙏**
-- [#6940](https://github.com/hummingbot/hummingbot/pull/6940) - Updated [Binance](/images/blog/hummingbot-v1.27.0/../exchanges/binance/index) & OKX `nextFundingTime` to 10-bit integer **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
-- [#6956](https://github.com/hummingbot/hummingbot/pull/6956) - Updated [Vertex's](/images/blog/hummingbot-v1.27.0/../exchanges/vertex) hostnames **Thanks to [Wandering-Consciousness](https://github.com/Wandering-Consciousness) for this fix! 🙏**
+- [#6937](https://github.com/hummingbot/hummingbot/pull/6937) - Added `injective_fee_calculator_multiplier_config` for [Injective](../exchanges/injective) **Thanks to [aarmoa](https://github.com/aarmoa) for this fix! 🙏**
+- [#6940](https://github.com/hummingbot/hummingbot/pull/6940) - Updated [Binance](../exchanges/binance/index) & OKX `nextFundingTime` to 10-bit integer **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
+- [#6956](https://github.com/hummingbot/hummingbot/pull/6956) - Updated [Vertex's](../exchanges/vertex) hostnames **Thanks to [Wandering-Consciousness](https://github.com/Wandering-Consciousness) for this fix! 🙏**
 - [#6961](https://github.com/hummingbot/hummingbot/pull/6961) - Added Rate Oracle for Coinbase Advanced Trade v2.1 **Thanks to [MementoRC](https://github.com/MementoRC) for this fix! 🙏**
-- [#6962](https://github.com/hummingbot/hummingbot/pull/6962) - Fixed an issue where the [Hyperliquid](/images/blog/hummingbot-v1.27.0/../exchanges/hyperliquid) funding rate was not updated **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
-- [#6966](https://github.com/hummingbot/hummingbot/pull/6966) -  Added support for High-Frequency Trading (HFT) accounts on the [KuCoin](/images/blog/hummingbot-v1.27.0/../exchanges/kucoin/index) Pro platform **Thanks to [supervik](https://github.com/supervik) for this contribution! 🙏**
+- [#6962](https://github.com/hummingbot/hummingbot/pull/6962) - Fixed an issue where the [Hyperliquid](../exchanges/hyperliquid) funding rate was not updated **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
+- [#6966](https://github.com/hummingbot/hummingbot/pull/6966) -  Added support for High-Frequency Trading (HFT) accounts on the [KuCoin](../exchanges/kucoin/index) Pro platform **Thanks to [supervik](https://github.com/supervik) for this contribution! 🙏**
 
 ### Gateway
 

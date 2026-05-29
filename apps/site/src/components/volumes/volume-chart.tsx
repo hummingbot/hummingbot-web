@@ -72,6 +72,7 @@ export function VolumeChart({ daily }: { daily: DailyPoint[] }) {
               tickLine={false}
             />
             <Tooltip
+              separator=": "
               contentStyle={{
                 background: "#0f0f0f",
                 border: "1px solid #2f2f2f",

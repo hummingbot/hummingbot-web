@@ -12,11 +12,14 @@ category: "Releases"
 | [Hummingbot Client](https://github.com/hummingbot/hummingbot) | Core Client | [`v2.12.0 changelog`](https://github.com/hummingbot/hummingbot/releases/tag/v2.12.0) | [`version-2.12.0`](https://hub.docker.com/r/hummingbot/hummingbot/tags?name=version-2.12.0) |
 | [Gateway](https://github.com/hummingbot/gateway) | DEX Middleware | [`v2.12.0 changelog`](https://github.com/hummingbot/gateway/releases/tag/v2.12.0) | [`version-2.12.0`](https://hub.docker.com/r/hummingbot/gateway/tags?name=version-2.12.0) |
 
-<Note> **Other Hummingbot repositories such as [Hummingbot-API](https://github.com/hummingbot/hummingbot-api), [Hummingbot MCP](https://github.com/hummingbot/mcp), [Quants-Lab](https://github.com/hummingbot/quant-lab), and [Condor](https://github.com/hummingbot/condor) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.**
+> **Note**
+>
+> Other Hummingbot repositories such as [Hummingbot-API](https://github.com/hummingbot/hummingbot-api), [Hummingbot MCP](https://github.com/hummingbot/mcp), [Quants-Lab](https://github.com/hummingbot/quant-lab), and [Condor](https://github.com/hummingbot/condor) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.
+
 ## How to Install / Update
 
-- **New Installation**: See the newly revamped [Installation](/images/blog/hummingbot-v2.12.0/../installation/index) to get started with Hummingbot API with Condor, or the traditional Hummingbot Client.
-- **Updating**: See [Updating to New Versions](/images/blog/hummingbot-v2.12.0/../installation/update) for update instructions.
+- **New Installation**: See the newly revamped [Installation](../installation/index) to get started with Hummingbot API with Condor, or the traditional Hummingbot Client.
+- **Updating**: See [Updating to New Versions](../installation/update) for update instructions.
 
 ## Release Highlights
 
@@ -26,7 +29,7 @@ This release brings major improvements to the installation experience across mul
 
 #### Hummingbot API + Condor
 
-The [Condor](/images/blog/hummingbot-v2.12.0/../installation/condor) installation process has been streamlined:
+The [Condor](../installation/condor) installation process has been streamlined:
 
 ```bash
 git clone https://github.com/hummingbot/condor.git
@@ -35,16 +38,16 @@ make install
 make run
 ```
 
-See the [Condor Quickstart](/images/blog/hummingbot-v2.12.0/../installation/condor) for setup instructions and [condor.hummingbot.org](https://condor.hummingbot.org) for full documentation.
+See the [Condor Quickstart](../installation/condor) for setup instructions and [condor.hummingbot.org](https://condor.hummingbot.org) for full documentation.
 
 #### Hummingbot Client
 
-The [Hummingbot Client](/images/blog/hummingbot-v2.12.0/../installation/hummingbot-client) installation has been reorganized with cleaner Makefile commands ([#7888](https://github.com/hummingbot/hummingbot/pull/7888)):
+The [Hummingbot Client](../installation/hummingbot-client) installation has been reorganized with cleaner Makefile commands ([#7888](https://github.com/hummingbot/hummingbot/pull/7888)):
 
 * **Improved Conda Integration:** `make install` now correctly creates and updates the conda environment.
 * **Backward Compatible:** Previous `./start` command arguments still work with `make run`, e.g., `make run -p -f strategy.yml -c config.yml`
 
-See the [Hummingbot Client Quickstart](/images/blog/hummingbot-v2.12.0/../installation/hummingbot-client) for full instructions.
+See the [Hummingbot Client Quickstart](../installation/hummingbot-client) for full instructions.
 
 
 ### 📊 Dynamic Order Book Initialization
@@ -75,7 +78,7 @@ Hummingbot now fully supports HIP-3 (DEX) markets on the Hyperliquid Perpetual c
 
 - Rate Source Integration: Added hyperliquid_perpetual as a rate source mode for accurate mid-price calculations.
 
-📚 Documentation: [Hyperliquid Connector Guide](/images/blog/hummingbot-v2.12.0/../exchanges/hyperliquid)
+📚 Documentation: [Hyperliquid Connector Guide](../exchanges/hyperliquid)
 
 **Special thanks to [isreallee82](https://github.com/isreallee82) for these contributions ([#7875](https://github.com/hummingbot/hummingbot/pull/7875), [#7952](https://github.com/hummingbot/hummingbot/pull/7952))! 🙏**
 

@@ -23,8 +23,9 @@ To install or update, clone the latest [`hummingbot/deploy-examples`](https://gi
 docker compose up --force-recreate --build -d
 ```
 
-<Tip> **New Start Command**
-    If you're using the source version, use the `./start` command to launch Hummingbot. [Read more](https://github.com/hummingbot/hummingbot/issues/6513).
+> **New Start Command**
+>
+> If you're using the source version, use the `./start` command to launch Hummingbot. [Read more](https://github.com/hummingbot/hummingbot/issues/6513).
 
 ## Monthly Community Call
 
@@ -36,8 +37,9 @@ For more community events, check out the [Hummingbot Events Calendar](https://lu
 
 ## V2 Strategy Framework
 
-<Warning> **Under Active Development**
-    V2 Strategies are still in active development and haven't been officially released yet. For those eager to explore, you can test the initial templates for directional and market-making strategies in this [pull request](https://github.com/hummingbot/hummingbot/pull/6520).
+> **Under Active Development**
+>
+> V2 Strategies are still in active development and haven't been officially released yet. For those eager to explore, you can test the initial templates for directional and market-making strategies in this [pull request](https://github.com/hummingbot/hummingbot/pull/6520).
 
 The new [V2 Strategy Framework](/strategies/v2-strategies) significantly expands Hummingbot's capabilities, allowing users to create modular, backtestable, and sophisticated strategies. Unlike the monolithic V1 strategies, V2 Strategies are designed to be highly adaptable, allowing seamless integration of various components. Whether you're a technical expert or a trading novice, you can easily create, backtest, and deploy strategies via [Dashboard](/dashboard).
 
@@ -49,14 +51,15 @@ We're introducing specialized templates for different trading paradigms, includi
 
 Watch this video for a preview:
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/GhvTaIWHqrU?si=-3GT8hfAw0OuL7XK" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/GhvTaIWHqrU?si=-3GT8hfAw0OuL7XK" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 You may also try out this [pull request](https://github.com/hummingbot/hummingbot/pull/6520).
 
 ## New Dashboard Features
 
-<Warning> **Under Active Development**
-    Dashboard is still under active development. If you're excited to explore its initial capabilities, you can find the first version [here](https://github.com/hummingbot/dashboard).
+> **Under Active Development**
+>
+> Dashboard is still under active development. If you're excited to explore its initial capabilities, you can find the first version [here](https://github.com/hummingbot/dashboard).
 
 The **Bot Orchestration** section enables you to effortlessly deploy and manage multiple instances of Hummingbot. Key updates include:
 
@@ -67,7 +70,7 @@ The **Backtest Manager** section is designed to help you fine-tune your trading 
 
 Watch this video to see how to deploy Dashboard on AWS:
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/3WqNV543goI?si=-3GT8hfAw0OuL7XK" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/3WqNV543goI?si=-3GT8hfAw0OuL7XK" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 It's important to note that the Hummingbot Dashboard is currently in its beta phase, which means new features and improvements are being added continuously. While the Dashboard offers a variety of functionalities, it is not yet a polished, finalized product. We highly encourage user feedback at this stage; your insights can greatly help us fine-tune the Dashboard's capabilities and user experience. Feel free to share your thoughts and suggestions on Discord or Github.
 
@@ -79,7 +82,7 @@ Here are new script examples added to the codebase in this release, along with d
 
 [fixed_grid.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/fixed_grid.py): The script implements a fixed grid trading strategy, placing buy and sell orders at predetermined price levels, rebalancing assets if required, and providing status updates on trades and balances. **Pull Request:** [#6495](https://github.com/hummingbot/hummingbot/pull/6495)
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/1j81gP2ToCE?si=bl9IG5yQ0kTM2bTr" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/1j81gP2ToCE?si=bl9IG5yQ0kTM2bTr" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 **Thanks to [rkc2000](https://github.com/rkc2000) for this script and video! 🙏**
 
@@ -87,13 +90,13 @@ Here are new script examples added to the codebase in this release, along with d
 
 [wallet_hedge_example.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/wallet_hedge_example.py): The script implements a fixed grid trading strategy, placing buy and sell orders at predetermined price levels, rebalancing assets if required, and providing status updates on trades and balances. **Pull Request:** [#6495](https://github.com/hummingbot/hummingbot/pull/6496)
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/BJl737HkXqs?si=t9ckDyHq9O4CXicx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/BJl737HkXqs?si=t9ckDyHq9O4CXicx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 ### Arbitrage with Smart Component
 
 [arbitrage_with_smart_component.py](https://github.com/hummingbot/hummingbot/blob/master/strategies/scripts/arbitrage_with_smart_component.py): The script defines an `ArbitrageWithSmartComponent` class that automates cryptocurrency arbitrage trading between CEX / DEX exchanges, ensuring sufficient balances and managing active and closed arbitrage executions. It uses [ArbitrageExecutor](/strategies/v2-strategies/executors/#arbitrage-executors), a new Hummingbot component designed to simplify and automate your arbitrage trading strategies. Part of the V2 Strategy Framework, this component is engineered to assess arbitrage profitability, execute buy and sell orders across  multiple trading pairs, and provide real-time status updates. It also offers detailed metrics on profitability and transaction costs, along with configurable settings for arbitrage strategies.
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/VqJxpWZzCG4?si=t9ckDyHq9O4CXicx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/VqJxpWZzCG4?si=t9ckDyHq9O4CXicx" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 ## New Chain/DEX Connectors: Tezos/Plenty
 
@@ -105,7 +108,7 @@ See Tezos for the chain docs and the Plenty exchange connector docs.
 
 **Pull Requests:** [#156](https://github.com/hummingbot/gateway/pull/156),  [#6475](https://github.com/hummingbot/hummingbot/pull/6475)
 
-**Snapshot Proposal:** <https://snapshot.org/#/hbot-ncp.eth/proposal/0x86cecae5e1f31055559d51a30319a6b781dd1b6004527702a1a7ba2bce621291>
+**Snapshot Proposal:** [https://snapshot.org/#/hbot-ncp.eth/proposal/0x86cecae5e1f31055559d51a30319a6b781dd1b6004527702a1a7ba2bce621291](https://snapshot.org/#/hbot-ncp.eth/proposal/0x86cecae5e1f31055559d51a30319a6b781dd1b6004527702a1a7ba2bce621291)
 
 **Thanks to [OjusWiZard](https://github.com/OjusWiZard) for this contribution! 🙏**
 
@@ -119,9 +122,9 @@ See the [Injective](/exchanges/injective) documentation for more information.
 
 **Snapshot Proposal:**
 
-- Spot: <https://snapshot.org/#/hbot-prp.eth/proposal/0xaf8fa07fbd40c0e92fed0b220c922b1f08416e2e8443e3dfd625ed30c89b6416>
+- Spot: [https://snapshot.org/#/hbot-prp.eth/proposal/0xaf8fa07fbd40c0e92fed0b220c922b1f08416e2e8443e3dfd625ed30c89b6416](https://snapshot.org/#/hbot-prp.eth/proposal/0xaf8fa07fbd40c0e92fed0b220c922b1f08416e2e8443e3dfd625ed30c89b6416)
 
-- Perpetual: <https://snapshot.org/#/hbot-prp.eth/proposal/0x7caf486af6d79e38e60b41dd315ad103d437311c57b40386d122b6df373f776c>
+- Perpetual: [https://snapshot.org/#/hbot-prp.eth/proposal/0x7caf486af6d79e38e60b41dd315ad103d437311c57b40386d122b6df373f776c](https://snapshot.org/#/hbot-prp.eth/proposal/0x7caf486af6d79e38e60b41dd315ad103d437311c57b40386d122b6df373f776c)
 
 **Thanks to [aarmoa](https://github.com/aarmoa) for this contribution! 🙏**
 
@@ -131,7 +134,7 @@ See the [Injective](/exchanges/injective) documentation for more information.
 
 * [#6439](https://github.com/hummingbot/hummingbot/pull/6439) Added a logger mixin for tests **Thanks to [MementoRC](https://github.com/MementoRC) for this fix! 🙏**
 * [#6455](https://github.com/hummingbot/hummingbot/pull/6455) Added a `wait for tasks` method that allows to await calls made via `safe_wrapper` **Thanks to [MementoRC](https://github.com/MementoRC) for this fix! 🙏**
-* [#6456](https://github.com/hummingbot/hummingbot/pull/6456) Refactored [BTCMarkets](/images/blog/hummingbot-v1.19.0/../exchanges/btc-markets) test cases **Thanks to [vdmerweandre](https://github.com/vdmerweandre) for this fix! 🙏**
+* [#6456](https://github.com/hummingbot/hummingbot/pull/6456) Refactored [BTCMarkets](../exchanges/btc-markets) test cases **Thanks to [vdmerweandre](https://github.com/vdmerweandre) for this fix! 🙏**
 * [#6457](https://github.com/hummingbot/hummingbot/pull/6457) Updated workflow actions to latest version **Thanks to [MementoRC](https://github.com/MementoRC) for this fix! 🙏**
 * [#6496](https://github.com/hummingbot/hummingbot/pull/6496) Added hedging logic to data feed that tracks wallet balances for certain tokens
 * [#6498](https://github.com/hummingbot/hummingbot/pull/6498) Added additional on-the-fly params **Thanks to [ntenisOT](https://github.com/ntenisOT) for this fix! 🙏**

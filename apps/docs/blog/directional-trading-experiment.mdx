@@ -23,7 +23,7 @@ Below is a detailed account of our first experiment. You can watch the accompany
 
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/uKFBu2bSU1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/uKFBu2bSU1Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>&lt;/iframe>
 
 ## Strategy Description
 
@@ -40,12 +40,12 @@ The strategy combines these indicators as follows:
 
 By merging these indicators, we seek to pinpoint potential mean reversion points when the market is overextended. Our custom decision rules for Long and Short positions are based on %BB and MACD histogram values, and the current value of the MACD line:
 
-- **LONG**: % BB < 0.2 | MACD Histogram > 0 | MACD < 0
-- **SHORT**: % BB > 0.8 | MACD Histogram < 0 | MACD > 0
+- **LONG**: % BB &lt; 0.2 | MACD Histogram > 0 | MACD &lt; 0
+- **SHORT**: % BB > 0.8 | MACD Histogram &lt; 0 | MACD > 0
 
 ## Directional Framework
 
-Our strategy employs the Directional Framework, which combines two novel features in Hummingbot: [Candles Feed](/images/blog/directional-trading-experiment/../../../strategies/v2-strategies/candles/index.md) and [PositionExecutor](/images/blog/directional-trading-experiment/../../../strategies/v2-strategies/executors/positionexecutor.md).
+Our strategy employs the Directional Framework, which combines two novel features in Hummingbot: [Candles Feed](../../../strategies/v2-strategies/candles/index) and [PositionExecutor](../../../strategies/v2-strategies/executors/positionexecutor).
 
 ![](/images/blog/directional-trading-experiment/./Screen-Shot-2023-04-21-at-3.04.45-PM.png)
 

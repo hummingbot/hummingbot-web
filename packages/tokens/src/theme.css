@@ -112,6 +112,8 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    /* belt-and-suspenders guard against horizontal overflow */
+    overflow-x: hidden;
   }
   body {
     background-color: hsl(var(--background));

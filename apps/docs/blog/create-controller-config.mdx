@@ -15,7 +15,7 @@ Controllers allow you to handle multiple trading strategies or trading pairs wit
 
 
 
-[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/11.png)](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/11.png)
+[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/11.png)](../../../strategies/v2-strategies/diagrams/11.png)
 
 ## Example Scenario
 
@@ -30,7 +30,7 @@ Previously, you'd need multiple bots for this. But with Hummingbot’s V2 Contro
 
 ### Step 1: Create Controller Configurations
 
-[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/15.png)](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/15.png)
+[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/15.png)](../../../strategies/v2-strategies/diagrams/15.png)
 
 To set up your controllers, run the following command:
 
@@ -86,7 +86,7 @@ These files will be located at:
 
 ### Step 2: Create the Generic Script
 
-[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/16.png)](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/16.png)
+[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/16.png)](../../../strategies/v2-strategies/diagrams/16.png)
 
 Now, create a generic script to run both controller configurations simultaneously:
 
@@ -101,7 +101,10 @@ Controller configurations >>> conf_market_making.pmm_simple_1.yml, conf_market_m
 Configuration filename >>> conf_v2_with_controllers_1.yml
 ```
 
-<Tip> **After setup, it's easier to manually edit this configuration file directly rather than recreate it each time.**
+> **Tip**
+>
+> After setup, it's easier to manually edit this configuration file directly rather than recreate it each time.
+
 ### Step 3: Launch Your Bot
 
 Start your bot with the command:
@@ -116,7 +119,7 @@ Check its status using:
 status --live
 ```
 
-[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/20.png)](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/20.png)
+[![controller](/images/blog/create-controller-config/../../../strategies/v2-strategies/diagrams/20.png)](../../../strategies/v2-strategies/diagrams/20.png)
 
 ## Making Dynamic Updates
 

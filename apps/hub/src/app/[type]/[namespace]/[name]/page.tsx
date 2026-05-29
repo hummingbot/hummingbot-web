@@ -130,7 +130,7 @@ export default async function DetailPage({
             {related.length > 0 && (
               <section>
                 <h2 className="mb-3 text-lg font-semibold">Related</h2>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {related.map((r) => (
                     <PrimitiveCard key={`${r.namespace}/${r.name}`} p={r} />
                   ))}

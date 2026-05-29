@@ -37,7 +37,7 @@ export default function HubHome() {
           </dl>
         </section>
 
-        <section className="mx-auto grid w-full max-w-6xl gap-4 px-4 pb-16 md:grid-cols-3">
+        <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 px-4 pb-16 md:grid-cols-3">
           {browseCards.map(({ type, label, href, icon: Icon, desc }) => (
             <Link
               key={type}
@@ -95,7 +95,7 @@ function Row({ title, items }: { title: string; items: ReturnType<typeof feature
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-8">
       <h2 className="mb-6 text-2xl font-bold tracking-tight">{title}</h2>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {items.map((p) => (
           <PrimitiveCard key={`${p.namespace}/${p.name}`} p={p} />
         ))}

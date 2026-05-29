@@ -39,13 +39,13 @@ Visit the official XRPL Testnet Faucet:
 
 Select `Testnet` from the dropdown and click **Generate Testnet Credentials**.
 
-[![Faucet Screenshot](/images/blog/using-xrpl-with-hummingbot/faucet.webp)](/images/blog/using-xrpl-with-hummingbot/faucet.webp)
+[![Faucet Screenshot](/images/blog/using-xrpl-with-hummingbot/faucet.webp)](faucet.webp)
 
 Copy the **Wallet Address** and **Secret Key** somewhere safe.
 
 > ⚠️ **Keep these two values private.** Anyone who has them can control your funds. The **Secret Key** is also known as the **Seed**, which is the equivalent of your private key and provides full access to your wallet.
 
-<br>
+&lt;br>
 
 ### **Generate Wallet via Script**
 
@@ -59,14 +59,15 @@ curl -s https://gist.githubusercontent.com/david-hummingbot/a040f9af46b5d627f943
 
 After the script completes, you’ll see output similar to:
 
-[![Script Output](/images/blog/using-xrpl-with-hummingbot/script.png)](/images/blog/using-xrpl-with-hummingbot/script.png)
+[![Script Output](/images/blog/using-xrpl-with-hummingbot/script.png)](script.png)
 
 Copy all four lines to a safe place (password manager, encrypted notes, etc.). This includes your wallet address and **seed**, which acts as your private key and should never be shared.
 
-<Note> **Having trouble?**
+> **Having trouble?**
+>
 The script tries to install its own dependencies (Node.js, npm). If that fails or you’re unsure, use the faucet instead.
 
-<br>
+&lt;br>
 
 ## Install Xaman (mobile wallet)
 
@@ -81,11 +82,11 @@ If you need additional info on how to install follow this guide [here:](https://
 
 From the main screen of Xaman, press the **Settings** button, choose **Accounts**, then press `Add account`
 
-[![import](/images/blog/using-xrpl-with-hummingbot/xaman1.png)](/images/blog/using-xrpl-with-hummingbot/xaman1.png)
+[![import](/images/blog/using-xrpl-with-hummingbot/xaman1.png)](xaman1.png)
 
 Press the Import an existing account button
 
-[![import](/images/blog/using-xrpl-with-hummingbot/xaman2.png)](/images/blog/using-xrpl-with-hummingbot/xaman2.png)
+[![import](/images/blog/using-xrpl-with-hummingbot/xaman2.png)](xaman2.png)
 
 You can import an XRP Ledger account in either of these two modes:
 
@@ -95,21 +96,21 @@ You can import an XRP Ledger account in either of these two modes:
 
 For now, choose **Full access** and press the Next button.
 
-[![import](/images/blog/using-xrpl-with-hummingbot/xaman3.png)](/images/blog/using-xrpl-with-hummingbot/xaman3.png)
+[![import](/images/blog/using-xrpl-with-hummingbot/xaman3.png)](xaman3.png)
 
 Choose **Family Seed** then press Next.
 
 > 🔐 A *Family Seed* is the same as your wallet **seed** or private key. It is a 29-character string starting with the letter `s`. For example: `s4rj7hy5vdth65f4fy89hg4ffh77hg`. Store this securely and never share it.
 
-[![import](/images/blog/using-xrpl-with-hummingbot/xaman4.png)](/images/blog/using-xrpl-with-hummingbot/xaman4.png)
+[![import](/images/blog/using-xrpl-with-hummingbot/xaman4.png)](xaman4.png)
 
 Enter your Family Seed then press Next.
 
-[![import](/images/blog/using-xrpl-with-hummingbot/xaman5.png)](/images/blog/using-xrpl-with-hummingbot/xaman5.png)
+[![import](/images/blog/using-xrpl-with-hummingbot/xaman5.png)](xaman5.png)
 
 Please ensure that r-address that is displayed is the one that you intend to import. If it is not correct, please press the **back** button, then double check and re-enter your Family seed. When the correct r-address is displayed, press the **Confirm** button.
 
-[![import](/images/blog/using-xrpl-with-hummingbot/xaman6.png)](/images/blog/using-xrpl-with-hummingbot/xaman6.png)
+[![import](/images/blog/using-xrpl-with-hummingbot/xaman6.png)](xaman6.png)
 
 Once you decide on the security level, select it and press Next then enter the account label and press Next to complete the import process.
 
@@ -124,7 +125,7 @@ Provide:
 
 * **XRPL node URL(s)**—use the defaults or your own private nodes.
 
-[![connect](/images/blog/using-xrpl-with-hummingbot/connect.webp)](/images/blog/using-xrpl-with-hummingbot/connect.webp)
+[![connect](/images/blog/using-xrpl-with-hummingbot/connect.webp)](connect.webp)
 
 Afterwards, run the `balance` command. If your keys are correct and the node is online, you should see your XRPL balances:
 
@@ -138,7 +139,7 @@ Symbol Balance
 
 Open the newly created `/conf/connectors/xrpl.yml` file with any IDE or text editor
 
-[![Conf Screenshot](/images/blog/using-xrpl-with-hummingbot/conf.webp)](/images/blog/using-xrpl-with-hummingbot/conf.webp)
+[![Conf Screenshot](/images/blog/using-xrpl-with-hummingbot/conf.webp)](conf.webp)
 
 This file contains your encrypted XRPL credentials, as well as other configuration settings for the XRPL connector:
 
@@ -181,7 +182,7 @@ Requirements:
 
 Launch Hummingbot and use the `create --script-config simple_pmm` command to create the config for your Simple PMM script.
 
-[![controller](/images/blog/using-xrpl-with-hummingbot/controller.png)](/images/blog/using-xrpl-with-hummingbot/controller.png)
+[![controller](/images/blog/using-xrpl-with-hummingbot/controller.png)](controller.png)
 
 This generates a default configuration file under the `conf/controllers/` folder. You can edit this file using your preferred IDE or text editor.
 
@@ -226,9 +227,9 @@ To view your open orders on-chain, you can use the following explorers:
 
 If you need more help understanding how Hummingbot works or want to dive deeper into Hummingbot, you can visit the following documentation links:
 
-* [Hummingbot Client](/images/blog/using-xrpl-with-hummingbot/../../../client/index.md)
+* [Hummingbot Client](../../../client/index)
 
-* [Guides and Tutorials](/images/blog/using-xrpl-with-hummingbot/../../../guides/index.md)
+* [Guides and Tutorials](../../../guides/index)
 
 
 ### Start the bot
@@ -239,6 +240,6 @@ start --script simple_pmm.py --conf conf_simple_pmm_test-xrp-rlusd.yml
 
 It may take a few seconds to initialize. Watch the **log pane** to confirm that orders are being placed or to troubleshoot any error messages.
 
-[![status](/images/blog/using-xrpl-with-hummingbot/status.png)](/images/blog/using-xrpl-with-hummingbot/status.png)
+[![status](/images/blog/using-xrpl-with-hummingbot/status.png)](status.png)
 
 **Happy trading! If you run into issues, the [Hummingbot Discord](https://discord.gg/hummingbot) community is a great place to ask questions.**

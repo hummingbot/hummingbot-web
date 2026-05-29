@@ -35,7 +35,7 @@ export function NewsletterDiscord() {
 
   return (
     <Section>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card className="flex flex-col justify-center p-8">
           <h3 className="text-2xl font-bold tracking-tight">Stay in the loop</h3>
           <p className="mt-2 text-sm text-ink-400 text-pretty">

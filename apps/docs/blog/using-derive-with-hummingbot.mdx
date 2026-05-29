@@ -29,41 +29,41 @@ If you haven’t already, download and install the [MetaMask](https://metamask.i
 
 Open your web browser and go to [https://derive.xyz/](https://derive.xyz/). On the Derive homepage, click the **"Connect Wallet"** button, typically located in the top-right corner of the page.
 
-   [![image](/images/blog/using-derive-with-hummingbot/1.png)](/images/blog/using-derive-with-hummingbot/1.png)
+   [![image](/images/blog/using-derive-with-hummingbot/1.png)](1.png)
 
 From the list of available options, select **"MetaMask"**.
 
-   [![image](/images/blog/using-derive-with-hummingbot/2.png)](/images/blog/using-derive-with-hummingbot/2.png)
+   [![image](/images/blog/using-derive-with-hummingbot/2.png)](2.png)
 
 MetaMask will open a pop-up asking you to confirm the connection.
 
-   [![image](/images/blog/using-derive-with-hummingbot/3.png)](/images/blog/using-derive-with-hummingbot/3.png)  
+   [![image](/images/blog/using-derive-with-hummingbot/3.png)](3.png)  
    
 After the wallet is connected, Derive will prompt you to sign a message to verify you are the owner of the wallet.
 
-   [![image](/images/blog/using-derive-with-hummingbot/4.png)](/images/blog/using-derive-with-hummingbot/4.png)
-   [![image](/images/blog/using-derive-with-hummingbot/5.png)](/images/blog/using-derive-with-hummingbot/5.png)  
+   [![image](/images/blog/using-derive-with-hummingbot/4.png)](4.png)
+   [![image](/images/blog/using-derive-with-hummingbot/5.png)](5.png)  
 
 Check both boxes if you read through and agree with the terms and then "Agree and Continue"
 
-   [![image](/images/blog/using-derive-with-hummingbot/6.png)](/images/blog/using-derive-with-hummingbot/6.png)
+   [![image](/images/blog/using-derive-with-hummingbot/6.png)](6.png)
 
 ### Deposit Funds
 
 Once your wallet is connected, you will need to deposit tokens into your Derive account. Deposit USDC, ETH, BTC and other tokens to start trading options and perps. Make sure you have enough balance to cover at least the minimum trading amount + fees. 
 
-   [![image](/images/blog/using-derive-with-hummingbot/7.png)](/images/blog/using-derive-with-hummingbot/7.png)
+   [![image](/images/blog/using-derive-with-hummingbot/7.png)](7.png)
 
 ### Register Session Key
 
 After connecting, click the Developers link on the left side of the page. If you don't see it, go back to the Home page and then click Developers. Click Register Session Key and then enter in your Metamask Wallet's public address. You'll need to confirm the signature request in Metamask. 
 
-   [![image](/images/blog/using-derive-with-hummingbot/8.png)](/images/blog/using-derive-with-hummingbot/8.png)
-   [![image](/images/blog/using-derive-with-hummingbot/9.png)](/images/blog/using-derive-with-hummingbot/9.png) 
+   [![image](/images/blog/using-derive-with-hummingbot/8.png)](8.png)
+   [![image](/images/blog/using-derive-with-hummingbot/9.png)](9.png) 
 
 Once this is done, take note of a couple things which we will need to connect Hummingbot, the first one is the **Derive Wallet address** and second is the **Subaccount ID**
 
-   [![image](/images/blog/using-derive-with-hummingbot/10.png)](/images/blog/using-derive-with-hummingbot/10.png) 
+   [![image](/images/blog/using-derive-with-hummingbot/10.png)](10.png) 
 
 ### Get Metamask wallet private key
 
@@ -75,7 +75,7 @@ Once this is done, take note of a couple things which we will need to connect Hu
 
 - Click on Hold to reveal Private Key to display your private key 
 
-   [![image](/images/blog/using-derive-with-hummingbot/11.png)](/images/blog/using-derive-with-hummingbot/11.png)
+   [![image](/images/blog/using-derive-with-hummingbot/11.png)](11.png)
 
  
 Once available, copy the private key and store it safely in a secure location. You will need this key later to connect to Hummingbot.
@@ -83,8 +83,9 @@ Once available, copy the private key and store it safely in a secure location. Y
 
 ## Using Derive with Hummingbot Client
 
-<Note> **Dashboard Compatibility Notice**
-    Derive is currently not available via the Hummingbot Dashboard due to dependency conflicts within the Hummingbot Library. Until this is resolved, please follow the instructions below to set up Derive using the standalone command-line client (Docker or Source installation).
+> **Dashboard Compatibility Notice**
+>
+> Derive is currently not available via the Hummingbot Dashboard due to dependency conflicts within the Hummingbot Library. Until this is resolved, please follow the instructions below to set up Derive using the standalone command-line client (Docker or Source installation).
 
 The following instructions guide you through adding your Derive credentials to the standalone Hummingbot command-line client.
 
@@ -201,7 +202,7 @@ To connect Hummingbot to Derive's perpetual market, you'll need Derive wallet ad
    balance
    ```
 
-   [![image](/images/blog/using-derive-with-hummingbot/balance.png)](/images/blog/using-derive-with-hummingbot/balance.png)
+   [![image](/images/blog/using-derive-with-hummingbot/balance.png)](balance.png)
 
 ### Run a Strategy
 
@@ -241,12 +242,12 @@ For this example, we'll use the [**bollinger_v1**](https://github.com/hummingbot
    Enter the trading pair for the candles data, leave empty to use the same trading pair as the connector:
    
    ```
-   [![image](/images/blog/using-derive-with-hummingbot/12.png)](/images/blog/using-derive-with-hummingbot/12.png)
+   [![image](/images/blog/using-derive-with-hummingbot/12.png)](12.png)
 
 
   - Once the configuration is done, give the controller config a name or use the default one:
 
-   [![image](/images/blog/using-derive-with-hummingbot/13.png)](/images/blog/using-derive-with-hummingbot/13.png)
+   [![image](/images/blog/using-derive-with-hummingbot/13.png)](13.png)
 
  **Create a script config**
 
@@ -260,12 +261,12 @@ For this example, we'll use the [**bollinger_v1**](https://github.com/hummingbot
 
    - Make sure to enter the file name of the controller config we created earlier 
 
-   [![image](/images/blog/using-derive-with-hummingbot/14.png)](/images/blog/using-derive-with-hummingbot/14.png)
+   [![image](/images/blog/using-derive-with-hummingbot/14.png)](14.png)
 
 
    - Lastly, give the script config a name
 
-   [![image](/images/blog/using-derive-with-hummingbot/15.png)](/images/blog/using-derive-with-hummingbot/15.png)
+   [![image](/images/blog/using-derive-with-hummingbot/15.png)](15.png)
 
 
  **Start the strategy**
@@ -276,7 +277,7 @@ For this example, we'll use the [**bollinger_v1**](https://github.com/hummingbot
    start --script v2_with_controllers.py --conf conf_v2_with_controllers_1.yml
    ```
 
-   [![image](/images/blog/using-derive-with-hummingbot/16.png)](/images/blog/using-derive-with-hummingbot/16.png) 
+   [![image](/images/blog/using-derive-with-hummingbot/16.png)](16.png) 
  
 **Monitor the Strategy**  
 
@@ -288,7 +289,7 @@ This strategy is designed to **place a buy order when the price approaches the l
    status
    ```
 
-   [![image](/images/blog/using-derive-with-hummingbot/status.png)](/images/blog/using-derive-with-hummingbot/status.png)
+   [![image](/images/blog/using-derive-with-hummingbot/status.png)](status.png)
 
  **Stop the Bot**
 
@@ -298,9 +299,9 @@ This strategy is designed to **place a buy order when the price approaches the l
    stop
    ```
 
-   [![image](/images/blog/using-derive-with-hummingbot/17.png)](/images/blog/using-derive-with-hummingbot/17.png)
+   [![image](/images/blog/using-derive-with-hummingbot/17.png)](17.png)
 
-For more details on V2 Strategies or other available controllers, check out the Controllers section of [V2 Strategies](/images/blog/using-derive-with-hummingbot/../../../strategies/v2-strategies/controllers/index.md) documentation. Please note that since Derive only supports **one-way mode** some V2 Strategies that use Hedge mode may not work correctly with the controller.    
+For more details on V2 Strategies or other available controllers, check out the Controllers section of [V2 Strategies](../../../strategies/v2-strategies/controllers/index) documentation. Please note that since Derive only supports **one-way mode** some V2 Strategies that use Hedge mode may not work correctly with the controller.    
 
 
 

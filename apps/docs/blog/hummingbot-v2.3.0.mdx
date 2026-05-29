@@ -12,7 +12,10 @@ category: "Releases"
 | [Hummingbot](https://github.com/hummingbot/hummingbot) | Core Client | [`v2.3.0`](https://github.com/hummingbot/hummingbot/releases/tag/v2.3.0) | [`version-2.3.0`](https://hub.docker.com/r/hummingbot/hummingbot/tags?name=version-2.3.0) |
 | [Gateway](https://github.com/hummingbot/gateway) | DEX Middleware | [`v2.3.0`](https://github.com/hummingbot/gateway/releases/tag/v2.3.0) | [`version-2.3.0`](https://hub.docker.com/r/hummingbot/gateway/tags?name=version-2.3.0) |
 
-<Note> **Other Hummingbot repositories such as [Dashboard](https://github.com/hummingbot/dashboard), [Backend-API](https://github.com/hummingbot/backend-api), [Quant-Lab](https://github.com/hummingbot/quant-lab), and [Deploy](https://github.com/hummingbot/deploy) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.**
+> **Note**
+>
+> Other Hummingbot repositories such as [Dashboard](https://github.com/hummingbot/dashboard), [Backend-API](https://github.com/hummingbot/backend-api), [Quant-Lab](https://github.com/hummingbot/quant-lab), and [Deploy](https://github.com/hummingbot/deploy) follow a continuous deployment model without fixed version releases. Use the `main` branch for these repositories.
+
 See the full changelogs on GitHub:
 
 - [Hummingbot v2.3.0 Changelog](https://github.com/hummingbot/hummingbot/releases/tag/v2.3.0)
@@ -44,7 +47,7 @@ git pull origin master # Hummingbot
 git pull origin main # Gateway
 ```
 
-Afterwards, follow the instructions to re-install dependencies and compile the codebase for each repository. See [Install Hummingbot from Source](/images/blog/hummingbot-v2.3.0/../installation/hummingbot-client) and [Install Gateway from Source](/images/blog/hummingbot-v2.3.0/../gateway/installation).
+Afterwards, follow the instructions to re-install dependencies and compile the codebase for each repository. See [Install Hummingbot from Source](../installation/hummingbot-client) and [Install Gateway from Source](../gateway/installation).
 
 ## Release Highlights
 
@@ -60,7 +63,7 @@ In the next release, we plan to add support for Meteora and Raydium as CLMM DEX 
 
 Check out one of our recent weekly Youtube livestream demo to see the new Meteora connector in action!
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/VxKSPgotPhg?si=LkdJW1U7ZEQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/VxKSPgotPhg?si=LkdJW1U7ZEQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 Pull Requests: [Hummingbot - #7367](https://github.com/hummingbot/hummingbot/pull/7367) | [Gateway -#380](https://github.com/hummingbot/gateway/pull/380) 
 
@@ -83,7 +86,7 @@ Pull Request: [Hummingbot #7374](https://github.com/hummingbot/hummingbot/pull/7
 
 ### New BingX Spot Connector
 
-This release adds support for BingX spot markets in [Hummingbot #7280](https://github.com/hummingbot/hummingbot/pull/7280). This [proposal](https://snapshot.box/#/s:hbot-ncp.eth/proposal/0xac46cb41a8f66e7cb13f99471da7c8d1bd2c47f81e3743be60e667638e4ac436) was submitted by [Robotter Labs](https://labs.robotter.ai) in collaboration with BingX, aiming to enhance Hummingbot's capabilities by integrating BingX Exchange. See the [BingX](/images/blog/hummingbot-v2.3.0/../exchanges/bing_x/index) documentation for more information. 
+This release adds support for BingX spot markets in [Hummingbot #7280](https://github.com/hummingbot/hummingbot/pull/7280). This [proposal](https://snapshot.box/#/s:hbot-ncp.eth/proposal/0xac46cb41a8f66e7cb13f99471da7c8d1bd2c47f81e3743be60e667638e4ac436) was submitted by [Robotter Labs](https://labs.robotter.ai) in collaboration with BingX, aiming to enhance Hummingbot's capabilities by integrating BingX Exchange. See the [BingX](../exchanges/bing_x/index) documentation for more information. 
 
 **Thanks to [danilo-robotter-ai](https://github.com/danilo-robotter-ai) for this contribution! 🙏**
 
@@ -91,7 +94,7 @@ This release adds support for BingX spot markets in [Hummingbot #7280](https://g
 
 We are excited to announce the addition of Bitmart as a new exchange partner of Hummingbot Foundation. Bitmart is a leading global digital asset trading platform that provides spot and derivatives trading services to over 9 million users worldwide When you run Hummingbot on Bitmart, a portion of your trading fees automatically goes to support the Foundation at no additional cost to you.
 
-This release adds support for a Bitmart perpetual connector in [Hummingbot #7368](https://github.com/hummingbot/hummingbot/pull/7368) with the [bounty](https://github.com/hummingbot/hummingbot/issues/7323), funded by the Bitmart team. See the [Bitmart](/images/blog/hummingbot-v2.3.0/../exchanges/bitmart/index) documentation for more information.
+This release adds support for a Bitmart perpetual connector in [Hummingbot #7368](https://github.com/hummingbot/hummingbot/pull/7368) with the [bounty](https://github.com/hummingbot/hummingbot/issues/7323), funded by the Bitmart team. See the [Bitmart](../exchanges/bitmart/index) documentation for more information.
 
 **Thanks to [tomasgaudino](https://github.com/tomasgaudino) for this contribution! 🙏**
 

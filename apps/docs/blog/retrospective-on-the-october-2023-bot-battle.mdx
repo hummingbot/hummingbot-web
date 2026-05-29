@@ -17,13 +17,16 @@ Commencing on October 27th and running through to October 30th, I, alongside my 
 
 ## Beta Battle Recap
 
-In the [Beta Bot Battle](/images/blog/retrospective-on-the-october-2023-bot-battle/../beta-bot-battle-results-and-roundup/index.md), I used a modified version of the [PMM with Shifted Dynamic Mid Spreads script](https://github.com/hummingbot/hummingbot/blob/master/scripts/archived_scripts/examples_using_smart_components/pmm_with_shifted_mid_dynamic_spreads.py), a strategy designed to provide liquidity to a trading pair in a single market. 
+In the [Beta Bot Battle](../beta-bot-battle-results-and-roundup/index), I used a modified version of the [PMM with Shifted Dynamic Mid Spreads script](https://github.com/hummingbot/hummingbot/blob/master/scripts/archived_scripts/examples_using_smart_components/pmm_with_shifted_mid_dynamic_spreads.py), a strategy designed to provide liquidity to a trading pair in a single market. 
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/3cWoS3Yk6EE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/3cWoS3Yk6EE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 Here's [my version](https://github.com/fengtality/hummingbot/blob/master/scripts/bot_battle.py). I chose the SEI-USDT trading pair on Binance, since it was relatively newly listed and had exhibited volatile performance recently.
 
-<Note> **It's difficult to make money from spot market making without rewards or rebates, and not having a high VIP tier and paying standard fees makes it extra challenging. Therefore, my expectation was that the strategy would lose money net of fees, but I was hoping to break even from a trade P&L perspective. **
+> **Note**
+>
+> It's difficult to make money from spot market making without rewards or rebates, and not having a high VIP tier and paying standard fees makes it extra challenging. Therefore, my expectation was that the strategy would lose money net of fees, but I was hoping to break even from a trade P&L perspective. 
+
 With 392 trades executed over two days, my bot was pretty active and aggressive! My average buy price was an impressive 0.1245 USDT versus an average sell price of 0.1244 USDT. Given the volatile market conditions, this narrow margin demonstrated the bot's capability to adjust spreads dynamically based on market volatility.
 
 Mostly due to fees, the result was total P&L of -4.84 USDT. While not the outcome I had hoped for, it was a valuable learning experience, providing insights into the nuances of market dynamics and bot behavior.
@@ -32,7 +35,7 @@ Mostly due to fees, the result was total P&L of -4.84 USDT. While not the outcom
 
 ## What Changed in October: Using a V2 Strategy
 
-Fast forward to October, and I wanted to test out the new V2 strategy framework, notable for creating [Executors](/images/blog/retrospective-on-the-october-2023-bot-battle/../../../strategies/v2-strategies/executors/index.md) instead of orders. This innovative approach is based on the [triple barrier method](https://www.mlfinlab.com/en/latest/labeling/tb_meta_labeling.html), a concept from [Advances in Financial Machine Learning](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086) by Martin Prado.
+Fast forward to October, and I wanted to test out the new V2 strategy framework, notable for creating [Executors](../../../strategies/v2-strategies/executors/index) instead of orders. This innovative approach is based on the [triple barrier method](https://www.mlfinlab.com/en/latest/labeling/tb_meta_labeling.html), a concept from [Advances in Financial Machine Learning](https://www.wiley.com/en-us/Advances+in+Financial+Machine+Learning-p-9781119482086) by Martin Prado.
 
 V2 Strategies differ from their predecessors in several key ways:
 

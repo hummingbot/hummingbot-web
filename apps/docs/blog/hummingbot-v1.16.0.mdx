@@ -11,8 +11,9 @@ We are very excited to ship the May 2023 release of Hummingbot (v1.16.0) today!
 
 This release adds the first iteration of Hummingbot Dashboard, a powerful new way to visualize and analyze your strategies. It also greatly simplifies the Docker installation process, added market orders support to top exchange connectors, and introduces connectors to the Algorand blockchain, Phemex, and more!
 
-<Note> **New trades DB columns**
-    This release adds new columns to the trades database stored for each strategy/script to support the new Hummingbot Dashboard. As a result, we recommend that if you are updating from an older version of Hummingbot and want to run an strategy created using that older version, you should back up and delete the associated `.sqlite` file related to that strategy located in the `/data` folder. Failure to do so may result in errors upon re-starting the strategy.
+> **New trades DB columns**
+>
+> This release adds new columns to the trades database stored for each strategy/script to support the new Hummingbot Dashboard. As a result, we recommend that if you are updating from an older version of Hummingbot and want to run an strategy created using that older version, you should back up and delete the associated `.sqlite` file related to that strategy located in the `/data` folder. Failure to do so may result in errors upon re-starting the strategy.
 
 **Hummingbot**
 
@@ -24,11 +25,13 @@ This release adds the first iteration of Hummingbot Dashboard, a powerful new wa
 * Github: [`v1.16.0`](https://github.com/hummingbot/gateway/releases/tag/v1.16.0)
 * DockerHub: [`version-1.16.0`](https://hub.docker.com/r/hummingbot/gateway/tags?name=version-1.16.0)
 
-<Note> **Update Gateway**
-    Gateway users will also need to update Gateway to v1.16 after updating the Hummingbot client and then run the [gateway-setup](https://github.com/hummingbot/gateway/blob/main/gateway-setup.sh) script to regenerate your configs then re-run the `gateway connect ...` command again from within Hummingbot. Otherwise, you'll get an error message about `"Unhandled error in background task: 'chain_type'"` when running Gateway.
+> **Update Gateway**
+>
+> Gateway users will also need to update Gateway to v1.16 after updating the Hummingbot client and then run the [gateway-setup](https://github.com/hummingbot/gateway/blob/main/gateway-setup.sh) script to regenerate your configs then re-run the `gateway connect ...` command again from within Hummingbot. Otherwise, you'll get an error message about `"Unhandled error in background task: 'chain_type'"` when running Gateway.
 
-<Tip> **Multi-arch Docker**
-    With this release, Hummingbot now offers a multi-arch Docker image that supports both x86 and arm64 architectures. Users no longer need to download a separate Docker image for ARM builds.
+> **Multi-arch Docker**
+>
+> With this release, Hummingbot now offers a multi-arch Docker image that supports both x86 and arm64 architectures. Users no longer need to download a separate Docker image for ARM builds.
 
 **Deployment Repos**
 
@@ -43,11 +46,11 @@ See below for what's new this month!
 
 In the last Community Call, Mike discussed the highlights from the v1.15.0 release, the new Bounties initiative, & community member TheHolyRoger presented Phase 2 of the Orchestration Module:
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/LNLkPdlClbc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/LNLkPdlClbc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 In the last How-To Call, Fede discussed how to use Hummingbot's Telegram integration in conjunction with custom scripts and deployments:
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/BJ6NuwpRkKo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/BJ6NuwpRkKo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 Each month, we livestream two community calls on our [Discord](https://discord.gg/hummingbot) server:
 
@@ -84,11 +87,11 @@ Following our [Technical Roadmap](https://blog.hummingbot.org/technical-roadmap-
 
 ## New Bounties Documentation
  
-[Bounties](/images/blog/hummingbot-v1.16.0/../bounties/index) offer a platform for those seeking development work on exchange connectors, strategies, bug fixes, and more to connect with skilled developers capable of building these solutions. 
+[Bounties](../bounties/index) offer a platform for those seeking development work on exchange connectors, strategies, bug fixes, and more to connect with skilled developers capable of building these solutions. 
 
 Check out our new guides for prospective Contributors and Sponsors:
 
-* [Contributors](/images/blog/hummingbot-v1.16.0/../bounties/contributors) 
+* [Contributors](../bounties/contributors) 
 * [Sponsors](/exchanges/)
 
 ## New Script Examples
@@ -141,14 +144,14 @@ See the Phemex Perpetual connector documentation for more information.
 
 ### Hummingbot
 
-* [#5900](https://github.com/hummingbot/hummingbot/pull/5900) Fixed issues with [OKX](/images/blog/hummingbot-v1.16.0/../exchanges/okx) API trade fills reported in [#5800](https://github.com/hummingbot/hummingbot/issues/5800) and [#5896](https://github.com/hummingbot/hummingbot/issues/5896) **Thanks to [huatahhhhh](https://github.com/huatahhhhh) for this fix! 🙏**
+* [#5900](https://github.com/hummingbot/hummingbot/pull/5900) Fixed issues with [OKX](../exchanges/okx) API trade fills reported in [#5800](https://github.com/hummingbot/hummingbot/issues/5800) and [#5896](https://github.com/hummingbot/hummingbot/issues/5896) **Thanks to [huatahhhhh](https://github.com/huatahhhhh) for this fix! 🙏**
 * [#6088](https://github.com/hummingbot/hummingbot/pull/6088) Added the value of the trade fee in quote asset for reporting purposes
 * [#6095](https://github.com/hummingbot/hummingbot/pull/6095) Included impact of deducted fees in performance report balances **Thanks to [CoinAlpha](https://github.com/coinalpha) for this fix! 🙏**
-* [#6187](https://github.com/hummingbot/hummingbot/pull/6187) Updated [Injective](/images/blog/hummingbot-v1.16.0/../exchanges/injective) spot connector to match latest perp connector changes **Thanks to [CoinAlpha](https://github.com/coinalpha) for this fix! 🙏**
-* [#6271](https://github.com/hummingbot/hummingbot/pull/6271) Deprecated the [Dexalot](/images/blog/hummingbot-v1.16.0/../exchanges/dexalot) API key **Thanks to [CoinAlpha](https://github.com/coinalpha) for this fix! 🙏**
+* [#6187](https://github.com/hummingbot/hummingbot/pull/6187) Updated [Injective](../exchanges/injective) spot connector to match latest perp connector changes **Thanks to [CoinAlpha](https://github.com/coinalpha) for this fix! 🙏**
+* [#6271](https://github.com/hummingbot/hummingbot/pull/6271) Deprecated the [Dexalot](../exchanges/dexalot) API key **Thanks to [CoinAlpha](https://github.com/coinalpha) for this fix! 🙏**
 * [#6236](https://github.com/hummingbot/hummingbot/pull/6236) Fixed the issue where failure occurred in fetching trading fees when the number of trading symbols exceeded 10 on the [Kucoin](/exchanges/kucoin) exchange. **Thanks to [riven314](https://github.com/riven314) for this fix! 🙏**
-* [#6283](https://github.com/hummingbot/hummingbot/pull/6283) Added [Injective Perpetual](/images/blog/hummingbot-v1.16.0/../exchanges/injective) rate limits **Thanks to [CoinAlpha](https://github.com/coinalpha) for this fix! 🙏**
-* [#6284](https://github.com/hummingbot/hummingbot/pull/6284) Fixed issue where [Gate.io](/images/blog/hummingbot-v1.16.0/../exchanges/gate-io/index) and [Kucoin Perpetual](/images/blog/hummingbot-v1.16.0/../exchanges/kucoin/index) were showing the incorrect orderbook amount **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
+* [#6283](https://github.com/hummingbot/hummingbot/pull/6283) Added [Injective Perpetual](../exchanges/injective) rate limits **Thanks to [CoinAlpha](https://github.com/coinalpha) for this fix! 🙏**
+* [#6284](https://github.com/hummingbot/hummingbot/pull/6284) Fixed issue where [Gate.io](../exchanges/gate-io/index) and [Kucoin Perpetual](../exchanges/kucoin/index) were showing the incorrect orderbook amount **Thanks to [yancong001](https://github.com/yancong001) for this fix! 🙏**
 * [#6285](https://github.com/hummingbot/hummingbot/pull/6285) Fixed issue where Phemex funding payments were not reported **Thanks to [CoinAlpha](https://github.com/coinalpha) for this fix! 🙏**
 * [#6291](https://github.com/hummingbot/hummingbot/pull/6291) Fixed issue reported in [#6055](https://github.com/hummingbot/hummingbot/issues/6055) where XEMM was crashing when a small amount maker trade happens **Thanks to [mfavareto-vitra](https://github.com/mfavareto-vitra) for this fix! 🙏**
 * [#6296](https://github.com/hummingbot/hummingbot/pull/6296) Removed legacy Solana and Serum DEX connector code

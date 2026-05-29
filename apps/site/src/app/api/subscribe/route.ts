@@ -20,9 +20,11 @@ export async function POST(req: Request) {
   const apiKey = process.env.RESEND_API_KEY;
   const audienceId = process.env.RESEND_AUDIENCE_ID;
   if (!apiKey || !audienceId) {
+    // Keep the technical detail server-side; show users a friendly message.
+    console.warn("[newsletter] Resend not configured (RESEND_API_KEY / RESEND_AUDIENCE_ID missing)");
     return NextResponse.json(
-      { error: "Newsletter is not configured yet. Set RESEND_API_KEY and RESEND_AUDIENCE_ID." },
-      { status: 501 },
+      { error: "Subscriptions are temporarily unavailable. Please try again later." },
+      { status: 503 },
     );
   }
 
@@ -36,9 +38,9 @@ export async function POST(req: Request) {
   });
 
   if (!res.ok) {
-    const detail = await res.text();
+    console.error(`[newsletter] Resend error ${res.status}: ${(await res.text()).slice(0, 300)}`);
     return NextResponse.json(
-      { error: `Subscription failed: ${res.status} ${detail.slice(0, 200)}` },
+      { error: "Couldn't subscribe right now. Please try again later." },
       { status: 502 },
     );
   }

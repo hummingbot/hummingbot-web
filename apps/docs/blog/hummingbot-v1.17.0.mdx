@@ -30,7 +30,7 @@ See below for what's new this month!
 
 Each month, we livestream a community call on our [Discord](https://discord.gg/hummingbot) server that highlights the new features included in each release:
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/NubBPj3N0RE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/NubBPj3N0RE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 Check out the [Hummingbot Events Calendar](https://lu.ma/u/hummingbot) for links to these and other upcoming events!
 
@@ -75,7 +75,7 @@ We are thrilled to announce the official launch of [Hummingbot Dashboard](https:
 
 Dashboard is an experiment **community project** that aims to actively involve the community from day 1 for bi-weekly meetings - we livestreamed the first one below:
 
-<iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/1dSl_LzzmZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+&lt;iframe style="width:100%; min-height:400px;" src="https://www.youtube.com/embed/1dSl_LzzmZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>&lt;/iframe>
 
 For more information, see [this blog post](https://blog.hummingbot.org/hummingbot-dashboard-community-project/) where we kicked off the Hummingbot Dashboard project and following progress in the **#dashboard** channel in Discord.
 
@@ -100,7 +100,10 @@ candles = [CandlesFactory.get_candle(connector=kucoin,
 
 Following our [Technical Roadmap](https://blog.hummingbot.org/technical-roadmap-2023/), we are expanding our connectors to support to include all order types offered by an exchange. In this release, we integrated the `market_order` and `limit_maker_order` types for [Gate.io](/exchanges/gate-io).
 
-<Note> **In this release, we also improved test mocking for candles by ensuring that a coroutine related to filling historical candles is properly mocked.**
+> **Note**
+>
+> In this release, we also improved test mocking for candles by ensuring that a coroutine related to filling historical candles is properly mocked.
+
 **Pull Requests:** [#6345](https://github.com/hummingbot/hummingbot/pull/6345), [#6366](https://github.com/hummingbot/hummingbot/pull/6366), [#6351](https://github.com/hummingbot/hummingbot/pull/6351), [#29](https://github.com/hummingbot/dashboard/pull/29), [#6311](https://github.com/hummingbot/hummingbot/pull/6311), [#6354](https://github.com/hummingbot/hummingbot/pull/6354), [#6372](https://github.com/hummingbot/hummingbot/pull/6372) 
 
 **Thanks to [tomasgaudino](https://github.com/tomasgaudino), and [yancong001](https://github.com/yancong001) for their contributions! 🙏**

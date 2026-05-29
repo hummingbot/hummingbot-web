@@ -13,6 +13,7 @@ import {
 import { homedir } from "node:os";
 import { basename, dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { convertAdmonitions, escapeForMdx, stripMdLinks } from "./_sanitize.mjs";
 
 const HOME = homedir();
 const SRC = join(HOME, "hummingbot-site/docs/exchanges");
@@ -51,21 +52,15 @@ function copyAsset(srcRelFromExchanges, slugDir, srcFileDir) {
 }
 
 function sanitize(body, slug, srcFileDir) {
-  let out = body;
-  out = out.replace(/^!!!\s*(\w+)\s*"?([^"\n]*)"?\s*$/gm, (_m, kind, title) => {
-    const tag = /warn|caution|danger/i.test(kind) ? "Warning" : /tip|success/i.test(kind) ? "Tip" : "Note";
-    return `<${tag}>${title ? ` **${title}**` : ""}`;
-  });
+  let out = convertAdmonitions(body);
   // image refs: strip mkdocs #only-light/#only-dark, copy + rewrite
   out = out.replace(/!\[([^\]]*)\]\(([^)\s]+?)(#only-[a-z]+)?\)/g, (_m, alt, p) => {
     if (/^https?:/.test(p)) return `![${alt}](${p})`;
     const np = copyAsset(p, slug, srcFileDir);
     return `![${alt}](${np ?? p})`;
   });
-  // internal .md links → slug (strip .md and any #anchor kept)
-  out = out.replace(/\]\(([^)]+?)\.md(#[^)]*)?\)/g, (_m, p, anchor) => `](${p}${anchor ?? ""})`);
-  // escape braces for MDX
-  out = out.replace(/\{/g, "\\{").replace(/\}/g, "\\}");
+  out = stripMdLinks(out);
+  out = escapeForMdx(out);
   return out.trim();
 }
 

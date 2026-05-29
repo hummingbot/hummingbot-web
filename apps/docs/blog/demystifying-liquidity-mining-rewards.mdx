@@ -13,7 +13,10 @@ In our liquidity mining announcement, we introduced a data-driven, objective met
 
 
 
-<Tip> **For reference, please review this [sample liquidity mining rewards spreadsheet](http://bit.ly/liquidityminingcalc) which illustrates the calculations described in this blog.**
+> **Tip**
+>
+> For reference, please review this [sample liquidity mining rewards spreadsheet](http://bit.ly/liquidityminingcalc) which illustrates the calculations described in this blog.
+
 Liquidity mining's objective is to align the interests of market makers (the liquidity sellers) with the exchanges and token issuers (the liquidity buyers) that need liquidity. Their interests are directly in opposition: improving liquidity to enable more efficient trading (desired by liquidity buyers) translates into more risk for the liquidity seller. In order to make economic sense for a market maker, the market maker’s compensation must correlate with increased levels of risk.
 
 In order to align risk and reward, there are three main parameters that we use in liquidity mining to determine market maker compensation: (1) time: placing orders in the order book consistently over time, (2) spreads, and (3) order sizes. Our rewards methodology rewards market makers more for placing orders consistently over time in the order book, placing orders with tighter spreads and with larger sizes:
@@ -44,7 +47,7 @@ This methodology also inherently rewards market makers who continue to make orde
 
 ### Rewarding market makers for better pricing
 
-In our [liquidity mining whitepaper](/images/blog/demystifying-liquidity-mining-rewards/../../../liquidity-mining.pdf), we introduced the spread density function ρ(s) for spread s (Equation 1) as a way of mapping spreads to rewards:
+In our [liquidity mining whitepaper](../../../liquidity-mining.pdf), we introduced the spread density function ρ(s) for spread s (Equation 1) as a way of mapping spreads to rewards:
 
 ![](/images/blog/demystifying-liquidity-mining-rewards/./spread-density-function-graph.png)
 
@@ -84,7 +87,10 @@ Finally, the miner’s compensation for the snapshot period is the amount of rew
 
 Since market making requires inventory (quote currency required to place bid orders and base currency required to create sell orders), a market maker's opportunity cost is using that inventory for other economic purposes, in particular: (1) HODLing, (2) staking, and (3) lending. In order to compare the economic merits of market making against these strategies, we first need a metric for the basis.
 
-<Tip> **The liquidity mining return is an annualized return calculated based on (1) the total amount of mining rewards available for that period, (2) the total volume of eligible orders placed in that period in base currency terms, which is then (3) converted into an annualized rate.**
+> **Tip**
+>
+> The liquidity mining return is an annualized return calculated based on (1) the total amount of mining rewards available for that period, (2) the total volume of eligible orders placed in that period in base currency terms, which is then (3) converted into an annualized rate.
+
 In liquidity mining, we calculate this return for every period and display a live rate (the most recently calculated rate); since each period is only for a short period of time (e.g. 1 minute), we also display a time series to show trends and changes in this rate over longer periods of time.
 
 ![](/images/blog/demystifying-liquidity-mining-rewards/./6_7-liquidity-mining-return.png)
@@ -93,7 +99,7 @@ Specifically for one minute snapshots, the annualized return would be:
 
 ![](/images/blog/demystifying-liquidity-mining-rewards/./8-annualized-return.png)
 
-This annualized return can then be used to directly compare the economics of liquidity mining vs. HOLDing (0% return), staking, and lending. In the simulation-based analysis in the [liquidity mining whitepaper](/images/blog/demystifying-liquidity-mining-rewards/../../../liquidity-mining.pdf), we showed that users could potentially earn 10-50% from liquidity mining.
+This annualized return can then be used to directly compare the economics of liquidity mining vs. HOLDing (0% return), staking, and lending. In the simulation-based analysis in the [liquidity mining whitepaper](../../../liquidity-mining.pdf), we showed that users could potentially earn 10-50% from liquidity mining.
 
 Ultimately the market and levels of participation will determine the equilibrium rates, but our Hummingbot Miners web app will show users real-time rates of return available from running Hummingbot in various markets so that they can decide to participate when rates are attractive vis-a-vis alternative uses of inventory.
 
