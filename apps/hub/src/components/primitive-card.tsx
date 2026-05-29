@@ -7,7 +7,7 @@ import {
   type Primitive,
   type PrimitiveType,
 } from "@/lib/registry";
-import { fmtDate, fmtNum, PLURAL } from "@/lib/types";
+import { fmtDate, fmtNum, PLURAL, SUBTYPE_LABEL } from "@/lib/types";
 
 const typeIcon: Record<PrimitiveType, typeof Bot> = {
   strategy: LineChart,
@@ -35,6 +35,12 @@ export function PrimitiveCard({ p }: { p: Primitive }) {
               {slugOf(p)}
             </Link>
             {p.certified && <Badge variant="brand">Certified</Badge>}
+            {p.subtype && p.subtype !== "routine" && (
+              <Badge variant="default">{SUBTYPE_LABEL[p.subtype]}</Badge>
+            )}
+            {p.type === "routine" && p.continuous != null && (
+              <Badge variant="default">{p.continuous ? "Continuous" : "One-shot"}</Badge>
+            )}
           </div>
           <p className="mt-1 text-sm text-ink-400 text-pretty">{p.summary}</p>
 

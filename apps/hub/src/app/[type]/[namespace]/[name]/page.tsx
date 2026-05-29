@@ -1,9 +1,11 @@
-import { ArrowUpRight, Check, Star, Video } from "lucide-react";
+import { ArrowUpRight, Check, FileCode2, Github, Repeat, Star, Video, Zap } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge, CodeBlock } from "@hummingbot/ui";
 import { HubFooter, HubHeader } from "@/components/hub-shell";
 import { PrimitiveCard } from "@/components/primitive-card";
+import { ReportFrame } from "@/components/report-frame";
+import { SourceViewer } from "@/components/source-viewer";
 import {
   browse,
   getPrimitive,
@@ -11,8 +13,9 @@ import {
   primitivesByPublisher,
   slugOf,
 } from "@/lib/registry";
+import { loadSources } from "@/lib/sources";
 import data from "@/content/registry.json";
-import { fmtDate, fmtNum, PLURAL, toSingular } from "@/lib/types";
+import { fmtDate, fmtNum, PLURAL, SUBTYPE_LABEL, toSingular } from "@/lib/types";
 
 export function generateStaticParams() {
   return (data.primitives as { type: keyof typeof PLURAL; namespace: string; name: string }[]).map(
@@ -31,6 +34,8 @@ export default async function DetailPage({
   const p = getPrimitive(type, namespace, name);
   if (!p) notFound();
 
+  const isRoutine = p.type === "routine";
+  const sources = loadSources(p);
   const related = browse({ type })
     .filter((r) => r.name !== p.name && r.categories.some((c) => p.categories.includes(c)))
     .slice(0, 4);
@@ -49,6 +54,18 @@ export default async function DetailPage({
               </h1>
               <Badge variant="default">v{p.latest}</Badge>
               {p.certified && <Badge variant="brand">Certified</Badge>}
+              {p.subtype && p.subtype !== "routine" && (
+                <Badge variant="default">{SUBTYPE_LABEL[p.subtype]}</Badge>
+              )}
+              {isRoutine && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-ink-900 px-2 py-0.5 text-xs text-ink-300">
+                  {p.continuous ? (
+                    <><Repeat className="size-3 text-brand-teal" aria-hidden="true" /> Continuous</>
+                  ) : (
+                    <><Zap className="size-3 text-brand-teal" aria-hidden="true" /> One-shot</>
+                  )}
+                </span>
+              )}
             </div>
             <p className="mt-2 max-w-2xl text-pretty text-ink-300">{p.summary}</p>
           </div>
@@ -72,6 +89,7 @@ export default async function DetailPage({
               }
             />
           )}
+          {isRoutine && <Stat label="Mode" value={p.continuous ? "Continuous" : "One-shot"} />}
           <Stat label="Versions" value={String(p.versions.length)} />
           <Stat label="Updated" value={fmtDate(p.updated)} />
           <Stat label="License" value={p.license} />
@@ -80,7 +98,7 @@ export default async function DetailPage({
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_260px]">
           <div className="flex flex-col gap-10">
-            {/* README */}
+            {/* Overview */}
             <section>
               <h2 className="mb-3 text-lg font-semibold">Overview</h2>
               <p className="text-pretty leading-relaxed text-ink-300">{p.description}</p>
@@ -97,16 +115,63 @@ export default async function DetailPage({
               )}
             </section>
 
-            {/* Install & Run */}
+            {/* Example report — routines */}
+            {isRoutine && p.reportURL && (
+              <section>
+                <h2 className="mb-1 text-lg font-semibold">Example report</h2>
+                <p className="mb-3 text-sm text-ink-500">
+                  Routines render interactive HTML reports in the Condor dashboard. Here&apos;s a
+                  sample run — charts and tables are live, not screenshots.
+                </p>
+                <ReportFrame src={p.reportURL} title={`${slugOf(p)} example report`} />
+              </section>
+            )}
+
+            {/* Source */}
+            {sources.length > 0 && (
+              <section>
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <h2 className="flex items-center gap-2 text-lg font-semibold">
+                    <FileCode2 className="size-4 text-ink-500" aria-hidden="true" /> Source
+                  </h2>
+                  {p.repoURL && (
+                    <a
+                      href={p.repoURL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-sm text-brand-teal hover:underline"
+                    >
+                      <Github className="size-3.5" aria-hidden="true" /> View on GitHub
+                      <ArrowUpRight className="size-3" aria-hidden="true" />
+                    </a>
+                  )}
+                </div>
+                <SourceViewer files={sources} />
+              </section>
+            )}
+
+            {/* Install & run */}
             <section>
-              <h2 className="mb-3 text-lg font-semibold">Install &amp; run</h2>
+              <h2 className="mb-3 text-lg font-semibold">{isRoutine ? "Run it" : "Install & run"}</h2>
               <CodeBlock command={installCommand(p)} />
               <p className="mt-2 text-xs text-ink-500">
-                Requires {p.runtime === "condor" ? "Condor" : "Hummingbot"}. See the{" "}
-                <a href="https://docs.hummingbot.org" target="_blank" rel="noreferrer" className="text-brand-teal hover:underline">
-                  docs
-                </a>{" "}
-                to get set up.
+                {isRoutine ? (
+                  <>
+                    Ships with Condor — launch from <code className="text-ink-400">/routines</code> in
+                    Telegram, or schedule it to post reports to the dashboard. See the{" "}
+                    <a href="https://docs.hummingbot.org" target="_blank" rel="noreferrer" className="text-brand-teal hover:underline">
+                      routine docs
+                    </a>.
+                  </>
+                ) : (
+                  <>
+                    Requires {p.runtime === "condor" ? "Condor" : "Hummingbot"}. See the{" "}
+                    <a href="https://docs.hummingbot.org" target="_blank" rel="noreferrer" className="text-brand-teal hover:underline">
+                      docs
+                    </a>{" "}
+                    to get set up.
+                  </>
+                )}
               </p>
             </section>
 
@@ -171,6 +236,17 @@ export default async function DetailPage({
                   {p.hasSource ? "Source included" : "No source bundled"}
                 </li>
               </ul>
+              {p.repoURL && (
+                <a
+                  href={p.repoURL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm text-brand-teal hover:underline"
+                >
+                  <Github className="size-4" aria-hidden="true" /> Source repository
+                  <ArrowUpRight className="size-3" aria-hidden="true" />
+                </a>
+              )}
             </section>
 
             {p.tags.length > 0 && (

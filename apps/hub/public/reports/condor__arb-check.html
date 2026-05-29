@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CEX Arb: SOL-USDC (BINANCE vs KUCOIN)</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --border: #30363d;
+    --text: #e6edf3; --text-muted: #8b949e;
+    --green: #3fb950; --red: #f85149; --blue: #58a6ff;
+  }
+  :root.light {
+    --bg: #ffffff; --surface: #f6f8fa; --border: #d0d7de;
+    --text: #1f2328; --text-muted: #656d76;
+    --green: #1a7f37; --red: #cf222e; --blue: #0969da;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px; line-height: 1.6; padding: 24px; max-width: 1400px; margin: 0 auto;
+  }
+  .report-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px;
+  }
+  .report-header h1 { font-size: 20px; }
+  .report-header .meta { color: var(--text-muted); font-size: 12px; }
+  .report-header .meta span { margin-left: 16px; }
+  .kpi-bar { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .kpi-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px 20px; min-width: 150px; flex: 1;
+  }
+  .kpi-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+  .kpi-card .value { font-size: 24px; font-weight: 700; margin: 4px 0; }
+  .kpi-card .delta { font-size: 12px; }
+  .kpi-card .delta.up { color: var(--green); }
+  .kpi-card .delta.down { color: var(--red); }
+  .section { margin-bottom: 32px; }
+  .section-md { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+  .section-md h1, .section-md h2, .section-md h3 { color: var(--text); margin: 12px 0 6px; }
+  .section-md h1 { font-size: 18px; } .section-md h2 { font-size: 16px; } .section-md h3 { font-size: 14px; }
+  .section-md p { margin: 6px 0; }
+  .section-md pre { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px; overflow-x: auto; font-size: 13px; }
+  .section-md code { background: var(--bg); padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  .section-md pre code { background: none; padding: 0; }
+  .section-md ul, .section-md ol { padding-left: 20px; }
+  .section-md a { color: var(--blue); }
+  .section-table { overflow-x: auto; }
+  .section-table table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  .section-table th {
+    background: var(--bg); text-align: left; padding: 8px 12px;
+    font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text-muted); border-bottom: 1px solid var(--border);
+  }
+  .section-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .section-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .section-table tr:last-child td { border-bottom: none; }
+  .plotly-chart { min-height: 400px; margin-bottom: 24px; width: 100%; overflow: hidden; }
+  .plotly-chart .js-plotly-plot, .plotly-chart .plot-container, .plotly-chart .plotly { width: 100% !important; }
+</style>
+</head>
+<body>
+<div class="report-header">
+  <h1>CEX Arb: SOL-USDC (BINANCE vs KUCOIN)</h1>
+  <div class="meta">
+    <span>2026-05-28 14:32 UTC</span>
+    <span>routine: arb_check</span><span>#arbitrage</span><span>#cex-cex</span><span>#SOL-USDC</span><span>#binance</span><span>#kucoin</span>
+  </div>
+</div>
+<div class="kpi-bar"><div class="kpi-card"><div class="label">Exchanges</div><div class="value">2</div></div><div class="kpi-card"><div class="label">Max Mid Diff</div><div class="value">+0.0914%</div><div class="delta up">above 0.05% threshold</div></div><div class="kpi-card"><div class="label">Best Route</div><div class="value">BUY binance → SELL kucoin  +0.0731%</div><div class="delta up">profitable</div></div></div>
+<div class="section plotly-chart"><div id="chart_1" class="js-plotly-plot"></div><script>Plotly.newPlot("chart_1", [{"x":[142.18,142.168,142.156,142.144,142.132,142.12,142.108,142.096,142.084,142.072,142.06,142.048,142.036,142.024,142.012,142,141.988,141.976,141.964,141.952],"y":[120,275,465,690,950,1245,1575,1940,2340,2775,3245,3750,4290,4865,5475,6120,6800,7515,8265,9050],"mode":"lines","type":"scatter","name":"BINANCE bid","line":{"color":"#3fb950"}},{"x":[142.18,142.192,142.204,142.216,142.228,142.24,142.252,142.264,142.276,142.288,142.3,142.312,142.324,142.336,142.348,142.36,142.372,142.38400000000001,142.39600000000002,142.40800000000002],"y":[110,258,444,668,930,1230,1568,1944,2358,2810,3300,3828,4394,4998,5640,6320,7038,7794,8588,9420],"mode":"lines","type":"scatter","name":"BINANCE ask","line":{"color":"#3fb950","dash":"dot"}},{"x":[142.31,142.298,142.286,142.274,142.262,142.25,142.238,142.226,142.214,142.202,142.19,142.178,142.166,142.154,142.142,142.13,142.118,142.106,142.094,142.082],"y":[120,275,465,690,950,1245,1575,1940,2340,2775,3245,3750,4290,4865,5475,6120,6800,7515,8265,9050],"mode":"lines","type":"scatter","name":"KUCOIN bid","line":{"color":"#58a6ff"}},{"x":[142.31,142.322,142.334,142.346,142.358,142.37,142.382,142.394,142.406,142.418,142.43,142.442,142.454,142.466,142.478,142.49,142.502,142.514,142.526,142.538],"y":[110,258,444,668,930,1230,1568,1944,2358,2810,3300,3828,4394,4998,5640,6320,7038,7794,8588,9420],"mode":"lines","type":"scatter","name":"KUCOIN ask","line":{"color":"#58a6ff","dash":"dot"}}], Object.assign({autosize:true}, {"title":"Order Book Depth — SOL-USDC","xaxis":{"title":"Price","gridcolor":"#21262d"},"yaxis":{"title":"Cumulative size (SOL)","gridcolor":"#21262d"},"paper_bgcolor":"#0d1117","plot_bgcolor":"#161b22","font":{"color":"#c9d1d9","size":10},"margin":{"l":60,"r":30,"t":60,"b":40},"legend":{"orientation":"h","yanchor":"bottom","y":1.02,"xanchor":"right","x":1}}), {responsive:true, displayModeBar:false});</script></div>
+<div class="section section-md"><h2>Order Book Comparison (20 levels)</h2></div>
+<div class="section section-table"><table><thead><tr><th>Exchange</th><th>Best Bid</th><th>Best Ask</th><th>Mid</th><th>Spread bps</th><th>Fill BUY 1.0</th><th>Fill SELL 1.0</th></tr></thead><tbody><tr><td>BINANCE</td><td>142.170</td><td>142.190</td><td>142.180</td><td>1.41</td><td>142.191</td><td>142.168</td></tr>
+<tr><td>KUCOIN</td><td>142.300</td><td>142.320</td><td>142.310</td><td>1.41</td><td>142.322</td><td>142.297</td></tr></tbody></table></div>
+<div class="section section-md"><h2>Arbitrage Routes (sorted by spread)</h2></div>
+<div class="section section-table"><table><thead><tr><th>Route</th><th>Spread</th><th>Profit (1.0 SOL)</th></tr></thead><tbody><tr><td>BUY binance → SELL kucoin</td><td>+0.0731%</td><td>$0.1039</td></tr>
+<tr><td>BUY kucoin → SELL binance</td><td>-0.1085%</td><td>$-0.1543</td></tr></tbody></table></div>
+<div class="section section-md"><h2>Mid-Price Differences</h2></div>
+<div class="section section-table"><table><thead><tr><th>Pair</th><th>Mid A</th><th>Mid B</th><th>Diff</th><th>Diff %</th></tr></thead><tbody><tr><td>binance / kucoin</td><td>142.180</td><td>142.310</td><td>0.130</td><td>+0.0914%</td></tr></tbody></table></div>
+<script>
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === 'set-theme') {
+    document.documentElement.classList.toggle('light', e.data.theme === 'light');
+  }
+});
+</script>
+</body>
+</html>

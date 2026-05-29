@@ -34,6 +34,20 @@ export type Primitive = {
   videoURL?: string | null;
   cohort?: number | null;
   authorName?: string;
+  // first-party (Hummingbot/Condor) extras — see scripts/import-sources.mjs
+  subtype?: "script" | "v1" | "routine";
+  continuous?: boolean;
+  repoURL?: string;
+  reportURL?: string;
+  files?: SourceFile[];
+};
+
+/** Bundled source file manifest. Contents live on disk under
+ *  src/content/sources/<plural>/<namespace>/<name>/<name>; read via lib/sources.ts. */
+export type SourceFile = {
+  name: string;
+  lang: "python" | "cython" | "text";
+  lines: number;
 };
 
 export type Publisher = {

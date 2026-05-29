@@ -121,6 +121,12 @@
       "joined": "2026-03-01"
     },
     {
+      "handle": "condor",
+      "name": "Condor",
+      "bio": "Condor by Hummingbot — built-in routines for market analysis, monitoring, and reporting.",
+      "joined": "2019-04-01"
+    },
+    {
       "handle": "daniel-sigurbjornsson",
       "name": "Daníel Sigurbjörnsson",
       "bio": "Certified Hummingbot developer — Botcamp Cohort 6.",
@@ -212,8 +218,8 @@
     },
     {
       "handle": "hummingbot",
-      "name": "Hummingbot Botcamp",
-      "bio": "Certified Hummingbot developer — Botcamp Cohort 0.",
+      "name": "Hummingbot Foundation",
+      "bio": "The team behind the open-source Hummingbot client — official scripts and v1 strategies.",
       "joined": "2026-05-20"
     },
     {
@@ -3271,271 +3277,618 @@
       "authorName": "Alan Coppola"
     },
     {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-simple-vwap-example",
-      "summary": "A VWAP (Volume Weighted Average Price) execution strategy that accumulates a position by taking a percentage of available order book volume at regular intervals.",
-      "description": "A VWAP (Volume Weighted Average Price) execution strategy that accumulates a position by taking a percentage of available order book volume at regular intervals.",
+      "type": "routine",
+      "namespace": "condor",
+      "name": "market-scanner",
+      "summary": "Scan top perpetual markets by volume, then classify them as mature or degen from volatility (NATR) and volume profiles.",
+      "description": "A one-shot routine that pulls the top markets by 24h volume, fetches 1-minute candles over a configurable lookback, and computes volatility (mean NATR and its coefficient of variation) plus volume dispersion. Markets are ranked and split into “mature” (deep, steady) and “degen” (thin, spiky) buckets — a fast way to pick where a market-making vs. directional approach fits. Emits a report with a NATR-vs-volume scatter and ranked tables.",
       "tags": [
-        "vwap"
-      ],
-      "exchanges": [
-        "binance"
-      ],
-      "categories": [],
-      "license": "Apache-2.0",
-      "runtime": "hummingbot",
-      "latest": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ],
-      "updated": "2026-05-20",
-      "cohort": 0,
-      "certified": true,
-      "hasSource": true,
-      "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
-    },
-    {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-pmm-inventory-shift",
-      "summary": "Market making with inventory-based and trend-based price shifting",
-      "description": "Market making with inventory-based and trend-based price shifting",
-      "tags": [
-        "Market Making",
-        "Inventory",
-        "RSI",
-        "Script"
-      ],
-      "exchanges": [],
-      "categories": [
-        "Market Making"
-      ],
-      "license": "Apache-2.0",
-      "runtime": "hummingbot",
-      "latest": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ],
-      "updated": "2026-05-20",
-      "cohort": 0,
-      "certified": true,
-      "hasSource": true,
-      "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
-    },
-    {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-pmm-candles",
-      "summary": "Basic Pure Market Making script with Candles Feed integration",
-      "description": "Basic Pure Market Making script with Candles Feed integration",
-      "tags": [
-        "Market Making",
-        "Candles",
-        "Script"
-      ],
-      "exchanges": [],
-      "categories": [
-        "Market Making"
-      ],
-      "license": "Apache-2.0",
-      "runtime": "hummingbot",
-      "latest": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ],
-      "updated": "2026-05-20",
-      "cohort": 0,
-      "certified": true,
-      "hasSource": true,
-      "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
-    },
-    {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-pmm-volatility-spread",
-      "summary": "Market making with dynamic spreads based on NATR volatility",
-      "description": "Market making with dynamic spreads based on NATR volatility",
-      "tags": [
-        "Market Making",
+        "Scanner",
         "Volatility",
-        "NATR",
-        "Script"
+        "Market Data",
+        "Perp"
       ],
-      "exchanges": [],
+      "exchanges": [
+        "binance_perpetual"
+      ],
       "categories": [
-        "Market Making"
+        "Market Data"
       ],
       "license": "Apache-2.0",
-      "runtime": "hummingbot",
+      "runtime": "condor",
       "latest": "1.0.0",
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-20",
-      "cohort": 0,
+      "updated": "2026-05-29",
       "certified": true,
       "hasSource": true,
       "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
+      "authorName": "Hummingbot Foundation",
+      "subtype": "routine",
+      "continuous": false,
+      "repoURL": "https://github.com/hummingbot/condor/blob/main/routines/market_scanner.py",
+      "reportURL": "/reports/condor__market-scanner.html",
+      "files": [
+        {
+          "name": "market_scanner.py",
+          "lang": "python",
+          "lines": 448
+        }
+      ]
     },
     {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-pmm-trend-shift",
-      "summary": "Market making with RSI-based reference price shifting",
-      "description": "Market making with RSI-based reference price shifting",
+      "type": "routine",
+      "namespace": "condor",
+      "name": "arb-check",
+      "summary": "Compare order books across multiple CEXs to surface cross-exchange arbitrage, with depth-aware fill prices.",
+      "description": "A one-shot routine that fetches order books for a pair across several centralized exchanges, computes mid-price differences and depth-aware fill prices for a target size, then enumerates buy-here/sell-there routes sorted by spread. The report includes a cumulative order-book depth chart, a per-exchange comparison table, and a ranked list of arbitrage routes with estimated profit.",
       "tags": [
-        "Market Making",
-        "RSI",
-        "Trend",
-        "Script"
-      ],
-      "exchanges": [],
-      "categories": [
-        "Market Making"
-      ],
-      "license": "Apache-2.0",
-      "runtime": "hummingbot",
-      "latest": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ],
-      "updated": "2026-05-20",
-      "cohort": 0,
-      "certified": true,
-      "hasSource": true,
-      "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
-    },
-    {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-format-status-example",
-      "summary": "Demonstrates how to create a custom status display with order book depth analysis across multiple exchanges.",
-      "description": "Demonstrates how to create a custom status display with order book depth analysis across multiple exchanges.",
-      "tags": [
-        "basic"
+        "Arbitrage",
+        "Cross-Exchange",
+        "Order Book"
       ],
       "exchanges": [
         "binance",
-        "kucoin",
-        "gate_io"
+        "kucoin"
       ],
-      "categories": [],
+      "categories": [
+        "Arbitrage"
+      ],
       "license": "Apache-2.0",
-      "runtime": "hummingbot",
+      "runtime": "condor",
       "latest": "1.0.0",
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-20",
-      "cohort": 0,
+      "updated": "2026-05-29",
       "certified": true,
       "hasSource": true,
       "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
+      "authorName": "Hummingbot Foundation",
+      "subtype": "routine",
+      "continuous": false,
+      "repoURL": "https://github.com/hummingbot/condor/blob/main/routines/arb_check.py",
+      "reportURL": "/reports/condor__arb-check.html",
+      "files": [
+        {
+          "name": "arb_check.py",
+          "lang": "python",
+          "lines": 552
+        }
+      ]
     },
     {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-simple-order-example",
-      "summary": "A comprehensive example showing how to place market or limit orders with configurable parameters and full event handling.",
-      "description": "A comprehensive example showing how to place market or limit orders with configurable parameters and full event handling.",
+      "type": "routine",
+      "namespace": "condor",
+      "name": "price-monitor",
+      "summary": "Continuously watch a price and alert when it moves past a threshold, maintaining a live report.",
+      "description": "A continuous routine that polls a connector’s price on a fixed interval and sends an alert whenever the move since the last checkpoint crosses a configurable threshold. It maintains a LiveReport that updates in place — KPI strip (current/high/low/change/runtime/alerts) plus a rolling price history — so a single report stays current instead of spamming one message per tick.",
       "tags": [
-        "basic"
-      ],
-      "exchanges": [
-        "kraken"
-      ],
-      "categories": [],
-      "license": "Apache-2.0",
-      "runtime": "hummingbot",
-      "latest": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ],
-      "updated": "2026-05-20",
-      "cohort": 0,
-      "certified": true,
-      "hasSource": true,
-      "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
-    },
-    {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-log-price-example",
-      "summary": "A minimal example that logs real-time bid, ask, and mid prices from multiple exchanges every tick.",
-      "description": "A minimal example that logs real-time bid, ask, and mid prices from multiple exchanges every tick.",
-      "tags": [
-        "basic"
-      ],
-      "exchanges": [
-        "binance",
-        "kucoin",
-        "gate_io"
-      ],
-      "categories": [],
-      "license": "Apache-2.0",
-      "runtime": "hummingbot",
-      "latest": "1.0.0",
-      "versions": [
-        "1.0.0"
-      ],
-      "updated": "2026-05-20",
-      "cohort": 0,
-      "certified": true,
-      "hasSource": true,
-      "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
-    },
-    {
-      "type": "strategy",
-      "namespace": "hummingbot",
-      "name": "example-buy-only-three-times-example",
-      "summary": "A simple script that places exactly three buy orders in the market, demonstrating event-driven order counting and automatic strategy termination.",
-      "description": "A simple script that places exactly three buy orders in the market, demonstrating event-driven order counting and automatic strategy termination.",
-      "tags": [
-        "basic"
+        "Monitoring",
+        "Alerts",
+        "Live"
       ],
       "exchanges": [
         "binance"
       ],
-      "categories": [],
+      "categories": [
+        "Monitoring"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "condor",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "routine",
+      "continuous": true,
+      "repoURL": "https://github.com/hummingbot/condor/blob/main/routines/price_monitor.py",
+      "reportURL": "/reports/condor__price-monitor.html",
+      "files": [
+        {
+          "name": "price_monitor.py",
+          "lang": "python",
+          "lines": 197
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "simple-pmm",
+      "summary": "Minimal pure market-making script: refresh bids/asks around the mid price on a timer.",
+      "description": "Minimal pure market-making script: refresh bids/asks around the mid price on a timer.",
+      "tags": [
+        "Market Making",
+        "Beginner"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Market Making"
+      ],
       "license": "Apache-2.0",
       "runtime": "hummingbot",
       "latest": "1.0.0",
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-20",
-      "cohort": 0,
+      "updated": "2026-05-29",
       "certified": true,
       "hasSource": true,
       "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/simple_pmm.py",
+      "files": [
+        {
+          "name": "simple_pmm.py",
+          "lang": "python",
+          "lines": 95
+        }
+      ]
     },
     {
       "type": "strategy",
       "namespace": "hummingbot",
-      "name": "example-macd-bb",
-      "summary": "Directional strategy combining MACD and Bollinger Bands indicators",
-      "description": "Directional strategy combining MACD and Bollinger Bands indicators",
+      "name": "simple-vwap",
+      "summary": "Execute a target amount as a VWAP order, slicing fills over time relative to book volume.",
+      "description": "Execute a target amount as a VWAP order, slicing fills over time relative to book volume.",
       "tags": [
-        "Directional"
+        "Execution",
+        "VWAP"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/simple_vwap.py",
+      "files": [
+        {
+          "name": "simple_vwap.py",
+          "lang": "python",
+          "lines": 216
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "simple-xemm",
+      "summary": "Cross-exchange market making (XEMM) starter: quote on the maker venue, hedge on the taker venue.",
+      "description": "Cross-exchange market making (XEMM) starter: quote on the maker venue, hedge on the taker venue.",
+      "tags": [
+        "Cross-Exchange",
+        "Market Making"
+      ],
+      "exchanges": [
+        "binance",
+        "kucoin"
+      ],
+      "categories": [
+        "Cross-Exchange"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/simple_xemm.py",
+      "files": [
+        {
+          "name": "simple_xemm.py",
+          "lang": "python",
+          "lines": 262
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "v2-funding-rate-arb",
+      "summary": "Capture perpetual funding-rate spreads by holding offsetting positions across venues.",
+      "description": "Capture perpetual funding-rate spreads by holding offsetting positions across venues.",
+      "tags": [
+        "Arbitrage",
+        "Perp",
+        "Funding Rate",
+        "V2"
+      ],
+      "exchanges": [
+        "binance_perpetual"
+      ],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/v2_funding_rate_arb.py",
+      "files": [
+        {
+          "name": "v2_funding_rate_arb.py",
+          "lang": "python",
+          "lines": 345
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "v2-with-controllers",
+      "summary": "Run one or more V2 controllers together, with a cash-out feature and live config checks.",
+      "description": "Run one or more V2 controllers together, with a cash-out feature and live config checks.",
+      "tags": [
+        "Controllers",
+        "V2"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/v2_with_controllers.py",
+      "files": [
+        {
+          "name": "v2_with_controllers.py",
+          "lang": "python",
+          "lines": 172
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "screener-volatility",
+      "summary": "Screen markets by volatility (NATR) to shortlist trading candidates.",
+      "description": "Screen markets by volatility (NATR) to shortlist trading candidates.",
+      "tags": [
+        "Screener",
+        "Volatility"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/screener_volatility.py",
+      "files": [
+        {
+          "name": "screener_volatility.py",
+          "lang": "python",
+          "lines": 105
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "candles-example",
+      "summary": "Subscribe to candle feeds and compute indicators as a strategy data source.",
+      "description": "Subscribe to candle feeds and compute indicators as a strategy data source.",
+      "tags": [
+        "Example",
+        "Data Feed",
+        "Candles"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/candles_example.py",
+      "files": [
+        {
+          "name": "candles_example.py",
+          "lang": "python",
+          "lines": 217
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "amm-data-feed-example",
+      "summary": "Fetch live DEX prices through the AmmGatewayDataFeed.",
+      "description": "Fetch live DEX prices through the AmmGatewayDataFeed.",
+      "tags": [
+        "Example",
+        "Data Feed",
+        "DEX"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/amm_data_feed_example.py",
+      "files": [
+        {
+          "name": "amm_data_feed_example.py",
+          "lang": "python",
+          "lines": 171
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "download-order-book-and-trades",
+      "summary": "Record historical order-book snapshots and trades for research and backtesting.",
+      "description": "Record historical order-book snapshots and trades for research and backtesting.",
+      "tags": [
+        "Data",
+        "Research"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/download_order_book_and_trades.py",
+      "files": [
+        {
+          "name": "download_order_book_and_trades.py",
+          "lang": "python",
+          "lines": 114
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "external-events-example",
+      "summary": "Place buy/sell orders in response to external events via the events plugin.",
+      "description": "Place buy/sell orders in response to external events via the events plugin.",
+      "tags": [
+        "Example",
+        "Events"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/external_events_example.py",
+      "files": [
+        {
+          "name": "external_events_example.py",
+          "lang": "python",
+          "lines": 89
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "format-status-example",
+      "summary": "Add a custom format_status view and query the live order book.",
+      "description": "Add a custom format_status view and query the live order book.",
+      "tags": [
+        "Example",
+        "Status"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/format_status_example.py",
+      "files": [
+        {
+          "name": "format_status_example.py",
+          "lang": "python",
+          "lines": 56
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "log-price-example",
+      "summary": "Log the best bid/ask of a market to the console on each tick.",
+      "description": "Log the best bid/ask of a market to the console on each tick.",
+      "tags": [
+        "Example",
+        "Beginner"
+      ],
+      "exchanges": [
+        "binance"
+      ],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/log_price_example.py",
+      "files": [
+        {
+          "name": "log_price_example.py",
+          "lang": "python",
+          "lines": 36
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "backtest-pmm-mister",
+      "summary": "Backtest the pmm_mister controller, with position-hold support and optional charts.",
+      "description": "Backtest the pmm_mister controller, with position-hold support and optional charts.",
+      "tags": [
+        "Backtesting",
+        "Market Making",
+        "V2"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Market Making"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/backtest_pmm_mister.py",
+      "files": [
+        {
+          "name": "backtest_pmm_mister.py",
+          "lang": "python",
+          "lines": 137
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "backtest-bollinger-v2",
+      "summary": "Backtest the bollinger_v2 directional controller with optional chart output.",
+      "description": "Backtest the bollinger_v2 directional controller with optional chart output.",
+      "tags": [
+        "Backtesting",
+        "Directional",
+        "V2"
       ],
       "exchanges": [],
       "categories": [
@@ -3547,22 +3900,31 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-20",
-      "cohort": 0,
+      "updated": "2026-05-29",
       "certified": true,
       "hasSource": true,
       "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/backtest_bollinger_v2.py",
+      "files": [
+        {
+          "name": "backtest_bollinger_v2.py",
+          "lang": "python",
+          "lines": 142
+        }
+      ]
     },
     {
       "type": "strategy",
       "namespace": "hummingbot",
-      "name": "example-bb-rsi-multi-timeframe",
-      "summary": "Directional strategy combining Bollinger Bands and RSI across multiple timeframes",
-      "description": "Directional strategy combining Bollinger Bands and RSI across multiple timeframes",
+      "name": "backtest-grid-strike",
+      "summary": "Backtest the grid_strike controller with optional chart output.",
+      "description": "Backtest the grid_strike controller with optional chart output.",
       "tags": [
-        "Directional"
+        "Backtesting",
+        "Directional",
+        "V2"
       ],
       "exchanges": [],
       "categories": [
@@ -3574,26 +3936,37 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-20",
-      "cohort": 0,
+      "updated": "2026-05-29",
       "certified": true,
       "hasSource": true,
       "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/backtest_grid_strike.py",
+      "files": [
+        {
+          "name": "backtest_grid_strike.py",
+          "lang": "python",
+          "lines": 177
+        }
+      ]
     },
     {
       "type": "strategy",
       "namespace": "hummingbot",
-      "name": "example-rsi-spot",
-      "summary": "Simple RSI-based directional strategy for spot trading",
-      "description": "Simple RSI-based directional strategy for spot trading",
+      "name": "xrpl-arb-example",
+      "summary": "Arbitrage XRPL DEX prices against AMM pools, adding liquidity when in range.",
+      "description": "Arbitrage XRPL DEX prices against AMM pools, adding liquidity when in range.",
       "tags": [
-        "Directional"
+        "Arbitrage",
+        "DEX",
+        "XRPL"
       ],
-      "exchanges": [],
+      "exchanges": [
+        "xrpl"
+      ],
       "categories": [
-        "Directional"
+        "Arbitrage"
       ],
       "license": "Apache-2.0",
       "runtime": "hummingbot",
@@ -3601,26 +3974,37 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-20",
-      "cohort": 0,
+      "updated": "2026-05-29",
       "certified": true,
       "hasSource": true,
       "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/xrpl_arb_example.py",
+      "files": [
+        {
+          "name": "xrpl_arb_example.py",
+          "lang": "python",
+          "lines": 550
+        }
+      ]
     },
     {
       "type": "strategy",
       "namespace": "hummingbot",
-      "name": "example-trend-follower",
-      "summary": "Trend following strategy using SMA crossovers and Bollinger Bands",
-      "description": "Trend following strategy using SMA crossovers and Bollinger Bands",
+      "name": "xrpl-liquidity-example",
+      "summary": "Provide AMM liquidity on XRPL when the price sits within a target range.",
+      "description": "Provide AMM liquidity on XRPL when the price sits within a target range.",
       "tags": [
-        "Directional"
+        "Liquidity Provision",
+        "DEX",
+        "XRPL"
       ],
-      "exchanges": [],
+      "exchanges": [
+        "xrpl"
+      ],
       "categories": [
-        "Directional"
+        "Liquidity Provision"
       ],
       "license": "Apache-2.0",
       "runtime": "hummingbot",
@@ -3628,26 +4012,34 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-20",
-      "cohort": 0,
+      "updated": "2026-05-29",
       "certified": true,
       "hasSource": true,
       "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
+      "authorName": "Hummingbot Foundation",
+      "subtype": "script",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/scripts/xrpl_liquidity_example.py",
+      "files": [
+        {
+          "name": "xrpl_liquidity_example.py",
+          "lang": "python",
+          "lines": 482
+        }
+      ]
     },
     {
       "type": "strategy",
       "namespace": "hummingbot",
-      "name": "example-widening-ema-bands",
-      "summary": "Strategy based on the distance between short and long EMAs",
-      "description": "Strategy based on the distance between short and long EMAs",
+      "name": "pure-market-making",
+      "summary": "The classic single-exchange market maker: place bids and asks around the mid price with configurable spreads, sizes and refresh.",
+      "description": "The classic single-exchange market maker: place bids and asks around the mid price with configurable spreads, sizes and refresh.",
       "tags": [
-        "Directional"
+        "Market Making",
+        "V1"
       ],
       "exchanges": [],
       "categories": [
-        "Directional"
+        "Market Making"
       ],
       "license": "Apache-2.0",
       "runtime": "hummingbot",
@@ -3655,13 +4047,351 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-20",
-      "cohort": 0,
+      "updated": "2026-05-29",
       "certified": true,
       "hasSource": true,
       "hasVideo": false,
-      "videoURL": null,
-      "authorName": "Hummingbot Botcamp"
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/pure_market_making",
+      "files": [
+        {
+          "name": "pure_market_making.pyx",
+          "lang": "cython",
+          "lines": 1331
+        },
+        {
+          "name": "pure_market_making_config_map.py",
+          "lang": "python",
+          "lines": 449
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "avellaneda-market-making",
+      "summary": "Market making driven by the Avellaneda–Stoikov optimal pricing model, adapting spreads to inventory and volatility.",
+      "description": "Market making driven by the Avellaneda–Stoikov optimal pricing model, adapting spreads to inventory and volatility.",
+      "tags": [
+        "Market Making",
+        "Avellaneda",
+        "V1"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Market Making"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/avellaneda_market_making",
+      "files": [
+        {
+          "name": "avellaneda_market_making.pyx",
+          "lang": "cython",
+          "lines": 1407
+        },
+        {
+          "name": "avellaneda_market_making_config_map_pydantic.py",
+          "lang": "python",
+          "lines": 408
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "cross-exchange-market-making",
+      "summary": "Quote on a maker exchange and hedge fills with taker orders on another (XEMM), capturing the spread between venues.",
+      "description": "Quote on a maker exchange and hedge fills with taker orders on another (XEMM), capturing the spread between venues.",
+      "tags": [
+        "Cross-Exchange",
+        "Market Making",
+        "V1"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Cross-Exchange"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/cross_exchange_market_making",
+      "files": [
+        {
+          "name": "cross_exchange_market_making.py",
+          "lang": "python",
+          "lines": 1804
+        },
+        {
+          "name": "cross_exchange_market_making_config_map_pydantic.py",
+          "lang": "python",
+          "lines": 350
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "cross-exchange-mining",
+      "summary": "A cross-exchange variant tuned to maximize liquidity-mining rewards.",
+      "description": "A cross-exchange variant tuned to maximize liquidity-mining rewards.",
+      "tags": [
+        "Cross-Exchange",
+        "Liquidity Provision",
+        "V1"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Cross-Exchange"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/cross_exchange_mining",
+      "files": [
+        {
+          "name": "cross_exchange_mining.pyx",
+          "lang": "cython",
+          "lines": 597
+        },
+        {
+          "name": "cross_exchange_mining_config_map_pydantic.py",
+          "lang": "python",
+          "lines": 103
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "liquidity-mining",
+      "summary": "Spread orders across multiple pairs in one exchange to earn liquidity-mining rewards while managing inventory.",
+      "description": "Spread orders across multiple pairs in one exchange to earn liquidity-mining rewards while managing inventory.",
+      "tags": [
+        "Liquidity Provision",
+        "V1"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Liquidity Provision"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/liquidity_mining",
+      "files": [
+        {
+          "name": "liquidity_mining.py",
+          "lang": "python",
+          "lines": 600
+        },
+        {
+          "name": "liquidity_mining_config_map.py",
+          "lang": "python",
+          "lines": 162
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "perpetual-market-making",
+      "summary": "Market making on perpetual-swap markets, with leverage and position management.",
+      "description": "Market making on perpetual-swap markets, with leverage and position management.",
+      "tags": [
+        "Market Making",
+        "Perp",
+        "V1"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Market Making"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/perpetual_market_making",
+      "files": [
+        {
+          "name": "perpetual_market_making.py",
+          "lang": "python",
+          "lines": 1028
+        },
+        {
+          "name": "perpetual_market_making_config_map.py",
+          "lang": "python",
+          "lines": 325
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "spot-perpetual-arbitrage",
+      "summary": "Arbitrage price differences between a spot market and its perpetual swap.",
+      "description": "Arbitrage price differences between a spot market and its perpetual swap.",
+      "tags": [
+        "Arbitrage",
+        "Perp",
+        "V1"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/spot_perpetual_arbitrage",
+      "files": [
+        {
+          "name": "spot_perpetual_arbitrage.py",
+          "lang": "python",
+          "lines": 554
+        },
+        {
+          "name": "spot_perpetual_arbitrage_config_map.py",
+          "lang": "python",
+          "lines": 137
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "amm-arb",
+      "summary": "Arbitrage between an on-chain AMM/DEX (via Gateway) and a centralized exchange.",
+      "description": "Arbitrage between an on-chain AMM/DEX (via Gateway) and a centralized exchange.",
+      "tags": [
+        "Arbitrage",
+        "DEX",
+        "V1"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Arbitrage"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/amm_arb",
+      "files": [
+        {
+          "name": "amm_arb.py",
+          "lang": "python",
+          "lines": 506
+        },
+        {
+          "name": "amm_arb_config_map.py",
+          "lang": "python",
+          "lines": 152
+        }
+      ]
+    },
+    {
+      "type": "strategy",
+      "namespace": "hummingbot",
+      "name": "hedge",
+      "summary": "Hedge inventory exposure on one connector using offsetting orders on others.",
+      "description": "Hedge inventory exposure on one connector using offsetting orders on others.",
+      "tags": [
+        "Hedging",
+        "V1"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "hummingbot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "v1",
+      "repoURL": "https://github.com/hummingbot/hummingbot/blob/main/hummingbot/strategy/hedge",
+      "files": [
+        {
+          "name": "hedge.py",
+          "lang": "python",
+          "lines": 639
+        },
+        {
+          "name": "hedge_config_map_pydantic.py",
+          "lang": "python",
+          "lines": 181
+        }
+      ]
     }
   ]
 }

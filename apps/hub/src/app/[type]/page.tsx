@@ -20,6 +20,14 @@ const LABEL: Record<string, string> = {
   agent: "Agents",
 };
 
+const INTRO: Record<string, string> = {
+  strategy:
+    "Trading bots — market-making, arbitrage and directional — that run on Hummingbot. Includes example scripts, v1 strategies and certified community builds.",
+  routine:
+    "Analysis, monitoring and reporting workflows for Condor. Routines don't trade — they scan markets, watch prices and generate interactive reports, one-shot or on a schedule.",
+  agent: "Autonomous trading harnesses that combine strategies and routines.",
+};
+
 type SP = Record<string, string | string[] | undefined>;
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
 
@@ -55,7 +63,8 @@ export default async function BrowsePage({
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-12">
         <header className="mb-8">
           <h1 className="text-3xl font-bold tracking-tight">{LABEL[type]}</h1>
-          <p className="mt-1 text-sm text-ink-500">
+          <p className="mt-2 max-w-2xl text-pretty text-sm text-ink-400">{INTRO[type]}</p>
+          <p className="mt-2 text-sm text-ink-500">
             {rows.length} {rows.length === 1 ? "result" : "results"}
             {q ? ` for “${q}”` : ""}
           </p>
