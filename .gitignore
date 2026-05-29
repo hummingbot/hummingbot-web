@@ -35,3 +35,4 @@ apps/docs/images/assets/
 
 # All migrated docs images (blog + exchanges + documentation) — regenerate via apps/docs/scripts/migrate-*.mjs
 apps/docs/images/
+apps/site/data/volumes/volume_by_instance.csv

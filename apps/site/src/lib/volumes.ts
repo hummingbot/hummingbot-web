@@ -18,9 +18,19 @@ function readCsv(file: string): string[][] {
 export type DailyPoint = { date: string; volume: number };
 export type Ranked = { name: string; volume: number; share: number };
 
-export type VolumesData = {
+/** Headline stats — mirror reporting.hummingbot.org cards. */
+export type Stats = {
   totalVolume: number;
-  exchangeCount: number;
+  avgDailyVolume: number;
+  uniqueExchanges: number;
+  uniqueInstances: number;
+  days: number;
+};
+
+export type VolumesData = {
+  /** trailing-365-day window (reporting.hummingbot.org default) */
+  lastYear: Stats;
+  allTime: Stats;
   daily: DailyPoint[];
   topExchanges: Ranked[];
   topVersions: Ranked[];
@@ -33,11 +43,17 @@ let cache: VolumesData | null = null;
 export function getVolumesData(): VolumesData {
   if (cache) return cache;
 
+  const summary = JSON.parse(readFileSync(join(dir, "summary.json"), "utf8")) as {
+    windowStart: string;
+    windowEnd: string;
+    lastYear: Stats;
+    allTime: Stats;
+  };
+
   const [, ...dailyRows] = readCsv("total_daily_volume.csv");
   const daily: DailyPoint[] = dailyRows
     .filter((r) => r.length >= 2)
     .map((r) => ({ date: r[0]!, volume: Number(r[1]) }));
-  const totalVolume = daily.reduce((s, d) => s + d.volume, 0);
 
   const [, ...exRows] = readCsv("volume_by_exchange.csv");
   const exTotals = new Map<string, number>();
@@ -64,13 +80,13 @@ export function getVolumesData(): VolumesData {
     .slice(0, 15);
 
   cache = {
-    totalVolume,
-    exchangeCount: exTotals.size,
+    lastYear: summary.lastYear,
+    allTime: summary.allTime,
     daily,
     topExchanges,
     topVersions,
-    windowStart: daily[0]?.date ?? "",
-    windowEnd: DATA_WINDOW_END,
+    windowStart: summary.windowStart,
+    windowEnd: summary.windowEnd,
   };
   return cache;
 }

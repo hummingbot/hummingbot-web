@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 export default function VolumesPage() {
   const data = getVolumesData();
+  const nf = (n: number) => new Intl.NumberFormat("en-US").format(n);
   const fmtDate = (iso: string) =>
     new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric" }).format(
       new Date(iso),
@@ -26,18 +27,21 @@ export default function VolumesPage() {
             Reported volumes
           </h1>
           <p className="mt-3 max-w-2xl text-pretty text-ink-400">
-            Anonymized trading volume reported by Hummingbot instances worldwide.
-            Aggregated metrics reported from {fmtDate(data.windowStart)} through{" "}
-            {fmtDate(data.windowEnd)}. No personal information, wallet addresses,
-            or API keys are collected.
+            Anonymized trading volume reported by Hummingbot instances worldwide,
+            through {fmtDate(data.windowEnd)}. No personal information, wallet
+            addresses, or API keys are collected.
           </p>
         </header>
 
-        <dl className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <p className="mb-3 text-xs font-medium uppercase tracking-wider text-ink-500">
+          Last year · through {fmtDate(data.windowEnd)}
+        </p>
+        <dl className="mb-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {[
-            { label: "Total volume", value: formatUsd(data.totalVolume) },
-            { label: "Exchanges", value: `${data.exchangeCount}` },
-            { label: "Days tracked", value: `${data.daily.length}` },
+            { label: "Total Volume", value: formatUsd(data.lastYear.totalVolume) },
+            { label: "Unique Exchanges", value: nf(data.lastYear.uniqueExchanges) },
+            { label: "Unique Instances", value: nf(data.lastYear.uniqueInstances) },
+            { label: "Avg Daily Volume", value: formatUsd(data.lastYear.avgDailyVolume) },
           ].map((s) => (
             <div key={s.label} className="rounded-xl border border-ink-800 bg-card p-6">
               <dd className="text-3xl font-bold tabular-nums text-brand-teal">{s.value}</dd>

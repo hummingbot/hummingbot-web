@@ -3,13 +3,15 @@ import Link from "next/link";
 import { Section } from "@hummingbot/ui";
 import { formatUsd, getVolumesData } from "@/lib/volumes";
 
+const fmtCount = (n: number) => new Intl.NumberFormat("en-US").format(n);
+
 export function VolumesStat() {
-  const { totalVolume, exchangeCount, daily } = getVolumesData();
+  const { lastYear } = getVolumesData();
 
   const stats = [
-    { label: "Volume reported", value: formatUsd(totalVolume) },
-    { label: "Exchanges", value: `${exchangeCount}` },
-    { label: "Days tracked", value: `${daily.length}` },
+    { label: "Total volume", value: formatUsd(lastYear.totalVolume) },
+    { label: "Unique exchanges", value: fmtCount(lastYear.uniqueExchanges) },
+    { label: "Unique instances", value: fmtCount(lastYear.uniqueInstances) },
   ];
 
   return (

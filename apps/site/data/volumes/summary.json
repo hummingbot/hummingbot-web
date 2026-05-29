@@ -1,0 +1,18 @@
+{
+  "windowEnd": "2026-03-16",
+  "windowStart": "2025-03-17",
+  "lastYear": {
+    "totalVolume": 31083011112.412193,
+    "avgDailyVolume": 85158934.55455396,
+    "days": 365,
+    "uniqueExchanges": 288,
+    "uniqueInstances": 96199
+  },
+  "allTime": {
+    "totalVolume": 36520040599.484215,
+    "avgDailyVolume": 87578035.01075351,
+    "days": 417,
+    "uniqueExchanges": 302,
+    "uniqueInstances": 104524
+  }
+}
