@@ -1,39 +1,88 @@
 ---
-title: "Install Hummingbot"
-description: "Deploy the Hummingbot stack with a single command."
+title: "Overview"
+description: "The Hummingbot ecosystem consists of several repositories that work together to provide a complete algorithmic trading platform. This page provides an"
 ---
 
-The fastest way to run Hummingbot is the deploy script, which sets up the
-client and supporting services via Docker.
+The Hummingbot ecosystem consists of several repositories that work together to provide a complete algorithmic trading platform. This page provides an overview of each component and links to their installation guides.
 
-## Prerequisites
+## Hummingbot Ecosystem
 
-- A machine running Linux (Ubuntu 20.04+) or macOS
-- [Docker](https://docs.docker.com/get-docker/) installed and running
+```mermaid
+graph TB
+    subgraph "User Interfaces"
+        CONDOR[Condor]
+        MCP[MCP<br/>AI Agents]
+    end
 
-## Install
+    subgraph "Server"
+        API[Hummingbot API]
+    end
 
-From an empty directory, run:
+    subgraph "Core Components"
+        CLIENT[Hummingbot Client]
+        GATEWAY[Gateway]
+    end
 
-```bash
-curl -fsSL https://hummingbot.org/install.sh | bash
+    CONDOR --> API
+    MCP --> API
+    API --> CLIENT
+    API --> GATEWAY
+    CLIENT <--> GATEWAY
 ```
 
-The installer pulls the latest images and guides you through configuration.
+## Repository Overview
 
-<Note>
-  To run an AI agent harness (Telegram + LLM control) on top of Hummingbot,
-  install **Condor** instead — see the Condor tab's
-  [installation guide](/installation).
-</Note>
+| Repository | Description | Quickstart | Source Install |
+|------------|-------------|------------|----------------|
+| [**Hummingbot API**](https://github.com/hummingbot/hummingbot-api) | REST API backend for managing bots, portfolios, and trading | [via Condor](./condor) | [Source](../hummingbot-api/installation) |
+| [**Hummingbot Client**](https://github.com/hummingbot/hummingbot) | Core trading client with CLI interface for CEX trading | [Quickstart](./hummingbot-client) | [Source](../client/installation) |
+| [**Gateway**](https://github.com/hummingbot/gateway) | DEX middleware for Uniswap, PancakeSwap, Raydium, and 30+ DEXs | - | [Installation](../gateway/installation) |
+| [**Condor**](https://github.com/hummingbot/condor) | Telegram bot for monitoring and controlling Hummingbot instances | [Quickstart](./condor) | [Docs](https://condor.hummingbot.org) |
+| [**MCP Server**](https://github.com/hummingbot/mcp) | Connects AI assistants (Claude, Gemini, ChatGPT) to Hummingbot | - | [Installation](../mcp/installation) |
+| [**Skills**](https://github.com/hummingbot/skills) | Agent skills for AI assistants to manage strategies, executors, and infrastructure | - | [GitHub](https://github.com/hummingbot/skills) |
+| [**Dashboard**](https://github.com/hummingbot/dashboard) | Web-based UI for bot management (deprecated, use Condor) | - | [GitHub](https://github.com/hummingbot/dashboard) |
+| [**Quants Lab**](https://github.com/hummingbot/quants-lab) | Research environment for backtesting and strategy analysis | - | [GitHub](https://github.com/hummingbot/quants-lab) |
 
-## Next steps
+## Recommended Paths
 
-<CardGroup cols={2}>
-  <Card title="Connect an exchange" href="/exchanges/binance">
-    Add API keys for any of 50+ supported venues.
-  </Card>
-  <Card title="Find a strategy" href="https://hub.hummingbot.org">
-    Install a community strategy from the Hub in one command.
-  </Card>
-</CardGroup>
+### Hummingbot Client
+
+The legacy CLI-based trading client. Best for:
+
+- **Getting started** - Most users begin here to learn Hummingbot
+- **Local usage** - Running on your local machine
+- **V1 strategies** - Pure Market Making, Cross-Exchange Market Making, etc.
+- **Single instance** - Running one bot at a time
+
+[**Hummingbot Client Quickstart →**](./hummingbot-client)
+
+### Condor
+
+The modern Telegram-based interface for Trading Agents. Best for:
+
+- **Trading Agents** - Build and run autonomous trading agents
+- **Multiple instances** - Deploy and manage many bots simultaneously
+- **Production environments** - Running on cloud servers (AWS, Digital Ocean, etc.)
+- **Modern interfaces** - Control via Telegram or AI agents via MCP
+
+[**Condor Quickstart →**](./condor)
+
+For full documentation, see [condor.hummingbot.org](https://condor.hummingbot.org).
+
+### Developers
+
+For developers who want to add/customize exchange connectors, extend strategies, or otherwise modify the Hummingbot codebase:
+
+**Source Installation**
+
+- [Hummingbot Client from Source](../client/installation#source-installation) - Install the core trading client for development
+- [Gateway from Source](../gateway/installation#source-installation) - Install the DEX connector middleware for development
+
+**Building Connectors**
+
+- [Building CLOB Connectors](../connectors/connectors/index) - Add new CEX/DEX order book connectors to Hummingbot Client
+- [Building Gateway Connectors](../connectors/gateway-connectors/index) - Add new AMM DEX connectors to Gateway
+
+**API Development**
+
+- [Hummingbot API Developer Guide](../hummingbot-api/quickstart) - Use the REST API with curl or Python client

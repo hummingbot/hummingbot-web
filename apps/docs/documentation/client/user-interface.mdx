@@ -1,0 +1,164 @@
+---
+title: "User Interface"
+description: "The CLI is divided into five panes:"
+---
+
+![Hummingbot CLI](/images/assets/img/userinterface-hummingbot.gif)
+
+The CLI is divided into five panes:
+
+* **Input pane (lower left)**: Where users enter commands
+
+![Hummingbot CLI](/images/assets/img/input-pane.gif)
+
+* **Output pane (upper left)**: Prints the output of the user's commands
+
+![Hummingbot CLI](/images/assets/img/output-pane.gif)
+
+* **Log pane (right)**: Log messages
+
+![Log Pane](/images/assets/img/log-messages.gif)
+
+* **Top navigation bar**: Displays the status/information of the following items
+
+      * **Version:**
+
+          * Reference of Version Release (Currently at 1.13.0)
+
+      * **Strategy:**
+          
+          * Hummingbot has different strategy configurations that can be used for trading or liquidity mining. Currently we are moving away from strategy based config in favor of scripts. 
+          
+      * **Strategy_file:**
+          
+          * Displays the current in use `strategy` or `script` file
+
+![Top Navigation](/images/assets/img/top-nav.gif)
+
+* **Bottom navigation bar**: Displays the information of the following items
+
+      * Trades
+          * Number of trades done by the bot
+          * Total P&L
+          * Total profit & loss
+          * Return%
+          * Return percentage of assets
+      * CPU
+          * CPU usage of the computer
+      * Mem
+          * Memory usage of the computer
+
+      * Threads
+      * Duration
+        * Duration of the trading session
+
+![Bottom Navigation](/images/assets/img/bottom-nav.gif)
+
+## Show and hide log pane
+
+The log pane on the right can be shown or hidden in two ways:
+
+1. Click the `log pane` button in the upper right hand corner
+2. Press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>T&lt;/kbd> shortcut on your keyboard
+
+![Hide Log Pane](/images/assets/img/hide-log-pane.gif)
+
+## Tabs
+
+Users can now open another tab in the left pane of Hummingbot where the log pane is supposed to be upon entering a command associated with the Tabs feature. Users can now switch between the `log pane` and the new tab they have opened simulateneously.
+
+> **Note**
+>
+> Currently, the feature only works with the `order_book` parameter.
+
+## Opening and Closing
+
+### Opening a tab
+
+Use the tabs by simply inputting a command associated with the tabs feature.
+
+Upon using the `order_book` command and any suffix it will open a tab automatically.
+
+![opening tabs](/images/assets/img/tab-opening.png)
+
+![showing tab](/images/assets/img/leftpane.png)
+
+### Closing a tab
+
+Simply click on the `x` at the top right corner or inputting `parameter_name --close`
+
+One option to close the tab is by clicking on the `x` next to `order_book`
+
+![closing tabs](/images/assets/img/closing-of-tabs.png)
+
+Alternatively, you can remove the new tab by inputting the `order_book --close` command to close the tab
+
+![alternative closing tabs](/images/assets/img/name-of-parameter.png)
+
+![closed tabs](/images/assets/img/closed-tabs.png)
+
+## Keyboard shortcuts
+
+| Keyboard Combo                                   | Command                      | Description                                  |
+| ----------------- -------------------------------| ---------------------------- | -------------------------------------------- |
+| Double &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>C&lt;/kbd>            | Exit                         | Press `CTRL + C` twice to exit the bot       |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>S/kbd>                    | Status                       | Show bot status                              |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>F&lt;/kbd>                   | Search / &lt;br/> Hide Search   | Toggle search in log pane                    |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>X&lt;/kbd>                   | Exit Config                  | Exit from the current configuration question |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>A&lt;/kbd>                   | Select All                   | \* Select all text                           |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>Z&lt;/kbd>                   | Undo                         | \* Undo action                               |
+| Single &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>C&lt;/kbd>            | Copy                         | \* Copy text                                 |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>V&lt;/kbd>                   | Paste                        | \* Paste text                                |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>R&lt;/kbd>                   | Reset Style                  | Set default color style                      |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>T&lt;/kbd>                   | Toggle logs                  | Hide / show the logs pane                    |
+
+_\* Used for text edit in input pane only._
+
+**Note about search:**
+
+1. Press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>F&lt;/kbd> to trigger display the search field
+
+2. Enter your search keyword (not case sensitive)
+
+3. Hit &lt;kbd>Enter&lt;/kbd> to jump to the next matching keyword (incremental search)
+
+4. When you are done, press &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>F&lt;/kbd> again to go back to reset
+
+### Linux
+
+| Keyboard Combo                              | Command |
+| ------------------------------------------- | ------- |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>C&lt;/kbd>              | Copy    |
+| &lt;kbd>SHIFT&lt;/kbd> + RMB (right-mouse button) | Paste   |
+
+To highlight, hold &lt;kbd>SHIFT&lt;/kbd> + LMB (left mouse button) and drag across the text you want to select.
+
+### macOS
+
+| Keyboard Combo                        | Command |
+| ------------------------------------- | ------- |
+| &lt;kbd>⌘&lt;/kbd> + &lt;kbd>C&lt;/kbd>          | Copy    |
+| &lt;kbd>⌘&lt;/kbd> + &lt;kbd>V&lt;/kbd>          | Paste   |
+
+> **Note**
+>
+> To select text on macOS, you may need to enable the **Allow Mouse Reporting** option by pressing &lt;kbd>⌘&lt;/kbd> + &lt;kbd>R&lt;/kbd> or selecting **View > Allow Mouse Reporting** in the menu bar.
+
+![allowmouse](/images/assets/img/allow_mouse_reporting.png)
+
+Then you should be able to select text by holding `LMB` (left mouse button) and drag. You can also hold down &lt;kbd>⌥&lt;/kbd> + &lt;kbd>shift&lt;/kbd> to select specific lines like the image below.
+
+![highlightmacos](/images/assets/img/highlight_macos.png)
+
+When accessing Hummingbot on a Linux cloud server through `ssh` using a macOS terminal, hold down the &lt;kbd>Option ⌥&lt;/kbd> key or &lt;kbd>⌥&lt;/kbd> + &lt;kbd>⌘&lt;/kbd> to highlight text.
+
+### Windows
+
+| Keyboard Combo                 | Command |
+| ------------------------------ | ------- |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>C&lt;/kbd> | Copy    |
+| &lt;kbd>CTRL&lt;/kbd> + &lt;kbd>V&lt;/kbd> | Paste   |
+
+To use this shortcut, check this box by doing a right-click on the title bar at the top of the Hummingbot window, then select **Properties**.
+
+![](/images/assets/img/properties_windows.png)

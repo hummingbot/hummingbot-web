@@ -22,10 +22,207 @@
         "tab": "Documentation",
         "groups": [
           {
-            "group": "Hummingbot",
+            "group": "Documentation",
             "pages": [
-              "documentation/overview",
-              "documentation/installation"
+              "documentation/overview"
+            ]
+          },
+          {
+            "group": "Installation",
+            "pages": [
+              "documentation/installation",
+              "documentation/installation/hummingbot-client",
+              "documentation/installation/condor",
+              "documentation/installation/update",
+              "documentation/installation/broker"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "documentation/guides"
+            ]
+          },
+          {
+            "group": "Strategies",
+            "pages": [
+              "documentation/strategies",
+              "documentation/strategies/v2-strategies",
+              {
+                "group": "Scripts",
+                "pages": [
+                  "documentation/strategies/scripts",
+                  "documentation/strategies/v2-strategies/walkthrough",
+                  "documentation/strategies/scripts/cheatsheet"
+                ]
+              },
+              {
+                "group": "Market Data Provider",
+                "pages": [
+                  "documentation/strategies/v2-strategies/data",
+                  "documentation/strategies/v2-strategies/candles"
+                ]
+              },
+              {
+                "group": "Controllers",
+                "pages": [
+                  "documentation/strategies/v2-strategies/controllers",
+                  "documentation/strategies/v2-strategies/walkthrough-controller"
+                ]
+              },
+              {
+                "group": "Examples",
+                "pages": [
+                  "documentation/strategies/v2-strategies/examples"
+                ]
+              },
+              {
+                "group": "Executors",
+                "pages": [
+                  "documentation/strategies/v2-strategies/executors",
+                  "documentation/strategies/v2-strategies/executors/positionexecutor",
+                  "documentation/strategies/v2-strategies/executors/gridexecutor",
+                  "documentation/strategies/v2-strategies/executors/dcaexecutor",
+                  "documentation/strategies/v2-strategies/executors/arbitrage-executor",
+                  "documentation/strategies/v2-strategies/executors/xemm-executor",
+                  "documentation/strategies/v2-strategies/executors/twapexecutor",
+                  "documentation/strategies/v2-strategies/executors"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Connectors",
+            "pages": [
+              "documentation/connectors",
+              "documentation/connectors/clob",
+              "documentation/gateway/connectors",
+              {
+                "group": "Building CLOB Connectors",
+                "pages": [
+                  "documentation/connectors/connectors",
+                  "documentation/connectors/connectors/build",
+                  "documentation/connectors/connectors/architecture",
+                  "documentation/connectors/connectors/architecture/order_lifecycle",
+                  "documentation/connectors/connectors/api_throttler",
+                  "documentation/connectors/connectors/spot-connector-checklist",
+                  "documentation/connectors/connectors/test",
+                  "documentation/connectors/connectors/perp-connector-checklist",
+                  "documentation/connectors/connectors/test-perp"
+                ]
+              },
+              {
+                "group": "Building Gateway Connectors",
+                "pages": [
+                  "documentation/connectors/gateway-connectors",
+                  "documentation/connectors/gateway-connectors/architecture",
+                  "documentation/connectors/gateway-connectors/testing"
+                ]
+              },
+              "documentation/connectors/connectors/debug"
+            ]
+          },
+          {
+            "group": "Hummingbot Client",
+            "pages": [
+              "documentation/client",
+              "documentation/client/installation",
+              "documentation/client/user-interface",
+              "documentation/client/commands-shortcuts",
+              "documentation/client/launch-exit",
+              "documentation/client/password",
+              "documentation/client/connect",
+              "documentation/client/config-files",
+              "documentation/client/balance",
+              "documentation/client/start-stop",
+              "documentation/client/status",
+              "documentation/client/history",
+              "documentation/client/log-files",
+              "documentation/client/export",
+              "documentation/client/global-configs/balance-limit",
+              "documentation/client/global-configs/clock-tick",
+              "documentation/client/global-configs/strategy-autostart",
+              "documentation/client/global-configs/color-settings",
+              "documentation/client/global-configs/external-db",
+              "documentation/client/debug-console",
+              "documentation/client/global-configs/kill-switch",
+              "documentation/client/global-configs/data-collector",
+              "documentation/client/global-configs/override-fees",
+              "documentation/client/global-configs/paper-trade",
+              "documentation/client/global-configs/rate-limits-share-pct"
+            ]
+          },
+          {
+            "group": "Gateway DEX Middleware",
+            "pages": [
+              "documentation/gateway",
+              "documentation/gateway/installation",
+              "documentation/gateway/configuration",
+              "documentation/gateway/commands",
+              "documentation/gateway/chains",
+              "documentation/gateway/connectors",
+              "documentation/gateway/rpc",
+              "documentation/gateway/strategies"
+            ]
+          },
+          {
+            "group": "Hummingbot API",
+            "pages": [
+              "documentation/hummingbot-api",
+              "documentation/hummingbot-api/installation",
+              "documentation/hummingbot-api/quickstart",
+              "documentation/hummingbot-api/routers"
+            ]
+          },
+          {
+            "group": "Hummingbot MCP & Skills",
+            "pages": [
+              "documentation/mcp",
+              "documentation/mcp/installation",
+              "documentation/mcp/tools",
+              "documentation/mcp/skills"
+            ]
+          },
+          {
+            "group": "Condor",
+            "pages": [
+              "documentation/condor"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "documentation/dashboard",
+              "documentation/dashboard/credentials",
+              "documentation/dashboard/portfolio",
+              "documentation/dashboard/config",
+              "documentation/dashboard/backtest",
+              "documentation/dashboard/deploy",
+              "documentation/dashboard/instances"
+            ]
+          },
+          {
+            "group": "Quants Lab",
+            "pages": [
+              "documentation/quants-lab"
+            ]
+          },
+          {
+            "group": "FAQ",
+            "pages": [
+              "documentation/faq"
+            ]
+          },
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "documentation/troubleshooting"
+            ]
+          },
+          {
+            "group": "Glossary",
+            "pages": [
+              "documentation/glossary"
             ]
           }
         ]
