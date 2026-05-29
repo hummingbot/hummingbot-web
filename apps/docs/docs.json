@@ -352,7 +352,24 @@
               "exchanges/evedex",
               "exchanges/foxbit",
               "exchanges/gate-io",
-              "exchanges/gateway",
+              {
+                "group": "Gateway DEX",
+                "pages": [
+                  "exchanges/gateway",
+                  "exchanges/gateway/balancer",
+                  "exchanges/gateway/curve",
+                  "exchanges/gateway/etcSwap",
+                  "exchanges/gateway/jupiter",
+                  "exchanges/gateway/meteora",
+                  "exchanges/gateway/orca",
+                  "exchanges/gateway/pancakeswap",
+                  "exchanges/gateway/quickswap",
+                  "exchanges/gateway/raydium",
+                  "exchanges/gateway/sushiswap",
+                  "exchanges/gateway/traderjoe",
+                  "exchanges/gateway/uniswap"
+                ]
+              },
               "exchanges/grvt",
               "exchanges/htx",
               "exchanges/hyperliquid",

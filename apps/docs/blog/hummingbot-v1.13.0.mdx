@@ -48,7 +48,7 @@ Our 2023 technical roadmap post also mentioned a project to help users generate 
 
 > That’s why one of the projects will be the OHLC Generator, that will allow users to initialize their strategies with multiple OHLCs (time or volume based). In addition, we plan to support third-party library like ta-lib so that users can compute and create various indicators.
 
-[6046](https://github.com/hummingbot/hummingbot/pull/6046) added a candles data feed for [binance](../exchanges/binance/index) and [binance-perpetual](../exchanges/binance/index). This "signal factory" component allows users to generate custom OHLCV candles using both historical and live Websocket data, allowing traders to use technical indicators to code directional strategies.
+[6046](https://github.com/hummingbot/hummingbot/pull/6046) added a candles data feed for [binance](/exchanges/binance) and [binance-perpetual](/exchanges/binance). This "signal factory" component allows users to generate custom OHLCV candles using both historical and live Websocket data, allowing traders to use technical indicators to code directional strategies.
 
 A base class is provided to add more candle providers and a `CandlesFactory` is also included to simplify the creation of the candles. We encourage community members to add data feeds for other exchanges.
 

@@ -7,7 +7,7 @@ category: "Releases"
 
 *Released on December 21, 2022*
 
-- **Install via Docker**: [Linux](/installation/hummingbot-client) | [Windows](/installation/hummingbot-client) | [macOS](/installation/hummingbot-client) | [Raspberry Pi](/installation/hummingbot-client)
+- **Install via Docker**: [Linux](/documentation/installation/hummingbot-client) | [Windows](/documentation/installation/hummingbot-client) | [macOS](/documentation/installation/hummingbot-client) | [Raspberry Pi](/documentation/installation/hummingbot-client)
 
 We are very excited to ship the December 2022 Hummingbot release (v1.11.0) today! See below for the highlights in this release.
 
@@ -36,11 +36,11 @@ The improvements below upgraded two of our certified exchanges to the latest CEX
 
 ## Gateway UX improvements
 
-Installing Gateway from source should now be much easier, since we have modified the `generate_certs` command so that it automatically populates the correct path in Gateway's `ssl.yml` file. The [Gateway developer setup docs](/gateway/installation/) now reflect this new, simpler workflow. In addition, we also added prompts to guide users in using Gateway commands intended for Docker and non-Docker use cases in this pull request.
+Installing Gateway from source should now be much easier, since we have modified the `generate_certs` command so that it automatically populates the correct path in Gateway's `ssl.yml` file. The [Gateway developer setup docs](https://hummingbot.org/gateway/installation//) now reflect this new, simpler workflow. In addition, we also added prompts to guide users in using Gateway commands intended for Docker and non-Docker use cases in this pull request.
 
 - [5918](https://github.com/hummingbot/hummingbot/pull/5918) Added support for configurable cert paths for Gateway
 
-We also changed the default `TokenList` settings for each Gateway DEX connector so that it uses a local file rather than a URL. See the new [Adding Tokens](/gateway/connectors) documentation page for more information.
+We also changed the default `TokenList` settings for each Gateway DEX connector so that it uses a local file rather than a URL. See the new [Adding Tokens](/documentation/gateway/connectors) documentation page for more information.
 
 - [5953](https://github.com/hummingbot/hummingbot/pull/5953) Changed the default tokenlists from URLs to files in gateway
 

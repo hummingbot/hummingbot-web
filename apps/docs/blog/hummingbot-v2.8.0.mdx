@@ -47,7 +47,7 @@ git pull origin master # Hummingbot
 git pull origin main # Gateway
 ```
 
-Afterwards, follow the instructions to re-install dependencies and compile the codebase for each repository. See [Install Hummingbot from Source](../installation/hummingbot-client) and [Install Gateway from Source](../gateway/installation).
+Afterwards, follow the instructions to re-install dependencies and compile the codebase for each repository. See [Install Hummingbot from Source](/documentation/installation/hummingbot-client) and [Install Gateway from Source](/documentation/gateway/installation).
 
 ## Release Highlights
 
@@ -59,20 +59,20 @@ This release completes the [NCP-22](https://snapshot.box/#/s:hbot-ncp.eth/propos
 
 **Standardized Schemas**: Implemented three universal trading schemas across all DEX connectors:
 
-  - [**Router Schema**](../gateway/connectors#router-schema): DEX aggregators (Jupiter, 0x, Uniswap Router) that find optimal swap routes
-  - [**AMM Schema**](../gateway/connectors#amm-schema): Traditional V2-style constant product pools (Raydium AMM, Uniswap V2)
-  - [**CLMM Schema**](../gateway/connectors#clmm-schema): V3-style concentrated liquidity pools (Meteora DLMM, Raydium CLMM, Uniswap V3)
+  - [**Router Schema**](/documentation/gateway/connectors#router-schema): DEX aggregators (Jupiter, 0x, Uniswap Router) that find optimal swap routes
+  - [**AMM Schema**](/documentation/gateway/connectors#amm-schema): Traditional V2-style constant product pools (Raydium AMM, Uniswap V2)
+  - [**CLMM Schema**](/documentation/gateway/connectors#clmm-schema): V3-style concentrated liquidity pools (Meteora DLMM, Raydium CLMM, Uniswap V3)
 
 **New Configuration System**: 
 
   - Token lists now stored in `/conf/tokens/{chain}/{network}.json` following [tokenlists.org](https://tokenlists.org/) standard
   - Pool definitions in `/conf/pools/{connector}.json` for each DEX
   - Network-specific YAML files for chain configurations
-  - See [Configuration Guide](../gateway/configuration) for details
+  - See [Configuration Guide](/documentation/gateway/configuration) for details
 
 #### 🎮 Gateway Commands in Hummingbot
 
-Added comprehensive [Gateway commands](../gateway/commands) directly in the Hummingbot client:
+Added comprehensive [Gateway commands](/documentation/gateway/commands) directly in the Hummingbot client:
 
 * **Wallet Management**: `gateway connect`, `gateway balance` - Connect wallets and check balances
 * **Trading**: `gateway swap` - Execute swaps with quotes and slippage protection
@@ -99,7 +99,7 @@ Standardized existing Gateway connectors to align with the new architecture. The
 * **[TraderJoe](../exchanges/gateway/traderjoe)** - Avalanche AMM/CLMM
 * **[ETCSwap](../exchanges/gateway/etcSwap)** - Ethereum Classic AMM
 
-See the [DEX Connectors](../gateway/connectors) page for full details on upgrading these connectors to the v2.8.0 standard. 
+See the [DEX Connectors](/documentation/gateway/connectors) page for full details on upgrading these connectors to the v2.8.0 standard. 
 
 #### 🔐 Security & Infrastructure
 
@@ -111,13 +111,13 @@ See the [DEX Connectors](../gateway/connectors) page for full details on upgradi
 #### 📚 Documentation & Developer Experience
 
 * **Swagger API**: Enhanced API documentation available at `http://localhost:15888/docs` in DEV mode
-* **[Gateway Documentation](../gateway/index)**: Complete rewrite with practical guides and examples
-* **[Gateway Strategies](../gateway/strategies)**: New scripts demonstrating AMM Data Feed, AMM Trade, and LP Position Management
-* **[Chain Schemas](../gateway/chains#chain-schema)**: Standardized request/response schemas for all blockchain operations
+* **[Gateway Documentation](https://hummingbot.org/gateway/)**: Complete rewrite with practical guides and examples
+* **[Gateway Strategies](/documentation/gateway/strategies)**: New scripts demonstrating AMM Data Feed, AMM Trade, and LP Position Management
+* **[Chain Schemas](/documentation/gateway/chains#chain-schema)**: Standardized request/response schemas for all blockchain operations
 
 #### 🚀 Migration Guide
 
-For users upgrading from Gateway v2.7 or earlier, see the [Gateway Installation Guide](../gateway/installation) for complete setup instructions.
+For users upgrading from Gateway v2.7 or earlier, see the [Gateway Installation Guide](/documentation/gateway/installation) for complete setup instructions.
 
 ### 🤖 Hummingbot MCP Server
 
@@ -135,7 +135,7 @@ Key highlights:
 
 ### 🏦 Foxbit CLOB CEX Connector
 
-- Based on approval from [community voting](https://snapshot.box/#/s:hbot-ncp.eth/proposal/0x01022a516c3536d015e21b28e90204a7dbc4a65b42c0e2d568847509f7531e6a), the [Foxbit](../exchanges/foxbit/index) exchange connector was added back in [#7680](https://github.com/hummingbot/hummingbot/pull/7680).
+- Based on approval from [community voting](https://snapshot.box/#/s:hbot-ncp.eth/proposal/0x01022a516c3536d015e21b28e90204a7dbc4a65b42c0e2d568847509f7531e6a), the [Foxbit](/exchanges/foxbit) exchange connector was added back in [#7680](https://github.com/hummingbot/hummingbot/pull/7680).
 
 ### Other Updates
 

@@ -5,9 +5,9 @@ date: "2025-10-07"
 category: "Tutorials"
 ---
 
-**Grid Strike** (`grid_strike`) is a [Controller](../../../strategies/v2-strategies/controllers/index) in Hummingbot's StrategyV2 framework that automatically places a grid of buy or sell orders within a set price range.
+**Grid Strike** (`grid_strike`) is a [Controller](/documentation/strategies/v2-strategies/controllers) in Hummingbot's StrategyV2 framework that automatically places a grid of buy or sell orders within a set price range.
 
-Unlike [basic grid strategies](https://www.binance.com/en/square/post/24240367765730), Grid Strike utilizes [Executors](../../../strategies/v2-strategies/executors/index) which dynamically manage each order level with configurable take profit and stop loss settings. This means every position opened by the strategy is automatically monitored and closed according to your risk parameters. It can be configured to move with the market trend —- either up or down -- letting you adapt the strategy to changing market conditions.
+Unlike [basic grid strategies](https://www.binance.com/en/square/post/24240367765730), Grid Strike utilizes [Executors](/documentation/strategies/v2-strategies/executors) which dynamically manage each order level with configurable take profit and stop loss settings. This means every position opened by the strategy is automatically monitored and closed according to your risk parameters. It can be configured to move with the market trend —- either up or down -- letting you adapt the strategy to changing market conditions.
 
 This guide explains how the Grid Strike strategy works and helps you decide when to use it. You'll learn how to configure and run the strategyt, as well as the key concepts and how to set it up for trending markets.
 
@@ -30,8 +30,8 @@ This guide explains how the Grid Strike strategy works and helps you decide when
 
 Before you run Grid Strike, make sure you have Hummingbot installed, either:
  
-* [**Hummingbot Client**](../../../client/index): See [Installation Guide](../../../installation/index) or [Source Installation](../../../client/installation#source-installation) to get started
-* [**Hummingbot API + Dashboard**](../../../hummingbot-api/index): See the [Hummingbot Dashboard Quickstart Guide](../quickstart-dashboard/index) for a guide with step-by-step setup instructions
+* [**Hummingbot Client**](/documentation/client): See [Installation Guide](/installation) or [Source Installation](/documentation/client/installation#source-installation) to get started
+* [**Hummingbot API + Dashboard**](/documentation/hummingbot-api): See the [Hummingbot Dashboard Quickstart Guide](/blog/quickstart-dashboard) for a guide with step-by-step setup instructions
 
 ### Create Controller Config 
 
@@ -47,7 +47,7 @@ See [Strategy Configuration](#strategy-configuration) below for an in-depth guid
 
 ### Create Script Config 
 
-Once you are satisfied with your Grid Strike configuration, add the name of the file to the [Loader Script](../../../strategies/scripts/examples#v2-controller-loader):
+Once you are satisfied with your Grid Strike configuration, add the name of the file to the [Loader Script](/documentation/strategies/v2-strategies/examples#v2-controller-loader):
 
 ```
 create --script-config v2_with_controllers
@@ -158,7 +158,7 @@ Make sure to set the most important parameters like:
 
 ### Triple Barrier Parameters
 
-Grid Strike creates Grid Executors that implement the Triple Barrier Method, similar to [Position Executors](../../../strategies/v2-strategies/executors/positionexecutor). Set these parameters to define how each order is managed if it is filled:
+Grid Strike creates Grid Executors that implement the Triple Barrier Method, similar to [Position Executors](/documentation/strategies/v2-strategies/executors/positionexecutor). Set these parameters to define how each order is managed if it is filled:
 
 | Setting | Meaning |
 | --- | --- |

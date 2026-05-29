@@ -18,8 +18,8 @@ category: "Releases"
 
 ## How to Install / Update
 
-- **New Installation**: See the newly revamped [Installation](../installation/index) to get started with Hummingbot API with Condor, or the traditional Hummingbot Client.
-- **Updating**: See [Updating to New Versions](../installation/update) for update instructions.
+- **New Installation**: See the newly revamped [Installation](/installation) to get started with Hummingbot API with Condor, or the traditional Hummingbot Client.
+- **Updating**: See [Updating to New Versions](/documentation/installation/update) for update instructions.
 
 ## Release Highlights
 
@@ -29,7 +29,7 @@ This release brings major improvements to the installation experience across mul
 
 #### Hummingbot API + Condor
 
-The [Condor](../installation/condor) installation process has been streamlined:
+The [Condor](/documentation/installation/condor) installation process has been streamlined:
 
 ```bash
 git clone https://github.com/hummingbot/condor.git
@@ -38,16 +38,16 @@ make install
 make run
 ```
 
-See the [Condor Quickstart](../installation/condor) for setup instructions and [condor.hummingbot.org](https://condor.hummingbot.org) for full documentation.
+See the [Condor Quickstart](/documentation/installation/condor) for setup instructions and [condor.hummingbot.org](https://condor.hummingbot.org) for full documentation.
 
 #### Hummingbot Client
 
-The [Hummingbot Client](../installation/hummingbot-client) installation has been reorganized with cleaner Makefile commands ([#7888](https://github.com/hummingbot/hummingbot/pull/7888)):
+The [Hummingbot Client](/documentation/installation/hummingbot-client) installation has been reorganized with cleaner Makefile commands ([#7888](https://github.com/hummingbot/hummingbot/pull/7888)):
 
 * **Improved Conda Integration:** `make install` now correctly creates and updates the conda environment.
 * **Backward Compatible:** Previous `./start` command arguments still work with `make run`, e.g., `make run -p -f strategy.yml -c config.yml`
 
-See the [Hummingbot Client Quickstart](../installation/hummingbot-client) for full instructions.
+See the [Hummingbot Client Quickstart](/documentation/installation/hummingbot-client) for full instructions.
 
 ### 📊 Dynamic Order Book Initialization
 

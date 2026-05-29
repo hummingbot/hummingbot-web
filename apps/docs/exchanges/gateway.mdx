@@ -8,23 +8,23 @@ Gateway is API middleware that enables Hummingbot to send and receive data from 
 
 Gateway connectors establish and maintain connections to automated market maker (AMM) DEXs and other protocols on various blockchain networks, interfaces with their Javascript SDKs, and exposes standard REST API endpoints for trading and liquidity provision-related actions on these DEXs.
 
-See [Gateway](../../gateway/index) for more information.
+See [Gateway](https://hummingbot.org/gateway/) for more information.
 
 ## Gateway DEX Connector Maintenance and Governance
 
 Like other connectors, Gateway DEX connectors require ongoing maintenance: fixing bugs, addressing user issues, and keeping up with updates to both the exchange/blockchain API as well as improvements to the Hummingbot connector standard.
 
-Hummingbot Foundation maintains certain reference connectors as the standard and utilizes a community-based maintenance process. We assign [Bounties](../../bounties/index) to community developers to upgrade and fix bugs for each exchange's connectors in the codebase.
+Hummingbot Foundation maintains certain reference connectors as the standard and utilizes a community-based maintenance process. We assign [Bounties](https://hummingbot.org/bounties/) to community developers to upgrade and fix bugs for each exchange's connectors in the codebase.
 
-The community can propose changes to connector maintenance, bounty allocations, and connector removals through [Hummingbot Governance Proposals (HGP)](../../about/proposals). This process also determines which [blockchains and networks](../../gateway/chains) that Gateway supports.
+The community can propose changes to connector maintenance, bounty allocations, and connector removals through [Hummingbot Governance Proposals (HGP)](https://hummingbot.org/about/proposals/). This process also determines which [blockchains and networks](/documentation/gateway/chains) that Gateway supports.
 
 See the **Connector Pots** tab in [HBOT Tracker](https://docs.google.com/spreadsheets/d/1UNAumPMnXfsghAAXrfKkPGRH9QlC8k7Cu1FGQVL1t0M/edit?usp=sharing) for the current allocations for each exchange.
 
 ## Adding New Gateway DEX Connectors
 
-New Gateway connectors may be contributed by community members via [Hummingbot Governance Proposals (HGP)](../../about/proposals), which require a pull request with the connector code to the Hummingbot Gateway Github repo, along with a minimum HBOT balance to create.
+New Gateway connectors may be contributed by community members via [Hummingbot Governance Proposals (HGP)](https://hummingbot.org/about/proposals/), which require a pull request with the connector code to the Hummingbot Gateway Github repo, along with a minimum HBOT balance to create.
 
-If you're interested in contributing a new Gateway DEX connector, see the [DEX Connectors](../../gateway/connectors#adding-custom-connectors) documentation which provides guidance on implementing the standardized trading types and creating compatible connectors.
+If you're interested in contributing a new Gateway DEX connector, see the [DEX Connectors](/documentation/gateway/connectors#adding-custom-connectors) documentation which provides guidance on implementing the standardized trading types and creating compatible connectors.
 
 ## Current Gateway DEX Connectors
 
@@ -36,14 +36,14 @@ Here are the Gateway connectors currently in the codebase.
 
 | Exchange | Chain Type | Legacy | New | Connector Types | Guide |
 |----------|------------|--------|-----|----------------|-------|
-| [Jupiter](./jupiter) | `solana` | | ✓ | `swap` | |
-| [Meteora](./meteora) | `solana` | | ✓ | `clmm` | |
-| [Raydium](./raydium) | `solana` | | ✓ | `clmm`, `amm` | |
-| [Balancer](./balancer) | `ethereum` | ✓ |  | `amm` | |
-| [Curve](./curve) | `ethereum` | ✓ |  | `amm` | |
-| [ETCSwap](./etcSwap) | `ethereum` | ✓ |  | `amm`, `amm_lp` | |
-| [Pancakeswap](./pancakeswap) | `binance-smart-chain` | ✓ |  | `amm`, `amm_lp` | |
-| [Quickswap](./quickswap) | `polygon` | ✓ |  | `amm` | |
-| [Sushiswap](./sushiswap) | `ethereum` | ✓ |  | `amm` | |
-| [TraderJoe](./traderjoe) | `avalanche` | ✓ |  | `amm` | |
-| [Uniswap](./uniswap) | `ethereum` | ✓ | | `amm`, `amm_lp` | |
+| [Jupiter](/exchanges/gateway/jupiter) | `solana` | | ✓ | `swap` | |
+| [Meteora](/exchanges/gateway/meteora) | `solana` | | ✓ | `clmm` | |
+| [Raydium](/exchanges/gateway/raydium) | `solana` | | ✓ | `clmm`, `amm` | |
+| [Balancer](/exchanges/gateway/balancer) | `ethereum` | ✓ |  | `amm` | |
+| [Curve](/exchanges/gateway/curve) | `ethereum` | ✓ |  | `amm` | |
+| [ETCSwap](/exchanges/gateway/etcSwap) | `ethereum` | ✓ |  | `amm`, `amm_lp` | |
+| [Pancakeswap](/exchanges/gateway/pancakeswap) | `binance-smart-chain` | ✓ |  | `amm`, `amm_lp` | |
+| [Quickswap](/exchanges/gateway/quickswap) | `polygon` | ✓ |  | `amm` | |
+| [Sushiswap](/exchanges/gateway/sushiswap) | `ethereum` | ✓ |  | `amm` | |
+| [TraderJoe](/exchanges/gateway/traderjoe) | `avalanche` | ✓ |  | `amm` | |
+| [Uniswap](/exchanges/gateway/uniswap) | `ethereum` | ✓ | | `amm`, `amm_lp` | |
