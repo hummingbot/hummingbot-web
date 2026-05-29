@@ -1,0 +1,11 @@
+[
+  { "name": "Market Maker", "handle": "mm_desk", "date": "2026-04-02", "text": "Running Hummingbot across 6 venues. The XEMM controller alone paid for our infra.", "url": "https://x.com/_hummingbot" },
+  { "name": "Quant Dev", "handle": "quant_dev", "date": "2026-03-21", "text": "Backtested in quants-lab, deployed with the dashboard, monitored from Telegram. Whole loop is open source.", "url": "https://x.com/_hummingbot" },
+  { "name": "DeFi LP", "handle": "lp_maxi", "date": "2026-03-18", "text": "Condor agents rebalancing my CLMM positions while I sleep. Wild that this is free.", "url": "https://x.com/_hummingbot" },
+  { "name": "Prop Trader", "handle": "prop_trades", "date": "2026-02-27", "text": "Self-hosted, my keys, my server. No black box. This is how trading software should work.", "url": "https://x.com/_hummingbot" },
+  { "name": "Crypto Builder", "handle": "builds_things", "date": "2026-02-10", "text": "Wrote a custom v2 controller in an afternoon. The executor framework is genuinely good.", "url": "https://x.com/_hummingbot" },
+  { "name": "Arb Hunter", "handle": "arb_hunter", "date": "2026-01-30", "text": "Cross-exchange arb between Binance and Hyperliquid, all from one config. Hummingbot ftw.", "url": "https://x.com/_hummingbot" },
+  { "name": "Token Team", "handle": "token_ops", "date": "2026-01-15", "text": "We market-make our own pair with Hummingbot instead of paying a MM firm. Saved a fortune.", "url": "https://x.com/_hummingbot" },
+  { "name": "Solo Quant", "handle": "solo_quant", "date": "2025-12-22", "text": "The MCP server lets me drive my bots straight from Claude. The future is weird and great.", "url": "https://x.com/_hummingbot" },
+  { "name": "Exchange Dev", "handle": "cex_eng", "date": "2025-12-05", "text": "Integrated our connector via the bounty program. Clean architecture, responsive maintainers.", "url": "https://x.com/_hummingbot" }
+]

@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "sync-brand": "node ../../scripts/sync-brand.mjs",
+    "predev": "npm run sync-brand",
+    "prebuild": "npm run sync-brand",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -15,7 +18,8 @@
     "@hummingbot/ui": "*",
     "next": "16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "recharts": "^2.15.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -27,3 +27,4 @@ next-env.d.ts
 *.log
 npm-debug.log*
 coverage
+public/brand/

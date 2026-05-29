@@ -4,3 +4,34 @@
 /* Scan the shared UI package for Tailwind classes (workspace pkgs live in
    node_modules and are ignored by default). */
 @source "../../../../packages/ui/src";
+
+/* Horizontal marquee for the testimonials rows. */
+@keyframes hb-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hb-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: hb-marquee var(--hb-marquee-duration, 60s) linear infinite;
+}
+.hb-marquee-reverse {
+  animation-direction: reverse;
+}
+.hb-marquee:hover .hb-marquee-track,
+.hb-marquee:focus-within .hb-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
