@@ -150,11 +150,13 @@ export class ReportBuilder {
   /** spec: { data: [...traces], layout: {...} } — Plotly figure spec. */
   plotly(spec) {
     const id = `chart_${++this._plotCounter}`;
+    // Guard on window.Plotly so a blocked/slow CDN degrades to an empty chart
+    // slot instead of throwing an uncaught ReferenceError in the iframe.
     const html =
       `<div id="${id}" class="js-plotly-plot"></div>` +
-      `<script>Plotly.newPlot(${JSON.stringify(id)}, ${JSON.stringify(spec.data)}, ` +
+      `<script>if(window.Plotly){Plotly.newPlot(${JSON.stringify(id)}, ${JSON.stringify(spec.data)}, ` +
       `Object.assign({autosize:true}, ${JSON.stringify(spec.layout || {})}), ` +
-      `{responsive:true, displayModeBar:false});</script>`;
+      `{responsive:true, displayModeBar:false});}</script>`;
     this._sections.push({ type: "plotly", content: html });
     return this;
   }
