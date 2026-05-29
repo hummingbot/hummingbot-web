@@ -1,19 +1,19 @@
 import type { NextConfig } from "next";
 
 const DOCS = "https://docs.hummingbot.org";
-const DEPLOY_SETUP =
-  "https://raw.githubusercontent.com/hummingbot/deploy/main/setup.sh";
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@hummingbot/ui", "@hummingbot/brand", "@hummingbot/tokens"],
 
+  async rewrites() {
+    // The installer is now hosted by this site at public/install.sh (the deploy
+    // repo is being retired). /condor.sh serves the same script — the unified
+    // installer provisions both Condor and the Hummingbot API.
+    return [{ source: "/condor.sh", destination: "/install.sh" }];
+  },
+
   async redirects() {
     return [
-      // Install vanity URLs → deploy repo scripts (302; curl -fsSL follows).
-      // TODO(deploy): point /install.sh at deploy/main/install.sh once it lands.
-      { source: "/install.sh", destination: DEPLOY_SETUP, permanent: false },
-      { source: "/condor.sh", destination: DEPLOY_SETUP, permanent: false },
-
       // Blog + release notes now live in Mintlify (docs subdomain).
       { source: "/blog", destination: `${DOCS}/blog`, permanent: true },
       { source: "/blog/posts/:slug*", destination: `${DOCS}/blog/:slug*`, permanent: true },
