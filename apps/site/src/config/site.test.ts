@@ -24,7 +24,7 @@ describe("site config", () => {
 
   it("has a Hub menu covering all three primitive types", () => {
     const hub = nav.find((i) => i.label === "Hub");
-    expect(hub?.children?.map((c) => c.label)).toEqual(["Strategies", "Routines", "Agents"]);
+    expect(hub?.children?.map((c) => c.label)).toEqual(["Strategies", "Routines", "Skills"]);
   });
 
   it("announcement has display text and a link", () => {
