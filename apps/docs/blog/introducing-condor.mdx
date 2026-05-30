@@ -129,7 +129,7 @@ flowchart LR
 
 The key insight: **different phases have different requirements**. Observe and Act must be deterministic—fetching data and placing orders should produce consistent results. Orient and Decide benefit from probabilistic reasoning—interpreting complex situations and weighing tradeoffs is where LLMs excel.
 
-The `/agent` command enters Agent Builder mode, which connects your LLM to Hummingbot API via [MCP tools](/documentation/mcp). Agent Builder mode guides you through creating a Trading Agent using this framework:
+The `/agent` command enters Agent Builder mode, which connects your LLM to Hummingbot API via [MCP tools](https://github.com/hummingbot/mcp). Agent Builder mode guides you through creating a Trading Agent using this framework:
 
 - **Observe**: Define what data your agent needs—order books, candles, positions, balances, funding rates
 - **Orient**: Build routines to process the data—custom indicators, signal generators, market filters
