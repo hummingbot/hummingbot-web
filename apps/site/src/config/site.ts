@@ -37,7 +37,7 @@ export const nav: NavItem[] = [
     children: [
       { label: "Strategies", href: `${urls.hub}/strategies`, description: "Market-making, arbitrage & more" },
       { label: "Routines", href: `${urls.hub}/routines`, description: "Schedulable Condor workflows" },
-      { label: "Agents", href: `${urls.hub}/agents`, description: "Autonomous trading harnesses" },
+      { label: "Skills", href: `${urls.hub}/skills`, description: "AI-assistant skills for Hummingbot" },
     ],
   },
   { label: "Volumes", href: "/volumes" },

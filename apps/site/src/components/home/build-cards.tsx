@@ -18,11 +18,11 @@ const cards = [
     cmd: "condor install @author/name",
   },
   {
-    title: "Agents",
+    title: "Skills",
     icon: Bot,
-    desc: "Autonomous trading harnesses that reason, plan, and execute on your behalf.",
-    href: `${urls.hub}/agents`,
-    cmd: "condor install @author/name",
+    desc: "Installable skills that let AI assistants operate Hummingbot through natural language.",
+    href: `${urls.hub}/skills`,
+    cmd: "npx skills add hummingbot/skills --skill name",
   },
 ];
 
