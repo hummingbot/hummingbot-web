@@ -1,37 +1,68 @@
 @import "tailwindcss";
 @import "@hummingbot/tokens/theme.css";
 
-/* Scan the shared UI package for Tailwind classes (workspace pkgs live in
-   node_modules and are ignored by default). */
 @source "../../../../packages/ui/src";
 
-/* Horizontal marquee for the testimonials rows. */
-@keyframes hb-marquee {
-  from {
-    transform: translateX(0);
+@theme {
+  --font-satoshi: var(--font-satoshi);
+}
+
+@layer base {
+  * {
+    @apply border-border;
   }
-  to {
-    transform: translateX(-50%);
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-.hb-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: hb-marquee var(--hb-marquee-duration, 60s) linear infinite;
-}
-.hb-marquee-reverse {
-  animation-direction: reverse;
-}
-.hb-marquee:hover .hb-marquee-track,
-.hb-marquee:focus-within .hb-marquee-track {
-  animation-play-state: paused;
-}
+/* ── Theming ──────────────────────────────────────────────────────────────
+ * Dark is the brand default (token values live in @hummingbot/tokens, where
+ * the Tailwind utilities reference raw ink/brand CSS vars). Light mode
+ * overrides those raw vars plus the HSL semantic-surface channels under
+ * data-theme="light", so every ink/card/brand utility re-themes with no
+ * component changes. Toggled via data-theme on <html> (set pre-paint by the
+ * no-flash script in layout.tsx, flipped by ThemeToggle). Mirrors apps/hub.
+ */
+:root[data-theme="light"] {
+  color-scheme: light;
 
-@media (prefers-reduced-motion: reduce) {
-  .hb-marquee-track {
-    animation: none;
-    flex-wrap: wrap;
-    width: 100%;
-  }
+  /* Inverted neutral ramp — low indices read as ink (text), high as surfaces.
+   * ink-400/500/600 are darkened past the WCAG AA 4.5:1 floor for muted text
+   * on light surfaces (plain #71717a measured 4.06 — just under). */
+  --ink-0: #18181b;
+  --ink-50: #1f1f22;
+  --ink-100: #27272a;
+  --ink-150: #3f3f46;
+  --ink-200: #3f3f46;
+  --ink-300: #52525b;
+  --ink-400: #5c5c64;
+  --ink-500: #63636b;
+  --ink-600: #67676f;
+  --ink-700: #d4d4d8;
+  --ink-800: #e4e4e7;
+  --ink-850: #ececef;
+  --ink-900: #f4f4f5;
+  --ink-950: #f9f9fa;
+  --ink-999: #ffffff;
+
+  /* Semantic surfaces — consumed as hsl(var(--x)), so set HSL channels. Page
+   * is a light gray so white cards (--card) separate without relying only on
+   * borders. */
+  --background: 220 16% 95%; /* #eef0f3 */
+  --foreground: 240 6% 10%; /* #18181b */
+  --card: 0 0% 100%; /* #ffffff */
+  --card-foreground: 240 6% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 6% 10%;
+  --muted: 220 14% 92%;
+  --muted-foreground: 240 4% 42%;
+  --border: 240 6% 90%; /* #e4e4e7 */
+  --input: 240 6% 90%;
+  --ring: 186 85% 35%; /* calmer teal */
+
+  /* Neon teal (#5fffd7) washes out on white — use a legible teal for accents,
+   * focus rings and brand-teal surfaces. Darker than the hub's light teal so
+   * white text on the teal CTA button clears WCAG AA 4.5 (4.4 at #0d9aa6). */
+  --brand-teal: #0a8a95;
 }

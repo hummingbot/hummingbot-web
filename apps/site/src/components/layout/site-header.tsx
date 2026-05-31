@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button, cn } from "@hummingbot/ui";
 import { nav, urls, type NavItem } from "@/config/site";
 import { Logo } from "./logo";
+import { ThemeToggle } from "./theme-toggle";
 
 function NavLink({ item }: { item: NavItem }) {
   const hasChildren = !!item.children?.length;
@@ -90,6 +91,7 @@ export function SiteHeader() {
           >
             <Github className="size-5" aria-hidden="true" />
           </a>
+          <ThemeToggle />
           <a href={urls.docs} target="_blank" rel="noreferrer">
             <Button size="sm">Get Started</Button>
           </a>
