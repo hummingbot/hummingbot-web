@@ -8,6 +8,37 @@
   --font-satoshi: var(--font-satoshi);
 }
 
+/* Horizontal marquee for the testimonials rows (TweetMarquee). */
+@keyframes hb-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hb-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: hb-marquee var(--hb-marquee-duration, 60s) linear infinite;
+}
+.hb-marquee-reverse {
+  animation-direction: reverse;
+}
+.hb-marquee:hover .hb-marquee-track,
+.hb-marquee:focus-within .hb-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
 /* Long-form blog prose. Binds @tailwindcss/typography's --tw-prose-* vars to
  * the design tokens so article bodies are theme-aware (re-themes under
  * data-theme="light" with the rest of the ink scale — see the Theming block
