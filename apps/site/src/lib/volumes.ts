@@ -91,13 +91,7 @@ export function getVolumesData(): VolumesData {
   return cache;
 }
 
-export function formatUsd(n: number): string {
-  if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
-  if (n >= 1e6) return `$${(n / 1e6).toFixed(1)}M`;
-  if (n >= 1e3) return `$${(n / 1e3).toFixed(1)}K`;
-  return `$${n.toFixed(0)}`;
-}
-
-export function capitalize(s: string): string {
-  return s.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-}
+// Re-export the client-safe formatters so existing imports from "@/lib/volumes"
+// keep working (server pages can import either; client components must import
+// from "@/lib/volumes-format" to avoid pulling node:fs into the bundle).
+export { formatUsd, capitalize } from "./volumes-format";

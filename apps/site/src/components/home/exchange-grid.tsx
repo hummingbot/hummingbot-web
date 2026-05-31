@@ -21,8 +21,6 @@ export function ExchangeGrid() {
           <li key={ex.name}>
             <a
               href={urls.exchanges}
-              target="_blank"
-              rel="noreferrer"
               className="flex h-20 items-center justify-center rounded-xl border border-ink-800 bg-card transition-colors hover:border-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

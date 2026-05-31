@@ -18,6 +18,9 @@ const nextConfig: NextConfig = {
       // (/blog/posts/<slug>) redirect to the flat /blog/<slug> routes.
       { source: "/blog/posts/:slug*", destination: "/blog/:slug*", permanent: true },
 
+      // Volumes merged into the Exchanges page.
+      { source: "/volumes", destination: "/exchanges", permanent: true },
+
       // Release notes still live in Mintlify (docs subdomain).
       { source: "/release-notes", destination: `${DOCS}/blog`, permanent: true },
       {
