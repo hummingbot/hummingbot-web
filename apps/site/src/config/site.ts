@@ -30,7 +30,15 @@ export type NavItem = {
 };
 
 export const nav: NavItem[] = [
-  { label: "Docs", href: urls.docs, external: true },
+  {
+    label: "Docs",
+    href: urls.docs,
+    external: true,
+    children: [
+      { label: "Hummingbot", href: urls.docs, description: "Framework, strategies & connectors" },
+      { label: "Condor", href: `${urls.docs}/condor`, description: "The harness for AI trading agents" },
+    ],
+  },
   {
     label: "Hub",
     href: urls.hub,

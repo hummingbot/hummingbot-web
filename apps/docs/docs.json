@@ -488,6 +488,11 @@
   },
   "redirects": [
     {
+      "source": "/condor",
+      "destination": "/introduction",
+      "permanent": false
+    },
+    {
       "source": "/blog",
       "destination": "https://hummingbot.org/blog",
       "permanent": true
