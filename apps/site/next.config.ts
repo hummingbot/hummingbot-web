@@ -14,10 +14,11 @@ const nextConfig: NextConfig = {
       { source: "/install.sh", destination: DEPLOY_SETUP, permanent: false },
       { source: "/condor.sh", destination: DEPLOY_SETUP, permanent: false },
 
-      // Blog + release notes now live in Mintlify (docs subdomain).
-      { source: "/blog", destination: `${DOCS}/blog`, permanent: true },
-      { source: "/blog/posts/:slug*", destination: `${DOCS}/blog/:slug*`, permanent: true },
-      { source: "/blog/:slug*", destination: `${DOCS}/blog/:slug*`, permanent: true },
+      // The blog now lives on this site (/blog). Legacy mkdocs post paths
+      // (/blog/posts/<slug>) redirect to the flat /blog/<slug> routes.
+      { source: "/blog/posts/:slug*", destination: "/blog/:slug*", permanent: true },
+
+      // Release notes still live in Mintlify (docs subdomain).
       { source: "/release-notes", destination: `${DOCS}/blog`, permanent: true },
       {
         source: "/release-notes/:version",

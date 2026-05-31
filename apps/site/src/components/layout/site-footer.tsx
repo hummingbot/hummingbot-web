@@ -11,7 +11,7 @@ const columns: Col[] = [
     links: [
       { label: "Docs", href: urls.docs, external: true },
       { label: "Hub", href: urls.hub, external: true },
-      { label: "Blog", href: urls.blog, external: true },
+      { label: "Blog", href: "/blog" },
       { label: "Volumes", href: "/volumes" },
       { label: "Exchanges", href: urls.exchanges, external: true },
       { label: "Discord", href: urls.discord, external: true },

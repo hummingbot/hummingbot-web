@@ -384,14 +384,8 @@
         ]
       },
       {
-        "tab": "Blog",
+        "tab": "Release Notes",
         "groups": [
-          {
-            "group": "Blog",
-            "pages": [
-              "blog/overview"
-            ]
-          },
           {
             "group": "Releases",
             "pages": [
@@ -443,144 +437,6 @@
               "blog/hummingbot-v1.0.1",
               "blog/hummingbot-v1.1.1"
             ]
-          },
-          {
-            "group": "Roadmap",
-            "pages": [
-              "blog/introducing-condor",
-              "blog/hummingbot-2024-technical-roadmap",
-              "blog/hummingbot-2023-roadmap-update",
-              "blog/hummingbot-2023-technical-roadmap",
-              "blog/hummingbot-roadmap-q2-2021",
-              "blog/hummingbot-2020-roadmap"
-            ]
-          },
-          {
-            "group": "Governance",
-            "pages": [
-              "blog/governance-simplification-proposal-2025",
-              "blog/tracking-foundation-hbot-purchases",
-              "blog/state-of-the-foundation-2024",
-              "blog/epoch-6-polls-recap",
-              "blog/faq-on-hbot-and-hummingbot-governance",
-              "blog/proposed-epoch-6-governance-changes",
-              "blog/epoch-5-polls-recap",
-              "blog/epoch-5-hbot-voter-guide",
-              "blog/epoch-4-polls-recap",
-              "blog/end-of-hbot-delegation",
-              "blog/faq-on-hummingbot-polls-for-exchanges",
-              "blog/epoch-3-polls-recap",
-              "blog/hummingbot-2023-governance-roadmap",
-              "blog/changes-to-hummingbot-maintenance-and-governance",
-              "blog/introducing-the-hummingbot-governance-token-hbot"
-            ]
-          },
-          {
-            "group": "Connectors",
-            "pages": [
-              "blog/using-xrpl-with-hummingbot",
-              "blog/using-binance-with-hummingbot",
-              "blog/using-derive-with-hummingbot",
-              "blog/injective-connector-guide",
-              "blog/using-dydx-v4-with-hummingbot",
-              "blog/dydx-v4-connector",
-              "blog/announcing-xrpl-connector",
-              "blog/announcing-vega-hummingbot-connector-sponsorship",
-              "blog/using-vega-protocol-with-hummingbot",
-              "blog/using-osmosis-with-hummingbot",
-              "blog/using-dexalot-with-hummingbot",
-              "blog/using-hyperliquid-vaults-with-hummingbot",
-              "blog/using-polkadex-with-hummingbot",
-              "blog/introducing-the-perpetual-protocol-connector-and-strategy",
-              "blog/what-is-cross-exchange-market-making",
-              "blog/exchange-types-explained-clob-rfq-amm"
-            ]
-          },
-          {
-            "group": "Interviews",
-            "pages": [
-              "blog/interview-with-liquidity-miner-mrbig",
-              "blog/interview-with-community-member-vik",
-              "blog/interview-with-market-maker-harry-yeh",
-              "blog/interview-with-liquidity-miner-neohowie",
-              "blog/interview-with-liquidity-miner-lorenzo",
-              "blog/interview-with-liquidity-miner-dominator008",
-              "blog/interview-with-liquidity-miner-david-salter",
-              "blog/from-hedge-fund-to-market-making-bot-the-hummingbot-origin-story"
-            ]
-          },
-          {
-            "group": "Tutorials",
-            "pages": [
-              "blog/strategy-guide-grid-strike",
-              "blog/dashboard-tutorial-pmm-simple-v2",
-              "blog/quickstart-dashboard",
-              "blog/docker-installation-guide",
-              "blog/directional-trading-experiment",
-              "blog/how-to-trade-crypto",
-              "blog/tips-for-handling-different-market-conditions",
-              "blog/basic-concepts-of-crypto-trading",
-              "blog/guide-to-the-avellaneda-stoikov-strategy",
-              "blog/what-is-inventory-risk",
-              "blog/what-is-arbitrage",
-              "blog/what-is-market-making",
-              "blog/how-to-think-about-liquidity-blockcrunch"
-            ]
-          },
-          {
-            "group": "Announcements",
-            "pages": [
-              "blog/affiliate-program",
-              "blog/botcamp-cohort-7-demo-day",
-              "blog/improvements-to-discord-support-program",
-              "blog/announcing-botcamp-and-the-broader-hummingbot-ecosystem",
-              "blog/2023-a-year-of-innovation-at-hummingbot",
-              "blog/introducing-v2-strategies",
-              "blog/retrospective-on-the-october-2023-bot-battle",
-              "blog/beta-bot-battle-results-and-roundup",
-              "blog/join-the-beta-bot-battle",
-              "blog/launching-usdc-payouts-for-bounty-recipients",
-              "blog/kicking-off-the-hummingbot-dashboard-community-project",
-              "blog/botcamp-cohort-4-demo-day",
-              "blog/introducing-community-bounties",
-              "blog/introducing-discord-support-bounties",
-              "blog/gate-io-trading-competition-results-and-retrospective",
-              "blog/introducing-the-hummingbot-foundation",
-              "blog/open-defi-hackathon-join-the-hunt-for-hummingbot-bounties",
-              "blog/hummingbot-miner-year-1-recap",
-              "blog/nem-liquidity-mining-case-study",
-              "blog/partnering-with-balancer",
-              "blog/liquidity-mining-in-hummingbot-vs-defi-part-2",
-              "blog/liquidity-mining-in-hummingbot-vs-defi",
-              "blog/introducing-the-celo-arbitrage-bot",
-              "blog/introducing-the-eagle-club",
-              "blog/hummingbot-collaborates-with-binance",
-              "blog/liquidity-mining-launch",
-              "blog/hummingbot-partners-with-kucoin",
-              "blog/demystifying-liquidity-mining-rewards",
-              "blog/introducing-liquidity-mining-a-marketplace-for-market-makers",
-              "blog/liquidity-mining-whitepaper",
-              "blog/does-community-based-market-making-work",
-              "blog/introducing-harmony-liquidity-bounties",
-              "blog/hummingbot-vs-uniswap-two-approaches-to-liquidity",
-              "blog/hummingbot-is-live",
-              "blog/the-thin-crust-of-liquidity",
-              "blog/hummingbot-whitepaper"
-            ]
-          },
-          {
-            "group": "Engineering",
-            "pages": [
-              "blog/create-controller-config",
-              "blog/coding-a-custom-v2-controller",
-              "blog/strategy-coding-for-dummies",
-              "blog/hummingbot-gateway-architecture-part-2",
-              "blog/hummingbot-gateway-architecture-part-1",
-              "blog/hummingbot-architecture-part-2",
-              "blog/technical-deep-dive-into-the-avellaneda-stoikov-strategy",
-              "blog/hummingbot-architecture-part-1",
-              "blog/scaling-the-hummingbot-developer-community"
-            ]
           }
         ]
       },
@@ -629,5 +485,532 @@
       "youtube": "https://youtube.com/@hummingbot",
       "github": "https://github.com/hummingbot/condor"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "https://hummingbot.org/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/overview",
+      "destination": "https://hummingbot.org/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog/2023-a-year-of-innovation-at-hummingbot",
+      "destination": "https://hummingbot.org/blog/a-year-of-innovation-at-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/affiliate-program",
+      "destination": "https://hummingbot.org/blog/affiliate-program",
+      "permanent": true
+    },
+    {
+      "source": "/blog/announcing-botcamp-and-the-broader-hummingbot-ecosystem",
+      "destination": "https://hummingbot.org/blog/announcing-botcamp-and-the-broader-hummingbot-ecosystem",
+      "permanent": true
+    },
+    {
+      "source": "/blog/announcing-vega-hummingbot-connector-sponsorship",
+      "destination": "https://hummingbot.org/blog/announcing-vega-hummingbot-connector-sponsorship",
+      "permanent": true
+    },
+    {
+      "source": "/blog/announcing-xrpl-connector",
+      "destination": "https://hummingbot.org/blog/announcing-xrpl-connector",
+      "permanent": true
+    },
+    {
+      "source": "/blog/basic-concepts-of-crypto-trading",
+      "destination": "https://hummingbot.org/blog/basic-concepts-of-crypto-trading",
+      "permanent": true
+    },
+    {
+      "source": "/blog/beta-bot-battle-results-and-roundup",
+      "destination": "https://hummingbot.org/blog/beta-bot-battle-results-and-roundup",
+      "permanent": true
+    },
+    {
+      "source": "/blog/botcamp-cohort-4-demo-day",
+      "destination": "https://hummingbot.org/blog/botcamp-cohort-4-demo-day",
+      "permanent": true
+    },
+    {
+      "source": "/blog/botcamp-cohort-7-demo-day",
+      "destination": "https://hummingbot.org/blog/botcamp-cohort-7-demo-day",
+      "permanent": true
+    },
+    {
+      "source": "/blog/changes-to-hummingbot-maintenance-and-governance",
+      "destination": "https://hummingbot.org/blog/changes-to-hummingbot-maintenance-and-governance",
+      "permanent": true
+    },
+    {
+      "source": "/blog/coding-a-custom-v2-controller",
+      "destination": "https://hummingbot.org/blog/coding-a-custom-v2-controller",
+      "permanent": true
+    },
+    {
+      "source": "/blog/create-controller-config",
+      "destination": "https://hummingbot.org/blog/create-controller-config",
+      "permanent": true
+    },
+    {
+      "source": "/blog/dashboard-tutorial-pmm-simple-v2",
+      "destination": "https://hummingbot.org/blog/dashboard-tutorial-pmm-simple-v2",
+      "permanent": true
+    },
+    {
+      "source": "/blog/demystifying-liquidity-mining-rewards",
+      "destination": "https://hummingbot.org/blog/demystifying-liquidity-mining-rewards",
+      "permanent": true
+    },
+    {
+      "source": "/blog/directional-trading-experiment",
+      "destination": "https://hummingbot.org/blog/directional-trading-experiment",
+      "permanent": true
+    },
+    {
+      "source": "/blog/docker-installation-guide",
+      "destination": "https://hummingbot.org/blog/docker-installation-guide",
+      "permanent": true
+    },
+    {
+      "source": "/blog/does-community-based-market-making-work",
+      "destination": "https://hummingbot.org/blog/does-community-based-market-making-work",
+      "permanent": true
+    },
+    {
+      "source": "/blog/dydx-v4-connector",
+      "destination": "https://hummingbot.org/blog/dydx-v4-connector",
+      "permanent": true
+    },
+    {
+      "source": "/blog/end-of-hbot-delegation",
+      "destination": "https://hummingbot.org/blog/end-of-hbot-delegation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/epoch-3-polls-recap",
+      "destination": "https://hummingbot.org/blog/epoch-3-polls-recap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/epoch-4-polls-recap",
+      "destination": "https://hummingbot.org/blog/epoch-4-polls-recap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/epoch-5-hbot-voter-guide",
+      "destination": "https://hummingbot.org/blog/epoch-5-hbot-voter-guide",
+      "permanent": true
+    },
+    {
+      "source": "/blog/epoch-5-polls-recap",
+      "destination": "https://hummingbot.org/blog/epoch-5-polls-recap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/epoch-6-polls-recap",
+      "destination": "https://hummingbot.org/blog/epoch-6-polls-recap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/exchange-types-explained-clob-rfq-amm",
+      "destination": "https://hummingbot.org/blog/exchange-types-explained-clob-rfq-amm",
+      "permanent": true
+    },
+    {
+      "source": "/blog/faq-on-hbot-and-hummingbot-governance",
+      "destination": "https://hummingbot.org/blog/faq-on-hbot-and-hummingbot-governance",
+      "permanent": true
+    },
+    {
+      "source": "/blog/faq-on-hummingbot-polls-for-exchanges",
+      "destination": "https://hummingbot.org/blog/faq-on-hummingbot-polls-for-exchanges",
+      "permanent": true
+    },
+    {
+      "source": "/blog/from-hedge-fund-to-market-making-bot-the-hummingbot-origin-story",
+      "destination": "https://hummingbot.org/blog/from-hedge-fund-to-market-making-bot-the-hummingbot-origin-story",
+      "permanent": true
+    },
+    {
+      "source": "/blog/gate-io-trading-competition-results-and-retrospective",
+      "destination": "https://hummingbot.org/blog/gate-io-trading-competition-results-and-retrospective",
+      "permanent": true
+    },
+    {
+      "source": "/blog/governance-simplification-proposal-2025",
+      "destination": "https://hummingbot.org/blog/governance-simplification-proposal-2025",
+      "permanent": true
+    },
+    {
+      "source": "/blog/guide-to-the-avellaneda-stoikov-strategy",
+      "destination": "https://hummingbot.org/blog/guide-to-the-avellaneda-stoikov-strategy",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-think-about-liquidity-blockcrunch",
+      "destination": "https://hummingbot.org/blog/how-to-think-about-liquidity-blockcrunch",
+      "permanent": true
+    },
+    {
+      "source": "/blog/how-to-trade-crypto",
+      "destination": "https://hummingbot.org/blog/how-to-trade-crypto",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-2020-roadmap",
+      "destination": "https://hummingbot.org/blog/hummingbot-2020-roadmap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-2023-governance-roadmap",
+      "destination": "https://hummingbot.org/blog/hummingbot-2023-governance-roadmap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-2023-roadmap-update",
+      "destination": "https://hummingbot.org/blog/hummingbot-2023-roadmap-update",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-2023-technical-roadmap",
+      "destination": "https://hummingbot.org/blog/hummingbot-2023-technical-roadmap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-2024-technical-roadmap",
+      "destination": "https://hummingbot.org/blog/hummingbot-2024-technical-roadmap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-architecture-part-1",
+      "destination": "https://hummingbot.org/blog/hummingbot-architecture-part-1",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-architecture-part-2",
+      "destination": "https://hummingbot.org/blog/hummingbot-architecture-part-2",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-collaborates-with-binance",
+      "destination": "https://hummingbot.org/blog/hummingbot-collaborates-with-binance",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-gateway-architecture-part-1",
+      "destination": "https://hummingbot.org/blog/hummingbot-gateway-architecture-part-1",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-gateway-architecture-part-2",
+      "destination": "https://hummingbot.org/blog/hummingbot-gateway-architecture-part-2",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-is-live",
+      "destination": "https://hummingbot.org/blog/hummingbot-is-live",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-miner-year-1-recap",
+      "destination": "https://hummingbot.org/blog/hummingbot-miner-year-1-recap",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-partners-with-kucoin",
+      "destination": "https://hummingbot.org/blog/hummingbot-partners-with-kucoin",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-roadmap-q2-2021",
+      "destination": "https://hummingbot.org/blog/hummingbot-roadmap-q2-2021",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-vs-uniswap-two-approaches-to-liquidity",
+      "destination": "https://hummingbot.org/blog/hummingbot-vs-uniswap-two-approaches-to-liquidity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-whitepaper",
+      "destination": "https://hummingbot.org/blog/hummingbot-whitepaper",
+      "permanent": true
+    },
+    {
+      "source": "/blog/improvements-to-discord-support-program",
+      "destination": "https://hummingbot.org/blog/improvements-to-discord-support-program",
+      "permanent": true
+    },
+    {
+      "source": "/blog/injective-connector-guide",
+      "destination": "https://hummingbot.org/blog/injective-connector-guide",
+      "permanent": true
+    },
+    {
+      "source": "/blog/interview-with-community-member-vik",
+      "destination": "https://hummingbot.org/blog/interview-with-community-member-vik",
+      "permanent": true
+    },
+    {
+      "source": "/blog/interview-with-liquidity-miner-david-salter",
+      "destination": "https://hummingbot.org/blog/interview-with-liquidity-miner-david-salter",
+      "permanent": true
+    },
+    {
+      "source": "/blog/interview-with-liquidity-miner-dominator008",
+      "destination": "https://hummingbot.org/blog/interview-with-liquidity-miner-dominator008",
+      "permanent": true
+    },
+    {
+      "source": "/blog/interview-with-liquidity-miner-lorenzo",
+      "destination": "https://hummingbot.org/blog/interview-with-liquidity-miner-lorenzo",
+      "permanent": true
+    },
+    {
+      "source": "/blog/interview-with-liquidity-miner-mrbig",
+      "destination": "https://hummingbot.org/blog/interview-with-liquidity-miner-mrbig",
+      "permanent": true
+    },
+    {
+      "source": "/blog/interview-with-liquidity-miner-neohowie",
+      "destination": "https://hummingbot.org/blog/interview-with-liquidity-miner-neohowie",
+      "permanent": true
+    },
+    {
+      "source": "/blog/interview-with-market-maker-harry-yeh",
+      "destination": "https://hummingbot.org/blog/interview-with-market-maker-harry-yeh",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-community-bounties",
+      "destination": "https://hummingbot.org/blog/introducing-community-bounties",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-condor",
+      "destination": "https://hummingbot.org/blog/introducing-condor",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-discord-support-bounties",
+      "destination": "https://hummingbot.org/blog/introducing-discord-support-bounties",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-harmony-liquidity-bounties",
+      "destination": "https://hummingbot.org/blog/introducing-harmony-liquidity-bounties",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-liquidity-mining-a-marketplace-for-market-makers",
+      "destination": "https://hummingbot.org/blog/introducing-liquidity-mining-a-marketplace-for-market-makers",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-the-celo-arbitrage-bot",
+      "destination": "https://hummingbot.org/blog/introducing-the-celo-arbitrage-bot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-the-eagle-club",
+      "destination": "https://hummingbot.org/blog/introducing-the-eagle-club",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-the-hummingbot-foundation",
+      "destination": "https://hummingbot.org/blog/introducing-the-hummingbot-foundation",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-the-hummingbot-governance-token-hbot",
+      "destination": "https://hummingbot.org/blog/introducing-the-hummingbot-governance-token-hbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-the-perpetual-protocol-connector-and-strategy",
+      "destination": "https://hummingbot.org/blog/introducing-the-perpetual-protocol-connector-and-strategy",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introducing-v2-strategies",
+      "destination": "https://hummingbot.org/blog/introducing-v2-strategies",
+      "permanent": true
+    },
+    {
+      "source": "/blog/join-the-beta-bot-battle",
+      "destination": "https://hummingbot.org/blog/join-the-beta-bot-battle",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kicking-off-the-hummingbot-dashboard-community-project",
+      "destination": "https://hummingbot.org/blog/kicking-off-the-hummingbot-dashboard-community-project",
+      "permanent": true
+    },
+    {
+      "source": "/blog/launching-usdc-payouts-for-bounty-recipients",
+      "destination": "https://hummingbot.org/blog/launching-usdc-payouts-for-bounty-recipients",
+      "permanent": true
+    },
+    {
+      "source": "/blog/liquidity-mining-in-hummingbot-vs-defi",
+      "destination": "https://hummingbot.org/blog/liquidity-mining-in-hummingbot-vs-defi",
+      "permanent": true
+    },
+    {
+      "source": "/blog/liquidity-mining-in-hummingbot-vs-defi-part-2",
+      "destination": "https://hummingbot.org/blog/liquidity-mining-in-hummingbot-vs-defi-part-2",
+      "permanent": true
+    },
+    {
+      "source": "/blog/liquidity-mining-launch",
+      "destination": "https://hummingbot.org/blog/liquidity-mining-launch",
+      "permanent": true
+    },
+    {
+      "source": "/blog/liquidity-mining-whitepaper",
+      "destination": "https://hummingbot.org/blog/liquidity-mining-whitepaper",
+      "permanent": true
+    },
+    {
+      "source": "/blog/nem-liquidity-mining-case-study",
+      "destination": "https://hummingbot.org/blog/nem-liquidity-mining-case-study",
+      "permanent": true
+    },
+    {
+      "source": "/blog/open-defi-hackathon-join-the-hunt-for-hummingbot-bounties",
+      "destination": "https://hummingbot.org/blog/open-defi-hackathon-join-the-hunt-for-hummingbot-bounties",
+      "permanent": true
+    },
+    {
+      "source": "/blog/partnering-with-balancer",
+      "destination": "https://hummingbot.org/blog/partnering-with-balancer",
+      "permanent": true
+    },
+    {
+      "source": "/blog/proposed-epoch-6-governance-changes",
+      "destination": "https://hummingbot.org/blog/proposed-epoch-6-governance-changes",
+      "permanent": true
+    },
+    {
+      "source": "/blog/quickstart-dashboard",
+      "destination": "https://hummingbot.org/blog/quickstart-dashboard",
+      "permanent": true
+    },
+    {
+      "source": "/blog/retrospective-on-the-october-2023-bot-battle",
+      "destination": "https://hummingbot.org/blog/retrospective-on-the-october-2023-bot-battle",
+      "permanent": true
+    },
+    {
+      "source": "/blog/scaling-the-hummingbot-developer-community",
+      "destination": "https://hummingbot.org/blog/scaling-the-hummingbot-developer-community",
+      "permanent": true
+    },
+    {
+      "source": "/blog/state-of-the-foundation-2024",
+      "destination": "https://hummingbot.org/blog/state-of-the-foundation-2024",
+      "permanent": true
+    },
+    {
+      "source": "/blog/strategy-coding-for-dummies",
+      "destination": "https://hummingbot.org/blog/strategy-coding-for-dummies",
+      "permanent": true
+    },
+    {
+      "source": "/blog/strategy-guide-grid-strike",
+      "destination": "https://hummingbot.org/blog/strategy-guide-grid-strike",
+      "permanent": true
+    },
+    {
+      "source": "/blog/technical-deep-dive-into-the-avellaneda-stoikov-strategy",
+      "destination": "https://hummingbot.org/blog/technical-deep-dive-into-the-avellaneda-stoikov-strategy",
+      "permanent": true
+    },
+    {
+      "source": "/blog/the-thin-crust-of-liquidity",
+      "destination": "https://hummingbot.org/blog/the-thin-crust-of-liquidity",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tips-for-handling-different-market-conditions",
+      "destination": "https://hummingbot.org/blog/tips-for-handling-different-market-conditions",
+      "permanent": true
+    },
+    {
+      "source": "/blog/tracking-foundation-hbot-purchases",
+      "destination": "https://hummingbot.org/blog/tracking-foundation-hbot-purchases",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-binance-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-binance-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-derive-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-derive-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-dexalot-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-dexalot-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-dydx-v4-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-dydx-v4-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-hyperliquid-vaults-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-hyperliquid-vaults-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-osmosis-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-osmosis-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-polkadex-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-polkadex-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-vega-protocol-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-vega-protocol-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/using-xrpl-with-hummingbot",
+      "destination": "https://hummingbot.org/blog/using-xrpl-with-hummingbot",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-is-arbitrage",
+      "destination": "https://hummingbot.org/blog/what-is-arbitrage",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-is-cross-exchange-market-making",
+      "destination": "https://hummingbot.org/blog/what-is-cross-exchange-market-making",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-is-inventory-risk",
+      "destination": "https://hummingbot.org/blog/what-is-inventory-risk",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-is-market-making",
+      "destination": "https://hummingbot.org/blog/what-is-market-making",
+      "permanent": true
+    }
+  ]
 }

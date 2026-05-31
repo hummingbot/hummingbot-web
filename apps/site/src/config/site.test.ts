@@ -27,8 +27,16 @@ describe("site config", () => {
     expect(hub?.children?.map((c) => c.label)).toEqual(["Strategies", "Routines", "Skills"]);
   });
 
+  it("links Blog to the internal /blog route", () => {
+    const blog = nav.find((i) => i.label === "Blog");
+    expect(blog?.href).toBe("/blog");
+    expect(blog?.external).toBeFalsy();
+    expect(urls.blog).toBe("/blog");
+  });
+
   it("announcement has display text and a link", () => {
     expect(announcement.text).toBeTruthy();
-    expect(announcement.href).toMatch(/^https?:\/\//);
+    // internal (root-relative) or absolute external both valid
+    expect(announcement.href.startsWith("/") || /^https?:\/\//.test(announcement.href)).toBe(true);
   });
 });

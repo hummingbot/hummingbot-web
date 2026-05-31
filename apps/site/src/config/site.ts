@@ -7,8 +7,8 @@ const HUB = process.env.NEXT_PUBLIC_HUB_URL ?? "https://hub.hummingbot.org";
 
 export const urls = {
   docs: DOCS,
-  blog: `${DOCS}/blog`,
-  releases: `${DOCS}/blog/releases`,
+  blog: "/blog",
+  releases: `${DOCS}/blog`,
   exchanges: `${DOCS}/exchanges`,
   hub: HUB,
   github: "https://github.com/hummingbot",
@@ -41,7 +41,7 @@ export const nav: NavItem[] = [
     ],
   },
   { label: "Volumes", href: "/volumes" },
-  { label: "Blog", href: urls.blog, external: true },
+  { label: "Blog", href: "/blog" },
   {
     label: "About",
     href: "/about",
