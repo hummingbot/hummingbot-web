@@ -492,61 +492,6 @@
       "permanent": false
     },
     {
-      "source": "/introduction",
-      "destination": "/condor/introduction",
-      "permanent": true
-    },
-    {
-      "source": "/motivation",
-      "destination": "/condor/motivation",
-      "permanent": true
-    },
-    {
-      "source": "/installation",
-      "destination": "/condor/installation",
-      "permanent": true
-    },
-    {
-      "source": "/release-process",
-      "destination": "/condor/release-process",
-      "permanent": true
-    },
-    {
-      "source": "/llm-integration",
-      "destination": "/condor/llm-integration",
-      "permanent": true
-    },
-    {
-      "source": "/getting-started/:slug*",
-      "destination": "/condor/getting-started/:slug*",
-      "permanent": true
-    },
-    {
-      "source": "/trading-agents/:slug*",
-      "destination": "/condor/trading-agents/:slug*",
-      "permanent": true
-    },
-    {
-      "source": "/executors/:slug*",
-      "destination": "/condor/executors/:slug*",
-      "permanent": true
-    },
-    {
-      "source": "/routines/:slug*",
-      "destination": "/condor/routines/:slug*",
-      "permanent": true
-    },
-    {
-      "source": "/bots/:slug*",
-      "destination": "/condor/bots/:slug*",
-      "permanent": true
-    },
-    {
-      "source": "/other-features/:slug*",
-      "destination": "/condor/other-features/:slug*",
-      "permanent": true
-    },
-    {
       "source": "/documentation/installation/condor",
       "destination": "/condor/getting-started/overview",
       "permanent": true

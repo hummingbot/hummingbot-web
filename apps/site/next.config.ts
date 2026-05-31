@@ -29,6 +29,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // Condor docs live in Mintlify under docs.hummingbot.org/condor. The old
+      // condor.hummingbot.org host redirects to hummingbot.org/condor/* (set up
+      // in DNS/host config), which we forward on to the docs subdomain.
+      { source: "/condor", destination: `${DOCS}/condor`, permanent: true },
+      { source: "/condor/:path*", destination: `${DOCS}/condor/:path*`, permanent: true },
+
       // Docs live in Mintlify. /exchanges is now a marketing landing on this
       // site; individual connector pages still live in docs, so only redirect
       // the sub-paths (:path+ = one-or-more, leaving bare /exchanges to us).
