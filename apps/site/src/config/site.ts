@@ -36,7 +36,7 @@ export const nav: NavItem[] = [
     external: true,
     children: [
       { label: "Hummingbot", href: urls.docs, description: "Framework, strategies & connectors" },
-      { label: "Condor", href: `${urls.docs}/condor`, description: "The harness for AI trading agents" },
+      { label: "Condor", href: "/condor", description: "The harness for AI trading agents" },
     ],
   },
   {
