@@ -1,6 +1,6 @@
 import { ArrowRight, Github, Star } from "lucide-react";
 import { Button, GradientText } from "@hummingbot/ui";
-import { urls } from "@/config/site";
+import { announcement, urls } from "@/config/site";
 import { formatStars, getLatestRelease, getRepoStars } from "@/lib/github";
 import { InstallTabs } from "./install-tabs";
 
@@ -19,6 +19,16 @@ export async function Hero() {
         className="pointer-events-none absolute inset-x-0 -top-40 -z-10 mx-auto h-[480px] max-w-4xl rounded-full bg-gradient-to-r from-brand-teal/20 via-brand-cyan/10 to-brand-magenta/20 blur-3xl"
       />
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 pb-20 pt-20 text-center sm:pt-28">
+        <a
+          href={announcement.href}
+          className="group inline-flex items-center gap-2 rounded-full border border-ink-800 bg-ink-900/60 px-4 py-1.5 text-sm text-ink-300 transition-colors hover:border-ink-700 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <span className="text-pretty">{announcement.text}</span>
+          <ArrowRight
+            className="size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5"
+            aria-hidden="true"
+          />
+        </a>
         <h1 className="max-w-4xl text-balance text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
           The open source framework for{" "}
           <GradientText>agentic trading strategies</GradientText>

@@ -1,4 +1,3 @@
-import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Hero } from "@/components/home/hero";
@@ -13,7 +12,6 @@ import { NewsletterDiscord } from "@/components/home/newsletter-discord";
 export default function Home() {
   return (
     <>
-      <AnnouncementBar />
       <SiteHeader />
       <main className="flex flex-1 flex-col">
         <Hero />
