@@ -74,6 +74,26 @@ export async function getRepoStars(repo: string): Promise<number | null> {
   }
 }
 
+export type RepoStats = { stars: number; forks: number };
+
+/** Stars + forks for a repo (for the navbar repo widget). */
+export async function getRepoStats(repo: string): Promise<RepoStats | null> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${githubOrg}/${repo}`, {
+      headers,
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as {
+      stargazers_count?: number;
+      forks_count?: number;
+    };
+    return { stars: data.stargazers_count ?? 0, forks: data.forks_count ?? 0 };
+  } catch {
+    return null;
+  }
+}
+
 export function formatStars(n: number): string {
   if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
   return String(n);
