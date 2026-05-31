@@ -29,9 +29,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // Condor docs live in Mintlify under docs.hummingbot.org/condor. The old
-      // condor.hummingbot.org host redirects to hummingbot.org/condor/* (set up
-      // in DNS/host config), which we forward on to the docs subdomain.
+      // Retire the old standalone Condor host: condor.hummingbot.org/* ->
+      // hummingbot.org/condor/*. Fires only when condor.hummingbot.org is
+      // pointed at this (site) Vercel project.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "condor.hummingbot.org" }],
+        destination: "https://hummingbot.org/condor/:path*",
+        permanent: true,
+      },
+
+      // Condor docs live in Mintlify under docs.hummingbot.org/condor; forward
+      // the site-owned canonical /condor/* on to the docs subdomain.
       { source: "/condor", destination: `${DOCS}/condor`, permanent: true },
       { source: "/condor/:path*", destination: `${DOCS}/condor/:path*`, permanent: true },
 
