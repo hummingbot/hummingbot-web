@@ -1,6 +1,7 @@
 import { Github } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@hummingbot/ui";
+import { ThemeToggle } from "./theme-toggle";
 
 function HubLogo() {
   return (
@@ -49,6 +50,7 @@ export function HubHeader() {
           >
             hummingbot.org
           </a>
+          <ThemeToggle />
           <a
             href="https://github.com/hummingbot"
             target="_blank"
@@ -68,7 +70,7 @@ export function HubFooter({ className }: { className?: string }) {
   return (
     <footer className={cn("border-t border-ink-800 bg-ink-999", className)}>
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-8 text-xs text-ink-600 sm:flex-row">
-        <p>© {new Date().getFullYear()} Hummingbot Foundation · Built by the community.</p>
+        <p>© {new Date().getFullYear()} Hummingbot Foundation · Built by traders, for traders.</p>
         <div className="flex gap-4">
           <a href="https://docs.hummingbot.org" className="hover:text-foreground">Docs</a>
           <a href="https://discord.gg/hummingbot" className="hover:text-foreground">Discord</a>

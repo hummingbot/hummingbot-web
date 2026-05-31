@@ -23,7 +23,7 @@ export default function HubHome() {
       <main className="flex flex-1 flex-col">
         <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-8 px-4 py-20 text-center">
           <h1 className="text-balance text-5xl font-bold tracking-tight sm:text-6xl">
-            <GradientText>Built by the community.</GradientText>
+            <GradientText>Built by traders, for traders.</GradientText>
           </h1>
           <p className="max-w-xl text-pretty text-lg text-ink-400">
             Trading strategies, routines, and skills — installable in one command.

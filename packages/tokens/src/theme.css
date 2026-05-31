@@ -8,31 +8,37 @@
    fallback for non-Next consumers.
    ============================================================ */
 
-/* Map design tokens → Tailwind utility namespaces. */
+/* Map design tokens → Tailwind utility namespaces.
+ *
+ * Brand + ink colors reference raw CSS vars (--brand-*, --ink-* on :root)
+ * instead of literals. With @theme inline this emits utilities like
+ * `bg-ink-900 { background:var(--ink-900) }`, so an app can override the raw
+ * var under a [data-theme] selector and the utility re-themes at runtime.
+ * Dark defaults below are unchanged. */
 @theme inline {
   /* Brand accents (signature Hummingbot palette) */
-  --color-brand-teal: #5fffd7;
-  --color-brand-yellow: #fcdb17;
-  --color-brand-magenta: #e549ff;
-  --color-brand-orange: #ef8728;
-  --color-brand-cyan: #00c2ce;
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-magenta: var(--brand-magenta);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-cyan: var(--brand-cyan);
 
   /* Ink scale (neutrals) */
-  --color-ink-0: #ffffff;
-  --color-ink-50: #fafafa;
-  --color-ink-100: #f5f5f5;
-  --color-ink-150: #ededee;
-  --color-ink-200: #e5e7eb;
-  --color-ink-300: #d4d4d8;
-  --color-ink-400: #a1a1aa;
-  --color-ink-500: #71717a;
-  --color-ink-600: #52525b;
-  --color-ink-700: #3f3f46;
-  --color-ink-800: #2f2f2f;
-  --color-ink-850: #1f1f22;
-  --color-ink-900: #1a1a1b;
-  --color-ink-950: #0f0f0f;
-  --color-ink-999: #090909;
+  --color-ink-0: var(--ink-0);
+  --color-ink-50: var(--ink-50);
+  --color-ink-100: var(--ink-100);
+  --color-ink-150: var(--ink-150);
+  --color-ink-200: var(--ink-200);
+  --color-ink-300: var(--ink-300);
+  --color-ink-400: var(--ink-400);
+  --color-ink-500: var(--ink-500);
+  --color-ink-600: var(--ink-600);
+  --color-ink-700: var(--ink-700);
+  --color-ink-800: var(--ink-800);
+  --color-ink-850: var(--ink-850);
+  --color-ink-900: var(--ink-900);
+  --color-ink-950: var(--ink-950);
+  --color-ink-999: var(--ink-999);
 
   /* Trading semantics */
   --color-bull: #22c55e;
@@ -74,6 +80,30 @@
 /* Raw token values — dark-first (defaults live on :root). */
 :root {
   color-scheme: dark;
+
+  /* Brand accents */
+  --brand-teal: #5fffd7;
+  --brand-yellow: #fcdb17;
+  --brand-magenta: #e549ff;
+  --brand-orange: #ef8728;
+  --brand-cyan: #00c2ce;
+
+  /* Ink scale (neutrals) */
+  --ink-0: #ffffff;
+  --ink-50: #fafafa;
+  --ink-100: #f5f5f5;
+  --ink-150: #ededee;
+  --ink-200: #e5e7eb;
+  --ink-300: #d4d4d8;
+  --ink-400: #a1a1aa;
+  --ink-500: #71717a;
+  --ink-600: #52525b;
+  --ink-700: #3f3f46;
+  --ink-800: #2f2f2f;
+  --ink-850: #1f1f22;
+  --ink-900: #1a1a1b;
+  --ink-950: #0f0f0f;
+  --ink-999: #090909;
 
   --background: 0 0% 7%;
   --foreground: 0 0% 96%;
