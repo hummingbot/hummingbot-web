@@ -26,9 +26,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // Docs / exchanges live in Mintlify too.
+      // Docs live in Mintlify. /exchanges is now a marketing landing on this
+      // site; individual connector pages still live in docs, so only redirect
+      // the sub-paths (:path+ = one-or-more, leaving bare /exchanges to us).
       { source: "/docs/:path*", destination: `${DOCS}/:path*`, permanent: true },
-      { source: "/exchanges/:path*", destination: `${DOCS}/exchanges/:path*`, permanent: true },
+      { source: "/exchanges/:path+", destination: `${DOCS}/exchanges/:path+`, permanent: true },
     ];
   },
 };
