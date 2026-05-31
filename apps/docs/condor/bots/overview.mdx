@@ -3,7 +3,7 @@ title: "Bots Overview"
 description: "Docker containers for long-running trading automation"
 ---
 
-**Bots** are Docker containers running Hummingbot instances for long-running automation tasks. They execute [Scripts](/bots/scripts) for simpler tasks or [Controllers](/bots/controllers) for algorithmic trading strategies.
+**Bots** are Docker containers running Hummingbot instances for long-running automation tasks. They execute [Scripts](/condor/bots/scripts) for simpler tasks or [Controllers](/condor/bots/controllers) for algorithmic trading strategies.
 
 ## Bots vs Executors
 
@@ -106,7 +106,7 @@ curl -u admin:admin http://localhost:8000/bot-orchestration/status
 curl -u admin:admin http://localhost:8000/bot-orchestration/my-market-maker/status
 ```
 
-The Hummingbot API also records a snapshot of every running controller every 5 minutes, so you get a time series of P&L and volume rather than a single point. Query it with `/bot-orchestration/controller-performance-history` (see [Monitoring Controllers](/bots/controllers#monitoring-controllers)), or view it in Condor under **Bots → Runs**. When a bot runs multiple controllers, **Bots → Active** charts their combined P&L with toggles to isolate each one.
+The Hummingbot API also records a snapshot of every running controller every 5 minutes, so you get a time series of P&L and volume rather than a single point. Query it with `/bot-orchestration/controller-performance-history` (see [Monitoring Controllers](/condor/bots/controllers#monitoring-controllers)), or view it in Condor under **Bots → Runs**. When a bot runs multiple controllers, **Bots → Active** charts their combined P&L with toggles to isolate each one.
 
 ### Logs
 

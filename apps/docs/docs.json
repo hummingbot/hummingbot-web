@@ -24,15 +24,14 @@
           {
             "group": "Documentation",
             "pages": [
-              "documentation/overview"
+              "documentation/overview",
+              "documentation/installation"
             ]
           },
           {
             "group": "Installation",
             "pages": [
-              "documentation/installation",
               "documentation/installation/hummingbot-client",
-              "documentation/installation/condor",
               "documentation/installation/update",
               "documentation/installation/broker"
             ]
@@ -184,79 +183,79 @@
           {
             "group": "Condor",
             "pages": [
-              "introduction",
-              "motivation",
-              "installation",
-              "release-process"
+              "condor/introduction",
+              "condor/motivation",
+              "condor/installation",
+              "condor/release-process"
             ]
           },
           {
             "group": "Getting Started",
             "pages": [
-              "getting-started/overview",
-              "getting-started/installing",
-              "getting-started/telegram",
-              "getting-started/web-dashboard",
-              "llm-integration",
-              "getting-started/credentials",
-              "getting-started/portfolio",
-              "getting-started/first-agent",
-              "getting-started/sessions"
+              "condor/getting-started/overview",
+              "condor/getting-started/installing",
+              "condor/getting-started/telegram",
+              "condor/getting-started/web-dashboard",
+              "condor/llm-integration",
+              "condor/getting-started/credentials",
+              "condor/getting-started/portfolio",
+              "condor/getting-started/first-agent",
+              "condor/getting-started/sessions"
             ]
           },
           {
             "group": "Trading Agents",
             "pages": [
-              "trading-agents/overview",
-              "trading-agents/architecture",
-              "trading-agents/sessions",
-              "trading-agents/mcp-tools",
-              "trading-agents/inventory",
-              "trading-agents/agent-builder"
+              "condor/trading-agents/overview",
+              "condor/trading-agents/architecture",
+              "condor/trading-agents/sessions",
+              "condor/trading-agents/mcp-tools",
+              "condor/trading-agents/inventory",
+              "condor/trading-agents/agent-builder"
             ]
           },
           {
             "group": "Executors",
             "pages": [
-              "executors/overview",
-              "executors/order-executor",
-              "executors/position-executor",
-              "executors/grid-executor",
-              "executors/dca-executor",
-              "executors/twap-executor",
-              "executors/xemm-executor",
-              "executors/arbitrage-executor",
-              "executors/lp-executor",
-              "executors/position-handover"
+              "condor/executors/overview",
+              "condor/executors/order-executor",
+              "condor/executors/position-executor",
+              "condor/executors/grid-executor",
+              "condor/executors/dca-executor",
+              "condor/executors/twap-executor",
+              "condor/executors/xemm-executor",
+              "condor/executors/arbitrage-executor",
+              "condor/executors/lp-executor",
+              "condor/executors/position-handover"
             ]
           },
           {
             "group": "Routines",
             "pages": [
-              "routines/overview",
-              "routines/global-routines",
-              "routines/creating-routines",
-              "routines/reports"
+              "condor/routines/overview",
+              "condor/routines/global-routines",
+              "condor/routines/creating-routines",
+              "condor/routines/reports"
             ]
           },
           {
             "group": "Bots",
             "pages": [
-              "bots/overview",
-              "bots/controllers",
-              "bots/scripts",
-              "bots/backtesting"
+              "condor/bots/overview",
+              "condor/bots/controllers",
+              "condor/bots/scripts",
+              "condor/bots/backtesting"
             ]
           },
           {
             "group": "Other Condor Features",
             "pages": [
-              "other-features/portfolio",
-              "other-features/trade",
-              "other-features/keys",
-              "other-features/server",
-              "other-features/lp",
-              "other-features/gateway"
+              "condor/other-features/portfolio",
+              "condor/other-features/trade",
+              "condor/other-features/keys",
+              "condor/other-features/server",
+              "condor/other-features/lp",
+              "condor/other-features/gateway"
             ]
           }
         ]
@@ -389,53 +388,53 @@
           {
             "group": "Releases",
             "pages": [
-              "blog/hummingbot-v2.14.0",
-              "blog/hummingbot-v2.13.0",
-              "blog/hummingbot-v2.12.0",
-              "blog/hummingbot-v2.11.0",
-              "blog/hummingbot-v2.10.0",
-              "blog/hummingbot-v2.9.0",
-              "blog/hummingbot-v2.8.0",
-              "blog/hummingbot-v2.7.0",
-              "blog/hummingbot-v2.6.0",
-              "blog/hummingbot-v2.5.0",
-              "blog/hummingbot-v2.4.0",
-              "blog/hummingbot-v2.3.0",
-              "blog/hummingbot-v2.2.0",
-              "blog/hummingbot-v2.1.0",
-              "blog/hummingbot-v2.0.1",
-              "blog/hummingbot-v2.0.0",
-              "blog/hummingbot-v1.28.0",
-              "blog/hummingbot-v1.27.0",
-              "blog/hummingbot-v1.26.0",
-              "blog/hummingbot-v1.25.0",
-              "blog/hummingbot-v1.24.0",
-              "blog/hummingbot-v1.23.0",
-              "blog/hummingbot-v1.22.0",
-              "blog/hummingbot-v1.21.0",
-              "blog/hummingbot-v1.20.0",
-              "blog/hummingbot-v1.19.0",
-              "blog/hummingbot-v1.18.0",
-              "blog/hummingbot-v1.17.0",
-              "blog/hummingbot-v1.16.0",
-              "blog/hummingbot-v1.15.0",
-              "blog/hummingbot-v1.14.0",
-              "blog/hummingbot-v1.13.0",
-              "blog/hummingbot-v1.12.0",
-              "blog/hummingbot-v1.11.0",
-              "blog/hummingbot-v1.10.0",
-              "blog/hummingbot-v1.9.0",
-              "blog/hummingbot-v1.8.0",
-              "blog/hummingbot-v1.7.0",
-              "blog/hummingbot-v1.6.0",
-              "blog/hummingbot-v1.5.0",
-              "blog/hummingbot-v1.4.0",
-              "blog/hummingbot-v1.3.0",
-              "blog/hummingbot-v1.2.0",
-              "blog/hummingbot-v1.1.0",
-              "blog/hummingbot-v1.0.0",
-              "blog/hummingbot-v1.0.1",
-              "blog/hummingbot-v1.1.1"
+              "release-notes/2.14.0",
+              "release-notes/2.13.0",
+              "release-notes/2.12.0",
+              "release-notes/2.11.0",
+              "release-notes/2.10.0",
+              "release-notes/2.9.0",
+              "release-notes/2.8.0",
+              "release-notes/2.7.0",
+              "release-notes/2.6.0",
+              "release-notes/2.5.0",
+              "release-notes/2.4.0",
+              "release-notes/2.3.0",
+              "release-notes/2.2.0",
+              "release-notes/2.1.0",
+              "release-notes/2.0.1",
+              "release-notes/2.0.0",
+              "release-notes/1.28.0",
+              "release-notes/1.27.0",
+              "release-notes/1.26.0",
+              "release-notes/1.25.0",
+              "release-notes/1.24.0",
+              "release-notes/1.23.0",
+              "release-notes/1.22.0",
+              "release-notes/1.21.0",
+              "release-notes/1.20.0",
+              "release-notes/1.19.0",
+              "release-notes/1.18.0",
+              "release-notes/1.17.0",
+              "release-notes/1.16.0",
+              "release-notes/1.15.0",
+              "release-notes/1.14.0",
+              "release-notes/1.13.0",
+              "release-notes/1.12.0",
+              "release-notes/1.11.0",
+              "release-notes/1.10.0",
+              "release-notes/1.9.0",
+              "release-notes/1.8.0",
+              "release-notes/1.7.0",
+              "release-notes/1.6.0",
+              "release-notes/1.5.0",
+              "release-notes/1.4.0",
+              "release-notes/1.3.0",
+              "release-notes/1.2.0",
+              "release-notes/1.1.0",
+              "release-notes/1.0.0",
+              "release-notes/1.0.1",
+              "release-notes/1.1.1"
             ]
           }
         ]
@@ -489,8 +488,68 @@
   "redirects": [
     {
       "source": "/condor",
-      "destination": "/introduction",
+      "destination": "/condor/introduction",
       "permanent": false
+    },
+    {
+      "source": "/introduction",
+      "destination": "/condor/introduction",
+      "permanent": true
+    },
+    {
+      "source": "/motivation",
+      "destination": "/condor/motivation",
+      "permanent": true
+    },
+    {
+      "source": "/installation",
+      "destination": "/condor/installation",
+      "permanent": true
+    },
+    {
+      "source": "/release-process",
+      "destination": "/condor/release-process",
+      "permanent": true
+    },
+    {
+      "source": "/llm-integration",
+      "destination": "/condor/llm-integration",
+      "permanent": true
+    },
+    {
+      "source": "/getting-started/:slug*",
+      "destination": "/condor/getting-started/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/trading-agents/:slug*",
+      "destination": "/condor/trading-agents/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/executors/:slug*",
+      "destination": "/condor/executors/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/routines/:slug*",
+      "destination": "/condor/routines/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/bots/:slug*",
+      "destination": "/condor/bots/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/other-features/:slug*",
+      "destination": "/condor/other-features/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/documentation/installation/condor",
+      "destination": "/condor/getting-started/overview",
+      "permanent": true
     },
     {
       "source": "/blog",
@@ -1015,6 +1074,241 @@
     {
       "source": "/blog/what-is-market-making",
       "destination": "https://hummingbot.org/blog/what-is-market-making",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.14.0",
+      "destination": "/release-notes/2.14.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.13.0",
+      "destination": "/release-notes/2.13.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.12.0",
+      "destination": "/release-notes/2.12.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.11.0",
+      "destination": "/release-notes/2.11.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.10.0",
+      "destination": "/release-notes/2.10.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.9.0",
+      "destination": "/release-notes/2.9.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.8.0",
+      "destination": "/release-notes/2.8.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.7.0",
+      "destination": "/release-notes/2.7.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.6.0",
+      "destination": "/release-notes/2.6.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.5.0",
+      "destination": "/release-notes/2.5.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.4.0",
+      "destination": "/release-notes/2.4.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.3.0",
+      "destination": "/release-notes/2.3.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.2.0",
+      "destination": "/release-notes/2.2.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.1.0",
+      "destination": "/release-notes/2.1.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.0.1",
+      "destination": "/release-notes/2.0.1",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v2.0.0",
+      "destination": "/release-notes/2.0.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.28.0",
+      "destination": "/release-notes/1.28.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.27.0",
+      "destination": "/release-notes/1.27.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.26.0",
+      "destination": "/release-notes/1.26.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.25.0",
+      "destination": "/release-notes/1.25.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.24.0",
+      "destination": "/release-notes/1.24.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.23.0",
+      "destination": "/release-notes/1.23.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.22.0",
+      "destination": "/release-notes/1.22.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.21.0",
+      "destination": "/release-notes/1.21.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.20.0",
+      "destination": "/release-notes/1.20.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.19.0",
+      "destination": "/release-notes/1.19.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.18.0",
+      "destination": "/release-notes/1.18.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.17.0",
+      "destination": "/release-notes/1.17.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.16.0",
+      "destination": "/release-notes/1.16.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.15.0",
+      "destination": "/release-notes/1.15.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.14.0",
+      "destination": "/release-notes/1.14.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.13.0",
+      "destination": "/release-notes/1.13.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.12.0",
+      "destination": "/release-notes/1.12.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.11.0",
+      "destination": "/release-notes/1.11.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.10.0",
+      "destination": "/release-notes/1.10.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.9.0",
+      "destination": "/release-notes/1.9.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.8.0",
+      "destination": "/release-notes/1.8.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.7.0",
+      "destination": "/release-notes/1.7.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.6.0",
+      "destination": "/release-notes/1.6.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.5.0",
+      "destination": "/release-notes/1.5.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.4.0",
+      "destination": "/release-notes/1.4.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.3.0",
+      "destination": "/release-notes/1.3.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.2.0",
+      "destination": "/release-notes/1.2.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.1.0",
+      "destination": "/release-notes/1.1.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.0.0",
+      "destination": "/release-notes/1.0.0",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.0.1",
+      "destination": "/release-notes/1.0.1",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hummingbot-v1.1.1",
+      "destination": "/release-notes/1.1.1",
       "permanent": true
     }
   ]

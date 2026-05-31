@@ -33,11 +33,11 @@ From an **empty directory** on the machine where you want Condor (and optionally
 curl -fsSL https://raw.githubusercontent.com/hummingbot/deploy/main/setup.sh | bash
 ```
 
-For API-only installs, manual `git clone` setup, and more detail, see [Installing Condor](/getting-started/installing).
+For API-only installs, manual `git clone` setup, and more detail, see [Installing Condor](/condor/getting-started/installing).
 
 The installer will prompt for:
 
-- Your **Telegram bot token** (see [Create a Telegram Bot](/getting-started/installing#create-a-telegram-bot) or [@BotFather](https://t.me/botfather))
+- Your **Telegram bot token** (see [Create a Telegram Bot](/condor/getting-started/installing#create-a-telegram-bot) or [@BotFather](https://t.me/botfather))
 - Your **authorized Telegram user ID(s)**
 - Whether to **configure and launch Hummingbot API** with Docker—answer **yes** if you are deploying **Condor and the API on the same machine** locally. Have **[Docker](https://docs.docker.com/get-docker/)** installed and running first. If the API runs on another server, you can skip this step and add that API URL later in Telegram under **`/servers`**.
 
@@ -45,7 +45,7 @@ The installer will prompt for:
 
 Open your Telegram bot and send `/start`. You should see the main menu.
 
-> **Note:** After a successful start, **admins** should receive **"Condor is online and ready."** in Telegram. If not, see [Installing Condor — Troubleshooting](/getting-started/installing#troubleshooting).
+> **Note:** After a successful start, **admins** should receive **"Condor is online and ready."** in Telegram. If not, see [Installing Condor — Troubleshooting](/condor/getting-started/installing#troubleshooting).
 
 ## Access Points
 
@@ -76,10 +76,10 @@ curl -fsSL https://raw.githubusercontent.com/hummingbot/deploy/main/setup.sh | b
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card title="Getting Started" icon="rocket" href="/getting-started/overview">
+  <Card title="Getting Started" icon="rocket" href="/condor/getting-started/overview">
     Connect Telegram, add keys, and start using Condor
   </Card>
-  <Card title="Trading Agents" icon="robot" href="/trading-agents/overview">
+  <Card title="Trading Agents" icon="robot" href="/condor/trading-agents/overview">
     Learn about the agent framework
   </Card>
 </CardGroup>

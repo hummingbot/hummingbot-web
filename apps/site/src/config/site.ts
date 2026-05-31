@@ -8,7 +8,7 @@ const HUB = process.env.NEXT_PUBLIC_HUB_URL ?? "https://hub.hummingbot.org";
 export const urls = {
   docs: DOCS,
   blog: "/blog",
-  releases: `${DOCS}/blog`,
+  releases: `${DOCS}/release-notes`,
   exchanges: "/exchanges",
   exchangesDocs: `${DOCS}/exchanges`,
   hub: HUB,

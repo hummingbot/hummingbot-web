@@ -21,11 +21,11 @@ const nextConfig: NextConfig = {
       // Volumes merged into the Exchanges page.
       { source: "/volumes", destination: "/exchanges", permanent: true },
 
-      // Release notes still live in Mintlify (docs subdomain).
-      { source: "/release-notes", destination: `${DOCS}/blog`, permanent: true },
+      // Release notes live in Mintlify (docs subdomain) at /release-notes/<version>.
+      { source: "/release-notes", destination: `${DOCS}/release-notes`, permanent: true },
       {
         source: "/release-notes/:version",
-        destination: `${DOCS}/blog/hummingbot-v:version`,
+        destination: `${DOCS}/release-notes/:version`,
         permanent: true,
       },
 
