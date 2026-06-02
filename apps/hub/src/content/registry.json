@@ -3399,6 +3399,44 @@
       ]
     },
     {
+      "type": "routine",
+      "namespace": "condor",
+      "name": "error-test",
+      "summary": "Intentionally fail in several ways to verify the dashboard’s error display.",
+      "description": "A diagnostic routine that raises a chosen failure — a plain exception, a key/type error, division-by-zero, or a hung timeout — after a configurable delay. Use it to confirm that routine error alerts render correctly in the Condor dashboard and over Telegram. Not a trading routine.",
+      "tags": [
+        "Testing",
+        "Diagnostics",
+        "Example"
+      ],
+      "exchanges": [],
+      "categories": [
+        "Other"
+      ],
+      "license": "Apache-2.0",
+      "runtime": "condor",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-05-29",
+      "certified": true,
+      "hasSource": true,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "subtype": "routine",
+      "continuous": false,
+      "repoURL": "https://github.com/hummingbot/condor/blob/main/routines/error_test.py",
+      "reportURL": "/reports/condor__error-test.html",
+      "files": [
+        {
+          "name": "error_test.py",
+          "lang": "python",
+          "lines": 36
+        }
+      ]
+    },
+    {
       "type": "strategy",
       "namespace": "hummingbot",
       "name": "simple-pmm",
@@ -4408,12 +4446,35 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/connectors-available"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/connectors-available",
+      "installs": 297
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "create-routine",
+      "summary": "Create or edit Python routines for market analysis, monitoring, and data visualization. Use when the user asks to create, modify, or fix a routine in the routines/ folder.",
+      "description": "Create or edit Python routines for market analysis, monitoring, and data visualization. Use when the user asks to create, modify, or fix a routine in the routines/ folder.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-06-02",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/create-routine"
     },
     {
       "type": "skill",
@@ -4430,12 +4491,13 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/find-arbitrage-opps"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/find-arbitrage-opps",
+      "installs": 354
     },
     {
       "type": "skill",
@@ -4452,12 +4514,13 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/find-xemm-opps"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/find-xemm-opps",
+      "installs": 231
     },
     {
       "type": "skill",
@@ -4474,12 +4537,13 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-deploy"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-deploy",
+      "installs": 342
     },
     {
       "type": "skill",
@@ -4496,12 +4560,13 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-developer"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-developer",
+      "installs": 253
     },
     {
       "type": "skill",
@@ -4518,12 +4583,13 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-heartbeat"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot-heartbeat",
+      "installs": 257
     },
     {
       "type": "skill",
@@ -4540,12 +4606,13 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/hummingbot",
+      "installs": 285
     },
     {
       "type": "skill",
@@ -4562,12 +4629,13 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/lp-agent"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/lp-agent",
+      "installs": 311
     },
     {
       "type": "skill",
@@ -4584,12 +4652,35 @@
       "versions": [
         "1.0.0"
       ],
-      "updated": "2026-05-29",
+      "updated": "2026-06-02",
       "certified": true,
       "hasSource": false,
       "hasVideo": false,
       "authorName": "Hummingbot Foundation",
-      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/slides-generator"
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/slides-generator",
+      "installs": 270
+    },
+    {
+      "type": "skill",
+      "namespace": "hummingbot",
+      "name": "trading-agent-builder",
+      "summary": "Step-by-step guide for building autonomous trading agents through 5 phases: design, routine, strategy, dry-run, live.",
+      "description": "Step-by-step guide for building autonomous trading agents through 5 phases: design, routine, strategy, dry-run, live.",
+      "tags": [],
+      "exchanges": [],
+      "categories": [],
+      "license": "Apache-2.0",
+      "runtime": "mcp",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "updated": "2026-06-02",
+      "certified": true,
+      "hasSource": false,
+      "hasVideo": false,
+      "authorName": "Hummingbot Foundation",
+      "repoURL": "https://github.com/hummingbot/skills/tree/main/skills/trading-agent-builder"
     }
   ]
 }

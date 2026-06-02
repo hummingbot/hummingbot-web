@@ -22,6 +22,20 @@ const NAMESPACE = "hummingbot";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REGISTRY_PATH = join(__dirname, "..", "src", "content", "registry.json");
 
+// Real install counts per skill (keyed by directory). Skills not listed carry
+// no count — we omit `installs` rather than fabricate a zero.
+const INSTALLS = {
+  "hummingbot-deploy": 342,
+  hummingbot: 285,
+  "hummingbot-heartbeat": 257,
+  "hummingbot-developer": 253,
+  "find-arbitrage-opps": 354,
+  "lp-agent": 311,
+  "connectors-available": 297,
+  "slides-generator": 270,
+  "find-xemm-opps": 231,
+};
+
 async function getJSON(url) {
   const res = await fetch(url, {
     headers: { Accept: "application/vnd.github+json", "User-Agent": "hummingbot-hub-import" },
@@ -87,6 +101,7 @@ async function main() {
       hasVideo: false,
       authorName: "Hummingbot Foundation",
       repoURL: `https://github.com/${REPO}/tree/${BRANCH}/skills/${dir}`,
+      ...(INSTALLS[dir] != null ? { installs: INSTALLS[dir] } : {}),
     });
   }
 
@@ -95,6 +110,19 @@ async function main() {
     ...registry.primitives.filter((e) => e.type !== "skill"),
     ...skills,
   ];
+
+  // Every skill is published under @hummingbot — make sure that publisher exists
+  // so skills always resolve a publisher even if import-skills runs standalone.
+  if (!registry.publishers.some((p) => p.handle === NAMESPACE)) {
+    registry.publishers.push({
+      handle: NAMESPACE,
+      name: "Hummingbot Foundation",
+      bio: "The team behind the open-source Hummingbot client — official strategies, routines, and skills.",
+      joined: "2019-04-01",
+    });
+    registry.publishers.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
   writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2) + "\n");
 
   console.log(

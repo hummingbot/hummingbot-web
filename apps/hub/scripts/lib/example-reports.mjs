@@ -152,8 +152,27 @@ function priceMonitor() {
     .render();
 }
 
+/** error_test.py — intentionally fails; shows how the dashboard renders an error. */
+function errorTest() {
+  return new ReportBuilder("Error Test")
+    .source("routine", "error_test")
+    .tags(["testing", "diagnostics"])
+    .manualOrder()
+    .kpi("Fail Mode", "exception")
+    .kpi("Status", "Failed", { trend: "down" })
+    .kpi("Delay", "1.0s")
+    .markdown(
+      "> ❌ **Routine failed — RuntimeError**\n>\n> This is a test error to verify dashboard error alerts work correctly",
+    )
+    .markdown(
+      "This routine intentionally raises the configured failure after a short delay — one of `exception`, `key_error`, `type_error`, `zero_division`, or `timeout`. Use it to confirm that error alerts render correctly in the dashboard and over Telegram. It is **not** a trading routine.",
+    )
+    .render();
+}
+
 export const EXAMPLE_REPORTS = {
   "market-scanner": marketScanner,
   "arb-check": arbCheck,
   "price-monitor": priceMonitor,
+  "error-test": errorTest,
 };

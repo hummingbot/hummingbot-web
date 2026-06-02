@@ -79,6 +79,15 @@ const ROUTINES = [
     tags: ["Monitoring", "Alerts", "Live"],
     exchanges: ["binance"],
   },
+  {
+    name: "error-test", file: "error_test.py",
+    summary: "Intentionally fail in several ways to verify the dashboard’s error display.",
+    description:
+      "A diagnostic routine that raises a chosen failure — a plain exception, a key/type error, division-by-zero, or a hung timeout — after a configurable delay. Use it to confirm that routine error alerts render correctly in the Condor dashboard and over Telegram. Not a trading routine.",
+    category: "Other", continuous: false,
+    tags: ["Testing", "Diagnostics", "Example"],
+    exchanges: [],
+  },
 ];
 
 // ── Hummingbot scripts ──────────────────────────────────────────────────────
