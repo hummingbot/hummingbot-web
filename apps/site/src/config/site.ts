@@ -12,7 +12,7 @@ export const urls = {
   exchanges: "/exchanges",
   exchangesDocs: `${DOCS}/exchanges`,
   hub: HUB,
-  github: "https://github.com/hummingbot",
+  github: "https://github.com/hummingbot/hummingbot",
   discord: "https://discord.gg/hummingbot",
   x: "https://x.com/_hummingbot",
   youtube: "https://youtube.com/@hummingbot",

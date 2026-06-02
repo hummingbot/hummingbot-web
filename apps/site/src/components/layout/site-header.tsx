@@ -15,7 +15,7 @@ export async function SiteHeader() {
   const widget = (
     <GithubRepoWidget
       repo="hummingbot/hummingbot"
-      href={`${urls.github}/hummingbot`}
+      href={urls.github}
       stars={stats?.stars ?? null}
     />
   );
