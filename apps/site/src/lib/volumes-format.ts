@@ -1,5 +1,5 @@
-/** Pure, client-safe volume formatters (no node:fs). Imported by both the
- *  build-time data layer (volumes.ts) and client components (rank-table). */
+/** Pure, client-safe volume formatters (no node:fs), shared by the build-time
+ *  data layer (volumes.ts) and client components. */
 
 export function formatUsd(n: number): string {
   if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;

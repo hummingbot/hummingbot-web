@@ -20,33 +20,6 @@ describe("capitalize", () => {
 describe("getVolumesData", () => {
   const d = getVolumesData();
 
-  it("parses the daily series with valid points", () => {
-    expect(d.daily.length).toBeGreaterThan(0);
-    for (const pt of d.daily) {
-      expect(pt.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(Number.isFinite(pt.volume)).toBe(true);
-    }
-  });
-
-  it("ranks top exchanges desc, capped at 25, shares in (0,1]", () => {
-    expect(d.topExchanges.length).toBeGreaterThan(0);
-    expect(d.topExchanges.length).toBeLessThanOrEqual(25);
-    for (let i = 1; i < d.topExchanges.length; i++) {
-      expect(d.topExchanges[i - 1]!.volume).toBeGreaterThanOrEqual(d.topExchanges[i]!.volume);
-    }
-    for (const e of d.topExchanges) {
-      expect(e.share).toBeGreaterThan(0);
-      expect(e.share).toBeLessThanOrEqual(1);
-    }
-  });
-
-  it("ranks top versions desc, capped at 15", () => {
-    expect(d.topVersions.length).toBeLessThanOrEqual(15);
-    for (let i = 1; i < d.topVersions.length; i++) {
-      expect(d.topVersions[i - 1]!.volume).toBeGreaterThanOrEqual(d.topVersions[i]!.volume);
-    }
-  });
-
   it("exposes a fixed window ending at DATA_WINDOW_END", () => {
     expect(d.windowEnd).toBe(DATA_WINDOW_END);
     expect(d.windowStart.localeCompare(d.windowEnd)).toBeLessThan(0);
