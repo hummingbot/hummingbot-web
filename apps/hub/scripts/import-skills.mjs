@@ -19,22 +19,11 @@ import { dirname, join } from "node:path";
 const REPO = "hummingbot/skills";
 const BRANCH = "main";
 const NAMESPACE = "hummingbot";
+// Real install counts live in the skills repo (it owns skills.hummingbot.org),
+// keyed by skill name. We read them from there so the count has one source.
+const INSTALLS_PATH = "app/src/data/installs.json";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REGISTRY_PATH = join(__dirname, "..", "src", "content", "registry.json");
-
-// Real install counts per skill (keyed by directory). Skills not listed carry
-// no count — we omit `installs` rather than fabricate a zero.
-const INSTALLS = {
-  "hummingbot-deploy": 342,
-  hummingbot: 285,
-  "hummingbot-heartbeat": 257,
-  "hummingbot-developer": 253,
-  "find-arbitrage-opps": 354,
-  "lp-agent": 311,
-  "connectors-available": 297,
-  "slides-generator": 270,
-  "find-xemm-opps": 231,
-};
 
 async function getJSON(url) {
   const res = await fetch(url, {
@@ -70,6 +59,11 @@ async function main() {
 
   if (skillPaths.length === 0) throw new Error("No SKILL.md files found in repo");
 
+  // Install counts, sourced from the skills repo (keyed by skill name).
+  const installs = await getJSON(
+    `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${INSTALLS_PATH}`,
+  );
+
   const updated = new Date().toISOString().slice(0, 10);
   const skills = [];
   for (const path of skillPaths) {
@@ -101,7 +95,7 @@ async function main() {
       hasVideo: false,
       authorName: "Hummingbot Foundation",
       repoURL: `https://github.com/${REPO}/tree/${BRANCH}/skills/${dir}`,
-      ...(INSTALLS[dir] != null ? { installs: INSTALLS[dir] } : {}),
+      ...(installs[dir] != null ? { installs: installs[dir] } : {}),
     });
   }
 
