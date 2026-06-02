@@ -1,15 +1,11 @@
 import { ArrowRight, Github, Star } from "lucide-react";
 import { Button, GradientText } from "@hummingbot/ui";
 import { announcement, urls } from "@/config/site";
-import { formatStars, getLatestRelease, getRepoStars } from "@/lib/github";
+import { formatStars, getRepoStars } from "@/lib/github";
 import { InstallTabs } from "./install-tabs";
 
 export async function Hero() {
-  const [hbStars, hbRelease, condorRelease] = await Promise.all([
-    getRepoStars("hummingbot"),
-    getLatestRelease("hummingbot"),
-    getLatestRelease("condor"),
-  ]);
+  const hbStars = await getRepoStars("hummingbot");
 
   return (
     <section className="relative overflow-hidden">
@@ -41,16 +37,28 @@ export async function Hero() {
         <InstallTabs
           tabs={[
             {
-              id: "hummingbot",
-              label: "Hummingbot",
-              command: "curl -fsSL https://hummingbot.org/install.sh | bash",
-              version: hbRelease,
-            },
-            {
               id: "condor",
               label: "Condor",
-              command: "curl -fsSL https://hummingbot.org/condor.sh | bash",
-              version: condorRelease,
+              command:
+                "curl -fsSL https://hummingbot.org/install-condor.sh | bash",
+              comment: "# Telegram + AI trading agents (Condor + API, Docker).",
+              icon: "phone",
+              title: "AI harness for managing trading agents",
+              description:
+                "A Telegram-native interface backed by the Hummingbot API. Run and monitor AI trading agents and bots from your phone — no terminal required.",
+            },
+            {
+              id: "hummingbot",
+              label: "Hummingbot",
+              command:
+                "curl -fsSL https://hummingbot.org/install-hummingbot.sh | bash",
+              comment:
+                "# Installs Hummingbot, then asks how you want to run it.",
+              channels: true,
+              icon: "code",
+              title: "Core client and connectors",
+              description:
+                "The open-source trading client — market-making, arbitrage, and custom strategies across 50+ CEX and DEX connectors, self-hosted on your own machine.",
             },
           ]}
         />
@@ -58,13 +66,13 @@ export async function Hero() {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <a href={urls.docs} target="_blank" rel="noreferrer">
             <Button size="lg">
-              Get Started <ArrowRight className="size-4" aria-hidden="true" />
+              Read the Docs <ArrowRight className="size-4" aria-hidden="true" />
             </Button>
           </a>
           <a href={urls.github} target="_blank" rel="noreferrer">
             <Button size="lg" variant="outline">
               <Github className="size-4" aria-hidden="true" />
-              Star on GitHub
+              View on GitHub
               {hbStars != null && (
                 <span className="ml-1 inline-flex items-center gap-1 tabular-nums text-ink-400">
                   <Star className="size-3.5 fill-current" aria-hidden="true" />
