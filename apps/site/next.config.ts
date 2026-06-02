@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const DOCS = "https://docs.hummingbot.org";
-const DEPLOY_RAW = "https://raw.githubusercontent.com/hummingbot/deploy/main";
+// TODO(deploy): switch back to /main once `install-wizard` merges. The install
+// scripts currently live only on that branch.
+const DEPLOY_RAW =
+  "https://raw.githubusercontent.com/hummingbot/deploy/install-wizard";
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@hummingbot/ui", "@hummingbot/brand", "@hummingbot/tokens"],
@@ -10,8 +13,7 @@ const nextConfig: NextConfig = {
     return [
       // Install one-liners → deploy repo scripts (302; curl -fsSL follows).
       // These are the canonical names the Hero Quick Start card copies.
-      // NOTE: install-hummingbot.sh / install-condor.sh currently live on the
-      // deploy `install-wizard` branch; these go live once it merges to main.
+      // Served from the deploy `install-wizard` branch until it merges to main.
       { source: "/install-hummingbot.sh", destination: `${DEPLOY_RAW}/install-hummingbot.sh`, permanent: false },
       { source: "/install-condor.sh", destination: `${DEPLOY_RAW}/install-condor.sh`, permanent: false },
       // Short vanity aliases: /install.sh → Hummingbot, /condor.sh → Condor.
