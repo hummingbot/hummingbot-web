@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Monoton } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -6,6 +7,14 @@ const satoshi = localFont({
   src: "../../../../packages/tokens/fonts/Satoshi-Variable.ttf",
   variable: "--font-satoshi",
   weight: "300 900",
+  display: "swap",
+});
+
+// Decorative numerics only (cohort numbers, prize amounts) — never body or headings.
+const monoton = Monoton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-monoton-face",
   display: "swap",
 });
 
@@ -27,7 +36,7 @@ export default function RootLayout({
       lang="en"
       data-theme="dark"
       suppressHydrationWarning
-      className={`${satoshi.variable} h-full antialiased`}
+      className={`${satoshi.variable} ${monoton.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />

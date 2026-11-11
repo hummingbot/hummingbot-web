@@ -1,147 +1,109 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@hummingbot/ui";
-import { nav, urls, type NavItem } from "@/config/site";
+import { nav, urls } from "@/config/site";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 
-function NavLink({ item }: { item: NavItem }) {
-  const hasChildren = !!item.children?.length;
-  const base =
-    "inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm text-ink-300 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+/** Main products whose name joins the wordmark while you're in them. */
+const SUB_BRANDS = [
+  { label: "Botcamp", href: "/botcamp" },
+  { label: "Condor", href: "/docs/condor" },
+] as const;
 
-  if (!hasChildren) {
-    return (
-      <Link
-        href={item.href}
-        {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
-        className={base}
-      >
-        {item.label}
-        {item.external && <ArrowUpRight className="size-3.5 opacity-60" aria-hidden="true" />}
-      </Link>
-    );
-  }
-
-  return (
-    <div className="group relative">
-      <button type="button" className={base} aria-haspopup="true">
-        {item.label}
-        <ChevronDown className="size-3.5 opacity-60 transition-transform group-hover:rotate-180" aria-hidden="true" />
-      </button>
-      <div className="invisible absolute left-0 top-full z-50 min-w-56 translate-y-1 rounded-xl border border-ink-800 bg-ink-950 p-2 opacity-0 shadow-lg transition-all group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-        {item.children!.map((c) => (
-          <Link
-            key={c.label}
-            href={c.href}
-            {...(/^https?:/.test(c.href) ? { target: "_blank", rel: "noreferrer" } : {})}
-            className="block rounded-lg px-3 py-2 text-sm text-ink-300 hover:bg-ink-900 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <span className="font-medium text-foreground">{c.label}</span>
-            {c.description && (
-              <span className="block text-xs text-ink-500">{c.description}</span>
-            )}
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
+function subBrandFor(pathname: string | null) {
+  return SUB_BRANDS.find((b) => pathname === b.href || pathname?.startsWith(b.href + "/")) ?? null;
 }
 
-/** Interactive header shell. The GitHub repo widget is fetched server-side and
- *  passed in as a rendered node (githubWidget) so this stays a thin client. */
-export function SiteHeaderClient({ githubWidget }: { githubWidget: ReactNode }) {
+function isActive(pathname: string | null, href: string): boolean {
+  // Hash links (e.g. /botcamp#hackathons) point into another nav item's page.
+  if (!pathname || !href.startsWith("/") || href.includes("#")) return false;
+  return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+}
+
+/**
+ * Botcamp-style header: a sticky frosted bar with the logo, a flat
+ * right-aligned nav (active link underlined in primary), theme toggle, and
+ * the primary account button.
+ */
+export function SiteHeaderClient() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const subBrand = subBrandFor(pathname);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-ink-800/80 bg-ink-999/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
-        <Logo />
+    <>
+      <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
+        <div className="flex h-16 items-center px-6 lg:px-8">
+          <Logo product={subBrand?.label} />
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
-          {nav.map((item) => (
-            <NavLink key={item.label} item={item} />
-          ))}
-        </nav>
+          <nav className="mr-6 hidden gap-6 md:flex md:flex-1 md:items-center md:justify-end lg:gap-8" aria-label="Primary">
+            {nav.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={cn(
+                  "text-base font-medium text-foreground transition-colors hover:text-primary",
+                  isActive(pathname, item.href) && "underline decoration-primary decoration-2 underline-offset-8",
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <a
-            href={urls.education}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm text-ink-400 hover:text-foreground"
-          >
-            Education <ArrowUpRight className="size-3.5 opacity-60" aria-hidden="true" />
-          </a>
-          <a
-            href={urls.rewards}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm text-ink-400 hover:text-foreground"
-          >
-            Rewards <ArrowUpRight className="size-3.5 opacity-60" aria-hidden="true" />
-          </a>
-          <ThemeToggle />
-          {githubWidget}
+          <div className="ml-auto flex items-center gap-2">
+            <ThemeToggle />
+            <Link
+              href={urls.signup}
+              className="hidden h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 md:inline-flex"
+            >
+              Sign Up
+            </Link>
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+              className="inline-flex size-9 items-center justify-center rounded-md text-foreground hover:bg-card md:hidden"
+            >
+              {open ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
         </div>
 
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="inline-flex size-9 items-center justify-center rounded-md text-ink-300 hover:bg-ink-900 md:hidden"
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
-      </div>
-
-      {open && (
-        <nav
-          className="border-t border-ink-800 bg-ink-999 px-4 py-4 md:hidden"
-          aria-label="Mobile"
-        >
-          <ul className="flex flex-col gap-1">
-            {nav.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "flex items-center gap-1 rounded-md px-3 py-2.5 text-base text-ink-200 hover:bg-ink-900",
-                  )}
-                >
-                  {item.label}
-                  {item.external && <ArrowUpRight className="size-4 opacity-60" aria-hidden="true" />}
-                </Link>
-              </li>
-            ))}
-            {[
-              { label: "Education", href: urls.education },
-              { label: "Rewards", href: urls.rewards },
-            ].map((i) => (
-              <li key={i.label}>
-                <a
-                  href={i.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-1 rounded-md px-3 py-2.5 text-base text-ink-200 hover:bg-ink-900"
-                >
-                  {i.label}
-                  <ArrowUpRight className="size-4 opacity-60" aria-hidden="true" />
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-4">{githubWidget}</div>
-        </nav>
-      )}
-    </header>
+        {open && (
+          <nav className="border-t border-border bg-background px-6 py-4 md:hidden" aria-label="Mobile">
+            <ul className="flex flex-col gap-1">
+              {nav.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "block rounded-md px-3 py-2.5 text-base font-medium text-foreground hover:bg-card hover:text-primary",
+                      isActive(pathname, item.href) && "text-primary",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href={urls.signup}
+              onClick={() => setOpen(false)}
+              className="mt-4 flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground"
+            >
+              Sign Up
+            </Link>
+          </nav>
+        )}
+      </header>
+    </>
   );
 }

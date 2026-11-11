@@ -1,0 +1,387 @@
+/* ============================================================
+   Botcamp — styles for the pages ported from botcamp-site
+   (/hackathons, /hackathons/[slug], /botcamp; code in src/botcamp/).
+
+   Botcamp is Tailwind v3 (tailwind.config.ts + src/app/globals.css); this
+   is the part of that theme those pages use, in v4 form. The semantic
+   tokens (--primary, --card, --border, …) already match Botcamp's dark
+   theme and come from @hummingbot/tokens; nothing here redefines them.
+   Where Botcamp's scale differs from this site's (radius, letter-spacing),
+   the ported code uses Botcamp-only names (rounded-bc-*, tracking-bc-*)
+   so the site's own scale is untouched.
+   ============================================================ */
+
+/* tailwindcss-animate (Botcamp's plugin) for the shadcn dialog/accordion. */
+@import "tw-animate-css";
+
+/* Botcamp toggles dark mode with a `.dark` class; this site sets
+ * data-theme on <html>. Nothing else on the site uses `dark:`. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* `short:` — a laptop-height window, where full-screen sections tighten up. */
+@custom-variant short (@media (max-height: 960px));
+
+@theme inline {
+  /* Hummingbot brand colors */
+  --color-hb-teal: var(--hb-teal);
+  --color-hb-yellow: var(--hb-yellow);
+  --color-hb-magenta: var(--hb-magenta);
+  --color-hb-orange: var(--hb-orange);
+  --color-hb-cyan: var(--hb-cyan);
+
+  /* Condor palette (gold/amber theme for hackathons) */
+  --color-condor-gold: rgb(var(--condor-gold-rgb));
+  --color-condor-gold-deep: rgb(var(--condor-gold-deep-rgb));
+  --color-condor-orange: rgb(var(--condor-orange-rgb));
+  --color-condor-ink: rgb(var(--condor-ink-rgb));
+
+  /* Botcamp palette (orange-forward, education) */
+  --color-botcamp-orange: rgb(var(--botcamp-orange-rgb));
+  --color-botcamp-orange-deep: rgb(var(--botcamp-orange-deep-rgb));
+  --color-botcamp-amber: rgb(var(--botcamp-amber-rgb));
+  --color-botcamp-peach: rgb(var(--botcamp-peach-rgb));
+  --color-botcamp-lime: rgb(var(--botcamp-lime-rgb));
+  --color-botcamp-ink: rgb(var(--botcamp-ink-rgb));
+
+  /* Status + chart + metric colors */
+  --color-success: hsl(var(--bc-success));
+  --color-success-foreground: hsl(var(--bc-success-foreground));
+  --color-error: hsl(var(--bc-error));
+  --color-error-foreground: hsl(var(--bc-error-foreground));
+  --color-warning: hsl(var(--bc-warning));
+  --color-warning-foreground: hsl(var(--bc-warning-foreground));
+  --color-chart-1: hsl(var(--bc-chart-1));
+  --color-chart-2: hsl(var(--bc-chart-2));
+  --color-chart-3: hsl(var(--bc-chart-3));
+  --color-chart-4: hsl(var(--bc-chart-4));
+  --color-chart-5: hsl(var(--bc-chart-5));
+  --color-metric-cyan: hsl(var(--bc-metric-cyan));
+  --color-metric-cyan-foreground: hsl(var(--bc-metric-cyan-foreground));
+  --color-metric-purple: hsl(var(--bc-metric-purple));
+  --color-metric-purple-foreground: hsl(var(--bc-metric-purple-foreground));
+  --color-metric-emerald: hsl(var(--bc-metric-emerald));
+  --color-metric-emerald-foreground: hsl(var(--bc-metric-emerald-foreground));
+
+  /* Botcamp's radius scale: lg = --radius (0.5rem), md/sm 2px/4px under it,
+   * xl = Tailwind v3's 0.75rem. Used as rounded-bc-sm/md/lg/xl. */
+  --radius-bc-sm: calc(0.5rem - 4px);
+  --radius-bc-md: calc(0.5rem - 2px);
+  --radius-bc-lg: 0.5rem;
+  --radius-bc-xl: 0.75rem;
+
+  /* Botcamp's letter-spacing (tracking-bc-tight / tracking-bc-tighter). */
+  --tracking-bc-tight: -0.02em;
+  --tracking-bc-tighter: -0.03em;
+
+  --shadow-glow-gold: 0 0 24px rgba(252, 198, 3, 0.35);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-pulse-glow: pulse-glow 1.6s ease-in-out infinite;
+  --animate-marquee: marquee var(--marquee-duration, 90s) linear infinite;
+  --animate-marquee-reverse: marquee-reverse var(--marquee-duration, 90s) linear infinite;
+  --animate-bh-border-shimmer: bh-shimmer 6s linear infinite;
+  --animate-bh-text-shimmer: bh-shimmer 4s linear infinite;
+  --animate-bh-sheen: bh-sheen 4.5s ease-in-out infinite;
+  --animate-pnl-blink: pnl-blink 1.3s ease-in-out infinite;
+  --animate-podium-glow: podium-glow 3.2s ease-in-out infinite;
+  --animate-podium-sheen: podium-sheen 4.5s ease-in-out infinite;
+  --animate-twinkle: twinkle 2.4s ease-in-out infinite;
+  --animate-flip-down: flip-down 220ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes bh-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@keyframes bh-sheen {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  55%, 100% { transform: translateX(320%) skewX(-18deg); }
+}
+@keyframes pnl-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+/* Sweeps fully past both edges, so no sliver is left parked in a corner. */
+@keyframes podium-sheen {
+  0% { transform: translateX(-150%) skewX(-18deg); }
+  55%, 100% { transform: translateX(450%) skewX(-18deg); }
+}
+@keyframes podium-glow {
+  0%, 100% { opacity: 0.45; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.03); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(45deg); }
+}
+@keyframes flip-down {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-180deg); }
+}
+
+/* Raw values — Botcamp's dark theme by default, its light theme under
+ * data-theme="light". */
+:root {
+  --hb-teal: #5fffd7;
+  --hb-yellow: #fcdb17;
+  --hb-magenta: #e549ff;
+  --hb-orange: #ef8728;
+  --hb-cyan: #00c2ce;
+
+  --condor-gold-rgb: 252 198 3;
+  --condor-gold-deep-rgb: 184 134 11;
+  --condor-orange-rgb: 237 108 36;
+  --condor-ink-rgb: 17 17 17;
+
+  --botcamp-orange-rgb: 255 106 26;
+  --botcamp-orange-deep-rgb: 209 79 8;
+  --botcamp-amber-rgb: 245 158 11;
+  --botcamp-peach-rgb: 255 212 184;
+  --botcamp-lime-rgb: 182 255 60;
+  --botcamp-ink-rgb: 31 14 5;
+  --botcamp-amber: rgb(var(--botcamp-amber-rgb));
+
+  --gradient-accent-rgb: 229, 73, 255;
+
+  --bc-success: 142 71% 45%;
+  --bc-success-foreground: 210 40% 98%;
+  --bc-error: 0 84% 60%;
+  --bc-error-foreground: 210 40% 98%;
+  --bc-warning: 38 92% 50%;
+  --bc-warning-foreground: 222.2 47.4% 11.2%;
+  --bc-chart-1: 220 70% 50%;
+  --bc-chart-2: 160 60% 45%;
+  --bc-chart-3: 30 80% 55%;
+  --bc-chart-4: 280 65% 60%;
+  --bc-chart-5: 340 75% 55%;
+  --bc-metric-cyan: 185 100% 40%;
+  --bc-metric-cyan-foreground: 210 40% 98%;
+  --bc-metric-purple: 280 70% 60%;
+  --bc-metric-purple-foreground: 210 40% 98%;
+  --bc-metric-emerald: 160 84% 39%;
+  --bc-metric-emerald-foreground: 210 40% 98%;
+}
+:root[data-theme="light"] {
+  --bc-success: 142 71% 40%;
+  --bc-success-foreground: 0 0% 100%;
+  --bc-error: 0 84% 55%;
+  --bc-error-foreground: 0 0% 100%;
+  --bc-warning: 38 92% 45%;
+  --bc-warning-foreground: 0 0% 100%;
+  --bc-chart-1: 12 76% 61%;
+  --bc-chart-2: 173 58% 39%;
+  --bc-chart-3: 197 37% 24%;
+  --bc-chart-4: 43 74% 66%;
+  --bc-chart-5: 27 87% 67%;
+  --bc-metric-cyan: 185 72% 35%;
+  --bc-metric-cyan-foreground: 0 0% 100%;
+  --bc-metric-purple: 280 60% 50%;
+  --bc-metric-purple-foreground: 0 0% 100%;
+  --bc-metric-emerald: 160 84% 32%;
+  --bc-metric-emerald-foreground: 0 0% 100%;
+}
+
+/* ── Botcamp utility classes ────────────────────────────────────────── */
+/* Tailwind v3's space-x/y: a margin on every child after the first (v4 puts
+   it after every child but the last, which then fights the child's own mb-*). */
+@utility space-y-bc-* {
+  & > :not([hidden]) ~ :not([hidden]) {
+    margin-top: calc(var(--spacing) * --value(number));
+  }
+}
+@utility space-x-bc-* {
+  & > :not([hidden]) ~ :not([hidden]) {
+    margin-left: calc(var(--spacing) * --value(number));
+  }
+}
+
+/* ── Scroll-driven motion (hackathon page) ──────────────────────────────
+   Every element renders in its final state by default. The animations only
+   attach where the browser supports scroll timelines and the viewer hasn't
+   asked for reduced motion, so nothing depends on them to be read. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Fade up on entry. Animates `translate` (not `transform`) so hover
+       lifts on the same element still compose on top. */
+    .sd-reveal {
+      animation: sd-fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    /* Gold racing line that draws itself down the page */
+    .sd-racing-line {
+      transform-origin: top;
+      animation: sd-draw linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes sd-fade-up {
+  from {
+    opacity: 0;
+    translate: 0 48px;
+  }
+}
+
+@keyframes sd-draw {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+/* Light sweep across text (ScrollStatement): one gradient spanning each
+   line, 3x the line width (--sheen-p), shifted by the word's offset in the
+   line (--sheen-l). Plays only while an ancestor has data-sheen="on". */
+.sd-sheen-text {
+  background: linear-gradient(
+    90deg,
+    var(--sheen-base) 46.5%,
+    var(--sheen-hi) 49%,
+    var(--sheen-hi) 51%,
+    var(--sheen-base) 53.5%
+  );
+  background-size: calc(3 * var(--sheen-p, 1000px)) 100%;
+  background-position: calc(-0.3 * var(--sheen-p, 1000px) - var(--sheen-l, 0px)) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-sheen="on"] .sd-sheen-text {
+    animation:
+      sd-sheen 1.4s linear 0s 1 both,
+      sd-sheen 2s linear 1.4s 2 forwards;
+  }
+}
+
+@keyframes sd-sheen {
+  0% {
+    background-position: calc(-1.7 * var(--sheen-p, 1000px) - var(--sheen-l, 0px)) 0;
+  }
+  60%,
+  100% {
+    background-position: calc(-0.3 * var(--sheen-p, 1000px) - var(--sheen-l, 0px)) 0;
+  }
+}
+
+/* Statement words light up in a quick cascade once the line comes into view.
+   ScrollStatement sets data-reveal: "pending" (dimmed) → "on" (cascade). */
+.sd-word {
+  transition: opacity 450ms ease-out;
+  transition-delay: calc(var(--sd-i, 0) * 70ms);
+}
+[data-reveal="pending"] .sd-word {
+  opacity: 0.15;
+  transition: none;
+}
+
+/* Post-race edition year (EditionYear). Gold, glowing digits that come
+   together once when "shown"; "idle" (reduced motion) is the final state. */
+.edition-year-dates,
+.edition-year-digit {
+  background: linear-gradient(180deg, hsl(var(--primary)) 20%, var(--botcamp-amber) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 60px hsl(var(--primary) / 0.35));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .edition-year[data-year="waiting"] .edition-year-digit {
+    opacity: 0;
+  }
+  .edition-year[data-year="shown"] .edition-year-digit {
+    will-change: transform, opacity;
+    animation: edition-year-in 2800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+@keyframes edition-year-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc((var(--i, 0) - var(--c, 1.5)) * var(--s, 0.35em))) scale(0.82);
+  }
+}
+
+/* Race Replay's finish (RaceHistoryChart). */
+.race-finish-sweep {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .race-finish-sweep {
+    display: block;
+    background: linear-gradient(100deg, transparent 35%, hsl(var(--primary) / 0.22) 50%, transparent 65%);
+    animation: race-finish-sweep 1.2s ease-out both;
+  }
+  .race-finish-flag {
+    transform-box: fill-box;
+    transform-origin: top;
+    animation: race-finish-flag 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .race-finish-banner {
+    animation: race-finish-banner 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .race-finish-ring {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: race-finish-ring 1.4s ease-out 3 both;
+  }
+}
+.race-finish-ring {
+  opacity: 0;
+}
+@keyframes race-finish-sweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+@keyframes race-finish-flag {
+  from { transform: scaleY(0); opacity: 0; }
+}
+@keyframes race-finish-banner {
+  from { transform: translateY(6px) scale(0.96); opacity: 0; }
+}
+@keyframes race-finish-ring {
+  from { transform: scale(1); opacity: 0.9; }
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* Full-screen page sections (SectionPager): each fills the screen below the
+   sticky header, its content centered, and snaps into place. Only pages
+   with [data-panel] sections (the hackathon page) are affected. */
+html:has([data-panel]) {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 4rem;
+}
+[data-panel] {
+  min-height: calc(100svh - 4rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: start;
+}
+[data-panel]:not([data-panel="hero"]) {
+  padding-block: clamp(1rem, 3.5svh, 4rem);
+}

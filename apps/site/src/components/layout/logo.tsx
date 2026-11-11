@@ -1,26 +1,43 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@hummingbot/ui";
 
-/** Hummingbot wordmark — teal hummingbird glyph + name. */
-export function Logo({ className }: { className?: string }) {
+/**
+ * Hummingbot logo + wordmark, the same marks as Botcamp's header: white on
+ * the dark theme (hbot-dark), black on the light one (hbot-light). A
+ * `product` reads as Botcamp's "Hummingbot Botcamp" wordmark, the product name
+ * in gold.
+ */
+export function Logo({ className, product }: { className?: string; product?: string }) {
   return (
     <Link
       href="/"
       aria-label="Hummingbot home"
       className={cn(
-        "inline-flex items-center gap-2 font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm",
+        "inline-flex items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className,
       )}
     >
-      <svg
-        viewBox="0 0 24 24"
-        className="size-6 text-brand-teal"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path d="M12 2c2.2 3.1 5.3 4.4 8.5 4.8-.6 4.7-3 7.8-6 9.4l2 5.8-4.5-3.2L7.5 22l2-5.8c-3-1.6-5.4-4.7-6-9.4C6.7 6.4 9.8 5.1 12 2z" />
-      </svg>
-      <span className="text-lg">Hummingbot</span>
+      <Image
+        src="/brand/marks/hbot-dark.png"
+        alt=""
+        width={40}
+        height={40}
+        className="mr-3 [[data-theme=light]_&]:hidden"
+        priority
+      />
+      <Image
+        src="/brand/marks/hbot-light.png"
+        alt=""
+        width={40}
+        height={40}
+        className="mr-3 hidden [[data-theme=light]_&]:block"
+        priority
+      />
+      <span className="text-xl font-bold">
+        <span className="text-foreground">Hummingbot</span>
+        {product && <span className="brand-word"> {product}</span>}
+      </span>
     </Link>
   );
 }

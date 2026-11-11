@@ -1,26 +1,18 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
 
 /**
  * Light/dark switch. The theme is set pre-paint on <html data-theme> by the
  * inline script in layout.tsx; this flips that attribute and persists the
- * choice. Renders the dark-mode icon (Sun) until mounted so SSR and the first
- * client render agree.
+ * choice. The icon follows the attribute through CSS, so SSR and the client
+ * agree without tracking the theme in state.
  */
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
-
-  useEffect(() => {
-    const current = document.documentElement.getAttribute("data-theme");
-    if (current === "light" || current === "dark") setTheme(current);
-  }, []);
-
   function toggle() {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
+    const root = document.documentElement;
+    const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
     try {
       localStorage.setItem("site-theme", next);
     } catch {
@@ -32,14 +24,11 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
+      aria-label="Toggle light and dark mode"
       className="inline-flex size-9 items-center justify-center rounded-md text-ink-300 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
-      {theme === "light" ? (
-        <Moon className="size-5" aria-hidden="true" />
-      ) : (
-        <Sun className="size-5" aria-hidden="true" />
-      )}
+      <Sun className="size-5 [[data-theme=light]_&]:hidden" aria-hidden="true" />
+      <Moon className="hidden size-5 [[data-theme=light]_&]:block" aria-hidden="true" />
     </button>
   );
 }

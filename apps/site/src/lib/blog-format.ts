@@ -28,12 +28,12 @@ export function formatDate(iso: string): string {
   }).format(new Date(`${iso}T00:00:00`));
 }
 
-/** Deterministic brand gradient for posts without a cover image. */
+/** Deterministic Botcamp-palette gradient for posts without a cover image. */
 export function coverFallback(slug: string): string {
   const palettes = [
-    "from-brand-teal/30 via-brand-cyan/20 to-brand-magenta/30",
-    "from-brand-magenta/30 via-brand-teal/20 to-brand-cyan/30",
-    "from-brand-cyan/30 via-brand-magenta/20 to-brand-teal/30",
+    "from-primary/30 via-secondary/20 to-accent/30",
+    "from-accent/30 via-primary/20 to-secondary/30",
+    "from-secondary/30 via-accent/20 to-primary/30",
   ];
   let h = 0;
   for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) % palettes.length;

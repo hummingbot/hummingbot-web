@@ -110,6 +110,6 @@ describe("helpers", () => {
   });
   it("coverFallback is deterministic and returns a gradient class", () => {
     expect(coverFallback("abc")).toBe(coverFallback("abc"));
-    expect(coverFallback("abc")).toMatch(/from-brand-/);
+    expect(coverFallback("abc")).toMatch(/from-(primary|secondary|accent)\//);
   });
 });

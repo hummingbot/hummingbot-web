@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { ExchangeDirectory } from "@/components/exchanges/exchange-directory";
-import { GradientText } from "@hummingbot/ui";
 import { urls } from "@/config/site";
 import { EXCHANGES, EXCHANGE_COUNT } from "@/lib/exchanges";
 
@@ -19,7 +19,7 @@ export default function ExchangesPage() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-16">
         <header className="mb-10 max-w-3xl">
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-            <GradientText>Exchanges</GradientText>
+            <span className="brand-highlight text-primary">Exchanges</span>
           </h1>
           <p className="mt-3 text-pretty text-lg text-ink-400">
             Hummingbot connects to {EXCHANGE_COUNT}+ centralized and decentralized
@@ -38,17 +38,17 @@ export default function ExchangesPage() {
             program. Sponsor a connector or build one to earn rewards.
           </p>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-            <a
+            <Link
               href="/bounties"
-              className="inline-flex items-center gap-1.5 rounded-md bg-brand-teal px-4 py-2 text-sm font-semibold text-ink-999 transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
               How bounties work
-            </a>
+            </Link>
             <a
               href={urls.exchangesDocs}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 text-sm font-medium text-brand-teal hover:underline"
+              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
             >
               Full connector docs
               <ArrowUpRight className="size-4" aria-hidden="true" />

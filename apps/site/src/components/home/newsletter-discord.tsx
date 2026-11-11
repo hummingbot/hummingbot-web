@@ -53,7 +53,7 @@ export function NewsletterDiscord() {
               autoComplete="email"
               spellCheck={false}
               placeholder="you@example.com…"
-              className="h-10 flex-1 rounded-md border border-ink-700 bg-ink-950 px-3 text-sm text-foreground placeholder:text-ink-600 focus-visible:border-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="h-10 flex-1 rounded-md border border-ink-700 bg-ink-950 px-3 text-sm text-foreground placeholder:text-ink-600 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <Button type="submit" disabled={status.state === "loading"}>
               {status.state === "loading" ? "Subscribing…" : "Subscribe"}
@@ -62,7 +62,7 @@ export function NewsletterDiscord() {
           <p
             aria-live="polite"
             className={`mt-3 min-h-5 text-sm ${
-              status.state === "error" ? "text-bear" : "text-brand-teal"
+              status.state === "error" ? "text-bear" : "text-primary"
             }`}
           >
             {status.message}
@@ -84,7 +84,7 @@ export function NewsletterDiscord() {
               Thousands of traders and builders in Discord — get help, share
               strategies, shape the roadmap.
             </p>
-            <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand-teal">
+            <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">
               Open Discord <ArrowRight className="size-4" aria-hidden="true" />
             </span>
           </Card>

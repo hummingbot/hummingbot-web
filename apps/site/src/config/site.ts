@@ -1,9 +1,8 @@
 /** Single source of truth for marketing-site config: nav, socials, links. */
 
-// Docs (Mintlify) + Hub live on their own domains in prod; override with
-// NEXT_PUBLIC_DOCS_URL / NEXT_PUBLIC_HUB_URL to point at local instances.
-const DOCS = process.env.NEXT_PUBLIC_DOCS_URL ?? "https://docs.hummingbot.org";
-const HUB = process.env.NEXT_PUBLIC_HUB_URL ?? "https://hub.hummingbot.org";
+// Docs (/docs, lib/docs.ts) and the Hub (/hub, lib/hub.ts) live in this site.
+const DOCS = "/docs";
+const HUB = "/hub";
 
 export const urls = {
   docs: DOCS,
@@ -16,7 +15,14 @@ export const urls = {
   discord: "https://discord.gg/hummingbot",
   x: "https://x.com/_hummingbot",
   youtube: "https://youtube.com/@hummingbot",
-  education: "https://www.botcamp.xyz",
+  // Botcamp cohort questions before enrolling (the public cohort chat).
+  telegram: "https://t.me/botcampcohorts",
+  botcamp: "/botcamp",
+  cohorts: "/botcamp#cohorts",
+  courses: "/botcamp#courses",
+  hackathons: "/hackathons",
+  // Placeholder until accounts move over from Botcamp.
+  signup: "/signup",
   rewards: "https://xrpliquid.com",
   install: "/install.sh",
   condorInstall: "/condor.sh",
@@ -29,45 +35,18 @@ export type NavItem = {
   children?: { label: string; href: string; description?: string }[];
 };
 
+// The site's essential sections in two groups: first the community loop that
+// comes from Botcamp — clone a strategy, learn to build one (Botcamp), race it
+// (Hackathons) — then Hummingbot's own: Docs, Bounties, and the Foundation.
+// Flat, like Botcamp's header.
 export const nav: NavItem[] = [
-  {
-    label: "Docs",
-    href: urls.docs,
-    external: true,
-    children: [
-      { label: "Hummingbot", href: urls.docs, description: "Framework, strategies & connectors" },
-      { label: "Condor", href: "/condor", description: "The harness for AI trading agents" },
-    ],
-  },
-  {
-    label: "Hub",
-    href: urls.hub,
-    external: true,
-    children: [
-      { label: "Strategies", href: `${urls.hub}/strategies`, description: "Market-making, arbitrage & more" },
-      { label: "Routines", href: `${urls.hub}/routines`, description: "Schedulable Condor workflows" },
-      { label: "Skills", href: `${urls.hub}/skills`, description: "AI-assistant skills for Hummingbot" },
-    ],
-  },
-  { label: "Exchanges", href: "/exchanges" },
-  { label: "Volumes", href: "/volumes" },
-  { label: "Blog", href: "/blog" },
-  {
-    label: "About",
-    href: "/about",
-    children: [
-      { label: "Foundation", href: "/about", description: "Mission, history & team" },
-      { label: "Bounties", href: "/bounties", description: "How connectors get funded" },
-      { label: "Community", href: "/community", description: "Discord, certification & rewards" },
-      { label: "Governance", href: "/about#governance", description: "HBOT & on-chain voting" },
-    ],
-  },
+  { label: "Strategies", href: urls.hub },
+  { label: "Botcamp", href: urls.botcamp },
+  { label: "Hackathons", href: urls.hackathons },
+  { label: "Docs", href: urls.docs },
+  { label: "Bounties", href: "/bounties" },
+  { label: "Foundation", href: "/foundation" },
 ];
-
-export const announcement = {
-  text: "Introducing Condor 🦅 — The Open Source Harness for Trading Agents",
-  href: `${urls.blog}/introducing-condor`,
-} as const;
 
 /** GitHub org repos grouped for the EcosystemGrid (descriptions/stars fetched live). */
 export const ecosystem: { category: string; icon: string; repos: string[] }[] = [

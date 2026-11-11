@@ -1,4 +1,5 @@
 import { backers } from "@hummingbot/brand";
+import { ThemedLogo } from "@/components/ui/themed-logo";
 
 export function UsedBy() {
   return (
@@ -10,13 +11,11 @@ export function UsedBy() {
         <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
           {backers.map((logo) => (
             <li key={logo.name}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`/brand/logos/${logo.dark}`}
+              <ThemedLogo
+                dark={logo.dark}
+                light={logo.light}
                 alt={logo.name}
-                height={28}
-                className="h-7 w-auto opacity-50 grayscale transition hover:opacity-90 hover:grayscale-0"
-                loading="lazy"
+                className="h-7 w-auto opacity-60 grayscale transition hover:opacity-90 hover:grayscale-0"
               />
             </li>
           ))}

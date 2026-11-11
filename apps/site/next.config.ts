@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+// Condor's docs are still on the Mintlify subdomain.
 const DOCS = "https://docs.hummingbot.org";
 // TODO(deploy): switch back to /main once `install-wizard` merges. The install
 // scripts currently live only on that branch.
@@ -24,13 +25,9 @@ const nextConfig: NextConfig = {
       // (/blog/posts/<slug>) redirect to the flat /blog/<slug> routes.
       { source: "/blog/posts/:slug*", destination: "/blog/:slug*", permanent: true },
 
-      // Release notes live in Mintlify (docs subdomain) at /release-notes/<version>.
-      { source: "/release-notes", destination: `${DOCS}/release-notes`, permanent: true },
-      {
-        source: "/release-notes/:version",
-        destination: `${DOCS}/release-notes/:version`,
-        permanent: true,
-      },
+      // Release notes are part of the docs on this site (/docs/release-notes).
+      { source: "/release-notes", destination: "/docs/release-notes", permanent: true },
+      { source: "/release-notes/:version", destination: "/docs/release-notes/:version", permanent: true },
 
       // Condor docs live in Mintlify under docs.hummingbot.org/condor; forward
       // the site-owned canonical /condor/* on to the docs subdomain.
@@ -39,11 +36,9 @@ const nextConfig: NextConfig = {
       { source: "/condor", destination: `${DOCS}/condor`, permanent: true },
       { source: "/condor/:path*", destination: `${DOCS}/condor/:path*`, permanent: true },
 
-      // Docs live in Mintlify. /exchanges is now a marketing landing on this
-      // site; individual connector pages still live in docs, so only redirect
-      // the sub-paths (:path+ = one-or-more, leaving bare /exchanges to us).
-      { source: "/docs/:path*", destination: `${DOCS}/:path*`, permanent: true },
-      { source: "/exchanges/:path+", destination: `${DOCS}/exchanges/:path+`, permanent: true },
+      // Docs live on this site at /docs (src/lib/docs.ts). /exchanges is a
+      // landing page; connector pages are docs, so only the sub-paths move.
+      { source: "/exchanges/:path+", destination: "/docs/exchanges/:path+", permanent: true },
     ];
   },
 };

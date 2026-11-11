@@ -3,7 +3,6 @@ import { ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { VolumesDashboard } from "@/components/volumes/volumes-dashboard";
-import { GradientText } from "@hummingbot/ui";
 
 export const metadata: Metadata = {
   title: "Reported Volumes — Hummingbot",
@@ -18,7 +17,7 @@ export default function VolumesPage() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-16">
         <header className="mb-8 max-w-3xl">
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-            Reported <GradientText>volumes</GradientText>
+            Reported <span className="brand-highlight text-primary">volumes</span>
           </h1>
           <p className="mt-3 text-pretty text-lg text-ink-400">
             Anonymized, aggregated trading volume that Hummingbot instances report
@@ -35,7 +34,7 @@ export default function VolumesPage() {
             href="https://github.com/hummingbot/datadog"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-0.5 text-brand-teal hover:underline"
+            className="inline-flex items-center gap-0.5 text-primary hover:underline"
           >
             hummingbot/datadog
             <ArrowUpRight className="size-3.5" aria-hidden="true" />
