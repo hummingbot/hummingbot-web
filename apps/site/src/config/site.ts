@@ -43,7 +43,7 @@ export const nav: NavItem[] = [
     label: "Products",
     href: "/#products",
     children: [
-      { label: "Condor", href: `${DOCS}/condor`, description: "Run and talk to AI trading agents, from Telegram" },
+      { label: "Condor", href: "/get-condor", description: "Run AI trading agents on your own machine. Get it here" },
       { label: "Hummingbot Client", href: `${DOCS}/client`, description: "The open source engine: connectors and strategies" },
       { label: "Hummingbot API", href: `${DOCS}/hummingbot-api`, description: "Deploy and manage many bots from one server" },
       { label: "Gateway", href: `${DOCS}/gateway`, description: "Trade on DEXs and land transactions on-chain" },

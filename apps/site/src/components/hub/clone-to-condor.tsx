@@ -2,15 +2,31 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Check, Copy, Download, X } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  Copy,
+  Download,
+  MonitorDown,
+  PackageCheck,
+  X,
+} from "lucide-react";
 import { cn } from "@hummingbot/ui";
+import { CondorInstall } from "@/components/condor/condor-install";
 
 const ACCEPTED_KEY = "hb-condor-clone-accepted";
+// "yes" / "no": whether this browser said it has Condor. The site can't
+// detect it (Condor runs on the user's own machine), so it asks once.
+const HAS_CONDOR_KEY = "hb-has-condor";
 
 /**
  * "Clone to Condor", as on Botcamp: Condor pulls agents from its Hub
  * (Hub › Pull agents), looking them up by slug, so the slug is what you copy.
  * The slug shows once the disclaimer is ticked.
+ *
+ * First it asks whether you have Condor: if not, it shows how to install it
+ * right there (the same CondorInstall as /get-condor), so the agent you picked
+ * stays on screen. The answer is remembered in this browser.
  *
  * The tick is remembered in this browser only. Botcamp records it on the
  * account (POST /api/user/condor-terms) and refuses the download until it is;
@@ -35,6 +51,19 @@ export function CloneToCondor({
   const dialog = useRef<HTMLDialogElement>(null);
   const [accepted, setAccepted] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [hasCondor, setHasCondor] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    try {
+      const has = localStorage.getItem(HAS_CONDOR_KEY);
+      if (has === "yes" || has === "no") {
+        const id = requestAnimationFrame(() => setHasCondor(has === "yes"));
+        return () => cancelAnimationFrame(id);
+      }
+    } catch {
+      // storage unavailable: ask again
+    }
+  }, []);
 
   useEffect(() => {
     try {
@@ -53,6 +82,15 @@ export function CloneToCondor({
       localStorage.setItem(ACCEPTED_KEY, "1");
     } catch {
       // still accepted for this visit
+    }
+  };
+
+  const answer = (has: boolean) => {
+    setHasCondor(has);
+    try {
+      localStorage.setItem(HAS_CONDOR_KEY, has ? "yes" : "no");
+    } catch {
+      // remembered for this visit only
     }
   };
 
@@ -88,7 +126,7 @@ export function CloneToCondor({
         ref={dialog}
         aria-labelledby={`clone-${slug}-title`}
         onClick={(e) => e.target === dialog.current && dialog.current?.close()}
-        className="m-auto w-[calc(100%-2rem)] max-w-lg rounded-2xl border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+        className="m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-2xl border border-border bg-background p-0 text-foreground shadow-2xl backdrop:bg-black/70 backdrop:backdrop-blur-sm"
       >
         <div className="flex flex-col gap-5 p-6">
           <div className="flex items-start gap-3">
@@ -108,7 +146,10 @@ export function CloneToCondor({
               </h2>
               <p className="text-sm text-muted-foreground">
                 <span className="text-foreground">{name}</span> v{version}{" "}
-                passed review. Pull it into your own Condor from the Hub.
+                passed review.{" "}
+                {hasCondor === false
+                  ? "Install Condor first, then pull it from Condor's Hub."
+                  : "Pull it into your own Condor from the Hub."}
               </p>
             </div>
             <button
@@ -121,93 +162,162 @@ export function CloneToCondor({
             </button>
           </div>
 
-          <ol className="space-y-3 text-sm text-muted-foreground">
-            {[
-              <>
-                In Condor&apos;s dashboard, open{" "}
-                <span className="text-foreground">Hub → Pull agents</span>. If
-                it asks, connect your account and approve the code at{" "}
-                <a
-                  href={connectUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-primary hover:underline"
-                >
-                  /connect
-                </a>
-                .
-              </>,
-              <>
-                Find the agent in the catalogue, or open{" "}
-                <span className="text-foreground">Look up by slug</span> and
-                paste the slug below.
-              </>,
-              <>
-                Review what&apos;s in it and install. Routines and skills arrive
-                switched off; nothing runs until you turn them on.
-              </>,
-            ].map((step, i) => (
-              <li key={i} className="flex gap-3">
-                <span className="w-5 shrink-0 font-mono text-xs font-bold text-primary">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span>{step}</span>
-              </li>
-            ))}
-          </ol>
-
-          <div className="space-y-3 rounded-xl border border-secondary/30 bg-secondary/10 p-4 text-xs leading-relaxed">
-            <p className="text-foreground/90">
-              This is someone else&apos;s code. This version was reviewed once,
-              which is no guarantee it&apos;s safe or profitable. Read the code
-              and each routine before you switch it on, and try it without real
-              funds first. You&apos;re responsible for what it does with your
-              exchange keys.
-            </p>
-            {accepted ? (
-              <p className="flex items-center gap-2 text-foreground">
-                <Check className="size-4 text-primary" aria-hidden="true" />
-                You accepted this. It covers every agent you clone.
+          {hasCondor === null && (
+            <div className="space-y-3">
+              <p className="text-sm font-medium">
+                Do you already have Condor installed?
               </p>
-            ) : (
-              <label className="flex cursor-pointer items-start gap-2 text-foreground">
-                <input
-                  type="checkbox"
-                  onChange={(e) => e.target.checked && accept()}
-                  className="mt-0.5 size-4 shrink-0 accent-[hsl(var(--primary))]"
-                />
-                I understand, and I&apos;ll review every agent before running
-                it.
-              </label>
-            )}
-          </div>
-
-          {accepted && (
-            <div className="space-y-1.5">
-              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                Agent slug
-              </p>
-              <div className="flex items-center gap-2">
-                <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap rounded-md border border-border bg-card px-3 py-2 font-mono text-xs">
-                  {slug}
-                </code>
+              <div className="grid gap-3 sm:grid-cols-2">
                 <button
                   type="button"
-                  onClick={copy}
-                  className="inline-flex h-9 shrink-0 items-center rounded-md bg-primary px-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                  onClick={() => answer(true)}
+                  className="flex flex-col items-start gap-2 rounded-xl border border-border bg-card p-4 text-left transition-colors hover:border-primary/60"
                 >
-                  {copied ? (
-                    <Check className="mr-1.5 size-4" aria-hidden="true" />
-                  ) : (
-                    <Copy className="mr-1.5 size-4" aria-hidden="true" />
-                  )}
-                  {copied ? "Copied" : "Copy"}
+                  <PackageCheck
+                    className="size-5 text-primary"
+                    aria-hidden="true"
+                  />
+                  <span className="font-semibold">Yes, I have Condor</span>
+                  <span className="text-xs text-muted-foreground">
+                    Show me how to pull this agent.
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => answer(false)}
+                  className="flex flex-col items-start gap-2 rounded-xl border border-border bg-card p-4 text-left transition-colors hover:border-primary/60"
+                >
+                  <MonitorDown
+                    className="size-5 text-primary"
+                    aria-hidden="true"
+                  />
+                  <span className="font-semibold">Not yet</span>
+                  <span className="text-xs text-muted-foreground">
+                    Install it first. One command, on your own machine.
+                  </span>
                 </button>
               </div>
-              <p className="sr-only" aria-live="polite">
-                {copied ? "Slug copied" : ""}
-              </p>
             </div>
+          )}
+
+          {hasCondor === false && (
+            <div className="space-y-4">
+              <CondorInstall compact />
+              <div className="flex items-center justify-between gap-3 border-t border-border pt-4">
+                <span className="text-xs text-muted-foreground">
+                  Condor running?
+                </span>
+                <button
+                  type="button"
+                  onClick={() => answer(true)}
+                  className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                >
+                  I&apos;ve installed it: pull the agent
+                </button>
+              </div>
+            </div>
+          )}
+
+          {hasCondor === true && (
+            <>
+              <ol className="space-y-3 text-sm text-muted-foreground">
+                {[
+                  <>
+                    In Condor&apos;s dashboard, open{" "}
+                    <span className="text-foreground">Hub → Pull agents</span>.
+                    If it asks, connect your account and approve the code at{" "}
+                    <a
+                      href={connectUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      /connect
+                    </a>
+                    .
+                  </>,
+                  <>
+                    Find the agent in the catalogue, or open{" "}
+                    <span className="text-foreground">Look up by slug</span> and
+                    paste the slug below.
+                  </>,
+                  <>
+                    Review what&apos;s in it and install. Routines and skills
+                    arrive switched off; nothing runs until you turn them on.
+                  </>,
+                ].map((step, i) => (
+                  <li key={i} className="flex gap-3">
+                    <span className="w-5 shrink-0 font-mono text-xs font-bold text-primary">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="space-y-3 rounded-xl border border-secondary/30 bg-secondary/10 p-4 text-xs leading-relaxed">
+                <p className="text-foreground/90">
+                  This is someone else&apos;s code. This version was reviewed
+                  once, which is no guarantee it&apos;s safe or profitable. Read
+                  the code and each routine before you switch it on, and try it
+                  without real funds first. You&apos;re responsible for what it
+                  does with your exchange keys.
+                </p>
+                {accepted ? (
+                  <p className="flex items-center gap-2 text-foreground">
+                    <Check className="size-4 text-primary" aria-hidden="true" />
+                    You accepted this. It covers every agent you clone.
+                  </p>
+                ) : (
+                  <label className="flex cursor-pointer items-start gap-2 text-foreground">
+                    <input
+                      type="checkbox"
+                      onChange={(e) => e.target.checked && accept()}
+                      className="mt-0.5 size-4 shrink-0 accent-[hsl(var(--primary))]"
+                    />
+                    I understand, and I&apos;ll review every agent before
+                    running it.
+                  </label>
+                )}
+              </div>
+
+              {accepted && (
+                <div className="space-y-1.5">
+                  <p className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                    Agent slug
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap rounded-md border border-border bg-card px-3 py-2 font-mono text-xs">
+                      {slug}
+                    </code>
+                    <button
+                      type="button"
+                      onClick={copy}
+                      className="inline-flex h-9 shrink-0 items-center rounded-md bg-primary px-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
+                    >
+                      {copied ? (
+                        <Check className="mr-1.5 size-4" aria-hidden="true" />
+                      ) : (
+                        <Copy className="mr-1.5 size-4" aria-hidden="true" />
+                      )}
+                      {copied ? "Copied" : "Copy"}
+                    </button>
+                  </div>
+                  <p className="sr-only" aria-live="polite">
+                    {copied ? "Slug copied" : ""}
+                  </p>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => answer(false)}
+                className="inline-flex items-center gap-1.5 self-start text-xs font-medium text-muted-foreground hover:text-primary"
+              >
+                <ArrowLeft className="size-3.5" aria-hidden="true" />
+                Don&apos;t have Condor yet?
+              </button>
+            </>
           )}
         </div>
       </dialog>

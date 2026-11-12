@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { urls } from "@/config/site";
 import { InstallTabs } from "./install-tabs";
 
 /** One-command installs for Condor and Hummingbot — the hero's "Install Condor" target. */
@@ -17,8 +16,8 @@ export function InstallSection() {
             Condor runs your agents and talks to you on Telegram. Hummingbot is the open source engine underneath,
             with connectors to the exchanges you trade on.
           </p>
-          <Link href={urls.docs} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-            Read the install guide <ArrowRight className="size-4" aria-hidden="true" />
+          <Link href="/get-condor" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+            Condor install guide <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
         <InstallTabs
