@@ -156,10 +156,15 @@ export default function StrategyDetailClient({
                       {strategy.cohort === 0 ? 'Example' : `Cohort ${strategy.cohort}`}
                     </span>
                   )}
-                  <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 rounded-bc-md border border-border bg-card/60 text-muted-foreground">
-                    <Eye className="h-3 w-3" />
-                    {VISIBILITY_LABELS[strategy.visibility]}
-                  </span>
+                  {/* Visibility only when it's the exception: anything a visitor
+                      sees here is public by default, and "Public" next to
+                      "Free" read as the same thing. */}
+                  {strategy.visibility !== 'PUBLIC' && (
+                    <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 rounded-bc-md border border-border bg-card/60 text-muted-foreground">
+                      <Eye className="h-3 w-3" />
+                      {VISIBILITY_LABELS[strategy.visibility]}
+                    </span>
+                  )}
                 </div>
                 {strategy.summary && (
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl">{strategy.summary}</p>
@@ -288,9 +293,6 @@ export default function StrategyDetailClient({
                 </div>
               </SidebarBlock>
 
-              <SidebarBlock label="Visibility">
-                <span className="text-sm">{VISIBILITY_LABELS[strategy.visibility]}</span>
-              </SidebarBlock>
 
               <SidebarBlock label="Type">
                 <span className="text-sm">{typeLabel}</span>
