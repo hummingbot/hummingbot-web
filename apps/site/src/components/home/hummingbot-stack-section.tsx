@@ -17,6 +17,7 @@ const STATS = [
 const LAYERS = [
   {
     layer: "AI harness",
+    intent: "Run a ready-made agent",
     name: "Condor",
     repo: "condor",
     docs: "condor",
@@ -24,6 +25,7 @@ const LAYERS = [
   },
   {
     layer: "Server",
+    intent: "Run many bots from one place",
     name: "Hummingbot API",
     repo: "hummingbot-api",
     docs: "hummingbot-api",
@@ -31,6 +33,7 @@ const LAYERS = [
   },
   {
     layer: "Core",
+    intent: "Code your own strategy",
     name: "Hummingbot Client",
     repo: "hummingbot",
     docs: "client",
@@ -38,6 +41,7 @@ const LAYERS = [
   },
   {
     layer: "Core",
+    intent: "Trade on DEXs",
     name: "Gateway",
     repo: "gateway",
     docs: "gateway",
@@ -45,22 +49,32 @@ const LAYERS = [
   },
 ] as const;
 
-/** Hummingbot on the home: what it has run, and the open source stack underneath every agent. */
+// Names people still find in search results and old tutorials, and where they went.
+const LEGACY = [
+  { name: "Dashboard", status: "Deprecated", now: "Condor", href: `${urls.docs}/condor` },
+  { name: "V1 strategies", status: "Legacy", now: "V2 controllers", href: `${urls.docs}/client` },
+] as const;
+
+/**
+ * "Which one do you need?" on the home: the open source stack read as tasks
+ * (what you want to do → which piece), what it has run, and the names that
+ * are gone. Users' top confusion is which product they need.
+ */
 export async function HummingbotStackSection() {
   const repos = await getOrgRepos();
 
   return (
-    <section id="hummingbot" className="w-full scroll-mt-16 border-b border-border py-16 md:py-24">
+    <section id="products" className="w-full scroll-mt-16 border-b border-border py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <div className="mb-12 grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-end">
           <div>
-            <p className={`${kicker} mb-3 text-primary`}>Hummingbot · Open Source</p>
+            <p className={`${kicker} mb-3 text-primary`}>Products · Open Source</p>
             <h2 className="text-balance text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-5xl">
-              The engine under every agent.
+              Which one do you need?
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-              Individuals and institutions run Hummingbot to trade on centralized and decentralized exchanges. Every
-              repository is open source under Apache 2.0 and maintained by the Hummingbot Foundation with its community.
+              Four open source pieces, one stack: Condor drives the API, which runs the client and Gateway. Start
+              from what you want to do. Everything is Apache 2.0 and maintained by the Hummingbot Foundation.
             </p>
           </div>
           <a
@@ -79,7 +93,7 @@ export async function HummingbotStackSection() {
         </div>
 
         <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {LAYERS.map(({ layer, name, repo, docs, body }, i) => {
+          {LAYERS.map(({ layer, intent, name, repo, docs, body }, i) => {
             const meta = repos.get(repo);
             return (
               <li
@@ -102,7 +116,8 @@ export async function HummingbotStackSection() {
                     </span>
                   )}
                 </p>
-                <h3 className="mt-4 text-xl font-semibold tracking-tight">{name}</h3>
+                <p className="mt-4 text-sm font-medium text-primary">{intent} →</p>
+                <h3 className="mt-1 text-xl font-semibold tracking-tight">{name}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{body}</p>
                 <span className="mt-5 flex items-center gap-4 text-sm font-semibold">
                   <span className="inline-flex items-center gap-1">
@@ -121,6 +136,21 @@ export async function HummingbotStackSection() {
             );
           })}
         </ol>
+
+        <p className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+          <span className={`${kicker}`}>Looking for</span>
+          {LEGACY.map(({ name, status, now, href }) => (
+            <span key={name} className="inline-flex items-center gap-2">
+              <span className="font-medium text-foreground">{name}</span>
+              <span className="rounded-full border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
+                {status}
+              </span>
+              <Link href={href} className="font-medium text-primary hover:underline">
+                Use {now} →
+              </Link>
+            </span>
+          ))}
+        </p>
       </div>
     </section>
   );

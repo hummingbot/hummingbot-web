@@ -22,13 +22,15 @@ describe("site config", () => {
     }
   });
 
-  it("has a flat nav of the essential sections", () => {
-    expect(nav.map((i) => i.label)).toEqual(["Strategies", "Botcamp", "Hackathons", "Docs", "Bounties", "Foundation"]);
-    expect(nav.every((i) => !i.children?.length)).toBe(true);
+  it("names tasks, not internal brands, at the top level", () => {
+    expect(nav.map((i) => i.label)).toEqual(["Products", "Strategies", "Learn", "Hackathons", "Docs", "Community"]);
+    // Botcamp lives under Learn.
+    expect(nav.find((i) => i.label === "Learn")?.children?.[0]?.label).toBe("Botcamp");
   });
 
   it("keeps every section on this site", () => {
     expect(nav.every((i) => i.href.startsWith("/") && !i.external)).toBe(true);
+    for (const item of nav) for (const child of item.children ?? []) expect(child.href.startsWith("/")).toBe(true);
   });
 
 });

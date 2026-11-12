@@ -8,11 +8,13 @@ import { InstallSection } from "@/components/home/install-section";
 import { ExchangeGrid } from "@/components/home/exchange-grid";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { CommunitySection } from "@/components/home/community-section";
+import { AudienceCards } from "@/components/home/audience-cards";
 
 /**
- * The home: clone a strategy (hero) and install Condor to run it, the
- * Hummingbot stack underneath, learn to build your own (Botcamp), the
- * exchanges it trades on, what market makers say, and the community.
+ * The home, in the order comparable sites use: clone a strategy (hero, with
+ * the live Hub and the Cup standings), which product you need, install it,
+ * learn to build your own (Botcamp), a way in per audience, the exchanges it
+ * trades on, what market makers say, and the community.
  */
 export default function Home() {
   return (
@@ -21,9 +23,10 @@ export default function Home() {
       <main className="flex flex-1 flex-col">
         <Hero />
         <UsedBy />
-        <InstallSection />
         <HummingbotStackSection />
+        <InstallSection />
         <BotcampSection />
+        <AudienceCards />
         <ExchangeGrid />
         <TestimonialsSection />
         <CommunitySection />

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@hummingbot/ui";
-import { nav, urls } from "@/config/site";
+import { nav, primaryCta, urls, type NavItem } from "@/config/site";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -19,16 +19,90 @@ function subBrandFor(pathname: string | null) {
   return SUB_BRANDS.find((b) => pathname === b.href || pathname?.startsWith(b.href + "/")) ?? null;
 }
 
-function isActive(pathname: string | null, href: string): boolean {
-  // Hash links (e.g. /botcamp#hackathons) point into another nav item's page.
+function matches(pathname: string | null, href: string): boolean {
   if (!pathname || !href.startsWith("/") || href.includes("#")) return false;
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 }
 
+/** A top-level item is active on its own page or any of its children's. */
+function isActive(pathname: string | null, item: NavItem): boolean {
+  return matches(pathname, item.href) || (item.children ?? []).some((c) => matches(pathname, c.href));
+}
+
+/** Desktop dropdown: opens on hover or click, closes on Escape / outside click. */
+function NavDropdown({ item, active }: { item: NavItem; active: boolean }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onClick = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [open]);
+
+  const enter = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  const leave = () => {
+    closeTimer.current = setTimeout(() => setOpen(false), 120);
+  };
+
+  return (
+    <div ref={ref} className="relative" onMouseEnter={enter} onMouseLeave={leave}>
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className={cn(
+          "inline-flex items-center gap-1 text-base font-medium text-foreground transition-colors hover:text-primary",
+          active && "underline decoration-primary decoration-2 underline-offset-8",
+        )}
+      >
+        {item.label}
+        <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} aria-hidden="true" />
+      </button>
+      {open && (
+        <div className="absolute left-1/2 top-full z-50 w-80 -translate-x-1/2 pt-3">
+          <ul className="overflow-hidden rounded-xl border border-border bg-popover p-2 text-popover-foreground shadow-xl">
+            {item.children!.map((child) => (
+              <li key={child.label}>
+                <Link
+                  href={child.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "block rounded-lg px-3 py-2.5 transition-colors hover:bg-muted",
+                    !child.description && "mt-1 border-t border-border pt-3 text-sm font-semibold text-primary",
+                  )}
+                >
+                  <span className={cn("block", child.description && "text-sm font-semibold text-foreground")}>
+                    {child.label}
+                    {!child.description && " →"}
+                  </span>
+                  {child.description && (
+                    <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{child.description}</span>
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /**
- * Botcamp-style header: a sticky frosted bar with the logo, a flat
- * right-aligned nav (active link underlined in primary), theme toggle, and
- * the primary account button.
+ * Botcamp-style header: a sticky frosted bar with the logo, a right-aligned
+ * nav (dropdowns for Products, Learn and Community), theme toggle, Sign in and
+ * the primary call to action.
  */
 export function SiteHeaderClient() {
   const [open, setOpen] = useState(false);
@@ -36,74 +110,108 @@ export function SiteHeaderClient() {
   const subBrand = subBrandFor(pathname);
 
   return (
-    <>
-      <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
-        <div className="flex h-16 items-center px-6 lg:px-8">
-          <Logo product={subBrand?.label} />
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
+      <div className="flex h-16 items-center px-6 lg:px-8">
+        <Logo product={subBrand?.label} />
 
-          <nav className="mr-6 hidden gap-6 md:flex md:flex-1 md:items-center md:justify-end lg:gap-8" aria-label="Primary">
-            {nav.map((item) => (
+        <nav className="mr-6 hidden gap-6 lg:flex lg:flex-1 lg:items-center lg:justify-end xl:gap-8" aria-label="Primary">
+          {nav.map((item) =>
+            item.children?.length ? (
+              <NavDropdown key={item.label} item={item} active={isActive(pathname, item)} />
+            ) : (
               <Link
                 key={item.label}
                 href={item.href}
                 className={cn(
                   "text-base font-medium text-foreground transition-colors hover:text-primary",
-                  isActive(pathname, item.href) && "underline decoration-primary decoration-2 underline-offset-8",
+                  isActive(pathname, item) && "underline decoration-primary decoration-2 underline-offset-8",
                 )}
               >
                 {item.label}
               </Link>
-            ))}
-          </nav>
+            ),
+          )}
+        </nav>
 
-          <div className="ml-auto flex items-center gap-2">
-            <ThemeToggle />
-            <Link
-              href={urls.signup}
-              className="hidden h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 md:inline-flex"
-            >
-              Sign Up
-            </Link>
-            <button
-              type="button"
-              aria-label={open ? "Close menu" : "Open menu"}
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-              className="inline-flex size-9 items-center justify-center rounded-md text-foreground hover:bg-card md:hidden"
-            >
-              {open ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
-          </div>
+        <div className="ml-auto flex items-center gap-2">
+          <ThemeToggle />
+          <Link
+            href={urls.signup}
+            className="hidden h-9 items-center px-3 text-sm font-medium text-foreground hover:text-primary lg:inline-flex"
+          >
+            Sign in
+          </Link>
+          <Link
+            href={primaryCta.href}
+            className="hidden h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 lg:inline-flex"
+          >
+            {primaryCta.label}
+          </Link>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex size-9 items-center justify-center rounded-md text-foreground hover:bg-card lg:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
+      </div>
 
-        {open && (
-          <nav className="border-t border-border bg-background px-6 py-4 md:hidden" aria-label="Mobile">
-            <ul className="flex flex-col gap-1">
-              {nav.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className={cn(
-                      "block rounded-md px-3 py-2.5 text-base font-medium text-foreground hover:bg-card hover:text-primary",
-                      isActive(pathname, item.href) && "text-primary",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+      {open && (
+        <nav className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-background px-6 py-4 lg:hidden" aria-label="Mobile">
+          <ul className="flex flex-col gap-1">
+            {nav.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "block rounded-md px-3 py-2.5 text-base font-medium text-foreground hover:bg-card hover:text-primary",
+                    isActive(pathname, item) && "text-primary",
+                  )}
+                >
+                  {item.label}
+                </Link>
+                {item.children?.length ? (
+                  <ul className="mb-2 ml-3 border-l border-border pl-3">
+                    {item.children
+                      .filter((c) => c.description)
+                      .map((c) => (
+                        <li key={c.label}>
+                          <Link
+                            href={c.href}
+                            onClick={() => setOpen(false)}
+                            className="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-primary"
+                          >
+                            {c.label}
+                          </Link>
+                        </li>
+                      ))}
+                  </ul>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-4 grid grid-cols-2 gap-2">
             <Link
               href={urls.signup}
               onClick={() => setOpen(false)}
-              className="mt-4 flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground"
+              className="flex h-10 items-center justify-center rounded-md border border-input text-sm font-medium"
             >
-              Sign Up
+              Sign in
             </Link>
-          </nav>
-        )}
-      </header>
-    </>
+            <Link
+              href={primaryCta.href}
+              onClick={() => setOpen(false)}
+              className="flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground"
+            >
+              {primaryCta.label}
+            </Link>
+          </div>
+        </nav>
+      )}
+    </header>
   );
 }
