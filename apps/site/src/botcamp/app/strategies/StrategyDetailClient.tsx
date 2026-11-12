@@ -236,21 +236,37 @@ export default function StrategyDetailClient({
               )}
 
               {/* Not in Botcamp: the Hub's Clone card, right under the author so
-                  it's never lost. Package details sit at the bottom. */}
+                  it's never lost, with the exact package Condor pulls. */}
               {showClone && strategy.condorVersion !== null && strategy.condorPackage && (
-                <div className="hidden rounded-bc-xl border border-border bg-card p-4 lg:block">
-                  <div className="mb-3 flex items-center justify-between gap-2">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                      <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> Validated
-                    </span>
-                    <span className="font-mono text-xs text-muted-foreground">
-                      v{strategy.condorVersion} · {formatBytes(strategy.condorPackage.size)} · {strategy.free ? 'Free' : 'Members'}
-                    </span>
-                  </div>
-                  {cloneCardButton}
-                  <p className="mt-3 text-xs text-muted-foreground">
+                <div className="hidden rounded-bc-xl border border-border bg-card p-5 lg:block">
+                  <span className="mb-3 inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                    <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> Validated
+                  </span>
+                  <p className="mb-4 text-sm text-muted-foreground">
                     An AI review and a maintainer checked this exact version before it was listed.
                   </p>
+                  {cloneCardButton}
+                  <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4">
+                    {[
+                      { label: 'Version', value: `v${strategy.condorVersion}` },
+                      { label: 'Published', value: formatDate(strategy.condorPackage.publishedAt) },
+                      { label: 'Package', value: formatBytes(strategy.condorPackage.size) },
+                      { label: 'Access', value: strategy.free ? 'Free' : 'Members' },
+                    ].map((f) => (
+                      <div key={f.label}>
+                        <dt className="text-xs text-muted-foreground">{f.label}</dt>
+                        <dd className="font-mono text-sm font-semibold tabular-nums text-foreground">{f.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="mt-4 border-t border-border pt-4">
+                    <p className="text-xs text-muted-foreground">Slug</p>
+                    <code className="block break-all font-mono text-xs text-foreground">{strategy.slug}</code>
+                    <p className="mt-3 text-xs text-muted-foreground">SHA-256</p>
+                    <code className="block break-all font-mono text-[10px] text-muted-foreground">
+                      {strategy.condorPackage.sha256}
+                    </code>
+                  </div>
                 </div>
               )}
 
@@ -320,25 +336,6 @@ export default function StrategyDetailClient({
               )}
 
 
-              {/* What Condor pulls: the exact package behind the Clone card. */}
-              {showClone && strategy.condorVersion !== null && strategy.condorPackage && (
-                <SidebarBlock label="Condor package">
-                  <dl className="space-y-2 text-xs">
-                    <div>
-                      <dt className="text-muted-foreground">Published</dt>
-                      <dd className="font-mono text-foreground">{formatDate(strategy.condorPackage.publishedAt)}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">Slug</dt>
-                      <dd className="font-mono text-foreground">{strategy.slug}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">SHA-256</dt>
-                      <dd className="break-all font-mono text-[10px] text-muted-foreground">{strategy.condorPackage.sha256}</dd>
-                    </div>
-                  </dl>
-                </SidebarBlock>
-              )}
             </aside>
           </div>
         </div>
