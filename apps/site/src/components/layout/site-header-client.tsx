@@ -212,7 +212,7 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
       <div className="flex h-16 items-center px-6 lg:px-8">
         <Logo product={subBrand?.label} />
 
-        <nav className="mr-6 hidden gap-6 lg:flex lg:flex-1 lg:items-center lg:justify-end xl:gap-8" aria-label="Primary">
+        <nav className="mr-5 hidden gap-6 lg:flex lg:flex-1 lg:items-center lg:justify-end xl:gap-8" aria-label="Primary">
           {nav.map((item) =>
             item.children?.length ? (
               <NavDropdown key={item.label} item={item} active={isActive(pathname, item)} />
@@ -231,7 +231,11 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
           )}
         </nav>
 
+        {/* Right side, in the usual dev-site order: utilities (theme) set apart
+            from the nav by a divider, then Sign in, the primary CTA, and the
+            account avatar at the far right. */}
         <div className="ml-auto flex items-center gap-2">
+          <span aria-hidden="true" className="mr-1 hidden h-6 w-px bg-border lg:block" />
           <ThemeToggle />
           {!account && (
             <Link
