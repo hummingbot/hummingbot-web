@@ -96,3 +96,50 @@ export function isAwaitingAgentApproval(strategy: {
 }): boolean {
   return strategy.agentApprovalRequired && strategy.agentVersions.length === 0
 }
+
+// From Botcamp main's strategy-access.ts, for the strategy page (/hub/[slug]):
+// decideStrategyCodeAccess for a signed-out visitor, the only viewer here.
+// Botcamp's chain lets authors, admins and reviewing sponsor teams in first;
+// none of them can be signed in on this site, so the chain starts at step 2.
+//
+// isRacingInHackathon advances due hackathon stages first (a database write);
+// this site only reads, so a race whose clock just ran out stays "racing"
+// until Botcamp saves the next stage — the code stays hidden a little longer,
+// never shown early.
+export type StrategyCodeAccess = "ok" | "not_found" | "racing" | "private" | "sign_in" | "payment"
+
+export async function isSubmittedToHackathon(strategyId: number): Promise<boolean> {
+  const application = await prisma.application.findFirst({
+    where: { strategyId, ...HACKATHON_ENTRY, hackathon: raceOverWhere },
+    select: { id: true },
+  })
+  return !!application
+}
+
+export async function isRacingInHackathon(strategyId: number): Promise<boolean> {
+  const application = await prisma.application.findFirst({
+    where: { strategyId, ...HACKATHON_ENTRY, hackathon: racingWhere },
+    select: { id: true },
+  })
+  return !!application
+}
+
+export async function hasApprovedAgentVersion(strategyId: number): Promise<boolean> {
+  return (await prisma.agentVersion.count({ where: { strategyId, status: "APPROVED" } })) > 0
+}
+
+export async function decideSignedOutStrategyCodeAccess(strategy: {
+  id: number
+  status: string
+  visibility: string
+}): Promise<StrategyCodeAccess> {
+  if (await isRacingInHackathon(strategy.id)) return "racing"
+  const published =
+    strategy.status === "CERTIFIED" ||
+    (await isSubmittedToHackathon(strategy.id)) ||
+    (await hasApprovedAgentVersion(strategy.id))
+  if (!published) return "not_found"
+  if (strategy.visibility === "PRIVATE") return "private"
+  // Signed out: Botcamp asks for a sign-in before free previews and paid access.
+  return "sign_in"
+}

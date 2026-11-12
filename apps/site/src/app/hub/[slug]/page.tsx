@@ -5,6 +5,8 @@ import { ArrowLeft, BadgeCheck } from "lucide-react";
 import { CloneToCondor } from "@/components/hub/clone-to-condor";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import StrategyDetailClient from "@/botcamp/app/strategies/StrategyDetailClient";
+import { getBotcampStrategy, getPublicStrategy } from "@/botcamp/lib/strategy-detail";
 import {
   condorConnectUrl,
   formatBytes,
@@ -14,8 +16,53 @@ import {
 
 type Params = { params: Promise<{ slug: string }> };
 
+// Botcamp's strategy page (botcamp.xyz/strategies/<slug>), signed out, read
+// from the Botcamp database (getPublicStrategy) or, where that copy doesn't
+// have it, Botcamp's public API (getBotcampStrategy). The Hub catalogue's slugs are
+// Botcamp strategy slugs, so the same URL serves both; a catalogue agent with
+// no strategy Botcamp would show falls back to the catalogue-only page below.
+export const dynamic = "force-dynamic";
+
+const STRATEGY_TYPE_LABEL = {
+  AGENT: "Agent",
+  SCRIPT: "Script",
+  CONTROLLER: "Controller",
+  V1_STRATEGY: "V1 Strategy",
+  OTHER: "Other",
+} as const;
+
+async function findStrategy(slug: string) {
+  // A database hiccup shouldn't take the catalogue page down with it.
+  const fromDb = await getPublicStrategy(slug).catch((error) => {
+    console.error("Failed to read strategy:", error);
+    return null;
+  });
+  if (fromDb) return fromDb;
+  // Not in this site's copy of the database: Botcamp's own signed-out answer.
+  return getBotcampStrategy(slug).catch(() => null);
+}
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
+  const strategy = await findStrategy(slug);
+  if (strategy) {
+    // Botcamp's generateMetadata (findStrategyMetaBySlug).
+    const author = strategy.authors[0];
+    const authorName = author
+      ? `${author.firstName ?? ""} ${author.lastName ?? ""}`.trim() || author.slug
+      : null;
+    const cohortLabel = strategy.cohort ? ` · Cohort ${strategy.cohort}` : "";
+    const byline = authorName ? ` by ${authorName}` : "";
+    const description =
+      strategy.summary?.trim() ||
+      `${STRATEGY_TYPE_LABEL[strategy.strategyType]}${cohortLabel}${byline}. Built by Botcamp graduates.`;
+    return {
+      title: strategy.title,
+      description,
+      openGraph: { type: "article", title: strategy.title, description, url: `/hub/${strategy.slug}` },
+      twitter: { card: "summary_large_image", title: strategy.title, description },
+    };
+  }
   const agent = await getHubAgent(slug).catch(() => null);
   if (!agent) return {};
   return {
@@ -28,6 +75,28 @@ const kicker = "font-mono text-[11px] font-bold uppercase tracking-[0.18em]";
 
 export default async function HubAgentPage({ params }: Params) {
   const { slug } = await params;
+  const strategy = await findStrategy(slug);
+  if (strategy) {
+    return (
+      <StrategyDetailClient
+        strategy={strategy}
+        cloneButton={
+          strategy.condorVersion !== null && (
+            <CloneToCondor
+              slug={strategy.slug}
+              version={strategy.condorVersion}
+              name={strategy.title}
+              connectUrl={condorConnectUrl}
+              size="sm"
+            />
+          )
+        }
+        header={<SiteHeader />}
+        footer={<SiteFooter />}
+      />
+    );
+  }
+
   const agent = await getHubAgent(slug).catch(() => null);
   if (!agent) notFound();
 
