@@ -34,7 +34,7 @@ const AUDIENCES = [
     title: "Bring volume to your venue",
     body: "Maintain a connector, share fees, and sponsor a squad in the Agent Builders Cup.",
     links: [
-      { label: "Sponsor & fee share", href: "/foundation/sponsors" },
+      { label: "Sponsor & fee share", href: "/foundation/sponsors#exchange-partners" },
       { label: "Connector bounties", href: "/bounties" },
     ],
   },

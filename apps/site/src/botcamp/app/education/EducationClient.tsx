@@ -96,7 +96,7 @@ export default function EducationClient({
         />
 
         {/* Cohorts */}
-        <div id="cohorts" className="relative pb-24">
+        <div id="cohorts" className="relative scroll-mt-16 pb-24">
           <div className="container mx-auto px-4 relative z-10 max-w-7xl">
             {/* Featured: Cohort 14 — Register Interest hero */}
             <div className="mb-6">
@@ -180,7 +180,9 @@ export default function EducationClient({
           </div>
         </div>
 
-        <CoursesIncluded />
+        <div id="courses" className="scroll-mt-16">
+          <CoursesIncluded />
+        </div>
 
         <DarkArtsSection />
 
