@@ -138,33 +138,34 @@ export default function StrategyDetailClient({
         <div className="container mx-auto px-4 md:px-6 py-8 md:py-12 relative z-10 max-w-6xl">
           <StrategyBreadcrumb author={breadcrumbAuthor} strategySlug={strategy.slug} className="mb-5" />
 
-          {/* Hero — title + type chip + summary */}
-          <div className="mb-8 md:mb-10">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-bc-tight mb-4">{strategy.title}</h1>
-            <div className="flex flex-wrap items-center gap-2 mb-5">
-              <span className="inline-flex items-center font-mono text-[11px] font-bold uppercase tracking-[0.16em] px-2.5 py-1 rounded-bc-md bg-secondary/15 text-secondary border border-secondary/30">
-                {typeLabel}
-              </span>
-              {strategy.cohort !== null && (
-                <span
-                  className={`inline-flex items-center px-2.5 py-1 rounded-bc-md text-xs font-medium ${getCohortBadgeClasses(strategy.cohort)}`}
-                >
-                  {strategy.cohort === 0 ? 'Example' : `Cohort ${strategy.cohort}`}
-                </span>
-              )}
-              <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 rounded-bc-md border border-border bg-card/60 text-muted-foreground">
-                <Eye className="h-3 w-3" />
-                {VISIBILITY_LABELS[strategy.visibility]}
-              </span>
-            </div>
-            {strategy.summary && (
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl">{strategy.summary}</p>
-            )}
-          </div>
-
-          {/* Two-column body: tabs on the left, sidebar on the right */}
+          {/* Two columns from the top: title, summary and tabs on the left; the
+              sidebar (Clone card first) starts level with the title. */}
           <div className="grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-10">
             <div className="min-w-0">
+              {/* Hero — title + type chip + summary */}
+              <div className="mb-8 md:mb-10">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-bc-tight mb-4">{strategy.title}</h1>
+                <div className="flex flex-wrap items-center gap-2 mb-5">
+                  <span className="inline-flex items-center font-mono text-[11px] font-bold uppercase tracking-[0.16em] px-2.5 py-1 rounded-bc-md bg-secondary/15 text-secondary border border-secondary/30">
+                    {typeLabel}
+                  </span>
+                  {strategy.cohort !== null && (
+                    <span
+                      className={`inline-flex items-center px-2.5 py-1 rounded-bc-md text-xs font-medium ${getCohortBadgeClasses(strategy.cohort)}`}
+                    >
+                      {strategy.cohort === 0 ? 'Example' : `Cohort ${strategy.cohort}`}
+                    </span>
+                  )}
+                  <span className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] px-2.5 py-1 rounded-bc-md border border-border bg-card/60 text-muted-foreground">
+                    <Eye className="h-3 w-3" />
+                    {VISIBILITY_LABELS[strategy.visibility]}
+                  </span>
+                </div>
+                {strategy.summary && (
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-3xl">{strategy.summary}</p>
+                )}
+              </div>
+
               <Tabs defaultValue="readme" className="w-full">
                 <TabsList className="bg-transparent border-b border-border w-full flex-wrap justify-start rounded-none h-auto p-0">
                   <TabsTrigger value="readme" className={tabTriggerClasses}>
