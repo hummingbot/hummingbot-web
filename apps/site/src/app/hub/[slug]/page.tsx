@@ -83,6 +83,7 @@ export default async function HubAgentPage({ params }: Params) {
         cloneButton={
           strategy.condorVersion !== null && (
             <CloneToCondor
+              key="clone"
               slug={strategy.slug}
               version={strategy.condorVersion}
               name={strategy.title}
@@ -91,8 +92,19 @@ export default async function HubAgentPage({ params }: Params) {
             />
           )
         }
-        header={<SiteHeader />}
-        footer={<SiteFooter />}
+        cloneCardButton={
+          strategy.condorVersion !== null && (
+            <CloneToCondor
+              key="clone"
+              slug={strategy.slug}
+              version={strategy.condorVersion}
+              name={strategy.title}
+              connectUrl={condorConnectUrl}
+            />
+          )
+        }
+        header={<SiteHeader key="header" />}
+        footer={<SiteFooter key="footer" />}
       />
     );
   }

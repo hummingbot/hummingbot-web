@@ -91,12 +91,15 @@ const tabTriggerClasses =
 export default function StrategyDetailClient({
   strategy,
   cloneButton,
+  cloneCardButton,
   header,
   footer,
 }: {
   strategy: StrategyDetail
   /** The site's Clone to Condor dialog; shown where Botcamp would. */
   cloneButton?: ReactNode
+  /** The full-size Clone button for the sidebar card (desktop). */
+  cloneCardButton?: ReactNode
   // The site's own header and footer (server components), in Botcamp's slots.
   header?: ReactNode
   footer?: ReactNode
@@ -160,7 +163,7 @@ export default function StrategyDetailClient({
           </div>
 
           {/* Two-column body: tabs on the left, sidebar on the right */}
-          <div className="grid lg:grid-cols-[1fr_280px] gap-8 lg:gap-10">
+          <div className="grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-10">
             <div className="min-w-0">
               <Tabs defaultValue="readme" className="w-full">
                 <TabsList className="bg-transparent border-b border-border w-full flex-wrap justify-start rounded-none h-auto p-0">
@@ -172,7 +175,8 @@ export default function StrategyDetailClient({
                     <FileCode2 className="h-4 w-4 mr-2" />
                     Code
                   </TabsTrigger>
-                  {showClone && cloneButton && <div className="ml-auto self-center py-1.5">{cloneButton}</div>}
+                  {/* On desktop the Clone button lives in the sidebar card; here only on small screens. */}
+                  {showClone && cloneButton && <div className="ml-auto self-center py-1.5 lg:hidden">{cloneButton}</div>}
                 </TabsList>
 
                 {/* README tab — video + description, always visible */}
@@ -205,6 +209,41 @@ export default function StrategyDetailClient({
 
             {/* Right sidebar */}
             <aside className="space-y-bc-6 lg:sticky lg:top-24 lg:self-start">
+              {/* Not in Botcamp: the Hub's Clone card (validated package + Clone
+                  + what Condor pulls), first in the sidebar so it stays in reach. */}
+              {showClone && strategy.condorVersion !== null && strategy.condorPackage && (
+                <div className="hidden rounded-bc-xl border border-border bg-card p-5 lg:block">
+                  <span className="mb-3 inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                    <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> Validated
+                  </span>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    An AI review and a maintainer checked this exact version before it was listed.
+                  </p>
+                  {cloneCardButton}
+                  <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4">
+                    {[
+                      { label: 'Version', value: `v${strategy.condorVersion}` },
+                      { label: 'Published', value: formatDate(strategy.condorPackage.publishedAt) },
+                      { label: 'Package', value: formatBytes(strategy.condorPackage.size) },
+                      { label: 'Access', value: strategy.free ? 'Free' : 'Members' },
+                    ].map((f) => (
+                      <div key={f.label}>
+                        <dt className="text-xs text-muted-foreground">{f.label}</dt>
+                        <dd className="font-mono text-sm font-semibold tabular-nums text-foreground">{f.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="mt-4 border-t border-border pt-4">
+                    <p className="text-xs text-muted-foreground">Slug</p>
+                    <code className="block break-all font-mono text-xs text-foreground">{strategy.slug}</code>
+                    <p className="mt-3 text-xs text-muted-foreground">SHA-256</p>
+                    <code className="block break-all font-mono text-[10px] text-muted-foreground">
+                      {strategy.condorPackage.sha256}
+                    </code>
+                  </div>
+                </div>
+              )}
+
               {strategy.authors.length > 0 && (
                 <SidebarBlock label="Authors">
                   <div className="space-y-bc-2.5">
@@ -295,36 +334,6 @@ export default function StrategyDetailClient({
                 </SidebarBlock>
               )}
 
-              {/* Not in Botcamp: what Condor clones, as the Hub page showed it. */}
-              {showClone && strategy.condorVersion !== null && strategy.condorPackage && (
-                <SidebarBlock label="Condor package">
-                  <div className="rounded-bc-lg border border-border bg-card/60 p-3">
-                    <span className="mb-2 inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
-                      <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> Validated
-                    </span>
-                    <p className="mb-3 text-xs text-muted-foreground">
-                      An AI review and a maintainer checked this exact version before it was listed.
-                    </p>
-                    <dl className="grid grid-cols-2 gap-3 text-xs">
-                      {[
-                        { label: 'Version', value: `v${strategy.condorVersion}` },
-                        { label: 'Published', value: formatDate(strategy.condorPackage.publishedAt) },
-                        { label: 'Package', value: formatBytes(strategy.condorPackage.size) },
-                        { label: 'Access', value: strategy.free ? 'Free' : 'Members' },
-                      ].map((f) => (
-                        <div key={f.label}>
-                          <dt className="text-muted-foreground">{f.label}</dt>
-                          <dd className="font-mono font-semibold tabular-nums text-foreground">{f.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                    <p className="mt-3 text-xs text-muted-foreground">SHA-256</p>
-                    <code className="block break-all font-mono text-[10px] text-muted-foreground">
-                      {strategy.condorPackage.sha256}
-                    </code>
-                  </div>
-                </SidebarBlock>
-              )}
             </aside>
           </div>
         </div>
