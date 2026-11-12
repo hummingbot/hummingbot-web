@@ -239,33 +239,37 @@ export default function StrategyDetailClient({
                   it's never lost, with the exact package Condor pulls. */}
               {showClone && strategy.condorVersion !== null && strategy.condorPackage && (
                 <div className="hidden rounded-bc-xl border border-border bg-card p-5 lg:block">
-                  <span className="mb-3 inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                    <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> Validated
-                  </span>
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                      <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> Validated
+                    </span>
+                    <span className="rounded-full border border-border px-2.5 py-0.5 text-xs font-medium text-foreground">
+                      {strategy.free ? 'Free' : 'Members'}
+                    </span>
+                  </div>
                   <p className="mb-4 text-sm text-muted-foreground">
                     An AI review and a maintainer checked this exact version before it was listed.
                   </p>
                   {cloneCardButton}
-                  <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4">
-                    {[
-                      { label: 'Version', value: `v${strategy.condorVersion}` },
-                      { label: 'Published', value: formatDate(strategy.condorPackage.publishedAt) },
-                      { label: 'Package', value: formatBytes(strategy.condorPackage.size) },
-                      { label: 'Access', value: strategy.free ? 'Free' : 'Members' },
-                    ].map((f) => (
-                      <div key={f.label}>
-                        <dt className="text-xs text-muted-foreground">{f.label}</dt>
-                        <dd className="font-mono text-sm font-semibold tabular-nums text-foreground">{f.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                  {/* Slug and package fingerprint: for whoever wants to verify by hand. */}
-                  <details className="group mt-4 border-t border-border pt-3">
+                  {/* Version, size, date, slug and fingerprint: for whoever wants to check by hand. */}
+                  <details className="group mt-5 border-t border-border pt-3">
                     <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-medium text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
                       Technical details
                       <ChevronDown className="h-3.5 w-3.5 transition-transform group-open:rotate-180" aria-hidden="true" />
                     </summary>
                     <div className="mt-3">
+                      <dl className="mb-3 grid grid-cols-2 gap-3">
+                        {[
+                          { label: 'Version', value: `v${strategy.condorVersion}` },
+                          { label: 'Package', value: formatBytes(strategy.condorPackage.size) },
+                          { label: 'Published', value: formatDate(strategy.condorPackage.publishedAt) },
+                        ].map((f) => (
+                          <div key={f.label}>
+                            <dt className="text-xs text-muted-foreground">{f.label}</dt>
+                            <dd className="font-mono text-sm font-semibold tabular-nums text-foreground">{f.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
                       <p className="text-xs text-muted-foreground">Slug</p>
                       <code className="block break-all font-mono text-xs text-foreground">{strategy.slug}</code>
                       <p className="mt-3 text-xs text-muted-foreground">SHA-256 (package fingerprint)</p>
