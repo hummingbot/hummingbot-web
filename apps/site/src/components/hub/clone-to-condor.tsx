@@ -94,6 +94,16 @@ export function CloneToCondor({
     }
   };
 
+  // Back to "Do you already have Condor?": forget the remembered answer.
+  const chooseAgain = () => {
+    setHasCondor(null);
+    try {
+      localStorage.removeItem(HAS_CONDOR_KEY);
+    } catch {
+      // nothing stored
+    }
+  };
+
   const copy = async () => {
     await navigator.clipboard.writeText(slug);
     setCopied(true);
@@ -204,9 +214,14 @@ export function CloneToCondor({
             <div className="space-y-4">
               <CondorInstall compact />
               <div className="flex items-center justify-between gap-3 border-t border-border pt-4">
-                <span className="text-xs text-muted-foreground">
-                  Condor running?
-                </span>
+                <button
+                  type="button"
+                  onClick={chooseAgain}
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-primary"
+                >
+                  <ArrowLeft className="size-3.5" aria-hidden="true" />
+                  Back
+                </button>
                 <button
                   type="button"
                   onClick={() => answer(true)}
@@ -311,11 +326,11 @@ export function CloneToCondor({
 
               <button
                 type="button"
-                onClick={() => answer(false)}
+                onClick={chooseAgain}
                 className="inline-flex items-center gap-1.5 self-start text-xs font-medium text-muted-foreground hover:text-primary"
               >
                 <ArrowLeft className="size-3.5" aria-hidden="true" />
-                Don&apos;t have Condor yet?
+                Back · Don&apos;t have Condor yet?
               </button>
             </>
           )}
