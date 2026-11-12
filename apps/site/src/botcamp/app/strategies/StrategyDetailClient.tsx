@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react'
 import Link from 'next/link'
-import { Lock, FileCode2, BookOpen, ExternalLink, Calendar, Eye, BadgeCheck } from 'lucide-react'
+import { Lock, FileCode2, BookOpen, ExternalLink, Calendar, Eye, BadgeCheck, ChevronDown } from 'lucide-react'
 import { Button } from '@/botcamp/components/ui/button'
 import { ReadOnlyHint } from '@/botcamp/components/ui/read-only'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/botcamp/components/ui/tabs'
@@ -259,14 +259,21 @@ export default function StrategyDetailClient({
                       </div>
                     ))}
                   </dl>
-                  <div className="mt-4 border-t border-border pt-4">
-                    <p className="text-xs text-muted-foreground">Slug</p>
-                    <code className="block break-all font-mono text-xs text-foreground">{strategy.slug}</code>
-                    <p className="mt-3 text-xs text-muted-foreground">SHA-256</p>
-                    <code className="block break-all font-mono text-[10px] text-muted-foreground">
-                      {strategy.condorPackage.sha256}
-                    </code>
-                  </div>
+                  {/* Slug and package fingerprint: for whoever wants to verify by hand. */}
+                  <details className="group mt-4 border-t border-border pt-3">
+                    <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-medium text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
+                      Technical details
+                      <ChevronDown className="h-3.5 w-3.5 transition-transform group-open:rotate-180" aria-hidden="true" />
+                    </summary>
+                    <div className="mt-3">
+                      <p className="text-xs text-muted-foreground">Slug</p>
+                      <code className="block break-all font-mono text-xs text-foreground">{strategy.slug}</code>
+                      <p className="mt-3 text-xs text-muted-foreground">SHA-256 (package fingerprint)</p>
+                      <code className="block break-all font-mono text-[10px] text-muted-foreground">
+                        {strategy.condorPackage.sha256}
+                      </code>
+                    </div>
+                  </details>
                 </div>
               )}
 
