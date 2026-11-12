@@ -25,14 +25,21 @@ export function AppShell({
   renderSidebar,
   children,
   hasSidebar = true,
+  initialCollapsed = false,
+  fullBleed = false,
 }: {
   crumbs: BreadcrumbCrumb[]
   renderSidebar: (opts: SidebarRenderOpts) => React.ReactNode
   children: React.ReactNode
   /** When false (e.g. instructors), the header shows but no sidebar/toggle. */
   hasSidebar?: boolean
+  /** Start with the xl+ rail collapsed (Botcamp's course overview does). */
+  initialCollapsed?: boolean
+  /** Render children edge to edge, without the padded max-w-7xl column
+   *  (the learn pages lay out their own width, like Botcamp's LearnShell). */
+  fullBleed?: boolean
 }) {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(initialCollapsed)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const isDesktop = () =>
@@ -81,7 +88,7 @@ export function AppShell({
           sidebarVisibleOnDesktop={!collapsed}
         />
         <main>
-          <div className="max-w-7xl p-6 lg:p-8">{children}</div>
+          {fullBleed ? children : <div className="max-w-7xl p-6 lg:p-8">{children}</div>}
         </main>
       </div>
     </div>
