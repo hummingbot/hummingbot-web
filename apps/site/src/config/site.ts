@@ -68,6 +68,7 @@ export const nav: NavItem[] = [
     href: "/community",
     children: [
       { label: "Community", href: "/community", description: "Discord, Telegram and where to get help" },
+      { label: "Builders", href: "/builders", description: "Botcamp members, their strategies and where they build" },
       { label: "Bounties", href: "/bounties", description: "Get paid to build connectors and features" },
       { label: "For exchanges", href: "/foundation/sponsors#exchange-partners", description: "List a connector, sponsor a hackathon, fee share" },
       { label: "Foundation", href: "/foundation", description: "Who maintains Hummingbot and HBOT governance" },

@@ -5,6 +5,7 @@ import {
   Lightbulb,
   Pencil,
   Trophy,
+  User,
   Users,
   type LucideIcon,
 } from "lucide-react"
@@ -21,8 +22,9 @@ export interface DashboardNavItem {
  * Source of truth for the dashboard nav, used by the desktop sidebar and the
  * mobile menu. Labels are nouns that mirror the public nav (Learn ↔ Learning,
  * Strategies ↔ Strategies & Agents, Hackathons ↔ Hackathons), with no "My":
- * the whole area is already yours. Profile and Settings live in the avatar
- * menu; the Builders directory belongs to the public site.
+ * the whole area is already yours. Profile stays here (Botcamp users look for
+ * it) and in the avatar menu; the Builders directory is on the public site,
+ * under Community.
  */
 export const dashboardNavItems: DashboardNavItem[] = [
   { title: "Home", href: "/dashboard", icon: Home },
@@ -39,6 +41,7 @@ export const dashboardNavItems: DashboardNavItem[] = [
     match: ["/dashboard/agents"],
   },
   { title: "Hackathons", href: "/dashboard/hackathons", icon: Trophy },
+  { title: "Profile", href: "/dashboard/profile", icon: User, match: ["/dashboard/settings"] },
 ]
 
 /**
