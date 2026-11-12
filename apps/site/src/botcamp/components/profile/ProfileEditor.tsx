@@ -354,7 +354,7 @@ export function ProfileEditor({
             </Button>
           )}
           <div>
-            <h1 className="text-2xl font-bold">{isAdmin ? name : "My Profile"}</h1>
+            <h1 className="text-2xl font-bold">{isAdmin ? name : "Profile"}</h1>
             <p className="text-sm text-muted-foreground">{email}</p>
           </div>
         </div>

@@ -45,7 +45,7 @@ export default async function DashboardHackathonsPage() {
 
   return (
     <div className="space-y-bc-8">
-      <PageHeader title="My Hackathons" variant="admin" />
+      <PageHeader title="Hackathons" variant="admin" />
       <div className="rounded-bc-xl border border-border bg-card">
         <EmptyState
           icon={Trophy}

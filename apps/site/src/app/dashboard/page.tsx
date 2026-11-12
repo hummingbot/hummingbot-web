@@ -4,23 +4,28 @@ import { prisma } from "@/botcamp/lib/prisma"
 import { botcampPublicAssetUrl } from "@/botcamp/lib/botcamp-assets"
 import { agentHoldingReviewSlot } from "@/botcamp/lib/agent-upload"
 import { auth } from "@/botcamp/lib/preview-session"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
 import { Button } from "@/botcamp/components/ui/button"
 import { StatusBadge } from "@/botcamp/components/ui/status-badge"
-import { EmptyState } from "@/botcamp/components/ui/empty-state"
 import { MemberStatusBanner } from "@/botcamp/components/dashboard/MemberStatusBanner"
-import { CondorAgentCard } from "@/botcamp/components/dashboard/CondorAgentCard"
 import { PurchaseConfirmationBanner } from "@/botcamp/components/dashboard/PurchaseConfirmationBanner"
-import { CompleteProfilePrompt } from "@/botcamp/components/dashboard/CompleteProfilePrompt"
-import { EnrollFreeCourseCard } from "@/botcamp/components/dashboard/EnrollFreeCourseCard"
 import { CourseListItem } from "@/botcamp/components/courses/CourseListItem"
 import { LessonProgressBar } from "@/botcamp/components/learn/LessonProgressBar"
-import { cardStyles } from "@/botcamp/lib/design-constants"
-import { cn } from "@/botcamp/lib/utils"
+import type { CourseLevel } from "@/botcamp/lib/course-level"
 import { formatDate } from "@/botcamp/lib/format"
 import { BUNDLE_PRICE_CENTS, getPendingBundleDeposit } from "@/botcamp/lib/bundle"
+import { JOINABLE_HACKATHON_STATUSES } from "@/botcamp/lib/hackathon-stages"
 import { getCompletedLessonIds, getLastActivityByLessonId } from "@/botcamp/lib/lesson-progress"
-import { BookOpen, GraduationCap, MessageCircle, PiggyBank } from "lucide-react"
+import {
+  ArrowRight,
+  BookOpen,
+  Bot,
+  GraduationCap,
+  type LucideIcon,
+  PiggyBank,
+  Trophy,
+  UserRound,
+} from "lucide-react"
 
 export const metadata = {
   title: "Dashboard - Botcamp",
@@ -32,7 +37,7 @@ const INTRO_COURSE_SLUG = "intro-to-algo-trading"
 async function getDashboardData(userId: string, { includeUnlockedCourses = false } = {}) {
   // Botcamp advances the hackathon stage here (advanceDueHackathonStages, a
   // database write). The read-only preview shows the stage last saved.
-  const [enrollments, user, agentInReview, introCourse, unlockedCourses] = await Promise.all([
+  const [enrollments, user, agentInReview, introCourse, unlockedCourses, strategyCount, openHackathon] = await Promise.all([
     prisma.enrollment.findMany({
       where: { userId },
       select: {
@@ -118,6 +123,19 @@ async function getDashboardData(userId: string, { includeUnlockedCourses = false
           orderBy: { title: "asc" },
         })
       : Promise.resolve(null),
+    // Whether they've published anything yet (strategy or agent).
+    prisma.strategyAuthor.count({ where: { userId } }),
+    // The hackathon a newcomer can still join, and whether they applied.
+    prisma.hackathon.findFirst({
+      where: { status: { in: JOINABLE_HACKATHON_STATUSES } },
+      orderBy: { startDate: "asc" },
+      select: {
+        slug: true,
+        title: true,
+        registrationEnd: true,
+        applications: { where: { userId }, select: { id: true }, take: 1 },
+      },
+    }),
   ])
 
   const showIntroCourse =
@@ -143,6 +161,8 @@ async function getDashboardData(userId: string, { includeUnlockedCourses = false
     introCourse,
     showIntroCourse,
     unlockedCourses,
+    strategyCount,
+    openHackathon,
   }
 }
 
@@ -169,6 +189,8 @@ export default async function DashboardPage({
     introCourse,
     showIntroCourse,
     unlockedCourses,
+    strategyCount,
+    openHackathon,
   } = await getDashboardData(session.user.id, {
     includeUnlockedCourses: isBundlePurchase,
   })
@@ -190,165 +212,171 @@ export default async function DashboardPage({
     return latest
   }
 
-  const courseEnrollments = enrollments
-    .filter((e) => e.course)
-    .sort((a, b) => lastActivityAt(b) - lastActivityAt(a))
-  const cohortEnrollments = enrollments
-    .filter((e) => e.cohort)
-    .sort((a, b) => lastActivityAt(b) - lastActivityAt(a))
   const bundleDeposit = getPendingBundleDeposit(
     user,
-    cohortEnrollments.map((e) => e.cohort!.number),
+    enrollments.filter((e) => e.cohort).map((e) => e.cohort!.number),
   )
 
-  // The profile fields we want for every builder. An incomplete profile means
-  // the user is effectively new to us, so we greet + nudge accordingly.
+  // The profile fields we want for every builder.
   const profileFields = [
     { label: "Tagline", done: Boolean(user?.tagline?.trim()) },
     { label: "Location", done: Boolean(user?.location?.trim()) },
     { label: "About", done: Boolean(user?.about?.trim()) },
   ]
-  const profileComplete = profileFields.every((f) => f.done)
+  const missingProfile = profileFields.filter((f) => !f.done).length
+
+  // Every enrollment as one learning item, most recently active first. The
+  // first one is "Continue where you left off"; the rest are listed below it.
+  type LearningItem = {
+    id: string
+    kind: "Course" | "Cohort"
+    title: string
+    href: string
+    completed: number
+    total: number
+    lastActive: number
+    level?: CourseLevel | null
+    thumbnail?: string | null
+    slug?: string
+    status?: string
+  }
+  const learning: LearningItem[] = enrollments
+    .map((e): LearningItem | null => {
+      if (e.course) {
+        const lessons = e.course.sections.flatMap((s) => s.lessons)
+        return {
+          id: e.id,
+          kind: "Course",
+          title: e.course.title,
+          href: `/courses/${e.course.slug}/learn`,
+          completed: lessons.filter((l) => completedLessonIds.has(l.id)).length,
+          total: lessons.length,
+          lastActive: lastActivityAt(e),
+          level: e.course.level,
+          thumbnail: botcampPublicAssetUrl(e.course.thumbnail),
+          slug: e.course.slug,
+        }
+      }
+      if (e.cohort) {
+        const lessons = e.cohort.weeks.flatMap((w) => w.lessons)
+        return {
+          id: e.id,
+          kind: "Cohort",
+          title: `Cohort ${e.cohort.number}: ${e.cohort.title}`,
+          href: `/cohorts/cohort${e.cohort.number}/learn`,
+          completed: lessons.filter((l) => completedLessonIds.has(l.id)).length,
+          total: lessons.length,
+          lastActive: lastActivityAt(e),
+          status: e.cohort.status,
+        }
+      }
+      return null
+    })
+    .filter((x): x is LearningItem => x !== null)
+    .sort((a, b) => b.lastActive - a.lastActive)
+
+  // Lead with something unfinished (a cohort that already ended doesn't
+  // count); finished ones stay in the list below.
+  const current =
+    learning.find((l) => l.status !== "COMPLETED" && (l.total === 0 || l.completed < l.total)) ?? null
+  const others = learning.filter((l) => l !== current)
+  const isNew = learning.length === 0 && strategyCount === 0
+
+  // Up to three next steps, most time-sensitive first. No zero counters:
+  // each step only shows when it's actually the next thing to do.
+  type Step = { icon: LucideIcon; title: string; body: string; href: string; cta: string }
+  const steps: Step[] = []
+  if (bundleDeposit) {
+    steps.push({
+      icon: PiggyBank,
+      title: `Cohort ${bundleDeposit.cohortNumber}: $${(BUNDLE_PRICE_CENTS / 100).toFixed(0)} deposit paid`,
+      body: `Paid ${formatDate(bundleDeposit.depositedAt)}, applied in full toward tuition once enrollment opens.`,
+      href: "/botcamp#cohorts",
+      cta: "See the cohort",
+    })
+  }
+  if (openHackathon && openHackathon.applications.length === 0) {
+    steps.push({
+      icon: Trophy,
+      title: `Apply to the ${openHackathon.title}`,
+      body: openHackathon.registrationEnd
+        ? `Applications close ${formatDate(openHackathon.registrationEnd)}. Race your agent with real capital.`
+        : "Race your agent with real capital, sponsored by the exchanges.",
+      href: `/dashboard/hackathons/${openHackathon.slug}`,
+      cta: "Apply",
+    })
+  }
+  if (agentInReview && user?.role !== "ADMIN") {
+    steps.push({
+      icon: Bot,
+      title: `${agentInReview.title} is in review`,
+      body: `Version ${agentInReview.version} is waiting for approval. You'll be notified when it's live in the Hub.`,
+      href: `/dashboard/strategies/${agentInReview.strategyId}`,
+      cta: "View agent",
+    })
+  } else if (strategyCount === 0) {
+    steps.push({
+      icon: Bot,
+      title: "Publish your first agent",
+      body: "Turn a strategy into a Condor agent that others can clone from the Hub.",
+      href: "/dashboard/agents/new",
+      cta: "Create Condor agent",
+    })
+  }
+  if (missingProfile > 0) {
+    steps.push({
+      icon: UserRound,
+      title: "Complete your builder profile",
+      body: `${missingProfile} of ${profileFields.length} fields left (${profileFields
+        .filter((f) => !f.done)
+        .map((f) => f.label.toLowerCase())
+        .join(", ")}). Sponsors read it when they pick their squad.`,
+      href: "/dashboard/profile",
+      cta: "Edit profile",
+    })
+  }
+
+  // For someone with nothing yet: one card per path, instead of empty lists.
+  const paths: Step[] = [
+    {
+      icon: BookOpen,
+      title: "Start learning",
+      body: showIntroCourse && introCourse
+        ? `${introCourse.title} is free. Learn the basics of algo trading and market making.`
+        : "Self-paced courses and live cohorts, from basics to advanced.",
+      href: "/botcamp#courses",
+      cta: "Browse courses",
+    },
+    {
+      icon: Bot,
+      title: "Publish an agent",
+      body: "Already trading? Turn your strategy into a Condor agent others can clone.",
+      href: "/dashboard/agents/new",
+      cta: "Create Condor agent",
+    },
+    {
+      icon: Trophy,
+      title: openHackathon ? `Join the ${openHackathon.title}` : "Join the next Cup",
+      body: "Build with a squad sponsored by an exchange and race with real capital.",
+      href: openHackathon ? `/dashboard/hackathons/${openHackathon.slug}` : "/hackathons",
+      cta: "See hackathons",
+    },
+  ]
 
   const name = user?.firstName ? `, ${user.firstName}` : ""
-  const greeting = profileComplete
-    ? `Welcome back${name}!`
-    : `Welcome to Botcamp${name}!`
-  const subtitle = profileComplete
-    ? "Here's an overview of your learning progress"
-    : "Let's get your builder profile set up"
-
-  const continueLearningSection = courseEnrollments.length > 0 && (
-    <Card>
-      <CardHeader>
-        <CardTitle>Continue Learning</CardTitle>
-        <CardDescription>Pick up where you left off</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-bc-3">
-          {courseEnrollments.slice(0, 3).map((enrollment) => {
-            const course = enrollment.course!
-            const lessons = course.sections.flatMap((section) => section.lessons)
-            const completedCount = lessons.filter((l) => completedLessonIds.has(l.id)).length
-            const totalLessons = lessons.length
-            return (
-              <CourseListItem
-                key={enrollment.id}
-                slug={course.slug}
-                title={course.title}
-                level={course.level}
-                thumbnail={botcampPublicAssetUrl(course.thumbnail)}
-                meta={
-                  completedCount > 0
-                    ? `${completedCount} of ${totalLessons} lessons`
-                    : `${totalLessons} lessons`
-                }
-                completedCount={completedCount}
-                totalLessons={totalLessons > 0 ? totalLessons : undefined}
-              />
-            )
-          })}
-        </div>
-        {courseEnrollments.length > 3 && (
-          <div className="mt-4 text-center">
-            <Button variant="link" asChild>
-              <Link href="/dashboard/enrollments">View all enrollments</Link>
-            </Button>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  )
-
-  const cohortsSection = (cohortEnrollments.length > 0 || bundleDeposit) && (
-    <Card>
-      <CardHeader>
-        <CardTitle>Your Cohorts</CardTitle>
-        <CardDescription>Current cohort memberships</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-bc-4">
-          {bundleDeposit && (
-            <div className="flex items-center justify-between p-4 rounded-bc-lg border border-primary/30 bg-gradient-to-br from-primary/10 to-transparent">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded bg-primary/10 flex items-center justify-center">
-                  <PiggyBank className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-medium">
-                    Cohort {bundleDeposit.cohortNumber}: ${(BUNDLE_PRICE_CENTS / 100).toFixed(0)} deposit paid
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Paid {formatDate(bundleDeposit.depositedAt)} — applied in full toward tuition once enrollment opens.
-                  </p>
-                </div>
-              </div>
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wide text-primary border border-primary/30 rounded px-2 py-1 shrink-0">
-                Deposit
-              </span>
-            </div>
-          )}
-          {cohortEnrollments.slice(0, 3).map((enrollment, index) => {
-            const cohort = enrollment.cohort!
-            const lessons = cohort.weeks.flatMap((week) => week.lessons)
-            const completedCount = lessons.filter((l) => completedLessonIds.has(l.id)).length
-            const totalLessons = lessons.length
-
-            return (
-              <div
-                key={enrollment.id}
-                className={cn(
-                  "flex items-center justify-between gap-4 p-4 rounded-bc-lg border border-border",
-                  cardStyles.hover,
-                  cardStyles.enter,
-                )}
-                style={{ animationDelay: `${index * 50}ms`, animationFillMode: "backwards" }}
-              >
-                <div className="flex items-center gap-4 min-w-0 flex-1">
-                  <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0">
-                    <GraduationCap className="h-6 w-6 text-muted-foreground" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-medium">
-                      Cohort {cohort.number}: {cohort.title}
-                    </h3>
-                    <StatusBadge value={cohort.status} type="status" />
-                    <LessonProgressBar
-                      completedCount={completedCount}
-                      totalLessons={totalLessons}
-                      className="mt-2 max-w-xs"
-                    />
-                  </div>
-                </div>
-                <Button asChild size="sm" variant="outline" className="shrink-0">
-                  <Link href={`/cohorts/cohort${cohort.number}/learn`}>
-                    View Lessons
-                  </Link>
-                </Button>
-              </div>
-            )
-          })}
-        </div>
-        {cohortEnrollments.length > 3 && (
-          <div className="mt-4 text-center">
-            <Button variant="link" asChild>
-              <Link href="/dashboard/enrollments">View all enrollments</Link>
-            </Button>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  )
 
   return (
     <div className="space-y-bc-8">
-      {/* Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold tracking-bc-tight">{greeting}</h1>
-        <p className="text-muted-foreground mt-1">{subtitle}</p>
+        <h1 className="text-2xl md:text-3xl font-bold tracking-bc-tight">
+          {isNew ? `Welcome${name}!` : `Welcome back${name}!`}
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          {isNew ? "Where do you want to start?" : "Pick up where you left off."}
+        </p>
       </div>
 
-      {/* 0th: One-shot purchase confirmation banner, driven by ?purchase= from checkout */}
+      {/* One-shot purchase confirmation banner, driven by ?purchase= from checkout */}
       <PurchaseConfirmationBanner
         purchase={purchase}
         unlockedCourses={unlockedCourses?.map((course) => ({
@@ -363,93 +391,141 @@ export default async function DashboardPage({
         }))}
       />
 
-      {/* 1st: Free intro course CTA — only when the user isn't enrolled yet.
-          Skipped right after a bundle purchase — they already have every course. */}
-      {showIntroCourse && introCourse && !isBundlePurchase && (
-        <EnrollFreeCourseCard
-          courseId={introCourse.id}
-          courseSlug={introCourse.slug}
-          title={introCourse.title}
-        />
-      )}
-
-      {/* 2nd: Complete-profile nudge (hidden once tagline/location/about set) */}
-      <CompleteProfilePrompt fields={profileFields} />
-
-      {/* 3rd: Publishing a Condor agent — the lead card, in place of the
-          hackathon one (the hackathon stays one click away in the sidebar).
-          Admins aren't held to one agent in review, so theirs always offers
-          a new one. */}
-      <CondorAgentCard holder={user?.role === "ADMIN" ? null : agentInReview} />
-
-      {/* 4th: Certified-member status */}
-      <MemberStatusBanner isCertified={user?.certified ?? false} />
-
-      {/* Cohorts + Continue Learning — a bundle deposit leads with the cohort
-          commitment; everyone else sees their courses first, as before. */}
-      {bundleDeposit ? (
-        <>
-          {cohortsSection}
-          {continueLearningSection}
-        </>
-      ) : (
-        <>
-          {continueLearningSection}
-          {cohortsSection}
-        </>
-      )}
-
-      {/* Join the Community — moved here from /builders */}
-      <Card className="bg-gradient-to-br from-indigo-500/15 to-transparent border-indigo-500/30">
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-bc-md bg-indigo-500/15 text-indigo-400">
-              <MessageCircle className="h-5 w-5" />
-            </span>
-            <div>
-              <CardTitle>Join the community</CardTitle>
-              <CardDescription>
-                Connect with Botcamp builders and the broader Hummingbot community in real time.
-              </CardDescription>
+      {/* 1. Continue where you left off */}
+      {current && (
+        <section className="relative overflow-hidden rounded-bc-xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card to-card p-6 md:p-8">
+          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
+            Continue where you left off · {current.kind}
+          </p>
+          <div className="mt-3 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="min-w-0 flex-1">
+              <h2 className="text-2xl font-bold tracking-bc-tight md:text-3xl">{current.title}</h2>
+              {current.status && <StatusBadge value={current.status} type="status" />}
+              {current.total > 0 && (
+                <>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {current.completed > 0
+                      ? `${current.completed} of ${current.total} lessons done · ${current.total - current.completed} to go`
+                      : `${current.total} lessons`}
+                  </p>
+                  <LessonProgressBar
+                    completedCount={current.completed}
+                    totalLessons={current.total}
+                    className="mt-3 max-w-md"
+                  />
+                </>
+              )}
             </div>
+            <Button asChild size="lg" className="shrink-0">
+              <Link href={current.href}>
+                {current.completed > 0 ? "Continue" : "Start"}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
-        </CardHeader>
-        <CardContent>
-          <Button asChild>
-            <a
-              href="https://discord.gg/hummingbot"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Join Discord
-            </a>
-          </Button>
-        </CardContent>
-      </Card>
+        </section>
+      )}
 
-      {/* Empty state */}
-      {enrollments.length === 0 && (
+      {/* New here: one card per path */}
+      {isNew && (
+        <section>
+          <ul className="grid gap-4 md:grid-cols-3">
+            {paths.map((p) => (
+              <StepCard key={p.title} step={p} large />
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* 2. Next steps (at most three) */}
+      {!isNew && steps.length > 0 && (
+        <section>
+          <h2 className="mb-3 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+            Next steps
+          </h2>
+          <ul className="grid gap-4 md:grid-cols-3">
+            {steps.slice(0, 3).map((step) => (
+              <StepCard key={step.title} step={step} />
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Certification, once earned (or how to earn it) */}
+      {!isNew && <MemberStatusBanner isCertified={user?.certified ?? false} />}
+
+      {/* 3. The rest of their learning */}
+      {others.length > 0 && (
         <Card>
-          <CardContent className="py-6">
-            <EmptyState
-              icon={BookOpen}
-              title="No enrollments yet"
-              description="Browse our courses and cohorts to get started."
-              action={
-                <div className="flex flex-wrap gap-4 justify-center">
-                  <Button asChild variant="outline">
-                    <Link href="/botcamp#courses">Browse Courses</Link>
-                  </Button>
-                  <Button asChild>
-                    <Link href="/botcamp#cohorts">Browse Cohorts</Link>
-                  </Button>
-                </div>
-              }
-            />
+          <CardHeader className="flex flex-row items-center justify-between space-y-0">
+            <CardTitle>Your learning</CardTitle>
+            <Button variant="link" asChild className="px-0">
+              <Link href="/dashboard/enrollments">
+                All learning <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-bc-3">
+              {others.slice(0, 3).map((item) =>
+                item.kind === "Course" ? (
+                  <CourseListItem
+                    key={item.id}
+                    slug={item.slug!}
+                    title={item.title}
+                    level={item.level}
+                    thumbnail={item.thumbnail ?? undefined}
+                    meta={
+                      item.completed > 0
+                        ? `${item.completed} of ${item.total} lessons`
+                        : `${item.total} lessons`
+                    }
+                    completedCount={item.completed}
+                    totalLessons={item.total > 0 ? item.total : undefined}
+                  />
+                ) : (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className="flex items-center gap-4 rounded-bc-lg border border-border p-4 transition-colors hover:bg-accent"
+                  >
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded bg-muted">
+                      <GraduationCap className="h-6 w-6 text-muted-foreground" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-medium">{item.title}</span>
+                      <LessonProgressBar
+                        completedCount={item.completed}
+                        totalLessons={item.total}
+                        className="mt-2 max-w-xs"
+                      />
+                    </span>
+                  </Link>
+                ),
+              )}
+            </div>
           </CardContent>
         </Card>
       )}
     </div>
+  )
+}
+
+function StepCard({ step, large = false }: { step: { icon: LucideIcon; title: string; body: string; href: string; cta: string }; large?: boolean }) {
+  const Icon = step.icon
+  return (
+    <li className="flex flex-col rounded-bc-xl border border-border bg-card p-5 transition-colors hover:border-primary/40">
+      <span className="inline-flex h-10 w-10 items-center justify-center rounded-bc-md bg-primary/10 text-primary">
+        <Icon className="h-5 w-5" />
+      </span>
+      <h3 className={large ? "mt-4 text-lg font-semibold" : "mt-4 font-semibold"}>{step.title}</h3>
+      <p className="mt-1 flex-1 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
+      <Link
+        href={step.href}
+        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+      >
+        {step.cta} <ArrowRight className="h-4 w-4" />
+      </Link>
+    </li>
   )
 }

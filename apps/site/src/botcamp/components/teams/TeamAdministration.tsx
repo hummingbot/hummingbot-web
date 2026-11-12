@@ -119,7 +119,7 @@ export async function TeamAdministration({
 
       {stats && <TeamStatsBar {...stats} />}
 
-      <Tabs defaultValue={tab && tabs.includes(tab) ? tab : "edit"}>
+      <Tabs key={tab ?? "edit"} defaultValue={tab && tabs.includes(tab) ? tab : "edit"}>
         <TabsList>
           <TabsTrigger value="edit">Edit Team Info</TabsTrigger>
           <TabsTrigger value="manage">Manage</TabsTrigger>

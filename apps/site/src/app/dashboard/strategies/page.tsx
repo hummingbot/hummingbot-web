@@ -25,7 +25,7 @@ import { strategyStatusColors, cardStyles } from "@/botcamp/lib/design-constants
 import { cn } from "@/botcamp/lib/utils"
 
 export const metadata = {
-  title: "My Strategies - Botcamp",
+  title: "Strategies & Agents - Dashboard - Hummingbot",
 }
 
 async function getUserData(userId: string) {
@@ -150,7 +150,7 @@ export default async function MyStrategiesPage() {
   return (
     <div className="space-y-bc-6">
       <PageHeader
-        title="My Strategies"
+        title="Strategies & Agents"
         description="Manage strategies you've authored"
         variant="admin"
         actions={createRefusal ? undefined : createButtons}

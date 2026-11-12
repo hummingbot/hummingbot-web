@@ -62,7 +62,7 @@ export default async function DashboardCohortsPage() {
   return (
     <div className="space-y-bc-6">
       <PageHeader
-        title="My Cohorts"
+        title="Cohorts"
         description="Cohorts you're enrolled in"
         variant="admin"
       />

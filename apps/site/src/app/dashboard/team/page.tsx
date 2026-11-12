@@ -50,7 +50,7 @@ export default async function MyTeamPage({ searchParams }: PageProps) {
   if (!team) {
     return (
       <div className="space-y-bc-8">
-        <PageHeader title="My Team" variant="admin" />
+        <PageHeader title="Team" variant="admin" />
         <div className="rounded-bc-xl border border-border bg-card">
           <EmptyState
             icon={Handshake}

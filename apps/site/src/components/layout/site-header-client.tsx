@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, LayoutDashboard, LogOut, Menu, Shield, User, X } from "lucide-react";
 import { cn } from "@hummingbot/ui";
 import { nav, primaryCta, urls, type NavItem } from "@/config/site";
 import { Logo } from "./logo";
@@ -27,6 +27,104 @@ function matches(pathname: string | null, href: string): boolean {
 /** A top-level item is active on its own page or any of its children's. */
 function isActive(pathname: string | null, item: NavItem): boolean {
   return matches(pathname, item.href) || (item.children ?? []).some((c) => matches(pathname, c.href));
+}
+
+/** The signed-in user, when there is one (today: the dashboard preview user). */
+export type HeaderAccount = { name: string | null; image: string | null; isAdmin?: boolean };
+
+function initials(name: string | null) {
+  return (name ?? "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]!.toUpperCase()).join("") || "?";
+}
+
+function Avatar({ account, className }: { account: HeaderAccount; className?: string }) {
+  const [broken, setBroken] = useState(false);
+  const img = useRef<HTMLImageElement>(null);
+  // An image that failed before hydration never fires onError: check on mount.
+  useEffect(() => {
+    if (img.current?.complete && img.current.naturalWidth === 0) setBroken(true);
+  }, []);
+  return account.image && !broken ? (
+    // eslint-disable-next-line @next/next/no-img-element -- remote avatars from Botcamp
+    <img ref={img} src={account.image} alt="" onError={() => setBroken(true)} className={cn("rounded-full object-cover", className)} />
+  ) : (
+    <span className={cn("inline-flex items-center justify-center rounded-full bg-primary/15 text-xs font-semibold text-primary", className)}>
+      {initials(account.name)}
+    </span>
+  );
+}
+
+const ACCOUNT_LINKS = [
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  // Botcamp merged settings into the profile page (/dashboard/settings redirects there).
+  { label: "Profile & settings", href: "/dashboard/profile", icon: User },
+] as const;
+
+/** Avatar menu: the account's pages (profile, settings) live here, not in the dashboard sidebar. */
+function AccountMenu({ account }: { account: HeaderAccount }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onClick = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative hidden lg:block">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-label="Account menu"
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1 rounded-full p-0.5 ring-offset-background transition hover:ring-2 hover:ring-primary/40"
+      >
+        <Avatar account={account} className="size-8" />
+        <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden="true" />
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-xl">
+          <div className="flex items-center gap-3 px-3 py-2.5">
+            <Avatar account={account} className="size-9" />
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-semibold">{account.name ?? "Your account"}</span>
+              <span className="block text-xs text-muted-foreground">Read-only preview</span>
+            </span>
+          </div>
+          <div className="my-1 border-t border-border" />
+          {[...ACCOUNT_LINKS, ...(account.isAdmin ? [{ label: "Admin", href: "/admin", icon: Shield }] : [])].map(
+            ({ label, href, icon: Icon }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm hover:bg-muted"
+              >
+                <Icon className="size-4 text-muted-foreground" aria-hidden="true" />
+                {label}
+              </Link>
+            ),
+          )}
+          <div className="my-1 border-t border-border" />
+          <button
+            type="button"
+            disabled
+            title="Read-only preview"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground opacity-60"
+          >
+            <LogOut className="size-4" aria-hidden="true" />
+            Sign out
+          </button>
+        </div>
+      )}
+    </div>
+  );
 }
 
 /** Desktop dropdown: opens on hover or click, closes on Escape / outside click. */
@@ -104,7 +202,7 @@ function NavDropdown({ item, active }: { item: NavItem; active: boolean }) {
  * nav (dropdowns for Products, Learn and Community), theme toggle, Sign in and
  * the primary call to action.
  */
-export function SiteHeaderClient() {
+export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const subBrand = subBrandFor(pathname);
@@ -135,18 +233,21 @@ export function SiteHeaderClient() {
 
         <div className="ml-auto flex items-center gap-2">
           <ThemeToggle />
-          <Link
-            href={urls.signup}
-            className="hidden h-9 items-center px-3 text-sm font-medium text-foreground hover:text-primary lg:inline-flex"
-          >
-            Sign in
-          </Link>
+          {!account && (
+            <Link
+              href={urls.signup}
+              className="hidden h-9 items-center px-3 text-sm font-medium text-foreground hover:text-primary lg:inline-flex"
+            >
+              Sign in
+            </Link>
+          )}
           <Link
             href={primaryCta.href}
             className="hidden h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 lg:inline-flex"
           >
             {primaryCta.label}
           </Link>
+          {account && <AccountMenu account={account} />}
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -194,13 +295,35 @@ export function SiteHeaderClient() {
               </li>
             ))}
           </ul>
+          {account && (
+            <ul className="mt-4 flex flex-col gap-1 border-t border-border pt-4">
+              {ACCOUNT_LINKS.map(({ label, href, icon: Icon }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-foreground hover:bg-card"
+                  >
+                    <Icon className="size-4 text-muted-foreground" aria-hidden="true" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
           <div className="mt-4 grid grid-cols-2 gap-2">
             <Link
-              href={urls.signup}
+              href={account ? "/dashboard" : urls.signup}
               onClick={() => setOpen(false)}
-              className="flex h-10 items-center justify-center rounded-md border border-input text-sm font-medium"
+              className="flex h-10 items-center justify-center gap-2 rounded-md border border-input text-sm font-medium"
             >
-              Sign in
+              {account ? (
+                <>
+                  <Avatar account={account} className="size-5" /> Dashboard
+                </>
+              ) : (
+                "Sign in"
+              )}
             </Link>
             <Link
               href={primaryCta.href}

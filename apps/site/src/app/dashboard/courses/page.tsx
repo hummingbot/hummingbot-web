@@ -70,7 +70,7 @@ export default async function DashboardCoursesPage() {
   return (
     <div className="space-y-bc-6">
       <PageHeader
-        title="My Courses"
+        title="Courses"
         description="Courses you're enrolled in"
         variant="admin"
       />

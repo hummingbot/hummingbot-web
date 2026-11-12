@@ -17,7 +17,7 @@ import { getCompletedLessonIds } from "@/botcamp/lib/lesson-progress"
 import { BookOpen, GraduationCap, Calendar, Users, Clock, PiggyBank } from "lucide-react"
 
 export const metadata = {
-  title: "My Enrollments - Dashboard - Botcamp",
+  title: "Learning - Dashboard - Hummingbot",
 }
 
 async function getEnrollments(userId: string) {
@@ -108,7 +108,7 @@ export default async function DashboardEnrollmentsPage() {
   return (
     <div className="space-y-bc-8">
       <PageHeader
-        title="My Enrollments"
+        title="Learning"
         description="Your courses and cohort memberships"
         variant="admin"
       />

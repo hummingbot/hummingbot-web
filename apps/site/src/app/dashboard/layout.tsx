@@ -67,7 +67,7 @@ async function getActiveHackathon(): Promise<{
   return { name: h.title, nextEvent }
 }
 
-/** Resolve the preview user's sponsor team, if any, for the sidebar's "My Team" link. */
+/** Resolve the preview user's sponsor team, if any, for the sidebar's team switcher. */
 async function getUserTeam(userId: string): Promise<DashboardTeam | null> {
   const membership = await prisma.teamMember.findFirst({
     where: { userId },
@@ -98,7 +98,13 @@ export default async function DashboardLayout({
       {/* Subtle page gradient, matching marketing surfaces */}
       <div className={`fixed inset-0 ${pageBackgrounds.default} -z-10`} />
 
-      <SiteHeader />
+      <SiteHeader
+        account={{
+          name: session.user.name,
+          // Botcamp-relative avatars aren't served here; those fall back to initials.
+          image: session.user.image?.startsWith("http") ? session.user.image : null,
+          isAdmin: session.user.role === "ADMIN" }}
+      />
       <DashboardShell hackathonName={name} nextEvent={nextEvent} team={team}>
         {children}
       </DashboardShell>
