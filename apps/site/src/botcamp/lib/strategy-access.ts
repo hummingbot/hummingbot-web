@@ -79,3 +79,20 @@ export function notRacingWhere(): Prisma.StrategyWhereInput {
     },
   }
 }
+
+// From Botcamp's strategy-access.ts, for the builder profile (/builders/[slug]):
+// an agent page an admin must approve stays off the author's public profile
+// until a version is approved. Select `agentVersions` with
+// approvedAgentVersionSelect to call this.
+export const approvedAgentVersionSelect = {
+  where: { status: "APPROVED" as const },
+  select: { id: true },
+  take: 1,
+}
+
+export function isAwaitingAgentApproval(strategy: {
+  agentApprovalRequired: boolean
+  agentVersions: unknown[]
+}): boolean {
+  return strategy.agentApprovalRequired && strategy.agentVersions.length === 0
+}

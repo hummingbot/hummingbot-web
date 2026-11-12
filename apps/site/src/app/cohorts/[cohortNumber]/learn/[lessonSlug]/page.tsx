@@ -160,9 +160,7 @@ export default async function CohortLessonPage({ params }: PageProps) {
   }))
 
   const cohortTitle = cohort.title || `Botcamp Cohort ${cohort.number}`
-  // Botcamp links back to the cohort landing (/cohorts/cohort<N>), which
-  // isn't ported here; the dashboard's cohort list stands in for it.
-  const overviewPath = "/dashboard/cohorts"
+  const overviewPath = `/cohorts/cohort${cohortNumber}`
   const crumbs = [
     { label: cohortTitle, href: overviewPath },
     { label: lesson.title },
@@ -181,7 +179,7 @@ export default async function CohortLessonPage({ params }: PageProps) {
         <LessonAccessDenied
           requiresAuth={accessCheck.requiresAuth}
           returnUrl={overviewPath}
-          returnLabel="Back to your cohorts"
+          returnLabel="View Cohort Details"
           contextMessage={`This lesson is part of Cohort ${cohortNumber}. You must be enrolled to access this content.`}
         />
       </LearnShell>

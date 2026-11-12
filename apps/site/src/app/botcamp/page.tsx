@@ -2,7 +2,7 @@ import { prisma } from "@/botcamp/lib/prisma"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
 import EducationClient from "@/botcamp/app/education/EducationClient"
-import { TESTIMONIAL_MEMBER_SLUGS, type TestimonialMember } from "@/botcamp/components/sections/testimonial-members"
+import { getTestimonialMembers } from "@/botcamp/lib/builders"
 
 // ISR: Revalidate every 60 seconds for fresh cohort/course data
 export const revalidate = 60
@@ -97,28 +97,6 @@ async function getCohort14RegisteredCount() {
   })
 
   return bundleEnrollments.length
-}
-
-// What Botcamp's /api/members/<slug> gives the testimonial cards: the avatar,
-// which a private member profile leaves out.
-async function getTestimonialMembers(): Promise<TestimonialMember[]> {
-  const users = await prisma.user.findMany({
-    where: { slug: { in: TESTIMONIAL_MEMBER_SLUGS } },
-    select: {
-      slug: true,
-      name: true,
-      firstName: true,
-      lastName: true,
-      avatarUrl: true,
-      isMember: true,
-      profileVisibility: true,
-    },
-  })
-  return users.map((u) => ({
-    slug: u.slug ?? "",
-    name: u.name || `${u.firstName || ""} ${u.lastName || ""}`.trim() || "Anonymous",
-    avatarURL: u.isMember && u.profileVisibility !== "PUBLIC" ? null : u.avatarUrl,
-  }))
 }
 
 async function getUserCohortEnrollments(userId: string | undefined) {

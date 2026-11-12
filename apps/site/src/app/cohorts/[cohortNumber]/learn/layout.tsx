@@ -1,5 +1,16 @@
 import { notFound } from "next/navigation"
 import { prisma } from "@/botcamp/lib/prisma"
+import { PreviewChrome } from "@/botcamp/components/layout/PreviewChrome"
+
+// Botcamp's cohort learn pages, ported as a READ-ONLY local preview (see
+// PreviewChrome): a 404 in production or without DASHBOARD_PREVIEW_USER.
+// The rest of /cohorts (overview, landing, recap, schedule) is public.
+
+export const dynamic = "force-dynamic"
+
+export const metadata = {
+  robots: { index: false, follow: false },
+}
 
 interface LayoutProps {
   children: React.ReactNode
@@ -29,5 +40,5 @@ export default async function CohortLearnLayout({
   })
   if (!cohort) notFound()
 
-  return <>{children}</>
+  return <PreviewChrome>{children}</PreviewChrome>
 }

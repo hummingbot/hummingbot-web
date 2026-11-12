@@ -123,6 +123,8 @@ function CrumbBar({
         </button>
         <Crumbs crumbs={crumbs} />
       </div>
+      {/* Only on the preview's pages; the public cohort overview has no viewer. */}
+      {session && (
       <p
         className="ml-auto flex min-w-0 items-center gap-1.5 truncate rounded-full border border-border bg-card/60 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground"
         title={`${READ_ONLY_TITLE}: nothing here can be saved or changed`}
@@ -133,6 +135,7 @@ function CrumbBar({
           {viewer && <span className="max-sm:hidden"> · viewing as {viewer}</span>}
         </span>
       </p>
+      )}
     </div>
   )
 }

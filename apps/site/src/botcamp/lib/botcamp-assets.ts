@@ -43,3 +43,15 @@ export function botcampPublicAssetUrl(url: string | null): string | null {
   if (!url || !url.startsWith("/") || url.startsWith("/api/")) return url
   return `/botcamp-assets${url}`
 }
+
+/**
+ * A member's avatar as this site can show it: OAuth photos (Google, GitHub,
+ * LinkedIn) as they are, Botcamp public/ paths under /botcamp-assets/, and
+ * null for avatars Botcamp serves from its own API (uploads), which this site
+ * can't, so the UI falls back to the initials monogram.
+ */
+export function servableAvatarUrl(url: string | null | undefined): string | null {
+  if (!url) return null
+  if (url.startsWith("/api/")) return null
+  return botcampPublicAssetUrl(url)
+}
