@@ -1,42 +1,13 @@
 @import "tailwindcss";
 @import "@hummingbot/tokens/theme.css";
+@import "../botcamp/botcamp.css";
 @plugin "@tailwindcss/typography";
 
 @source "../../../../packages/ui/src";
 
 @theme {
   --font-satoshi: var(--font-satoshi);
-}
-
-/* Horizontal marquee for the testimonials rows (TweetMarquee). */
-@keyframes hb-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.hb-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: hb-marquee var(--hb-marquee-duration, 60s) linear infinite;
-}
-.hb-marquee-reverse {
-  animation-direction: reverse;
-}
-.hb-marquee:hover .hb-marquee-track,
-.hb-marquee:focus-within .hb-marquee-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hb-marquee-track {
-    animation: none;
-    flex-wrap: wrap;
-    width: 100%;
-  }
+  --font-monoton: var(--font-monoton-face), "Monoton", cursive;
 }
 
 /* Long-form blog prose. Binds @tailwindcss/typography's --tw-prose-* vars to
@@ -47,13 +18,13 @@
   @apply prose max-w-none;
   --tw-prose-body: var(--ink-300);
   --tw-prose-headings: hsl(var(--foreground));
-  --tw-prose-links: var(--brand-teal);
+  --tw-prose-links: hsl(var(--primary));
   --tw-prose-bold: hsl(var(--foreground));
   --tw-prose-counters: var(--ink-400);
   --tw-prose-bullets: var(--ink-600);
   --tw-prose-hr: var(--ink-800);
   --tw-prose-quotes: var(--ink-300);
-  --tw-prose-quote-borders: var(--brand-teal);
+  --tw-prose-quote-borders: hsl(var(--primary));
   --tw-prose-captions: var(--ink-500);
   --tw-prose-code: var(--ink-100);
   --tw-prose-pre-code: var(--ink-300);
@@ -144,10 +115,187 @@
   --muted-foreground: 240 4% 42%;
   --border: 240 6% 90%; /* #e4e4e7 */
   --input: 240 6% 90%;
-  --ring: 186 85% 35%; /* calmer teal */
+  /* The same bright gold as the dark theme, with dark text on it. Gold text
+   * doesn't read on white, so in light mode gold stays on fills (buttons,
+   * badges, highlights) and gold-colored text turns dark — see below. */
+  --primary: 46 98% 50%; /* #fdc70c */
+  --primary-foreground: 0 0% 9%;
+  --secondary: 21 85% 54%;
+  --secondary-foreground: 0 0% 100%;
+  /* Focus rings must stand out on light surfaces (WCAG 1.4.11): gold on
+   * white is 1.6:1, so the light theme rings in near-black instead. */
+  --ring: 240 6% 10%;
+  /* What "gold" text becomes on light surfaces. */
+  --primary-text: 240 5% 26%;
 
   /* Neon teal (#5fffd7) washes out on white — use a legible teal for accents,
    * focus rings and brand-teal surfaces. Darker than the hub's light teal so
    * white text on the teal CTA button clears WCAG AA 4.5 (4.4 at #0d9aa6). */
   --brand-teal: #0a8a95;
+}
+
+/* Dark theme: the shared token ink-500 (#71717a) is 4.1:1 on the page
+ * background, under the 4.5:1 AA floor for the muted text it's used for.
+ * Lift it for this site only (other apps keep @hummingbot/tokens as is). */
+:root:not([data-theme="light"]) {
+  --ink-500: #8b8b94;
+}
+
+/* ------------------------------------------------------------------
+ * Docs (/docs) — mkdocs admonitions and tabs, converted to HTML in
+ * lib/docs.ts. Styled as Botcamp cards: card surface, border, a tinted
+ * title; color says the kind (note/tip/warning/danger).
+ * ------------------------------------------------------------------ */
+.docs-prose .admonition {
+  --adm: hsl(var(--primary));
+  margin: 1.5rem 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  background: hsl(var(--card));
+  padding: 1rem 1.25rem;
+}
+.docs-prose .admonition > :last-child {
+  margin-bottom: 0;
+}
+.docs-prose .admonition-title,
+.docs-prose details.admonition > summary {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--adm);
+}
+.docs-prose details.admonition > summary {
+  cursor: pointer;
+  margin: 0;
+}
+.docs-prose details.admonition[open] > summary {
+  margin-bottom: 0.5rem;
+}
+.docs-prose .admonition-tip,
+.docs-prose .admonition-success,
+.docs-prose .admonition-check {
+  --adm: var(--color-bull);
+}
+.docs-prose .admonition-warning,
+.docs-prose .admonition-caution,
+.docs-prose .admonition-attention {
+  --adm: hsl(var(--secondary));
+}
+.docs-prose .admonition-danger,
+.docs-prose .admonition-error,
+.docs-prose .admonition-failure,
+.docs-prose .admonition-bug {
+  --adm: var(--color-bear);
+}
+.docs-prose .admonition-info,
+.docs-prose .admonition-abstract,
+.docs-prose .admonition-question,
+.docs-prose .admonition-example {
+  --adm: hsl(var(--accent));
+}
+
+.docs-prose .tabbed {
+  margin: 1.5rem 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.docs-prose .tabbed-panel {
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+}
+.docs-prose .tabbed-panel > :last-child {
+  margin-bottom: 0;
+}
+.docs-prose .tabbed-label {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  border-radius: 9999px;
+  background: hsl(var(--primary) / 0.1);
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(var(--primary));
+}
+.docs-prose iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.docs-prose table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* Strategy covers (Hub cards, carousel) follow the theme: near-black with white
+ * type in dark, warm white with ink type in light. Candles and the outlined
+ * rank stay gold in both. */
+:root {
+  --cover-ink: #111111;
+  --cover-fg: 0 0% 100%;
+  --cover-accent: 46 98% 50%;
+}
+:root[data-theme="light"] {
+  --cover-ink: #fbfaf6;
+  --cover-fg: 240 6% 10%;
+  /* Bright gold candles wash out on the light cover; a deeper gold reads. */
+  --cover-accent: 43 91% 42%;
+}
+
+/* Light theme depth for the Hub: a warm gold glow on each cover instead of a
+ * flat white, and cards that float on a soft shadow. Dark needs neither. */
+:root[data-theme="light"] .strategy-cover {
+  background:
+    radial-gradient(120% 90% at 100% 0%, hsl(46 98% 50% / 0.22), transparent 60%),
+    radial-gradient(80% 70% at 0% 100%, hsl(43 91% 42% / 0.08), transparent 70%),
+    var(--cover-ink);
+}
+:root[data-theme="light"] .hub-card {
+  box-shadow:
+    0 1px 2px rgb(16 16 16 / 0.05),
+    0 12px 32px -16px rgb(16 16 16 / 0.22);
+}
+:root[data-theme="light"] .hub-card:hover {
+  box-shadow:
+    0 1px 2px rgb(16 16 16 / 0.05),
+    0 22px 48px -20px hsl(43 91% 42% / 0.45);
+}
+
+/* Gold is for fills (buttons, badges, the headline marker), not text: in both
+ * themes, gold-colored text renders as a neutral (--primary-text) and headline
+ * highlights get a gold marker. Dark strategy covers keep their gold. */
+:root {
+  --primary-text: 0 0% 85%;
+}
+:root[data-theme="light"] {
+  --primary-text: 240 5% 26%;
+}
+.text-primary:not(.strategy-cover *),
+.hover\:text-primary:hover:not(.strategy-cover *),
+.group:hover .group-hover\:text-primary:not(.strategy-cover *) {
+  color: hsl(var(--primary-text));
+}
+/* Gold text on a dark cover reads; on a light one it doesn't. */
+:root[data-theme="light"] .strategy-cover .text-primary {
+  color: hsl(var(--primary-text));
+}
+/* The product name in the header wordmark ("Hummingbot Botcamp") keeps its
+ * gold, as on Botcamp. Bright gold on the light theme is unreadable, so it
+ * takes the deeper gold the light strategy covers use. */
+.brand-word {
+  color: hsl(var(--primary));
+}
+:root[data-theme="light"] .brand-word {
+  color: hsl(40 95% 30%); /* deep gold, 4.7:1 on the light header */
+}
+/* Headline highlights: a gold marker with dark text, the same in both themes.
+ * It starts just above the cap height, so on tight headlines it never covers
+ * the descenders of the line above. */
+.text-primary.brand-highlight {
+  color: hsl(var(--primary-foreground));
+  background-image: linear-gradient(transparent 28%, hsl(var(--primary)) 28%, hsl(var(--primary)) 90%, transparent 90%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }

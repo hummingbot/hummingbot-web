@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { exchanges } from "@hummingbot/brand";
 import { Section } from "@hummingbot/ui";
 import { urls } from "@/config/site";
+import { ThemedLogo } from "@/components/ui/themed-logo";
 
 export function ExchangeGrid() {
   return (
@@ -23,13 +24,12 @@ export function ExchangeGrid() {
               href={urls.exchanges}
               className="flex h-20 items-center justify-center rounded-xl border border-ink-800 bg-card transition-colors hover:border-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`/brand/logos/${ex.dark}`}
+              <ThemedLogo
+                dark={ex.dark}
+                light={ex.light}
                 alt={ex.name}
                 height={24}
                 className="h-6 w-auto max-w-[70%] opacity-70 grayscale transition group-hover:opacity-100"
-                loading="lazy"
               />
             </a>
           </li>
@@ -41,7 +41,7 @@ export function ExchangeGrid() {
           href={urls.exchanges}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 text-sm font-medium text-brand-teal hover:underline"
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
         >
           View all exchanges <ArrowRight className="size-4" aria-hidden="true" />
         </a>

@@ -1,0 +1,1215 @@
+// Copied from botcamp-site (prisma/schema.prisma). This app shares Botcamp's
+// database and only READS it: never run `prisma db push` or migrations from
+// here — Botcamp owns the schema. Re-copy this file when Botcamp's changes.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                        String                @id @default(cuid())
+  email                     String                @unique
+  emailVerified             DateTime?
+  name                      String?
+  image                     String?
+  role                      UserRole              @default(STUDENT)
+  slug                      String?               @unique
+  firstName                 String?
+  lastName                  String?
+  tagline                   String?
+  location                  String?
+  latitude                  Float?
+  longitude                 Float?
+  about                     String?
+  avatarUrl                 String?
+  avatarData                Bytes?
+  avatarMimeType            String?
+  websiteUrl                String?
+  linkedin                  String?
+  github                    String?
+  discord                   String?
+  discordId                 String?               @unique
+  storyUrl                  String?
+  certified                 Boolean               @default(false)
+  isMember                  Boolean               @default(false)
+  profileVisibility         Visibility            @default(PUBLIC)
+  termsAcceptedAt           DateTime?
+  // Set once the user ticks the Clone to Condor disclaimer; the agent zip
+  // download (/api/agents/[slug]/versions/*) refuses until it is.
+  condorTermsAcceptedAt     DateTime?
+  // Set from the NextAuth `signIn` event (src/lib/auth.ts) on every successful
+  // sign-in (OAuth + credentials) — used to find inactive users for outreach.
+  lastLoginAt               DateTime?
+  // Course Bundle deposit toward a future cohort (see src/lib/bundle.ts). The
+  // bundle grants course access via Enrollment rows, but the cohort itself
+  // isn't open for enrollment yet, so the deposit is tracked here instead of
+  // as a real Enrollment. Cohort number is snapshotted at purchase time so a
+  // later BUNDLE_DEPOSIT_TARGET_COHORT_NUMBER change doesn't rewrite history.
+  bundleDepositCohortNumber Int?
+  bundleDepositAt           DateTime?
+  // Email notification preferences (transactional emails are always sent)
+  emailMarketing            Boolean               @default(true)
+  emailCourseUpdates        Boolean               @default(true)
+  emailStrategyUpdates      Boolean               @default(true)
+  emailHackathonUpdates     Boolean               @default(true)
+  newsletterSubscribed      Boolean               @default(false)
+  unsubscribeToken          String?               @unique
+  createdAt                 DateTime              @default(now())
+  updatedAt                 DateTime              @updatedAt
+  accounts                  Account[]
+  instructedCourses         Course[]              @relation("CourseInstructor")
+  enrollments               Enrollment[]
+  notifications             Notification[]
+  sessions                  Session[]
+  approvedStrategies        Strategy[]            @relation("StrategyApprover")
+  strategies                StrategyAuthor[]
+  strategyComments          StrategyComment[]
+  sentBroadcasts            Broadcast[]
+  // Condor Cup
+  walletNetwork             WalletNetwork?
+  walletAddress             String?
+  applications              Application[]
+  applicationScores         ApplicationScore[]
+  teamMemberships           TeamMember[]
+  hackathonEntries          HackathonEntry[]
+  strategyAccessGrants      StrategyAccessGrant[]
+  lessonProgress            LessonProgress[]
+  agentVersions             AgentVersion[]
+  apiTokens                 ApiToken[]
+  deviceAuthorizations      DeviceAuthorization[]
+
+  @@index([certified])
+  @@index([isMember])
+  @@index([profileVisibility])
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model VerificationCode {
+  id              String   @id @default(cuid())
+  email           String
+  code            String
+  firstName       String?
+  lastName        String?
+  username        String?
+  newsletterOptIn Boolean  @default(false)
+  termsAccepted   Boolean  @default(false)
+  attempts        Int      @default(0)
+  expiresAt       DateTime
+  createdAt       DateTime @default(now())
+
+  @@index([email])
+  @@index([code])
+  @@index([expiresAt])
+  @@map("verification_codes")
+}
+
+model Course {
+  id           String       @id @default(cuid())
+  slug         String       @unique
+  title        String
+  description  String?
+  thumbnail    String?
+  level        CourseLevel  @default(BASIC)
+  published    Boolean      @default(false)
+  price        Int          @default(0)
+  sortOrder    Int          @default(0)
+  tags         String[]
+  instructorId String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  instructor   User?        @relation("CourseInstructor", fields: [instructorId], references: [id])
+  enrollments  Enrollment[]
+  sections     Section[]
+
+  @@map("courses")
+}
+
+model Section {
+  id        String   @id @default(cuid())
+  courseId  String
+  title     String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lessons   Lesson[]
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([courseId])
+  @@map("sections")
+}
+
+model Cohort {
+  id              String       @id @default(cuid())
+  number          Int          @unique
+  slug            String       @unique
+  title           String?
+  description     String?
+  status          CohortStatus @default(UPCOMING)
+  startDate       DateTime
+  endDate         DateTime
+  price           Int?
+  maxStudents     Int?
+  retainedSeats   Int          @default(0)
+  registrationUrl String?
+  demoDayUrl      String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  weeks           CohortWeek[]
+  enrollments     Enrollment[]
+  strategies      Strategy[]
+
+  @@map("cohorts")
+}
+
+model CohortWeek {
+  id          String    @id @default(cuid())
+  cohortId    String
+  weekNumber  Int
+  title       String
+  description String?
+  date        DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  cohort      Cohort    @relation(fields: [cohortId], references: [id], onDelete: Cascade)
+  lessons     Lesson[]
+
+  @@unique([cohortId, weekNumber])
+  @@index([cohortId])
+  @@map("cohort_weeks")
+}
+
+model Lesson {
+  id           String           @id @default(cuid())
+  slug         String           @unique
+  title        String
+  type         LessonType
+  sortOrder    Int              @default(0)
+  isFree       Boolean          @default(false)
+  sectionId    String?
+  cohortWeekId String?
+  videoId      String?
+  duration     Int?
+  content      String?
+  transcript   String?
+  slidesURL    String?
+  quizData     Json?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  cohortWeek   CohortWeek?      @relation(fields: [cohortWeekId], references: [id], onDelete: Cascade)
+  section      Section?         @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  progress     LessonProgress[]
+
+  @@index([sectionId])
+  @@index([cohortWeekId])
+  @@map("lessons")
+}
+
+// Tracks per-user lesson watch/read progress, so course/cohort learn pages
+// can resume at the first incomplete lesson (at the exact video position)
+// and show completed checkmarks in the outline. `completedAt` is only set
+// once real progress is made (video watched past the threshold, or a
+// non-video lesson opened) — never on a bare page view — and is never
+// unset once reached. `positionSeconds` is the last reported video
+// playback position, used to resume mid-video.
+model LessonProgress {
+  id              String    @id @default(cuid())
+  userId          String
+  lessonId        String
+  positionSeconds Int       @default(0)
+  completedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson          Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@index([lessonId])
+  @@map("lesson_progress")
+}
+
+// Marks that an inactivity nudge email was sent for an enrollment, at a
+// given tier — see `sendCourseInactivityReminder` and the course-inactivity
+// cron. The unique constraint is the actual "send at most once" guarantee;
+// the Notification row created alongside it is just the audit log.
+enum InactivityReminderTier {
+  WEEK
+  MONTH
+}
+
+model CourseInactivityReminder {
+  id           String                 @id @default(cuid())
+  enrollmentId String
+  tier         InactivityReminderTier
+  sentAt       DateTime               @default(now())
+  enrollment   Enrollment             @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@unique([enrollmentId, tier])
+  @@map("course_inactivity_reminders")
+}
+
+model Enrollment {
+  id                  String                     @id @default(cuid())
+  userId              String
+  enrolledAt          DateTime                   @default(now())
+  courseId            String?
+  cohortId            String?
+  stripePaymentId     String?
+  pricePaid           Int?
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+  cohort              Cohort?                    @relation(fields: [cohortId], references: [id], onDelete: Cascade)
+  course              Course?                    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user                User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  inactivityReminders CourseInactivityReminder[]
+
+  @@unique([userId, courseId])
+  @@unique([userId, cohortId])
+  @@index([userId])
+  @@index([cohortId])
+  @@index([courseId])
+  @@map("enrollments")
+}
+
+// Grants non-cohort-members paid, time-boxed access to view certified
+// strategies' code/resources beyond the free-preview set. Cohort members
+// already have access via isMember and never need one of these.
+// Tracks an annual, auto-renewing Stripe subscription that grants access to
+// the strategy library. `expiresAt` mirrors the subscription's current period
+// end — extended by the webhook on each successful renewal. `status` is the
+// raw Stripe subscription status ("active", "past_due", "canceled", etc.) for
+// Stripe-driven grants, or "manual" for one an admin created directly — not
+// re-modeled as an enum, so a new Stripe status value never needs a
+// migration. `cancelAtPeriodEnd` lets the UI show "cancels on <date>" while
+// access remains valid through the already-paid period.
+// The Stripe fields and `expiresAt` are nullable to support admin-granted
+// access with no underlying subscription and no expiration — `stripeCustomerId`/
+// `stripeSubscriptionId` are null and `expiresAt` is null (meaning indefinite)
+// for those; `hasActiveStrategyUnlock` treats a null `expiresAt` as never expiring.
+model StrategyAccessGrant {
+  id                   String    @id @default(cuid())
+  userId               String
+  stripeCustomerId     String?
+  stripeSubscriptionId String?   @unique
+  status               String    @default("active")
+  cancelAtPeriodEnd    Boolean   @default(false)
+  pricePaid            Int?
+  purchasedAt          DateTime  @default(now())
+  expiresAt            DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([stripeCustomerId])
+  @@map("strategy_access_grants")
+}
+
+model Strategy {
+  id                    Int               @id @default(autoincrement())
+  slug                  String            @unique
+  cohortId              String?
+  title                 String
+  summary               String?           @map("description")
+  details               String?           @map("content")
+  tags                  String[]
+  exchanges             String[]
+  videoURL              String?
+  status                StrategyStatus    @default(DRAFT)
+  submittedAt           DateTime?
+  approvedAt            DateTime?
+  approvedById          String?
+  certifiedAt           DateTime?
+  visibility            Visibility        @default(PRIVATE)
+  /// Hand-picked to lead the "Featured" sort on /strategies.
+  featured              Boolean           @default(false)
+  /// Admin override: free to view in full (code + resources) for any signed-in
+  /// user, without a membership or paid unlock. PRIVATE still wins.
+  isFree                Boolean           @default(false)
+  /// Created through the open agent upload by someone who isn't a member or
+  /// hackathon entrant: hidden from /strategies until an AgentVersion is APPROVED.
+  agentApprovalRequired Boolean           @default(false)
+  /// Changes an admin suggested to an agent page's title, summary or details
+  /// while reviewing it, until the author accepts or dismisses each one.
+  /// Shape: src/lib/agent-page-suggestions.ts.
+  pageSuggestions       Json?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+  approvedBy            User?             @relation("StrategyApprover", fields: [approvedById], references: [id])
+  cohortRelation        Cohort?           @relation(fields: [cohortId], references: [id])
+  authors               StrategyAuthor[]
+  comments              StrategyComment[]
+  files                 StrategyFile[]
+  images                StrategyImage[]
+  versions              StrategyVersion[]
+  students              StudentStrategy[]
+  // Condor Cup
+  strategyType          StrategyType      @default(OTHER)
+  applications          Application[]
+  hackathonEntries      HackathonEntry[]
+  raceAgents            RaceAgent[]
+  agentVersions         AgentVersion[]
+
+  @@index([cohortId])
+  @@index([status])
+  @@index([visibility])
+  @@index([createdAt])
+  @@index([status, visibility])
+  @@index([featured])
+  @@map("strategies")
+}
+
+model StrategyFile {
+  id         String           @id @default(cuid())
+  strategyId Int
+  type       StrategyFileType @default(FILE)
+  filename   String
+  content    Bytes?
+  mimeType   String?
+  size       Int?
+  url        String?
+  sortOrder  Int              @default(0)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  strategy   Strategy         @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+
+  @@unique([strategyId, filename])
+  @@index([strategyId, sortOrder]) // For ordered file listings
+  @@map("strategy_files")
+}
+
+model StrategyImage {
+  id         String   @id @default(cuid())
+  strategyId Int
+  filename   String
+  data       Bytes
+  mimeType   String
+  size       Int
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  strategy   Strategy @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+
+  @@map("strategy_images")
+}
+
+model StrategyAuthor {
+  userId     String
+  strategyId Int
+  createdAt  DateTime @default(now())
+  strategy   Strategy @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, strategyId])
+  @@index([strategyId])
+  @@index([userId])
+  @@map("strategy_authors")
+}
+
+model StrategyVersion {
+  id           String                @id @default(cuid())
+  strategyId   Int
+  version      Int
+  title        String
+  description  String?
+  content      String?
+  tags         String[]
+  exchanges    String[]
+  videoURL     String?
+  approvedAt   DateTime
+  approvedById String?
+  createdAt    DateTime              @default(now())
+  files        StrategyVersionFile[]
+  strategy     Strategy              @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+
+  @@unique([strategyId, version])
+  @@map("strategy_versions")
+}
+
+model StrategyVersionFile {
+  id        String           @id @default(cuid())
+  versionId String
+  type      StrategyFileType @default(FILE)
+  filename  String
+  content   Bytes?
+  mimeType  String?
+  size      Int?
+  url       String?
+  sortOrder Int              @default(0)
+  version   StrategyVersion  @relation(fields: [versionId], references: [id], onDelete: Cascade)
+
+  @@unique([versionId, filename])
+  @@map("strategy_version_files")
+}
+
+model StrategyComment {
+  id         String            @id @default(cuid())
+  strategyId Int
+  authorId   String
+  content    String
+  visibility CommentVisibility @default(PUBLIC)
+  deletedAt  DateTime?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  author     User              @relation(fields: [authorId], references: [id])
+  strategy   Strategy          @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+
+  @@index([strategyId])
+  @@index([authorId])
+  @@map("strategy_comments")
+}
+
+model Notification {
+  id                String             @id @default(cuid())
+  type              NotificationType
+  recipientId       String?
+  subject           String
+  body              String
+  sentAt            DateTime?
+  status            NotificationStatus @default(PENDING)
+  error             String?
+  createdAt         DateTime           @default(now())
+  recipient         User?              @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  // Broadcast relation
+  broadcastId       String?
+  broadcast         Broadcast?         @relation(fields: [broadcastId], references: [id], onDelete: SetNull)
+  // Resend engagement tracking (populated by the Resend webhook via resendEmailId).
+  // bouncedAt = email.bounced, a hard/permanent bounce in Resend's model.
+  // deliveryDelayedAt = email.delivery_delayed, a soft/transient bounce that
+  // Resend retries on its own; recorded here only to spot repeat offenders.
+  resendEmailId     String?
+  deliveredAt       DateTime?
+  openedAt          DateTime?
+  clickedAt         DateTime?
+  bouncedAt         DateTime?
+  deliveryDelayedAt DateTime?
+  complainedAt      DateTime?
+
+  @@index([recipientId])
+  @@index([status])
+  @@index([broadcastId])
+  @@index([resendEmailId])
+  @@map("notifications")
+}
+
+model Broadcast {
+  id             String         @id @default(cuid())
+  subject        String
+  body           String
+  audienceType   String // myself, all_users, all_members, course_students, admin_users, cohort, hackathon
+  cohortNumber   Int? // For cohort-specific broadcasts
+  hackathonSlug  String? // For hackathon-specific broadcasts
+  recipientCount Int
+  sentAt         DateTime       @default(now())
+  createdAt      DateTime       @default(now())
+  sentById       String?
+  sentBy         User?          @relation(fields: [sentById], references: [id], onDelete: SetNull)
+  notifications  Notification[]
+
+  @@index([audienceType])
+  @@index([sentAt])
+  @@index([sentById])
+  @@map("broadcasts")
+}
+
+model Student {
+  id         String            @id @default(uuid())
+  slug       String            @unique
+  email      String            @unique
+  firstName  String
+  lastName   String?
+  name       String
+  tagline    String?
+  about      String?
+  avatarURL  String?
+  websiteURL String?
+  linkedin   String?
+  github     String?
+  discord    String?
+  storyURL   String?
+  cohorts    Int[]
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+  strategies StudentStrategy[]
+
+  @@map("students")
+}
+
+model StudentStrategy {
+  studentId  String
+  strategyId Int
+  strategy   Strategy @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+  student    Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@id([studentId, strategyId])
+  @@map("student_strategies")
+}
+
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+enum Visibility {
+  PUBLIC
+  MEMBERS_ONLY
+  PRIVATE
+}
+
+enum StrategyStatus {
+  DRAFT
+  SUBMITTED
+  CHANGES_REQUESTED
+  APPROVED
+  CERTIFIED
+}
+
+enum StrategyFileType {
+  FILE
+  LINK
+}
+
+enum CourseLevel {
+  BASIC
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum CohortStatus {
+  UPCOMING
+  ACTIVE
+  COMPLETED
+}
+
+enum LessonType {
+  VIDEO
+  ARTICLE
+  CHALLENGE
+  QUIZ
+}
+
+enum NotificationType {
+  WELCOME
+  COURSE_ENROLLED
+  COHORT_ENROLLED
+  NEW_CONTENT
+  WEEK_UPDATED
+  PASSWORD_RESET
+  COHORT_REMINDER
+  BROADCAST
+  STRATEGY_UPDATE
+  HACKATHON_UPDATE
+  // Welcome series drip steps (WELCOME above is Day 0, sent at signup)
+  WELCOME_DAY3
+  WELCOME_DAY7
+  WELCOME_DAY14
+  WELCOME_DAY21
+  WELCOME_DAY28
+  // Course/cohort progress-inactivity nudges — see CourseInactivityReminder
+  COURSE_INACTIVITY_WEEK
+  COURSE_INACTIVITY_MONTH
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+// Condor Cup Enums
+
+enum ApplicationStatus {
+  DRAFT // Work in progress
+  FINALIZED // Submitted for review
+  REVIEWED // Team has reviewed
+}
+
+enum WalletNetwork {
+  SOLANA_MAINNET_BETA
+  ETHEREUM_MAINNET
+}
+
+enum CommentVisibility {
+  PUBLIC // Anyone with access to the strategy's Discussion (default, matches pre-existing behavior)
+  AUTHOR // The strategy's author(s) plus all admins
+  ADMIN // Admins only — internal review notes, never shown to the author
+}
+
+enum StrategyType {
+  AGENT // AI/autonomous agent
+  SCRIPT // Standalone script
+  CONTROLLER // Hummingbot v2 controller
+  V1_STRATEGY // Legacy Hummingbot v1 strategy
+  OTHER // General/uncategorized
+}
+
+// A Condor agent package uploaded for an AGENT strategy, as an immutable
+// snapshot: a GitHub link is fetched at a pinned commit and stored, so a later
+// push can't change what was approved. Only structurally valid packages are
+// stored (src/lib/agent-package.ts); the automated review then moves PENDING
+// on, an admin confirms what it passes, and Condor clones APPROVED only.
+enum AgentVersionStatus {
+  PENDING // Structure valid, awaiting the automated review
+  NEEDS_REVIEW // Passed the automated review; awaiting an admin's final check
+  APPROVED // Admin confirmed; Condor can clone it
+  REJECTED // Rejected by the automated review or an admin
+}
+
+// Personal access token for clients that can't hold a browser session —
+// Condor's import (`python -m condor.botcamp_import`). Only its sha256 is stored; the token is shown once.
+// Accepted by the /api/agents routes only (src/lib/api-tokens.ts), so a
+// leaked token can read the agents its owner could, and nothing else.
+model ApiToken {
+  id         String    @id @default(cuid())
+  userId     String
+  name       String
+  tokenHash  String    @unique
+  prefix     String // First characters, to tell tokens apart in the UI
+  // What the token may do (see src/lib/api-tokens.ts). Tokens made on the
+  // profile page read agents; "Connect Botcamp" in Condor also publishes.
+  scopes     String[]  @default(["agents:read"])
+  // Every token expires (API_TOKEN_TTL_DAYS) and can't be renewed: Condor
+  // runs the device login again. Null only on legacy rows.
+  expiresAt  DateTime?
+  lastUsedAt DateTime?
+  createdAt  DateTime  @default(now())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("api_tokens")
+}
+
+enum DeviceAuthorizationStatus {
+  PENDING
+  APPROVED
+  DENIED
+  CONSUMED
+}
+
+// "Connect Botcamp" from Condor (OAuth 2.0 device flow, RFC 8628): Condor
+// gets a device code it polls with and a short user code the person approves
+// at /connect while signed in. On the first poll after approval the ApiToken
+// is created and handed to Condor, and the row is spent (CONSUMED).
+model DeviceAuthorization {
+  id             String                    @id @default(cuid())
+  deviceCodeHash String                    @unique // sha256; the device code itself is only in Condor
+  userCode       String                    @unique // Stored normalized: 8 letters, no dash
+  clientName     String // What Condor called itself, shown on the approval page
+  scopes         String[]
+  status         DeviceAuthorizationStatus @default(PENDING)
+  userId         String? // Who approved or denied it
+  requesterIp    String? // Who asked for the code: shown on /connect, and rate-limits starts
+  lastPolledAt   DateTime?
+  expiresAt      DateTime
+  createdAt      DateTime                  @default(now())
+  user           User?                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+  @@index([requesterIp, createdAt])
+  @@map("device_authorizations")
+}
+
+// One row per code a signed-in person looks up or answers on /connect,
+// failed guesses included, so guessing codes is rate-limited per account.
+// Rows older than the window are pruned as new ones arrive.
+model DeviceCodeAttempt {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@map("device_code_attempts")
+}
+
+// One row per agent package read on someone's behalf — a check from the New
+// Agent flow or an upload — so reading packages is capped per person
+// (src/lib/agent-upload.ts). A GitHub link costs three calls against the
+// site's shared GitHub token, so unbounded reads could starve everyone's.
+model AgentPackageRead {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@map("agent_package_reads")
+}
+
+// One row per strategy created, so creating is capped per person and per IP
+// over a rolling day (src/lib/strategy-create.ts). Deleting a strategy keeps
+// its row — a create/delete loop still counts — and there's no relation to
+// User on purpose, so deleting an account doesn't hand its quota back. Rows
+// older than the window are pruned as new ones arrive.
+model StrategyCreation {
+  id        String   @id @default(cuid())
+  userId    String
+  ip        String?
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([ip, createdAt])
+  @@map("strategy_creations")
+}
+
+// No longer written: the contact forms and POST /api/contact were removed in
+// favour of mailto: links. Kept only so deploys don't stall on the deploy
+// guard's DROP TABLE; drop it in a deploy run with ALLOW_DESTRUCTIVE_DB_PUSH=1.
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  ip        String?
+  formType  String
+  email     String
+  createdAt DateTime @default(now())
+
+  @@index([ip, createdAt])
+  @@map("contact_submissions")
+}
+
+enum AgentSource {
+  ZIP
+  GITHUB
+  CONDOR // Published from a Condor install (POST /api/agents)
+}
+
+model AgentVersion {
+  id           String             @id @default(cuid())
+  strategyId   Int
+  version      Int // 1, 2, 3… per strategy
+  source       AgentSource
+  sourceUrl    String? // GitHub URL as submitted
+  sourceRef    String? // Commit SHA the snapshot was taken at
+  archive      Bytes // Normalized zip, rooted at the AGENT.md folder
+  sha256       String // Of `archive`; Condor verifies it on clone
+  size         Int
+  fileCount    Int
+  manifest     Json // AgentManifest: name, agent_key, tools, loops
+  warnings     Json // AgentPackageIssue[] from the structure check
+  status       AgentVersionStatus @default(PENDING)
+  aiReview     Json?
+  reviewedById String? // Admin who approved/rejected; null when the AI decided
+  reviewedAt   DateTime?
+  reviewNote   String? // Admin's reason, shown to the author
+  uploadedById String
+  createdAt    DateTime           @default(now())
+  strategy     Strategy           @relation(fields: [strategyId], references: [id], onDelete: Cascade)
+  uploadedBy   User               @relation(fields: [uploadedById], references: [id])
+
+  @@unique([strategyId, version])
+  @@index([strategyId, status])
+  @@index([status])
+  @@map("agent_versions")
+}
+
+// Hackathon Models
+
+// The stage an admin moves a hackathon through. Read in this order — Postgres
+// keeps enum values in the order they were added, so don't rely on it.
+// Helpers and labels live in src/lib/hackathon-stages.ts.
+enum HackathonStatus {
+  DRAFT // Not visible, being configured
+  COMING_SOON // Announced: public page, sign-ups closed
+  REGISTRATION // Open: register, apply, and submit
+  COUNTDOWN // Submissions closed, counting down to the race (raceStart)
+  ACTIVE // Live race running (raceStart -> raceEnd)
+  JUDGING // Race over, results being finalized
+  COMPLETED // Winners announced
+}
+
+model Hackathon {
+  id          String          @id @default(cuid())
+  slug        String          @unique
+  title       String
+  description String?
+  rules       String? // Markdown rules/guidelines
+  status      HackathonStatus @default(DRAFT)
+
+  // Dates
+  registrationStart DateTime?
+  registrationEnd   DateTime?
+  startDate         DateTime
+  endDate           DateTime
+  // The live race window: the countdown targets raceStart, and the live
+  // leaderboard charts from it. Distinct from startDate (build period opens)
+  // and endDate (winners announced).
+  raceStart         DateTime?
+  raceEnd           DateTime?
+  // Public FAQ for this edition: [{ q, a, show }], markdown with {{tokens}}
+  // (src/lib/hackathon-faq.ts). Null = the default template, flagged in admin.
+  faq               Json?
+
+  // Configuration
+  maxParticipants Int?
+  prizes          Json? // [{place: 1, amount: "1000 USDT", description: "..."}]
+
+  // Recap stat filled in by hand after the event (e.g. from YouTube/Twitch
+  // analytics) - nothing in this codebase tracks stream viewership itself.
+  finalViewers         Int?
+  // Pins this edition's final standings (1st first, from the scored
+  // leaderboard) to the top of /strategies, winner highlighted. Toggled from
+  // the admin hackathon editor — turning it off removes the block, no deploy.
+  showcaseOnStrategies Boolean @default(false)
+
+  // HBOT Snapshot proposal (hbot.eth, Copeland voting) where holders rank the
+  // teams. Set from the admin editor once it's created; the leaderboard
+  // scores the vote criterion from it (src/lib/snapshot.ts).
+  snapshotProposalId String?
+
+  // Tracking
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  sessions               HackathonSession[]
+  // Condor Cup
+  teamIds                String[]
+  maxSelections          Int                @default(2)
+  // Seats a team starts with already filled, with no Application behind them
+  // (e.g. the host squad's showcase strategies): { [teamId]: strategySlug[] }.
+  // Set per hackathon from the admin editor — they change every edition.
+  // No longer read: every seat is a selected Application. Kept so old values
+  // stay on record; nothing writes it.
+  prefilledSeats         Json?
+  applications           Application[]
+  entries                HackathonEntry[]
+  raceAgents             RaceAgent[]
+  raceMetrics            RaceMetric[]
+  raceFeedReceipts       RaceFeedReceipt[]
+  raceAgentDetails       RaceAgentDetail[]
+  // The race feed's bearer token, as a SHA-256 hex digest — the token itself
+  // is shown once when an admin generates it (Admin → Race Feed) and never
+  // stored. Null means the feed is off (POST race-data answers 404).
+  raceFeedTokenHash      String?
+  raceFeedTokenCreatedAt DateTime?
+
+  @@map("hackathons")
+}
+
+model HackathonSession {
+  id          String     @id @default(cuid())
+  hackathonId String
+  title       String
+  slug        String?
+  description String?
+  type        LessonType @default(VIDEO)
+  duration    Int?
+  isFree      Boolean    @default(true)
+  videoId     String?
+  content     String?
+  date        DateTime?
+  sortOrder   Int        @default(0)
+  // Set when this session is a sponsor-specific workshop — shown on that
+  // team's page. Unset for general hackathon-wide sessions.
+  teamId      String?
+
+  hackathon Hackathon @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  team      Team?     @relation(fields: [teamId], references: [id], onDelete: SetNull)
+
+  @@index([hackathonId])
+  @@index([teamId])
+  @@map("hackathon_sessions")
+}
+
+// Condor Cup Models
+
+model Team {
+  id               String  @id @default(cuid())
+  slug             String  @unique
+  name             String
+  description      String?
+  // Logo variant for LIGHT backgrounds (typically a dark wordmark). logoUrl
+  // holds a legacy external URL; logoData/logoMimeType hold an uploaded image
+  // and take priority when present (see /api/teams/[teamSlug]/logo).
+  logoUrl          String?
+  logoData         Bytes?
+  logoMimeType     String?
+  // Logo variant for DARK backgrounds (typically a light/white wordmark).
+  // Falls back to the light variant wherever only one variant is rendered.
+  logoUrlDark      String?
+  logoDataDark     Bytes?
+  logoMimeTypeDark String?
+  websiteUrl       String?
+  rules            String? // Markdown - selection criteria
+  resources        String? // Markdown - team-specific build resources (docs, agent skills, etc.)
+  sortOrder        Int     @default(0)
+  // F1-style brand color used to theme the team page (hex, e.g. "#FF6A1A").
+  // Darker companion tones for gradients are derived from this in CSS.
+  primaryColor     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members              TeamMember[]
+  invites              TeamInvite[]
+  selectedApplications Application[]      @relation("ApplicationSelectedTeam")
+  sponsoredEntries     HackathonEntry[]   @relation("EntrySponsor")
+  // Sponsor workshop session(s) recorded for this team, shown on its team page.
+  workshopSessions     HackathonSession[]
+  raceAgents           RaceAgent[]
+
+  @@index([sortOrder])
+  @@map("teams")
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  teamId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, userId])
+  @@index([userId])
+  @@map("team_members")
+}
+
+// Admin-issued invite for someone with no account yet. On registration with
+// this email the user is auto-added as a TeamMember (see claimTeamInvites),
+// which is what grants team-admin access to /dashboard/team.
+model TeamInvite {
+  id          String    @id @default(cuid())
+  teamId      String
+  email       String // stored lowercased
+  invitedById String?
+  createdAt   DateTime  @default(now())
+  acceptedAt  DateTime?
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, email])
+  @@index([email])
+  @@map("team_invites")
+}
+
+// New simplified Application model
+model Application {
+  id          String @id @default(cuid())
+  hackathonId String
+  userId      String
+  strategyId  Int? // Link to user's strategy (required for FINALIZED)
+
+  // Ranked team preferences - array of team IDs
+  teamPreferences String[]
+
+  // Lifecycle
+  status ApplicationStatus @default(DRAFT)
+
+  // Selection result (set by team/admin)
+  selectedTeamId String? // Which team selected this application
+  teamNote       String? // Team's own internal note on selection (team-writable only)
+  adminNote      String? // Botcamp's note to the sponsor team, e.g. context for our score (admin-writable, team read-only)
+
+  // Results (set by admin post-race)
+  rank        Int?
+  prizeAmount String? // e.g. "2000 USDT"
+  prizeNote   String? // e.g. "Best Innovation Award"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  hackathon       Hackathon          @relation(fields: [hackathonId], references: [id])
+  user            User               @relation(fields: [userId], references: [id])
+  strategy        Strategy?          @relation(fields: [strategyId], references: [id])
+  selectedTeam    Team?              @relation("ApplicationSelectedTeam", fields: [selectedTeamId], references: [id])
+  scores          ApplicationScore[]
+  raceAgent       RaceAgent?
+  raceMetrics     RaceMetric[]
+  raceAgentDetail RaceAgentDetail?
+
+  @@unique([hackathonId, strategyId]) // One application per strategy per hackathon
+  @@index([hackathonId, status])
+  @@index([userId])
+  @@map("applications")
+}
+
+// One admin's 1-10 review rating on an application. Each admin who reviews an
+// application gets their own row; the application's displayed score is the
+// average across all of them (see getApplicationScoreSummary in
+// src/lib/admin-application.ts).
+model ApplicationScore {
+  id            String   @id @default(cuid())
+  applicationId String
+  adminId       String
+  score         Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  admin       User        @relation(fields: [adminId], references: [id])
+
+  @@unique([applicationId, adminId])
+  @@index([applicationId])
+  @@map("application_scores")
+}
+
+// UNUSED — superseded by RaceMetric. Condor now pushes each agent's numbers
+// to the site (POST /api/hackathons/[slug]/race-data) instead of the site
+// pulling them from Condor by server + bot name, so nothing reads or writes
+// this table. Kept only so the deploy's schema sync doesn't see a destructive
+// diff (the table exists on prod); drop it in a follow-up with
+// ALLOW_DESTRUCTIVE_DB_PUSH.
+model RaceAgent {
+  id            String   @id @default(cuid())
+  hackathonId   String
+  // The team at registration. The leaderboard and admin roster read the
+  // application's current selectedTeamId instead, so this can go stale.
+  teamId        String
+  strategyId    Int
+  applicationId String   @unique
+  server        String
+  botName       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  hackathon   Hackathon   @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  team        Team        @relation(fields: [teamId], references: [id])
+  strategy    Strategy    @relation(fields: [strategyId], references: [id])
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Restrict)
+
+  @@unique([hackathonId, server, botName])
+  @@unique([hackathonId, strategyId])
+  @@index([teamId])
+  @@map("race_agents")
+}
+
+// One reading of a racing agent's cumulative P&L and volume, pushed by the
+// Condor routine that runs the finals (POST /api/hackathons/[slug]/race-data,
+// bearer token from Admin → Race Feed). The agent is a selected Application; Condor names
+// it by its strategy slug. A re-sent (agent, timestamp) overwrites rather than
+// duplicates. The leaderboard reads the latest reading per agent, capped at
+// FINALS_END, and the race history reads the readings at each checkpoint.
+model RaceMetric {
+  id            String   @id @default(cuid())
+  hackathonId   String
+  applicationId String
+  timestamp     DateTime
+  // Realized + unrealized, in quote currency, since the race started.
+  pnlQuote      Float
+  volumeQuote   Float
+  createdAt     DateTime @default(now())
+
+  hackathon   Hackathon   @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Restrict)
+
+  @@unique([applicationId, timestamp])
+  @@index([hackathonId, timestamp])
+  @@map("race_metrics")
+}
+
+// One POST from the Condor routine: when it arrived, how many agents it
+// carried, and any agent ids the site didn't recognize. The admin Race Feed
+// page reads these to show whether the feed is alive and to surface typos.
+model RaceFeedReceipt {
+  id          String   @id @default(cuid())
+  hackathonId String
+  receivedAt  DateTime @default(now())
+  // The reading time Condor sent.
+  timestamp   DateTime
+  accepted    Int
+  unknownIds  String[]
+
+  hackathon Hackathon @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+
+  @@index([hackathonId, receivedAt])
+  @@map("race_feed_receipts")
+}
+
+// What an agent traded and how it executed, taken from the fleet backup of the
+// five hummingbot-api hosts after the finals (scripts/import-fleet-detail.ts).
+// One row per agent; `data` is a FleetDetail (src/lib/hackathon-fleet-detail.ts).
+// Agents the backup has no record of (the Derive agents) have no row.
+model RaceAgentDetail {
+  id            String   @id @default(cuid())
+  hackathonId   String
+  applicationId String   @unique
+  data          Json
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  hackathon   Hackathon   @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([hackathonId])
+  @@map("race_agent_details")
+}
+
+// Hackathon Entry - registration and competition entry (uses existing prod table)
+enum HackathonEntryStatus {
+  REGISTERED // Initial registration
+  SUBMITTED // Strategy submitted
+  VERIFIED // Entry verified
+  DISQUALIFIED // Disqualified
+  WINNER // Competition winner
+}
+
+model HackathonEntry {
+  id                  String               @id @default(cuid())
+  hackathonId         String
+  userId              String
+  strategyId          Int? // Link to strategy (optional at registration)
+  strategyTitle       String? // Optional title at registration
+  strategyDescription String? // User's description of agent they want to build
+  sponsorTeamId       String? // Sponsor the builder picked at registration
+  walletAddresses     Json? // Wallet addresses for tracking
+  status              HackathonEntryStatus @default(REGISTERED)
+  agreedToTermsAt     DateTime? // Set when the builder accepted the hackathon terms at registration
+  submittedAt         DateTime?
+  rank                Int?
+  score               Decimal?
+  prizeAwarded        String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  hackathon   Hackathon @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  strategy    Strategy? @relation(fields: [strategyId], references: [id])
+  sponsorTeam Team?     @relation("EntrySponsor", fields: [sponsorTeamId], references: [id])
+
+  @@unique([hackathonId, userId]) // One entry per user per hackathon
+  @@index([hackathonId])
+  @@map("hackathon_entries")
+}

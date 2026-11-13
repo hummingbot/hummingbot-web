@@ -28,12 +28,12 @@ export function CategoryFilter({
       className={
         "rounded-full border px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring " +
         (isActive
-          ? "border-brand-teal/40 bg-brand-teal/10 text-brand-teal"
+          ? "border-primary/40 bg-primary/10 text-primary"
           : "border-ink-800 bg-ink-900 text-ink-400 hover:border-ink-700 hover:text-foreground")
       }
     >
       {label}
-      <span className="ml-1.5 tabular-nums text-ink-600">{count}</span>
+      <span className="ml-1.5 tabular-nums text-ink-500">{count}</span>
     </button>
   );
 

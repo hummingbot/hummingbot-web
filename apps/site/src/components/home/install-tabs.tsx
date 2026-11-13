@@ -56,7 +56,7 @@ export function InstallTabs({ tabs }: { tabs: InstallTab[] }) {
               className={cn(
                 "rounded-md px-3 py-1 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 t.id === active
-                  ? "bg-brand-teal text-ink-950"
+                  ? "bg-primary text-primary-foreground"
                   : "text-ink-500 hover:text-ink-300",
               )}
             >
@@ -66,7 +66,7 @@ export function InstallTabs({ tabs }: { tabs: InstallTab[] }) {
         </div>
 
         <div className="ml-auto flex items-center gap-3">
-          <span className="hidden select-none font-mono text-xs text-ink-600 md:inline">
+          <span className="hidden select-none font-mono text-xs text-ink-500 md:inline">
             macOS · Linux
           </span>
           {showChannel && (
@@ -78,7 +78,7 @@ export function InstallTabs({ tabs }: { tabs: InstallTab[] }) {
               className={cn(
                 "rounded-md border px-2 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 dev
-                  ? "border-brand-teal/60 bg-brand-teal/10 text-brand-teal"
+                  ? "border-primary/60 bg-primary/10 text-primary"
                   : "border-ink-800 text-ink-500 hover:text-ink-300",
               )}
             >
@@ -96,7 +96,7 @@ export function InstallTabs({ tabs }: { tabs: InstallTab[] }) {
         className="px-4 py-4 font-mono text-sm"
       >
         {current.comment && (
-          <p className="mb-2 select-none text-ink-600">{current.comment}</p>
+          <p className="mb-2 select-none text-ink-500">{current.comment}</p>
         )}
         <div className="flex items-center gap-3">
           <span className="select-none text-ink-500" aria-hidden="true">
@@ -118,12 +118,12 @@ export function InstallTabs({ tabs }: { tabs: InstallTab[] }) {
       {(current.title || current.description) && (
         <div className="flex items-start gap-4 border-t border-ink-800/70 px-4 py-5 sm:px-6">
           {Icon && (
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-brand-teal/20 bg-brand-teal/10 text-brand-teal">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
               <Icon className="size-5" aria-hidden="true" />
             </div>
           )}
           <div>
-            <p className="text-xs font-medium uppercase tracking-wider text-brand-teal">
+            <p className="text-xs font-medium uppercase tracking-wider text-primary">
               {current.label}
             </p>
             {current.title && (
