@@ -231,6 +231,42 @@ function NavDropdown({ item, active }: { item: NavItem; active: boolean }) {
   );
 }
 
+/** A mobile-menu section (Products, Learn, Community): collapsed until tapped. */
+function MobileSection({ item, active, onNavigate }: { item: NavItem; active: boolean; onNavigate: () => void }) {
+  const [expanded, setExpanded] = useState(false);
+  const listId = useId();
+  return (
+    <li>
+      <button
+        type="button"
+        aria-expanded={expanded}
+        aria-controls={listId}
+        onClick={() => setExpanded(!expanded)}
+        className={cn(
+          "flex w-full items-center justify-between rounded-md px-3 py-2.5 text-left text-base font-medium text-foreground hover:bg-card hover:text-primary",
+          active && "text-primary",
+        )}
+      >
+        {item.label}
+        <ChevronDown className={cn("size-4 text-muted-foreground transition-transform", expanded && "rotate-180")} aria-hidden="true" />
+      </button>
+      <ul id={listId} hidden={!expanded} className="mb-2 ml-3 border-l border-border pl-3">
+        {item.children!.map((c) => (
+          <li key={c.label}>
+            <Link
+              href={c.href}
+              onClick={onNavigate}
+              className="block rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-primary"
+            >
+              {c.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </li>
+  );
+}
+
 /**
  * Botcamp-style header: a sticky frosted bar with the logo, a right-aligned
  * nav (dropdowns for Products, Learn and Community), theme toggle, Sign in and
@@ -258,7 +294,7 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
     <>
     <a
       href="#main-content"
-      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[60] focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-background"
+      className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-3 focus-visible:z-[60] focus-visible:rounded-md focus-visible:bg-foreground focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-background"
     >
       Skip to content
     </a>
@@ -326,38 +362,30 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
       {open && (
         <nav id="mobile-menu" className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-border bg-background px-4 py-4 sm:px-6 xl:hidden" aria-label="Mobile">
           <ul className="flex flex-col gap-1">
-            {nav.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  aria-current={isActive(pathname, item) ? "page" : undefined}
-                  className={cn(
-                    "block rounded-md px-3 py-2.5 text-base font-medium text-foreground hover:bg-card hover:text-primary",
-                    isActive(pathname, item) && "text-primary",
-                  )}
-                >
-                  {item.label}
-                </Link>
-                {item.children?.length ? (
-                  <ul className="mb-2 ml-3 border-l border-border pl-3">
-                    {item.children
-                      .filter((c) => c.description)
-                      .map((c) => (
-                        <li key={c.label}>
-                          <Link
-                            href={c.href}
-                            onClick={() => setOpen(false)}
-                            className="block rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:text-primary"
-                          >
-                            {c.label}
-                          </Link>
-                        </li>
-                      ))}
-                  </ul>
-                ) : null}
-              </li>
-            ))}
+            {nav.map((item) =>
+              item.children?.length ? (
+                <MobileSection
+                  key={item.label}
+                  item={item}
+                  active={isActive(pathname, item)}
+                  onNavigate={() => setOpen(false)}
+                />
+              ) : (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={isActive(pathname, item) ? "page" : undefined}
+                    className={cn(
+                      "block rounded-md px-3 py-2.5 text-base font-medium text-foreground hover:bg-card hover:text-primary",
+                      isActive(pathname, item) && "text-primary",
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ),
+            )}
           </ul>
           {account && (
             <ul className="mt-4 flex flex-col gap-1 border-t border-border pt-4">
