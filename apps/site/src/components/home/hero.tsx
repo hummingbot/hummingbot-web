@@ -86,19 +86,12 @@ export async function Hero() {
                   <ArrowRight className="ml-2 size-5" aria-hidden="true" />
                 </Link>
                 <Link
-                  href={urls.hackathons}
+                  href="/get-started"
                   className="inline-flex h-14 items-center justify-center rounded-md border border-input bg-background/60 px-8 text-lg font-medium text-foreground backdrop-blur-sm transition-colors hover:bg-muted"
                 >
-                  Join the Next Cup
+                  Get started
                 </Link>
               </div>
-              <Link
-                href="/get-started"
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-              >
-                New to Hummingbot? Install it and run your first bot
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
             </div>
 
             {standings && standings.entries.length > 0 && (
