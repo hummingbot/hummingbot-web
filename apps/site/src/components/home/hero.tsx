@@ -92,6 +92,13 @@ export async function Hero() {
                   Join the Next Cup
                 </Link>
               </div>
+              <Link
+                href="/get-started"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+              >
+                New to Hummingbot? Install it and run your first bot
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
             </div>
 
             {standings && standings.entries.length > 0 && (

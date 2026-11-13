@@ -25,7 +25,7 @@ const HAS_CONDOR_KEY = "hb-has-condor";
  * The slug shows once the disclaimer is ticked.
  *
  * First it asks whether you have Condor: if not, it shows how to install it
- * right there (the same CondorInstall as /get-condor), so the agent you picked
+ * right there (the same CondorInstall as the get-started guide), so the agent you picked
  * stays on screen. The answer is remembered in this browser.
  *
  * The tick is remembered in this browser only. Botcamp records it on the

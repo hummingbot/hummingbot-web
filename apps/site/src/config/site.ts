@@ -43,8 +43,9 @@ export const nav: NavItem[] = [
     label: "Products",
     href: "/#products",
     children: [
-      { label: "Condor", href: "/get-condor", description: "Run AI trading agents on your own machine. Get it here" },
-      { label: "Hummingbot Client", href: `${DOCS}/client`, description: "The open source engine: connectors and strategies" },
+      { label: "Get started", href: "/get-started", description: "Install Hummingbot and run your first bot, step by step" },
+      { label: "Condor", href: "/get-started?path=condor", description: "Hummingbot in your browser, with AI agents" },
+      { label: "Hummingbot Client", href: "/get-started?path=client", description: "Hummingbot in the terminal: connectors and strategies" },
       { label: "Hummingbot API", href: `${DOCS}/hummingbot-api`, description: "Deploy and manage many bots from one server" },
       { label: "Gateway", href: `${DOCS}/gateway`, description: "Trade on DEXs and land transactions on-chain" },
       { label: "Which one do I need?", href: "/#products" },
@@ -77,7 +78,7 @@ export const nav: NavItem[] = [
 ];
 
 /** The header's primary call to action: clone a strategy into Condor. */
-export const primaryCta = { label: "Run a strategy", href: urls.hub } as const;
+export const primaryCta = { label: "Get started", href: "/get-started" } as const;
 
 /** GitHub org repos grouped for the EcosystemGrid (descriptions/stars fetched live). */
 export const ecosystem: { category: string; icon: string; repos: string[] }[] = [

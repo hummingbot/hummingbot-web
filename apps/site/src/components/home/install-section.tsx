@@ -16,8 +16,8 @@ export function InstallSection() {
             Condor runs your agents and talks to you on Telegram. Hummingbot is the open source engine underneath,
             with connectors to the exchanges you trade on.
           </p>
-          <Link href="/get-condor" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
-            Condor install guide <ArrowRight className="size-4" aria-hidden="true" />
+          <Link href="/get-started" className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">
+            Full guide: install, connect your exchange, first bot <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
         <InstallTabs
@@ -35,9 +35,8 @@ export function InstallSection() {
             {
               id: "hummingbot",
               label: "Hummingbot",
-              command: "curl -fsSL https://hummingbot.org/install-hummingbot.sh | bash",
-              comment: "# Installs Hummingbot, then asks how you want to run it.",
-              channels: true,
+              command: "git clone https://github.com/hummingbot/hummingbot.git && cd hummingbot && make setup && make deploy",
+              comment: "# Hummingbot Client in Docker. Then: make link-cli",
               icon: "code",
               title: "Core client and connectors",
               description:

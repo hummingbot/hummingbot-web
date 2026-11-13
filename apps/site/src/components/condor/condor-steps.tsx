@@ -1,4 +1,4 @@
-// Plain module (no "use client") so server pages like /get-condor can read it.
+// Plain module (no "use client") so server pages can read it.
 
 /** What happens after the command, per Condor's README ("After installation"). */
 export const AFTER_INSTALL: { title: string; body: React.ReactNode }[] = [

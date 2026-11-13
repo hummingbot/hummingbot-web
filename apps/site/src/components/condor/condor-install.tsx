@@ -62,7 +62,7 @@ function detectOs(): Os {
 /**
  * How to install Condor: OS tabs (detected), what you need, the one-line
  * command and what happens next. `compact` is the version inside the Clone
- * dialog; the full one lives on /get-condor. One component so both stay in sync.
+ * dialog; the full guide is /get-started. One component so both stay in sync.
  */
 export function CondorInstall({ compact = false }: { compact?: boolean }) {
   const [os, setOs] = useState<Os>("mac");
@@ -129,7 +129,7 @@ export function CondorInstall({ compact = false }: { compact?: boolean }) {
       ) : null}
 
       {compact && (
-        <Link href="/get-condor" className="inline-block text-sm font-semibold text-primary hover:underline">
+        <Link href="/get-started?path=condor" className="inline-block text-sm font-semibold text-primary hover:underline">
           Full install guide →
         </Link>
       )}

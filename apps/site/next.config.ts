@@ -6,6 +6,7 @@ const DOCS = "https://docs.hummingbot.org";
 // scripts currently live only on that branch.
 const DEPLOY_RAW =
   "https://raw.githubusercontent.com/hummingbot/deploy/install-wizard";
+const DEPLOY_MAIN = "https://raw.githubusercontent.com/hummingbot/deploy/main";
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@hummingbot/ui", "@hummingbot/brand", "@hummingbot/tokens"],
@@ -16,10 +17,14 @@ const nextConfig: NextConfig = {
       // These are the canonical names the Hero Quick Start card copies.
       // Served from the deploy `install-wizard` branch until it merges to main.
       { source: "/install-hummingbot.sh", destination: `${DEPLOY_RAW}/install-hummingbot.sh`, permanent: false },
-      { source: "/install-condor.sh", destination: `${DEPLOY_RAW}/install-condor.sh`, permanent: false },
+      // Condor: deploy main's setup.sh works today. Switch to
+      // `${DEPLOY_RAW}/install-condor.sh` once hummingbot/deploy#128 merges.
+      { source: "/install-condor.sh", destination: `${DEPLOY_MAIN}/setup.sh`, permanent: false },
       // Short vanity aliases: /install.sh → Hummingbot, /condor.sh → Condor.
       { source: "/install.sh", destination: `${DEPLOY_RAW}/install-hummingbot.sh`, permanent: false },
-      { source: "/condor.sh", destination: `${DEPLOY_RAW}/install-condor.sh`, permanent: false },
+      { source: "/condor.sh", destination: `${DEPLOY_MAIN}/setup.sh`, permanent: false },
+      // The Condor install page became the Condor path of the get-started guide.
+      { source: "/get-condor", destination: "/get-started?path=condor", permanent: false },
 
       // The blog now lives on this site (/blog). Legacy mkdocs post paths
       // (/blog/posts/<slug>) redirect to the flat /blog/<slug> routes.
