@@ -2,7 +2,8 @@
  * Faint order-book depth chart behind the hero: cumulative bids (bull) step
  * up to the left of the mid price, asks (bear) to the right, over a quiet
  * price grid. Generated from a fixed seed, so the server renders it and
- * nothing shifts on hydration.
+ * nothing shifts on hydration. The depth runs down to the bottom edge, so
+ * it never stops short of the section it sits behind.
  */
 
 const W = 1200;
@@ -32,15 +33,15 @@ function depth(rand: () => number): number[] {
 
 /** Stepped area path; `dir` -1 walks left (bids), +1 right (asks). */
 function stepPath(cum: number[], max: number, dir: -1 | 1): { area: string; line: string } {
-  const y = (v: number) => H - 24 - (v / max) * (H - 96);
-  let line = `M ${MID + dir * 6} ${H - 24}`;
+  const y = (v: number) => H - (v / max) * (H - 72);
+  let line = `M ${MID + dir * 6} ${H}`;
   cum.forEach((v, i) => {
     const x0 = MID + dir * (6 + i * LEVEL_W);
     const x1 = MID + dir * (6 + (i + 1) * LEVEL_W);
     line += ` L ${x0.toFixed(1)} ${y(v).toFixed(1)} L ${x1.toFixed(1)} ${y(v).toFixed(1)}`;
   });
   const end = MID + dir * (6 + cum.length * LEVEL_W);
-  return { line, area: `${line} L ${end.toFixed(1)} ${H - 24} Z` };
+  return { line, area: `${line} L ${end.toFixed(1)} ${H} Z` };
 }
 
 export function MarketDepthBackground({ seed = 7, opacity = 0.25 }: { seed?: number; opacity?: number }) {
@@ -73,7 +74,7 @@ export function MarketDepthBackground({ seed = 7, opacity = 0.25 }: { seed?: num
           x1={MID}
           x2={MID}
           y1="24"
-          y2={H - 24}
+          y2={H}
           stroke="currentColor"
           strokeOpacity="0.35"
           strokeDasharray="4 6"
