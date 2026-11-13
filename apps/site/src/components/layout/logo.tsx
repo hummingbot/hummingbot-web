@@ -12,7 +12,7 @@ export function Logo({ className, product }: { className?: string; product?: str
   return (
     <Link
       href="/"
-      aria-label="Hummingbot home"
+      aria-label={product ? `Hummingbot ${product} home` : "Hummingbot home"}
       className={cn(
         "inline-flex items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         className,

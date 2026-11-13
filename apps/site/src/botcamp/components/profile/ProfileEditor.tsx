@@ -412,7 +412,7 @@ export function ProfileEditor({
               {/* Profile Photo */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle as="h2" className="flex items-center gap-2">
                     <Camera className="h-5 w-5" />
                     Profile Photo
                   </CardTitle>
@@ -470,7 +470,7 @@ export function ProfileEditor({
               {/* Basic Info */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle as="h2" className="flex items-center gap-2">
                     <User className="h-5 w-5" />
                     Basic Information
                   </CardTitle>
@@ -615,7 +615,7 @@ export function ProfileEditor({
               {/* Social Links */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle as="h2" className="flex items-center gap-2">
                     <LinkIcon className="h-5 w-5" />
                     Social Links
                   </CardTitle>
@@ -692,14 +692,14 @@ export function ProfileEditor({
           {canEditVisibility ? (
             <Card>
               <CardHeader className="pb-3">
-                <CardTitle className="text-base">Visibility</CardTitle>
+                <CardTitle as="h2" id="profile-visibility-title" className="text-base">Visibility</CardTitle>
               </CardHeader>
               <CardContent>
                 <Select
                   value={profileVisibility}
                   onValueChange={(value) => setProfileVisibility(value as Visibility)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger aria-labelledby="profile-visibility-title">
                     <SelectValue placeholder="Select visibility" />
                   </SelectTrigger>
                   <SelectContent>
@@ -712,7 +712,7 @@ export function ProfileEditor({
           ) : (
             <Card>
               <CardHeader className="pb-3">
-                <CardTitle className="text-base">Profile Sharing</CardTitle>
+                <CardTitle as="h2" className="text-base">Profile Sharing</CardTitle>
               </CardHeader>
               <CardContent className="text-sm space-y-bc-3">
                 <p className="text-muted-foreground">Your profile is accessible via direct link:</p>
@@ -738,14 +738,14 @@ export function ProfileEditor({
           {isAdmin && (
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base">
+                <CardTitle as="h2" className="flex items-center gap-2 text-base">
                   <Shield className="h-4 w-4" />
                   Role
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <Select value={role} onValueChange={setRole}>
-                  <SelectTrigger>
+                  <SelectTrigger aria-label="Role">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

@@ -145,7 +145,7 @@ export function DashboardSidebar({
             >
               <X className="h-3.5 w-3.5" />
             </button>
-            <p className="mb-1 pr-6 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-amber-500">
+            <p className="mb-1 pr-6 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-500">
               Next event ·{" "}
               {new Date(nextEvent.date).toLocaleDateString("en-US", {
                 weekday: "short",

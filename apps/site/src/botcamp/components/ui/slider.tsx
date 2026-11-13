@@ -11,7 +11,9 @@ interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderPrimit
 }
 
 const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, SliderProps>(
-  ({ className, color, ...props }, ref) => (
+  // The slider role sits on the thumb, so its accessible name goes there too
+  // (on the root span it names nothing and axe flags it).
+  ({ className, color, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledby, "aria-valuetext": ariaValuetext, ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn(
@@ -27,6 +29,9 @@ const Slider = React.forwardRef<React.ElementRef<typeof SliderPrimitive.Root>, S
       <SliderPrimitive.Range className="absolute h-full bg-primary" style={color ? { backgroundColor: color } : undefined} />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledby}
+      aria-valuetext={ariaValuetext}
       className="block h-4 w-4 rounded-full border border-primary/50 bg-background shadow-sm transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
       style={color ? { borderColor: color } : undefined}
     />

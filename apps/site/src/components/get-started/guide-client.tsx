@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useId, useState } from "react";
 import { Check, Copy, ExternalLink } from "lucide-react";
 import { cn } from "@hummingbot/ui";
 import { OS_LABEL, PATHS, SITE_URL, type GuideOs, type GuidePath } from "@/lib/get-started";
@@ -69,12 +69,52 @@ export function ForPath({ path, children }: { path: GuidePath; children: React.R
   );
 }
 
+/**
+ * Roving focus for a radio group or tab list: only the selected item is in
+ * the tab order (tabIndex 0); the arrow keys, Home and End select the next,
+ * previous, first or last item and move focus to it.
+ */
+function onRovingKeyDown<T extends string>(
+  event: React.KeyboardEvent<HTMLElement>,
+  items: T[],
+  current: T,
+  select: (item: T) => void,
+  role: "radio" | "tab",
+) {
+  const i = items.indexOf(current);
+  const n = items.length;
+  let next: number;
+  switch (event.key) {
+    case "ArrowRight":
+    case "ArrowDown":
+      next = (i + 1) % n;
+      break;
+    case "ArrowLeft":
+    case "ArrowUp":
+      next = (i - 1 + n) % n;
+      break;
+    case "Home":
+      next = 0;
+      break;
+    case "End":
+      next = n - 1;
+      break;
+    default:
+      return;
+  }
+  event.preventDefault();
+  select(items[next]);
+  const siblings = event.currentTarget.parentElement?.querySelectorAll<HTMLElement>(`:scope > [role="${role}"]`);
+  siblings?.[next]?.focus();
+}
+
 /** The two path cards at the top: they are the switch for the whole guide. */
 export function PathChooser() {
   const { path, setPath } = useGuide();
+  const paths = Object.keys(PATHS) as GuidePath[];
   return (
     <div role="radiogroup" aria-label="How you'll use Hummingbot" className="grid gap-4 md:grid-cols-2">
-      {(Object.keys(PATHS) as GuidePath[]).map((p) => {
+      {paths.map((p) => {
         const info = PATHS[p];
         const active = p === path;
         return (
@@ -83,7 +123,9 @@ export function PathChooser() {
             type="button"
             role="radio"
             aria-checked={active}
+            tabIndex={active ? 0 : -1}
             onClick={() => setPath(p)}
+            onKeyDown={(e) => onRovingKeyDown(e, paths, path, setPath, "radio")}
             className={cn(
               "relative flex flex-col rounded-2xl border bg-card p-6 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               active ? "border-primary ring-1 ring-primary" : "border-border hover:border-primary/40",
@@ -143,16 +185,23 @@ export function PathBadge() {
 /** OS tabs. Every OS panel is in the HTML; the tabs only toggle `hidden`. */
 export function OsTabs({ panels }: { panels: Record<GuideOs, React.ReactNode> }) {
   const { os, setOs } = useGuide();
+  // The guide repeats these tabs per step, so ids are per instance.
+  const base = useId();
+  const oses = Object.keys(OS_LABEL) as GuideOs[];
   return (
     <div className="rounded-xl border border-border">
       <div role="tablist" aria-label="Your computer" className="flex gap-1 border-b border-border p-1.5">
-        {(Object.keys(OS_LABEL) as GuideOs[]).map((o) => (
+        {oses.map((o) => (
           <button
             key={o}
             type="button"
             role="tab"
+            id={`${base}-tab-${o}`}
+            aria-controls={`${base}-panel-${o}`}
             aria-selected={o === os}
+            tabIndex={o === os ? 0 : -1}
             onClick={() => setOs(o)}
+            onKeyDown={(e) => onRovingKeyDown(e, oses, os, setOs, "tab")}
             className={cn(
               "rounded-md px-3 py-1 text-sm font-medium transition-colors",
               o === os ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
@@ -162,8 +211,15 @@ export function OsTabs({ panels }: { panels: Record<GuideOs, React.ReactNode> })
           </button>
         ))}
       </div>
-      {(Object.keys(OS_LABEL) as GuideOs[]).map((o) => (
-        <div key={o} role="tabpanel" hidden={o !== os} aria-label={OS_LABEL[o]} className="space-y-3 p-4">
+      {oses.map((o) => (
+        <div
+          key={o}
+          id={`${base}-panel-${o}`}
+          role="tabpanel"
+          hidden={o !== os}
+          aria-labelledby={`${base}-tab-${o}`}
+          className="space-y-3 p-4"
+        >
           {panels[o]}
         </div>
       ))}

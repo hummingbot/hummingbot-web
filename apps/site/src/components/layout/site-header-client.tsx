@@ -112,7 +112,10 @@ function AccountMenu({ account }: { account: HeaderAccount }) {
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1 rounded-full p-0.5 ring-offset-background transition hover:ring-2 hover:ring-primary/40"
       >
-        <Avatar account={account} className="size-8" />
+        {/* The initials are decoration: the button's name is "Account menu". */}
+        <span aria-hidden="true">
+          <Avatar account={account} className="size-8" />
+        </span>
         <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden="true" />
       </button>
       {open && (

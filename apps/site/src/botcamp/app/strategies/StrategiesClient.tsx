@@ -446,7 +446,7 @@ export default function StrategiesClient({
             <div className="flex w-full flex-wrap items-center gap-2">
               {availableExchanges.length > 0 && (
                 <Select value={selectedExchange ?? 'all'} onValueChange={(v) => setExchange(v === 'all' ? null : v)}>
-                  <SelectTrigger className="h-9 w-auto min-w-[9rem] text-sm">
+                  <SelectTrigger aria-label="Exchange" className="h-9 w-auto min-w-[9rem] text-sm">
                     <SelectValue placeholder="All exchanges" />
                   </SelectTrigger>
                   <SelectContent>
@@ -473,7 +473,7 @@ export default function StrategiesClient({
                 </SelectContent>
               </Select>
               <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
-                <SelectTrigger className="h-9 w-auto min-w-[9rem] text-sm">
+                <SelectTrigger aria-label="Sort by" className="h-9 w-auto min-w-[9rem] text-sm">
                   <ArrowUpDown className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                   <SelectValue />
                 </SelectTrigger>
@@ -511,6 +511,7 @@ export default function StrategiesClient({
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   type="text"
+                  aria-label="Search strategies"
                   placeholder="Search strategies, authors…"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
@@ -646,13 +647,15 @@ function StatusOption({
       className={cn(
         'inline-flex items-center gap-2 rounded px-5 py-2.5 text-base font-semibold transition-colors',
         active
-          ? 'bg-condor-gold/15 text-condor-gold-deep dark:text-condor-gold'
+          ? 'bg-condor-gold/15 text-yellow-800 dark:text-condor-gold'
           : 'text-muted-foreground hover:text-foreground',
       )}
     >
       {condor && <BadgeCheck className="h-4 w-4" />}
       {label}
-      <span className="font-mono text-xs tabular-nums opacity-60">{count}</span>
+      {/* Faded only a little in dark, and not in light: more fade drops it
+          under 4.5:1. */}
+      <span className="font-mono text-xs tabular-nums dark:opacity-80">{count}</span>
     </button>
   )
 }
@@ -694,7 +697,7 @@ function HackathonTile({ hackathon, deadline }: { hackathon: Hackathon; deadline
         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-condor-gold-deep dark:text-condor-gold">
           {registering ? 'Registration Open' : 'Hackathon Live'}
         </p>
-        <h3 className="mt-3 text-xl font-semibold tracking-[-0.02em]">{hackathon.title}</h3>
+        <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em]">{hackathon.title}</h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           {registering
             ? <>Build a trading agent and race it against other Botcamp builders{deadline && <>. Entries close {deadline}</>}.</>

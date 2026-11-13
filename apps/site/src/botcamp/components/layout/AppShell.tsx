@@ -126,11 +126,12 @@ function CrumbBar({
       {/* Only on the preview's pages; the public cohort overview has no viewer. */}
       {session && (
       <p
-        className="ml-auto flex min-w-0 items-center gap-1.5 truncate rounded-full border border-border bg-card/60 px-2.5 py-0.5 font-mono text-[11px] text-muted-foreground"
+        className="ml-auto flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-card/60 px-1.5 py-1 font-mono text-[11px] text-muted-foreground sm:min-w-0 sm:shrink sm:px-2.5 sm:py-0.5"
         title={`${READ_ONLY_TITLE}: nothing here can be saved or changed`}
       >
-        <Eye className="h-3 w-3 shrink-0" />
-        <span className="truncate">
+        <Eye className="h-3 w-3 shrink-0" aria-hidden="true" />
+        {/* Phones show the eye alone; the label stays for screen readers. */}
+        <span className="max-sm:sr-only sm:truncate">
           {READ_ONLY_TITLE}
           {viewer && <span className="max-sm:hidden"> · viewing as {viewer}</span>}
         </span>
@@ -142,21 +143,23 @@ function CrumbBar({
 
 function Crumbs({ crumbs }: { crumbs: BreadcrumbCrumb[] }) {
   return (
-    <nav className="flex items-center gap-x-2 text-sm min-w-0">
+    <nav aria-label="Breadcrumb" className="flex items-center gap-x-2 text-sm min-w-0">
       {crumbs.map((crumb, i) => {
         const isLast = i === crumbs.length - 1
-        // Middle crumb hides on small screens to keep the chain readable.
+        // Phones show only the current page; md+ hides the middle crumbs of a
+        // long chain to keep it readable.
         const hideOnSmall = !isLast && i > 0 && crumbs.length >= 3
         return (
           <div
             key={`${crumb.label}-${i}`}
             className={cn(
               "flex items-center gap-x-2 min-w-0",
+              !isLast && "max-sm:hidden",
               hideOnSmall && "max-md:hidden",
             )}
           >
             {i > 0 && (
-              <span className="text-foreground/25 select-none">/</span>
+              <span className="text-foreground/25 select-none max-sm:hidden" aria-hidden="true">/</span>
             )}
             {crumb.href && !isLast ? (
               <Link

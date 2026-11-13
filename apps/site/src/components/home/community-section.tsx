@@ -140,7 +140,8 @@ export function CommunitySection() {
                 {"secondary" in rest && rest.secondary && (
                   <Link
                     href={rest.secondary.href}
-                    className="relative z-10 mt-2 inline-block text-sm font-medium underline decoration-primary decoration-2 underline-offset-4 hover:text-muted-foreground"
+                    // mt-1 + py-1 - mb-1: the text sits where mt-2 put it, in a 24px+ hit area.
+                    className="relative z-10 -mb-1 mt-1 inline-block py-1 text-sm font-medium underline decoration-primary decoration-2 underline-offset-4 hover:text-muted-foreground"
                   >
                     {rest.secondary.label}
                   </Link>

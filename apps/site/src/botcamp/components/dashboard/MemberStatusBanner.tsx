@@ -151,7 +151,7 @@ function StatusCard({
             <div className="flex flex-wrap items-center gap-2">
               <CardTitle className={titleClass}>{title}</CardTitle>
               {badge && (
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/15 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-amber-500">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/15 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-amber-800 dark:text-amber-500">
                   <span className="h-1.5 w-1.5 rounded-full bg-amber-500 motion-safe:animate-pulse" />
                   {badge}
                 </span>

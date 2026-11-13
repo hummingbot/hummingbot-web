@@ -127,7 +127,8 @@ export async function HummingbotStackSection() {
                     href={meta?.url ?? `https://github.com/${githubOrg}/${repo}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="relative z-10 inline-flex items-center gap-1 font-medium text-muted-foreground hover:text-foreground"
+                    // -my/py: a 24px+ hit area without moving the card's layout.
+                    className="relative z-10 -my-1 inline-flex items-center gap-1 py-1 font-medium text-muted-foreground hover:text-foreground"
                   >
                     <Github className="size-3.5" aria-hidden="true" /> GitHub <ArrowUpRight className="size-3" aria-hidden="true" />
                   </a>
@@ -145,7 +146,7 @@ export async function HummingbotStackSection() {
               <span className="rounded-full border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider">
                 {status}
               </span>
-              <Link href={href} className="font-medium text-primary hover:underline">
+              <Link href={href} className="-my-1 py-1 font-medium text-primary hover:underline">
                 Use {now} →
               </Link>
             </span>

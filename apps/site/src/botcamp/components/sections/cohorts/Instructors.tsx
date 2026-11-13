@@ -75,18 +75,18 @@ export default function CohortInstructors() {
                   <p className="text-foreground text-center mb-4">{instructor.bio}</p>
                   <div className="flex justify-center space-x-bc-4 mb-4">
                     {(instructor.social as any).github && (
-                      <a href={(instructor.social as any).github} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                      <a href={(instructor.social as any).github} target="_blank" rel="noopener noreferrer" aria-label={`${instructor.name} on GitHub`}>
+                        <Github className="h-5 w-5 text-muted-foreground hover:text-foreground" aria-hidden="true" />
                       </a>
                     )}
                     {instructor.social.linkedin && (
-                      <a href={instructor.social.linkedin} target="_blank" rel="noopener noreferrer">
-                        <Linkedin className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                      <a href={instructor.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${instructor.name} on LinkedIn`}>
+                        <Linkedin className="h-5 w-5 text-muted-foreground hover:text-foreground" aria-hidden="true" />
                       </a>
                     )}
                     {instructor.social.twitter && (
-                      <a href={instructor.social.twitter} target="_blank" rel="noopener noreferrer">
-                        <Twitter className="h-5 w-5 text-muted-foreground hover:text-foreground" />
+                      <a href={instructor.social.twitter} target="_blank" rel="noopener noreferrer" aria-label={`${instructor.name} on X`}>
+                        <Twitter className="h-5 w-5 text-muted-foreground hover:text-foreground" aria-hidden="true" />
                       </a>
                     )}
                   </div>

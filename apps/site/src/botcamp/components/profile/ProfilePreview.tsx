@@ -81,7 +81,7 @@ export function ProfilePreview({
         {/* Connect Section */}
         {hasAnySocialLink && (
           <div>
-            <h3 className="font-semibold mb-3">Connect</h3>
+            <h2 className="font-semibold mb-3">Connect</h2>
             <div className="flex flex-col gap-2">
               {github && (
                 <a

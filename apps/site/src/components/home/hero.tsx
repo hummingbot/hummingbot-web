@@ -104,7 +104,8 @@ export async function Hero() {
                   // and a quiet "Open the Hub" shows in its corner.
                   <Link
                     href={urls.hub}
-                    aria-label="Open the Hub"
+                    // Named by its "Open the Hub" pill (the mock behind is
+                    // aria-hidden), so the name matches the visible label.
                     className="group/hub absolute left-6 top-0 hidden w-[56rem] rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring lg:block"
                   >
                     <CondorHubMock

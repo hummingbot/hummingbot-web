@@ -53,7 +53,7 @@ export function NewsletterDiscord() {
               autoComplete="email"
               spellCheck={false}
               placeholder="you@example.com…"
-              className="h-10 flex-1 rounded-md border border-ink-700 bg-ink-950 px-3 text-sm text-foreground placeholder:text-ink-600 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="h-10 flex-1 rounded-md border border-ink-700 bg-ink-950 px-3 text-sm text-foreground placeholder:text-ink-400 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <Button type="submit" disabled={status.state === "loading"}>
               {status.state === "loading" ? "Subscribing…" : "Subscribe"}

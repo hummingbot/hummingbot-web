@@ -10,9 +10,10 @@ export const LEVEL_LABEL: Record<CourseLevel, string> = {
 }
 
 export const LEVEL_ACCENT: Record<CourseLevel, string> = {
-  BASIC: "text-emerald-500 dark:text-emerald-400",
-  INTERMEDIATE: "text-amber-500 dark:text-amber-400",
-  ADVANCED: "text-fuchsia-500 dark:text-fuchsia-400",
+  // 700 in light: the 500s fall under 4.5:1 on white at the 10px label size.
+  BASIC: "text-emerald-700 dark:text-emerald-400",
+  INTERMEDIATE: "text-amber-700 dark:text-amber-400",
+  ADVANCED: "text-fuchsia-700 dark:text-fuchsia-400",
 }
 
 export function accentForLevel(level?: CourseLevel | null): string {

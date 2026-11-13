@@ -67,7 +67,7 @@ export function Cohort14Hero({ cohortNumber = 14, registeredCount }: Cohort14Her
             <div className="relative space-y-bc-6">
               {/* Header */}
               <div className="flex flex-wrap items-center gap-3">
-                <Badge className="bg-green-500/20 text-green-500 dark:text-green-400 border-green-500/30">
+                <Badge className="bg-green-500/20 text-green-800 dark:text-green-400 border-green-500/30">
                   <Zap className="h-3 w-3 mr-1" />
                   Reserving Seats
                 </Badge>

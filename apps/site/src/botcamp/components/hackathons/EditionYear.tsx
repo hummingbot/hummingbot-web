@@ -57,11 +57,13 @@ export function EditionYear({
   return (
     <p
       ref={ref}
-      aria-label={label}
       data-year={state}
       className={`edition-year select-none text-center font-monoton leading-none ${sizeClassName}`}
       style={{ ["--c" as string]: center, ["--s" as string]: spread }}
     >
+      {/* aria-label isn't allowed on a <p>: the label is read as text instead
+          of the hidden, one-by-one characters. */}
+      <span className="sr-only">{label}</span>
       {chars.map((ch, i) => (
         <span
           key={i}

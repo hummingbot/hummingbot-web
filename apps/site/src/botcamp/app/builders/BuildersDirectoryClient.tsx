@@ -190,6 +190,7 @@ export default function BuildersDirectoryClient({
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               type="text"
+              aria-label="Search builders"
               placeholder="Search builders by name, handle, or tagline…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -232,7 +233,7 @@ export default function BuildersDirectoryClient({
               <FilterSection label="Sort by">
                 <div className="lg:hidden">
                   <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full" aria-label="Sort by">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -263,7 +264,7 @@ export default function BuildersDirectoryClient({
                     value={status}
                     onValueChange={(v) => setStatus(v as StatusKey)}
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full" aria-label="Status">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -304,7 +305,7 @@ export default function BuildersDirectoryClient({
                       )
                     }
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full" aria-label="Cohort">
                       <SelectValue placeholder="All cohorts" />
                     </SelectTrigger>
                     <SelectContent>
@@ -457,7 +458,9 @@ function BuilderRow({ builder, index }: { builder: Builder; index: number }) {
     <Link
       href={`/builders/${builder.slug}`}
       className="flex items-center gap-4 rounded-bc-xl border bg-card px-5 py-4 hover:border-primary/40 hover:bg-card/80 transition-colors animate-in fade-in"
-      style={{ animationDelay: `${index * 20}ms`, animationFillMode: 'backwards' }}
+      // Stagger only the first rows: a delay that grows with the index left
+      // rows far down the list faded (unreadable) for seconds.
+      style={{ animationDelay: `${Math.min(index, 12) * 20}ms`, animationFillMode: 'backwards' }}
     >
       {/* Avatar */}
       <div className="flex-shrink-0">
@@ -467,7 +470,7 @@ function BuilderRow({ builder, index }: { builder: Builder; index: number }) {
       {/* Name + handle + subtitle */}
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline gap-2 flex-wrap">
-          <h3 className="text-base font-semibold truncate">{builder.name}</h3>
+          <h2 className="text-base font-semibold truncate">{builder.name}</h2>
           <span className="font-mono text-xs text-muted-foreground truncate">
             @{builder.slug}
           </span>

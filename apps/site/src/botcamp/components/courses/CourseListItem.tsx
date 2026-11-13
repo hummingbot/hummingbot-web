@@ -74,7 +74,8 @@ export function CourseListItem({
               {levelLabel}
             </p>
           )}
-          <h3 className="font-semibold truncate">{title}</h3>
+          {/* Two lines before clipping: narrow phones cut most titles at one. */}
+          <h3 className="font-semibold line-clamp-2">{title}</h3>
           {meta && (
             <p className="text-sm text-muted-foreground truncate">{meta}</p>
           )}

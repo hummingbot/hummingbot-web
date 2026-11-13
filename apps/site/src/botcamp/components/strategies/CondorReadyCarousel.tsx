@@ -480,9 +480,10 @@ function AgentCover({ agent }: { agent: CondorReadyAgent }): React.JSX.Element {
         </div>
 
         <div className="max-w-[80%]">
-          <h3 className="line-clamp-2 text-2xl font-bold leading-[1.05] tracking-[-0.03em] text-[hsl(var(--cover-fg))] sm:text-4xl sm:leading-(--text-4xl--line-height)">
+          {/* h2: the carousel sits right under the page's h1. */}
+          <h2 className="line-clamp-2 text-2xl font-bold leading-[1.05] tracking-[-0.03em] text-[hsl(var(--cover-fg))] sm:text-4xl sm:leading-(--text-4xl--line-height)">
             {agent.title}
-          </h3>
+          </h2>
           {summary && (
             <p className="mt-2 line-clamp-2 max-w-xl text-xs leading-relaxed text-[hsl(var(--cover-fg)/0.65)] sm:text-sm sm:leading-(--text-sm--line-height)">
               {summary}

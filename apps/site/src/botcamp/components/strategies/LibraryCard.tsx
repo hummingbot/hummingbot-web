@@ -104,7 +104,7 @@ export function LibraryCard({ strategy, locked, animationDelay = 0 }: LibraryCar
       </div>
 
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="line-clamp-2 font-semibold leading-snug tracking-[-0.01em]">{strategy.title}</h3>
+        <h2 className="line-clamp-2 font-semibold leading-snug tracking-[-0.01em]">{strategy.title}</h2>
         {summary && <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">{summary}</p>}
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-4">

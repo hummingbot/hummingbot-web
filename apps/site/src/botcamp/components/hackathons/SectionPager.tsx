@@ -97,7 +97,8 @@ export function SectionPager() {
   return (
     <nav
       aria-label="Page sections"
-      className="fixed right-4 z-40 flex flex-col gap-2 md:right-6"
+      // Phones scroll by touch; the pager would only cover the content there.
+      className="fixed right-4 z-40 hidden flex-col gap-2 md:right-6 md:flex"
       style={{ bottom: "max(1rem, env(safe-area-inset-bottom))" }}
     >
       <button type="button" onClick={() => go(-1)} disabled={!canUp} aria-label="Previous section" className={cn(button, pressed === -1 && lit)}>

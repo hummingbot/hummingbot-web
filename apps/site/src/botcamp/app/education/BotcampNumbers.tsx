@@ -51,7 +51,7 @@ export function BotcampNumbers({
             <p className="text-xs text-muted-foreground mt-1">Traders trained in Botcamp cohorts</p>
           </div>
           <div className="rounded-2xl border border-border p-7 text-center">
-            <div className="text-4xl md:text-5xl font-bold text-green-500 dark:text-green-400">
+            <div className="text-4xl md:text-5xl font-bold text-green-700 dark:text-green-400">
               {certifiedStrategies}
             </div>
             <div className="text-sm font-medium text-foreground mt-2">Certified Strategies</div>

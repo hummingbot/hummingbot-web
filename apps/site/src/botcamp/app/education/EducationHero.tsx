@@ -32,7 +32,7 @@ export function EducationHero({
             <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
             <span><b className="text-foreground font-semibold">{totalCohorts}</b> cohorts since 2022</span>
             <span className="hidden sm:block w-px h-5 bg-border" />
-            <span className="font-mono text-[11.5px] text-muted-foreground/70">
+            <span className="font-mono text-[11.5px] text-muted-foreground">
               engineers from Binance · Ripple · Wintermute
             </span>
           </div>

@@ -163,7 +163,8 @@ export function RaceStandings({
                     <Link
                       href={`/hub/${e.slug}`}
                       title={e.title}
-                      className="pointer-events-auto flex min-w-0 items-center gap-1 text-[13px] font-semibold transition-colors hover:text-primary"
+                      // -my/py: a 24px+ hit area without moving the row.
+                      className="pointer-events-auto -my-1 flex min-w-0 items-center gap-1 py-1 text-[13px] font-semibold transition-colors hover:text-primary"
                     >
                       <span className="truncate">{e.shortTitle}</span>
                       <ArrowUpRight
@@ -215,7 +216,7 @@ export function RaceStandings({
         {linkToResults && (
           <Link
             href={resultsHref}
-            className="pointer-events-auto inline-flex items-center gap-1 font-semibold text-primary hover:underline"
+            className="pointer-events-auto -my-1.5 inline-flex items-center gap-1 py-1.5 font-semibold text-primary hover:underline"
           >
             Full results <ArrowRight className="size-3" aria-hidden="true" />
           </Link>

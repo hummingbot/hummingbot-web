@@ -37,7 +37,11 @@ export function LessonProgressBar({
   const percent = Math.round((completedCount / totalLessons) * 100)
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      <Progress value={percent} className="h-1.5" />
+      <Progress
+        value={percent}
+        aria-label={`${completedCount} of ${totalLessons} lessons complete`}
+        className="h-1.5"
+      />
       {showPercent && (
         <span className="text-xs text-muted-foreground flex-shrink-0">
           {percent}%

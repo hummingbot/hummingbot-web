@@ -30,10 +30,13 @@ const CardHeader = React.forwardRef<
 CardHeader.displayName = "CardHeader"
 
 const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
+  HTMLHeadingElement,
+  React.HTMLAttributes<HTMLHeadingElement> & {
+    /** Heading level, so cards right under a page's h1 can be h2s. */
+    as?: "h2" | "h3" | "h4"
+  }
+>(({ className, as: Heading = "h3", ...props }, ref) => (
+  <Heading
     ref={ref}
     className={cn("font-semibold leading-none tracking-bc-tight", className)}
     {...props}
