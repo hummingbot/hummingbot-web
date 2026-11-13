@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDown, LayoutDashboard, LogOut, Menu, Shield, User, X } from "lucide-react";
 import { cn } from "@hummingbot/ui";
 import { nav, primaryCta, urls, type NavItem } from "@/config/site";
@@ -59,37 +59,64 @@ const ACCOUNT_LINKS = [
   { label: "Profile & settings", href: "/dashboard/profile", icon: User },
 ] as const;
 
+/**
+ * Closes a popup on Escape (sending focus back to its trigger), on a click
+ * or tap outside it, and when keyboard focus moves out of it.
+ */
+function useDismiss(
+  open: boolean,
+  setOpen: (v: boolean) => void,
+  ref: React.RefObject<HTMLElement | null>,
+  trigger: React.RefObject<HTMLButtonElement | null>,
+) {
+  useEffect(() => {
+    if (!open) return;
+    const root = ref.current;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      trigger.current?.focus();
+    };
+    const onPointer = (e: PointerEvent) => !root?.contains(e.target as Node) && setOpen(false);
+    const onFocusOut = (e: FocusEvent) => {
+      const next = e.relatedTarget as Node | null;
+      if (next && !root?.contains(next)) setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    root?.addEventListener("focusout", onFocusOut);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+      root?.removeEventListener("focusout", onFocusOut);
+    };
+  }, [open, setOpen, ref, trigger]);
+}
+
 /** Avatar menu: the account's pages (profile, settings) live here, not in the dashboard sidebar. */
 function AccountMenu({ account }: { account: HeaderAccount }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    const onClick = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("mousedown", onClick);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("mousedown", onClick);
-    };
-  }, [open]);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const menuId = useId();
+  useDismiss(open, setOpen, ref, trigger);
 
   return (
-    <div ref={ref} className="relative hidden lg:block">
+    <div ref={ref} className="relative hidden xl:block">
       <button
+        ref={trigger}
         type="button"
         aria-expanded={open}
+        aria-controls={open ? menuId : undefined}
         aria-label="Account menu"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen(!open)}
         className="flex items-center gap-1 rounded-full p-0.5 ring-offset-background transition hover:ring-2 hover:ring-primary/40"
       >
         <Avatar account={account} className="size-8" />
         <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden="true" />
       </button>
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-xl">
+        <div id={menuId} className="absolute right-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-xl border border-border bg-popover p-1.5 text-popover-foreground shadow-xl">
           <div className="flex items-center gap-3 px-3 py-2.5">
             <Avatar account={account} className="size-9" />
             <span className="min-w-0">
@@ -127,40 +154,47 @@ function AccountMenu({ account }: { account: HeaderAccount }) {
   );
 }
 
-/** Desktop dropdown: opens on hover or click, closes on Escape / outside click. */
+/**
+ * Desktop dropdown. A mouse opens it on hover; a click, tap or Enter/Space
+ * toggles it. A click right after the hover opened it keeps it open (the
+ * hover already did the job), and touch never goes through hover, so one tap
+ * always opens it. Closes on Escape, outside click or focus leaving.
+ */
 function NavDropdown({ item, active }: { item: NavItem; active: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hoverOpenedAt = useRef(0);
+  const menuId = useId();
+  useDismiss(open, setOpen, ref, trigger);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    const onClick = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("mousedown", onClick);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("mousedown", onClick);
-    };
-  }, [open]);
-
-  const enter = () => {
+  const enter = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
     if (closeTimer.current) clearTimeout(closeTimer.current);
+    if (!open) hoverOpenedAt.current = Date.now();
     setOpen(true);
   };
-  const leave = () => {
+  const leave = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
     closeTimer.current = setTimeout(() => setOpen(false), 120);
+  };
+  const toggle = () => {
+    if (open && Date.now() - hoverOpenedAt.current < 600) return;
+    setOpen(!open);
   };
 
   return (
-    <div ref={ref} className="relative" onMouseEnter={enter} onMouseLeave={leave}>
+    <div ref={ref} className="relative" onPointerEnter={enter} onPointerLeave={leave}>
       <button
+        ref={trigger}
         type="button"
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
+        aria-controls={open ? menuId : undefined}
+        aria-current={active ? "true" : undefined}
+        onClick={toggle}
         className={cn(
-          "inline-flex items-center gap-1 text-base font-medium text-foreground transition-colors hover:text-primary",
+          "inline-flex items-center gap-1 whitespace-nowrap text-base font-medium text-foreground transition-colors hover:text-primary",
           active && "underline decoration-primary decoration-2 underline-offset-8",
         )}
       >
@@ -168,7 +202,7 @@ function NavDropdown({ item, active }: { item: NavItem; active: boolean }) {
         <ChevronDown className={cn("size-4 transition-transform", open && "rotate-180")} aria-hidden="true" />
       </button>
       {open && (
-        <div className="absolute left-1/2 top-full z-50 w-80 -translate-x-1/2 pt-3">
+        <div id={menuId} className="absolute left-1/2 top-full z-50 w-80 -translate-x-1/2 pt-3">
           <ul className="overflow-hidden rounded-xl border border-border bg-popover p-2 text-popover-foreground shadow-xl">
             {item.children!.map((child) => (
               <li key={child.label}>
@@ -206,13 +240,35 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const subBrand = subBrandFor(pathname);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useDismiss(open, setOpen, headerRef, menuButton);
+
+  // While the mobile menu is open the page behind it doesn't scroll.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
-      <div className="flex h-16 items-center px-6 lg:px-8">
+    <>
+    <a
+      href="#main-content"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[60] focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-background"
+    >
+      Skip to content
+    </a>
+    <header ref={headerRef} className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
+      <div className="flex h-16 items-center px-4 sm:px-6 xl:px-8">
         <Logo product={subBrand?.label} />
 
-        <nav className="mr-5 hidden gap-6 lg:flex lg:flex-1 lg:items-center lg:justify-end xl:gap-8" aria-label="Primary">
+        {/* The full nav needs about 1200px next to the logo and CTA; below
+            that it lives in the menu button, so nothing overlaps or wraps. */}
+        <nav className="ml-8 mr-5 hidden gap-7 xl:flex xl:flex-1 xl:items-center xl:justify-end 2xl:gap-8" aria-label="Primary">
           {nav.map((item) =>
             item.children?.length ? (
               <NavDropdown key={item.label} item={item} active={isActive(pathname, item)} />
@@ -220,8 +276,9 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
               <Link
                 key={item.label}
                 href={item.href}
+                aria-current={isActive(pathname, item) ? "page" : undefined}
                 className={cn(
-                  "text-base font-medium text-foreground transition-colors hover:text-primary",
+                  "whitespace-nowrap text-base font-medium text-foreground transition-colors hover:text-primary",
                   isActive(pathname, item) && "underline decoration-primary decoration-2 underline-offset-8",
                 )}
               >
@@ -235,29 +292,31 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
             from the nav by a divider, then Sign in, the primary CTA, and the
             account avatar at the far right. */}
         <div className="ml-auto flex items-center gap-2">
-          <span aria-hidden="true" className="mr-1 hidden h-6 w-px bg-border lg:block" />
+          <span aria-hidden="true" className="mr-1 hidden h-6 w-px bg-border xl:block" />
           <ThemeToggle />
           {!account && (
             <Link
               href={urls.signup}
-              className="hidden h-9 items-center px-3 text-sm font-medium text-foreground hover:text-primary lg:inline-flex"
+              className="hidden h-9 items-center whitespace-nowrap px-3 text-sm font-medium text-foreground hover:text-primary xl:inline-flex"
             >
               Sign in
             </Link>
           )}
           <Link
             href={primaryCta.href}
-            className="hidden h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 lg:inline-flex"
+            className="hidden h-9 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 sm:inline-flex"
           >
             {primaryCta.label}
           </Link>
           {account && <AccountMenu account={account} />}
           <button
+            ref={menuButton}
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-9 items-center justify-center rounded-md text-foreground hover:bg-card lg:hidden"
+            aria-controls="mobile-menu"
+            onClick={() => setOpen(!open)}
+            className="inline-flex size-9 items-center justify-center rounded-md text-foreground hover:bg-card xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
@@ -265,13 +324,14 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
       </div>
 
       {open && (
-        <nav className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-background px-6 py-4 lg:hidden" aria-label="Mobile">
+        <nav id="mobile-menu" className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-border bg-background px-4 py-4 sm:px-6 xl:hidden" aria-label="Mobile">
           <ul className="flex flex-col gap-1">
             {nav.map((item) => (
               <li key={item.label}>
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
+                  aria-current={isActive(pathname, item) ? "page" : undefined}
                   className={cn(
                     "block rounded-md px-3 py-2.5 text-base font-medium text-foreground hover:bg-card hover:text-primary",
                     isActive(pathname, item) && "text-primary",
@@ -315,24 +375,20 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
               ))}
             </ul>
           )}
-          <div className="mt-4 grid grid-cols-2 gap-2">
-            <Link
-              href={account ? "/dashboard" : urls.signup}
-              onClick={() => setOpen(false)}
-              className="flex h-10 items-center justify-center gap-2 rounded-md border border-input text-sm font-medium"
-            >
-              {account ? (
-                <>
-                  <Avatar account={account} className="size-5" /> Dashboard
-                </>
-              ) : (
-                "Sign in"
-              )}
-            </Link>
+          <div className={cn("mt-4 grid gap-2", !account && "grid-cols-2")}>
+            {!account && (
+              <Link
+                href={urls.signup}
+                onClick={() => setOpen(false)}
+                className="flex h-10 items-center justify-center rounded-md border border-input text-sm font-medium"
+              >
+                Sign in
+              </Link>
+            )}
             <Link
               href={primaryCta.href}
               onClick={() => setOpen(false)}
-              className="flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground"
+              className="flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground sm:hidden"
             >
               {primaryCta.label}
             </Link>
@@ -340,5 +396,8 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
         </nav>
       )}
     </header>
+    {/* Where "Skip to content" lands: right after the header, on every page. */}
+    <div id="main-content" tabIndex={-1} className="outline-none" />
+    </>
   );
 }

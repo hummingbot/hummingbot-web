@@ -33,7 +33,7 @@ export function CategoryFilter({
       }
     >
       {label}
-      <span className="ml-1.5 tabular-nums text-ink-600">{count}</span>
+      <span className="ml-1.5 tabular-nums text-ink-500">{count}</span>
     </button>
   );
 

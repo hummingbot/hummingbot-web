@@ -66,7 +66,7 @@ export function InstallTabs({ tabs }: { tabs: InstallTab[] }) {
         </div>
 
         <div className="ml-auto flex items-center gap-3">
-          <span className="hidden select-none font-mono text-xs text-ink-600 md:inline">
+          <span className="hidden select-none font-mono text-xs text-ink-500 md:inline">
             macOS · Linux
           </span>
           {showChannel && (
@@ -96,7 +96,7 @@ export function InstallTabs({ tabs }: { tabs: InstallTab[] }) {
         className="px-4 py-4 font-mono text-sm"
       >
         {current.comment && (
-          <p className="mb-2 select-none text-ink-600">{current.comment}</p>
+          <p className="mb-2 select-none text-ink-500">{current.comment}</p>
         )}
         <div className="flex items-center gap-3">
           <span className="select-none text-ink-500" aria-hidden="true">

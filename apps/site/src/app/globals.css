@@ -122,7 +122,9 @@
   --primary-foreground: 0 0% 9%;
   --secondary: 21 85% 54%;
   --secondary-foreground: 0 0% 100%;
-  --ring: 46 98% 50%;
+  /* Focus rings must stand out on light surfaces (WCAG 1.4.11): gold on
+   * white is 1.6:1, so the light theme rings in near-black instead. */
+  --ring: 240 6% 10%;
   /* What "gold" text becomes on light surfaces. */
   --primary-text: 240 5% 26%;
 
@@ -130,6 +132,13 @@
    * focus rings and brand-teal surfaces. Darker than the hub's light teal so
    * white text on the teal CTA button clears WCAG AA 4.5 (4.4 at #0d9aa6). */
   --brand-teal: #0a8a95;
+}
+
+/* Dark theme: the shared token ink-500 (#71717a) is 4.1:1 on the page
+ * background, under the 4.5:1 AA floor for the muted text it's used for.
+ * Lift it for this site only (other apps keep @hummingbot/tokens as is). */
+:root:not([data-theme="light"]) {
+  --ink-500: #8b8b94;
 }
 
 /* ------------------------------------------------------------------
@@ -279,7 +288,7 @@
   color: hsl(var(--primary));
 }
 :root[data-theme="light"] .brand-word {
-  color: hsl(43 91% 42%);
+  color: hsl(40 95% 30%); /* deep gold, 4.7:1 on the light header */
 }
 /* Headline highlights: a gold marker with dark text, the same in both themes.
  * It starts just above the cap height, so on tight headlines it never covers

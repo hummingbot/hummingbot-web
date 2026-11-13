@@ -22,7 +22,7 @@ export function SiteFooter() {
             The open source framework for agentic trading strategies. Built by
             market makers worldwide.
           </p>
-          <p className="text-xs text-ink-600">
+          <p className="text-xs text-ink-500">
             © {new Date().getFullYear()} Hummingbot Foundation. Apache 2.0.
           </p>
         </div>
