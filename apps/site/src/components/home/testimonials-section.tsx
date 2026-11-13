@@ -1,13 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import { Quote } from "lucide-react";
 import { ThemedLogo } from "@/components/ui/themed-logo";
+import { localImageSize } from "@/lib/image-size";
 
 type Testimonial = {
   quote: string;
   name: string;
   role: string;
   href?: string;
-  /** A logo pair under /brand/logos, or a light-on-black JPG under /brand/testimonials. */
+  /** A logo pair under /brand/logos, or a light-on-black JPG under /brand/marks. */
   logo?: { dark: string; light: string; alt: string } | { jpg: string; alt: string };
 };
 
@@ -63,16 +64,22 @@ function Logo({ logo }: { logo: NonNullable<Testimonial["logo"]> }) {
   if ("jpg" in logo) {
     // Light ink on a black JPG: screen drops the black on the dark theme; on the
     // light one, invert + hue-rotate keeps the colors and multiply drops the white.
+    // (The JPGs ship in packages/brand/marks, synced to /brand/marks.)
+    const src = `/brand/marks/${logo.jpg}`;
+    const size = localImageSize(src);
+    const height = 28;
+    const width = size ? Math.round((height * size.width) / size.height) : height * 4;
     return (
-      <img
-        src={`/brand/testimonials/${logo.jpg}`}
+      <Image
+        src={src}
         alt={logo.alt}
-        loading="lazy"
+        width={width}
+        height={height}
         className="h-7 w-auto mix-blend-screen [[data-theme=light]_&]:mix-blend-multiply [[data-theme=light]_&]:[filter:invert(1)_hue-rotate(180deg)]"
       />
     );
   }
-  return <ThemedLogo dark={logo.dark} light={logo.light} alt={logo.alt} className="h-10 w-auto" />;
+  return <ThemedLogo dark={logo.dark} light={logo.light} alt={logo.alt} height={40} className="h-10 w-auto" />;
 }
 
 /** Market maker testimonials, as on hummingbot.org, in the site's card style. */

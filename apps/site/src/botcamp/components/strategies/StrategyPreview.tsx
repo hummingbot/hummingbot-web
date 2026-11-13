@@ -7,7 +7,8 @@ import { StrategyCodeViewer } from "@/botcamp/components/strategies/StrategyCode
 import { StrategyImageGallery } from "@/botcamp/components/strategies/StrategyImageGallery"
 import { getAvatarGradient } from "@/botcamp/lib/avatar"
 import { FileItem } from "@/botcamp/components/ui/file-upload-manager"
-import { parseVideoUrl, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { parseVideoUrl, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { YouTubeFacade } from "@/components/ui/youtube-facade"
 
 interface StrategyImage {
   id: string
@@ -50,6 +51,7 @@ export function StrategyPreview({
   authors = [],
 }: StrategyPreviewProps) {
   const embedUrl = videoURL ? parseVideoUrl(videoURL)?.embedUrl ?? null : null
+  const youtubeId = embedUrl ? youtubeVideoId(embedUrl) : null
 
   // Convert FileItem to StrategyFile format for StrategyCodeViewer
   const strategyFiles = files.map((f) => ({
@@ -139,15 +141,19 @@ export function StrategyPreview({
         {embedUrl && (
           <div className="mb-6">
             <div className="aspect-video w-full rounded-bc-xl overflow-hidden bg-black mb-6">
-              <iframe
-                src={embedUrl}
-                className="w-full h-full"
-                title={title}
-                sandbox={VIDEO_IFRAME_SANDBOX}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+              {youtubeId ? (
+                <YouTubeFacade videoId={youtubeId} title={title} sandbox={VIDEO_IFRAME_SANDBOX} className="h-full" />
+              ) : (
+                <iframe
+                  src={embedUrl}
+                  className="w-full h-full"
+                  title={title}
+                  sandbox={VIDEO_IFRAME_SANDBOX}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              )}
             </div>
           </div>
         )}

@@ -9,7 +9,8 @@ import {
 import { Button } from "@/botcamp/components/ui/button"
 import { CheckCircle2, Download, Presentation } from "lucide-react"
 import { MarkdownContent } from "./MarkdownContent"
-import { parseLessonVideo, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { parseLessonVideo, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { YouTubeFacade } from "@/components/ui/youtube-facade"
 import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 // Read-only preview: Botcamp's VideoLesson reports playback to
@@ -76,6 +77,7 @@ export function VideoLesson({
   const resumeAt = !initialCompleted && initialPositionSeconds > 0 ? Math.floor(initialPositionSeconds) : 0
   const embedUrl =
     embed && provider === "youtube" && resumeAt > 0 ? `${embed.embedUrl}?start=${resumeAt}` : embed?.embedUrl
+  const youtubeId = embed && provider === "youtube" ? youtubeVideoId(embed.embedUrl) : null
 
   const needsManualComplete = !!lessonId && (provider === "loom" || provider === "gdrive")
   const completed = initialCompleted
@@ -85,13 +87,18 @@ export function VideoLesson({
       {/* Video player - full width */}
       {embedUrl ? (
         <div className="aspect-video bg-black rounded-bc-lg overflow-hidden">
-          <iframe
-            src={embedUrl}
-            className="w-full h-full"
-            sandbox={VIDEO_IFRAME_SANDBOX}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          {youtubeId ? (
+            // Resume position rides along as the facade's start parameter.
+            <YouTubeFacade videoId={youtubeId} title="Lesson video" start={resumeAt} sandbox={VIDEO_IFRAME_SANDBOX} className="h-full" />
+          ) : (
+            <iframe
+              src={embedUrl}
+              className="w-full h-full"
+              sandbox={VIDEO_IFRAME_SANDBOX}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )}
         </div>
       ) : (
         <div className="rounded-bc-lg border border-border p-6 text-sm text-muted-foreground">

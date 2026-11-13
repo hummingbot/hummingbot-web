@@ -13,6 +13,7 @@ import CohortFAQ from "@/botcamp/components/sections/cohorts/CohortFAQ"
 import CohortInstructors from "@/botcamp/components/sections/cohorts/Instructors"
 import Testimonials from "@/botcamp/components/sections/Testimonials"
 import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
+import { YouTubeFacade } from "@/components/ui/youtube-facade"
 import {
   Clock,
   Users,
@@ -35,7 +36,7 @@ import {
 export const dynamic = "force-dynamic"
 
 const TELEGRAM_LINK = "https://t.me/botcampcohorts"
-const INFO_SESSION_VIDEO = "https://www.youtube.com/embed/n2_0mHHn5oI"
+const INFO_SESSION_VIDEO_ID = "n2_0mHHn5oI"
 
 interface PageProps {
   params: Promise<{ cohortNumber: string }>
@@ -212,15 +213,7 @@ export default async function CohortLandingPage({ params }: PageProps) {
                 <div className="relative">
                   <Card className="overflow-hidden">
                     <CardContent className="p-0">
-                      <div className="aspect-video">
-                        <iframe
-                          src={INFO_SESSION_VIDEO}
-                          title="Botcamp Info Session"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="w-full h-full"
-                        />
-                      </div>
+                      <YouTubeFacade videoId={INFO_SESSION_VIDEO_ID} title="Botcamp Info Session" />
                     </CardContent>
                   </Card>
                   <p className="text-sm text-muted-foreground text-center mt-4">

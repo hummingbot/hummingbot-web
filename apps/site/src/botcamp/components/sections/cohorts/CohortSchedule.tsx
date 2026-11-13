@@ -4,7 +4,8 @@ import { Button } from "@/botcamp/components/ui/button"
 import { Card, CardContent } from "@/botcamp/components/ui/card"
 import Link from "next/link"
 import { Badge } from "@/botcamp/components/ui/badge"
-import { parseLessonVideo, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { parseLessonVideo, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { YouTubeFacade } from "@/components/ui/youtube-facade"
 
 interface Session {
   date: string
@@ -151,6 +152,7 @@ export default function CohortSchedule({
                   {week.sessions.map((session, idx) => {
                     const embedUrl = session.videoId ? parseLessonVideo(session.videoId)?.embedUrl ?? null : null
                     const showVideo = session.isFree && embedUrl
+                    const youtubeId = embedUrl ? youtubeVideoId(embedUrl) : null
 
                     return (
                       <Card key={idx} className="overflow-hidden">
@@ -169,13 +171,17 @@ export default function CohortSchedule({
                           {/* Video player for free sessions */}
                           {showVideo && (
                             <div className="aspect-video bg-black rounded-bc-lg overflow-hidden mb-4">
-                              <iframe
-                                src={embedUrl}
-                                className="w-full h-full"
-                                sandbox={VIDEO_IFRAME_SANDBOX}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                              />
+                              {youtubeId ? (
+                                <YouTubeFacade videoId={youtubeId} title={session.title} sandbox={VIDEO_IFRAME_SANDBOX} className="h-full" />
+                              ) : (
+                                <iframe
+                                  src={embedUrl}
+                                  className="w-full h-full"
+                                  sandbox={VIDEO_IFRAME_SANDBOX}
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowFullScreen
+                                />
+                              )}
                             </div>
                           )}
 

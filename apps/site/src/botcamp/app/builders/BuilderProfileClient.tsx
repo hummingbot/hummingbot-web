@@ -15,7 +15,8 @@ import { Button } from '@/botcamp/components/ui/button'
 import { StrategyCard } from '@/botcamp/components/strategies/StrategyCard'
 import { BuilderAvatar } from '@/botcamp/components/hackathons/BuilderAvatar'
 import { cn, getCohortBadgeClasses } from '@/botcamp/lib/utils'
-import { parseVideoUrl, VIDEO_IFRAME_SANDBOX } from '@/botcamp/lib/video-embed'
+import { parseVideoUrl, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from '@/botcamp/lib/video-embed'
+import { YouTubeFacade } from '@/components/ui/youtube-facade'
 import type { BuilderProfile } from '@/botcamp/lib/builders'
 
 // Botcamp's BuilderProfileClient. Botcamp fetches the member in the browser
@@ -56,6 +57,7 @@ export default function BuilderProfileClient({
 
   const isPrivate = member.isPrivate === true
   const storyEmbedUrl = member.storyURL ? parseVideoUrl(member.storyURL)?.embedUrl ?? null : null
+  const storyYoutubeId = storyEmbedUrl ? youtubeVideoId(storyEmbedUrl) : null
   const certifiedCount = member.strategies.length
   const cohortCount = member.cohorts.length
   const hasStory = !!member.storyURL
@@ -165,15 +167,19 @@ export default function BuilderProfileClient({
                 <section>
                   <SectionHeader title="Story" />
                   <div className="aspect-video w-full rounded-bc-xl overflow-hidden bg-black border border-border">
-                    <iframe
-                      src={storyEmbedUrl}
-                      sandbox={VIDEO_IFRAME_SANDBOX}
-                      className="w-full h-full"
-                      title={`${member.name}'s Story`}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+                    {storyYoutubeId ? (
+                      <YouTubeFacade videoId={storyYoutubeId} title={`${member.name}'s Story`} sandbox={VIDEO_IFRAME_SANDBOX} className="h-full" />
+                    ) : (
+                      <iframe
+                        src={storyEmbedUrl}
+                        sandbox={VIDEO_IFRAME_SANDBOX}
+                        className="w-full h-full"
+                        title={`${member.name}'s Story`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    )}
                   </div>
                 </section>
               )}

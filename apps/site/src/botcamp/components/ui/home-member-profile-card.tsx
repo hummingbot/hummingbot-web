@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Card, CardHeader, CardContent } from "@/botcamp/components/ui/card"
 import { ArrowRight } from 'lucide-react'
 import { getAvatarGradient } from '@/botcamp/lib/avatar'
+import { YouTubeFacade } from '@/components/ui/youtube-facade'
 
 interface HomeMemberProfileCardProps {
   name: string
@@ -48,15 +49,11 @@ export function HomeMemberProfileCard({ name, location, bio, avatarURL, slug, st
         <p className="text-foreground text-center text-sm mb-3 flex-1">{bio}</p>
 
         {storyVideoId && (
-          <div className="relative aspect-video rounded-bc-lg overflow-hidden mb-3 border border-border">
-            <iframe
-              src={`https://www.youtube.com/embed/${storyVideoId}`}
-              title={`${name}'s Story`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full"
-            />
-          </div>
+          <YouTubeFacade
+            videoId={storyVideoId}
+            title={`${name}'s Story`}
+            className="rounded-bc-lg mb-3 border border-border"
+          />
         )}
 
         <Link href={`/builders/${slug}`} className="flex items-center justify-center text-sm text-primary hover:underline font-medium">

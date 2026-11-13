@@ -6,7 +6,8 @@ import { MarkdownContent } from "@/botcamp/components/lessons/MarkdownContent"
 import { strategyTypeColors } from "@/botcamp/lib/design-constants"
 import { cn } from "@/botcamp/lib/utils"
 import { formatRelativeTime } from "@/botcamp/lib/format"
-import { parseVideoUrl, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { parseVideoUrl, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { YouTubeFacade } from "@/components/ui/youtube-facade"
 import type { ReviewStrategy } from "./application-review"
 import type { ReactNode } from "react"
 import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
@@ -115,15 +116,24 @@ export function StrategyReviewCard({
             <div>
               <h3 className="text-sm font-medium text-muted-foreground mb-2">Demo Video</h3>
               <div className="aspect-video w-full rounded-bc-lg overflow-hidden bg-black">
-                <iframe
-                  src={embed.embedUrl}
-                  className="w-full h-full"
-                  title={`${strategy.title} demo video`}
-                  sandbox={VIDEO_IFRAME_SANDBOX}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                {embed.provider === "youtube" && youtubeVideoId(embed.embedUrl) ? (
+                  <YouTubeFacade
+                    videoId={youtubeVideoId(embed.embedUrl) ?? ""}
+                    title={`${strategy.title} demo video`}
+                    sandbox={VIDEO_IFRAME_SANDBOX}
+                    className="h-full"
+                  />
+                ) : (
+                  <iframe
+                    src={embed.embedUrl}
+                    className="w-full h-full"
+                    title={`${strategy.title} demo video`}
+                    sandbox={VIDEO_IFRAME_SANDBOX}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
               </div>
             </div>
           )

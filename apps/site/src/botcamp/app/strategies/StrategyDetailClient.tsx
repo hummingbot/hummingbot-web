@@ -10,7 +10,8 @@ import { getCohortBadgeClasses, capitalizeExchange } from '@/botcamp/lib/utils'
 import { CollapsibleDescription } from '@/botcamp/components/strategies/CollapsibleDescription'
 import { StrategyBreadcrumb } from '@/botcamp/components/strategies/StrategyBreadcrumb'
 import { BuilderAvatar } from '@/botcamp/components/hackathons/BuilderAvatar'
-import { parseVideoUrl, VIDEO_IFRAME_SANDBOX } from '@/botcamp/lib/video-embed'
+import { parseVideoUrl, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from '@/botcamp/lib/video-embed'
+import { YouTubeFacade } from '@/components/ui/youtube-facade'
 import type { StrategyDetail, StrategyDetailAuthor, StrategyType, StrategyVisibility } from '@/botcamp/lib/strategy-detail'
 
 // Botcamp's StrategyDetailClient (origin/main), signed out. Botcamp fetches
@@ -146,7 +147,7 @@ export default function StrategyDetailClient({
               <div className="mb-8 md:mb-10">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-bc-tight mb-4">{strategy.title}</h1>
                 <div className="flex flex-wrap items-center gap-2 mb-5">
-                  <span className="inline-flex items-center font-mono text-[11px] font-bold uppercase tracking-[0.16em] px-2.5 py-1 rounded-bc-md bg-secondary/15 text-secondary border border-secondary/30">
+                  <span className="inline-flex items-center font-mono text-[11px] font-bold uppercase tracking-[0.16em] px-2.5 py-1 rounded-bc-md bg-secondary/15 text-orange-800 dark:text-secondary border border-secondary/30">
                     {typeLabel}
                   </span>
                   {strategy.cohort !== null && (
@@ -172,7 +173,11 @@ export default function StrategyDetailClient({
               </div>
 
               <Tabs defaultValue="readme" className="w-full">
-                <TabsList className="bg-transparent border-b border-border w-full flex-wrap justify-start rounded-none h-auto p-0">
+                {/* The tab bar: the tablist, then (small screens) the Clone
+                    button beside it — outside the tablist, which may hold
+                    only tabs. */}
+                <div className="flex flex-wrap items-end border-b border-border">
+                <TabsList className="bg-transparent flex-wrap justify-start rounded-none h-auto p-0">
                   <TabsTrigger value="readme" className={tabTriggerClasses}>
                     <BookOpen className="h-4 w-4 mr-2" />
                     Description
@@ -181,23 +186,28 @@ export default function StrategyDetailClient({
                     <FileCode2 className="h-4 w-4 mr-2" />
                     Code
                   </TabsTrigger>
-                  {/* On desktop the Clone button lives in the sidebar card; here only on small screens. */}
-                  {showClone && cloneButton && <div className="ml-auto self-center py-1.5 lg:hidden">{cloneButton}</div>}
                 </TabsList>
+                {/* On desktop the Clone button lives in the sidebar card; here only on small screens. */}
+                {showClone && cloneButton && <div className="ml-auto self-center py-1.5 lg:hidden">{cloneButton}</div>}
+                </div>
 
                 {/* README tab — video + description, always visible */}
                 <TabsContent value="readme" className="mt-6 focus-visible:outline-none">
                   {embedUrl && (
                     <div className="aspect-video w-full rounded-bc-xl overflow-hidden bg-black mb-6 border border-border">
-                      <iframe
-                        src={embedUrl}
-                        className="w-full h-full"
-                        title={strategy.title}
-                        sandbox={VIDEO_IFRAME_SANDBOX}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
+                      {youtubeVideoId(embedUrl) ? (
+                        <YouTubeFacade videoId={youtubeVideoId(embedUrl)!} title={strategy.title} sandbox={VIDEO_IFRAME_SANDBOX} className="h-full" priority />
+                      ) : (
+                        <iframe
+                          src={embedUrl}
+                          className="w-full h-full"
+                          title={strategy.title}
+                          sandbox={VIDEO_IFRAME_SANDBOX}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      )}
                     </div>
                   )}
                   <CollapsibleDescription summary={null /* summary already in hero */} details={strategy.details} />
@@ -325,7 +335,7 @@ export default function StrategyDetailClient({
                     {strategy.tags.map((t) => (
                       <span
                         key={t}
-                        className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-blue-500/10 text-blue-500 border border-blue-500/20"
+                        className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20"
                       >
                         {t}
                       </span>

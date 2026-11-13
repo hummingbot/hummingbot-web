@@ -3,6 +3,7 @@ import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import { rehypeImageDimensions } from "@/lib/image-size";
 import "./docs.css";
 
 /**
@@ -14,7 +15,7 @@ export function MarkdownArticle({ body, resolve }: { body: string; resolve: (url
     <article className="prose-hb docs-prose max-w-3xl">
       <Markdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw, rehypeSlug]}
+        rehypePlugins={[rehypeRaw, rehypeSlug, [rehypeImageDimensions, { resolve }]]}
         components={{
           a: ({ href, children, id, className }) => {
             const url = href ? resolve(href) : href;
@@ -32,10 +33,20 @@ export function MarkdownArticle({ body, resolve }: { body: string; resolve: (url
               </a>
             );
           },
-          img: ({ src, alt, className }) =>
+          // width/height/loading/fetchPriority come from rehypeImageDimensions.
+          img: ({ src, alt, className, width, height, loading, fetchPriority, decoding }) =>
             typeof src === "string" ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={resolve(src)} alt={alt ?? ""} loading="lazy" className={className} />
+              <img
+                src={resolve(src)}
+                alt={alt ?? ""}
+                width={width}
+                height={height}
+                loading={loading ?? "lazy"}
+                fetchPriority={fetchPriority}
+                decoding={decoding}
+                className={className}
+              />
             ) : null,
         }}
       >

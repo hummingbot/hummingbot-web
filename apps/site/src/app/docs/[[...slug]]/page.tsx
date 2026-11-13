@@ -13,6 +13,7 @@ import { DocsToc } from "@/components/docs/docs-toc";
 import "@/components/docs/docs.css";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { rehypeImageDimensions } from "@/lib/image-size";
 import { getAllDocRoutes, getDocPage, getDocSections, locate, resolveDocUrl, DOCS_BASE } from "@/lib/docs";
 
 type Params = { params: Promise<{ slug?: string[] }> };
@@ -83,7 +84,11 @@ export default async function DocPage({ params }: Params) {
           <article className="prose-hb docs-prose max-w-3xl">
             <Markdown
               remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw, rehypeSlug]}
+              rehypePlugins={[
+                rehypeRaw,
+                rehypeSlug,
+                [rehypeImageDimensions, { resolve: (src: string) => resolveDocUrl(page.file, src) }],
+              ]}
               components={{
                 a: ({ href, children, id, className }) => {
                   const url = href ? resolveDocUrl(page.file, href) : href;
@@ -97,10 +102,19 @@ export default async function DocPage({ params }: Params) {
                     </a>
                   );
                 },
-                img: ({ src, alt }) =>
+                // width/height/loading/fetchPriority come from rehypeImageDimensions.
+                img: ({ src, alt, width, height, loading, fetchPriority, decoding }) =>
                   typeof src === "string" ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={resolveDocUrl(page.file, src)} alt={alt ?? ""} loading="lazy" />
+                    <img
+                      src={resolveDocUrl(page.file, src)}
+                      alt={alt ?? ""}
+                      width={width}
+                      height={height}
+                      loading={loading ?? "lazy"}
+                      fetchPriority={fetchPriority}
+                      decoding={decoding}
+                    />
                   ) : null,
               }}
             >

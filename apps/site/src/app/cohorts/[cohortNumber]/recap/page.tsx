@@ -8,6 +8,7 @@ import { Button } from "@/botcamp/components/ui/button"
 import { Badge } from "@/botcamp/components/ui/badge"
 import { StrategyCard } from "@/botcamp/components/strategies/StrategyCard"
 import { pageBackgrounds } from "@/botcamp/lib/design-constants"
+import { YouTubeFacade } from "@/components/ui/youtube-facade"
 import {
   Calendar,
   Users,
@@ -197,15 +198,11 @@ export default async function CohortRecapPage({ params }: PageProps) {
               if (!videoId) return null
               return (
                 <div className="max-w-4xl mx-auto mb-12">
-                  <div className="relative aspect-video rounded-bc-xl overflow-hidden shadow-xl border border-border">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${videoId}`}
-                      title={`Cohort ${cohort.number} Demo Day`}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="absolute inset-0 w-full h-full"
-                    />
-                  </div>
+                  <YouTubeFacade
+                    videoId={videoId}
+                    title={`Cohort ${cohort.number} Demo Day`}
+                    className="rounded-bc-xl shadow-xl border border-border"
+                  />
                 </div>
               )
             })()}
