@@ -1,3 +1,5 @@
+import { botcampPublicAssetUrl } from "@/botcamp/lib/botcamp-asset-path"
+
 /**
  * Picks the right team/sponsor logo variant for the current site theme —
  * mirrors the pattern already used for the Botcamp brand mark in
@@ -11,6 +13,7 @@ export function pickTeamLogo(
   logoUrl: string | null | undefined,
   logoUrlDark: string | null | undefined,
 ): string | null {
-  if (theme === "dark") return logoUrlDark || logoUrl || null
-  return logoUrl || null
+  // Stored paths into Botcamp's public/ folder are served here under /botcamp-assets/.
+  if (theme === "dark") return botcampPublicAssetUrl(logoUrlDark || logoUrl || null)
+  return botcampPublicAssetUrl(logoUrl || null)
 }

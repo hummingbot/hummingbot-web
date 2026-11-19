@@ -21,6 +21,8 @@ interface HackathonCountdownProps {
   /** When the live race ends — the Live stage counts down to it. */
   raceEnd: string | null
   registerHref: string
+  /** Resources page (rules + starter kit) — linked while the stage is Open. */
+  resourcesHref: string
 }
 
 type HeroMode =
@@ -178,7 +180,7 @@ function FlipDigit({ digit, ready, index }: { digit: string; ready: boolean; ind
 
   return (
     <div
-      className="relative w-12 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 flex-shrink-0"
+      className="relative w-12 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 shrink-0"
       style={{ perspective: "400px" }}
     >
       {/* Resting card underneath — already showing the value being flipped to */}
@@ -295,10 +297,10 @@ function CompactCountdownBar({
     >
       <div className="container mx-auto px-4 md:px-6 h-11 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse flex-shrink-0" />
+          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse shrink-0" />
           <span className="text-sm font-semibold tracking-bc-tight text-foreground truncate">{title}</span>
         </div>
-        <div className="flex items-center gap-2 font-mono text-xs sm:text-sm tabular-nums flex-shrink-0">
+        <div className="flex items-center gap-2 font-mono text-xs sm:text-sm tabular-nums shrink-0">
           <span className="uppercase tracking-[0.14em] text-muted-foreground text-[10px] sm:text-[11px]">
             {label}
           </span>
@@ -384,7 +386,7 @@ const COMPACT_BAR_THRESHOLD = 0.6
  * takes over under the header.
  */
 export function HackathonCountdown(props: HackathonCountdownProps) {
-  const { title, subtitle, stage, registerHref } = props
+  const { title, subtitle, stage, registerHref, resourcesHref } = props
   const [now, setNow] = useState<Date | null>(null)
 
   useEffect(() => {
@@ -513,6 +515,19 @@ export function HackathonCountdown(props: HackathonCountdownProps) {
           <HeroCta href={registerHref} className="mt-2">
             Register Now
           </HeroCta>
+        )}
+
+        {/* While Open, builders need the rules and the starter kit's fixed
+            values (model, venues, naming) before they start building. */}
+        {stage === "REGISTRATION" && (
+          <Link
+            href={resourcesHref}
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-white/85 underline-offset-4 hover:text-primary hover:underline"
+            style={{ textShadow: TEXT_SHADOW }}
+          >
+            Rules, Resources &amp; Starter Kit
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         )}
 
         {/* From the race on, the standings are the point of the page. */}

@@ -55,8 +55,8 @@ describe("GET /api/teams/[teamSlug]/logo", () => {
     expect((await get()).status).toBe(404)
   })
 
-  it("redirects to a same-site path", async () => {
+  it("redirects to a same-site path (Botcamp's public/ files live under /botcamp-assets here)", async () => {
     teamFindUnique.mockResolvedValueOnce({ ...team, logoUrl: "/logos/orca-logo.png" } as never)
-    expect((await get()).headers.get("location")).toBe("http://localhost/logos/orca-logo.png")
+    expect((await get()).headers.get("location")).toBe("http://localhost/botcamp-assets/logos/orca-logo.png")
   })
 })

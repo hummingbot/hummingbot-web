@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
+import { botcampPublicAssetUrl } from "@/botcamp/lib/botcamp-asset-path"
 import { useRouter } from "next/navigation"
 import { Button } from "@/botcamp/components/ui/button"
 import { Input } from "@/botcamp/components/ui/input"
@@ -354,7 +355,7 @@ export function TeamInfoEditForm({
             label="Logo (light backgrounds)"
             previewBg="bg-[#f7f7f5]"
             placeholderClassName="text-muted-foreground/60"
-            src={pendingLogo.preview ?? (pendingLogo.delete ? "" : formData.logoUrl)}
+            src={pendingLogo.preview ?? (pendingLogo.delete ? "" : (botcampPublicAssetUrl(formData.logoUrl) ?? ""))}
             onSelect={handleLogoSelect(false)}
             onRemove={handleLogoRemove(false)}
             inputId="logoUpload"
@@ -365,7 +366,7 @@ export function TeamInfoEditForm({
             label="Logo (dark backgrounds)"
             previewBg="bg-black"
             placeholderClassName="text-white/40"
-            src={pendingLogoDark.preview ?? (pendingLogoDark.delete ? "" : formData.logoUrlDark)}
+            src={pendingLogoDark.preview ?? (pendingLogoDark.delete ? "" : (botcampPublicAssetUrl(formData.logoUrlDark) ?? ""))}
             onSelect={handleLogoSelect(true)}
             onRemove={handleLogoRemove(true)}
             inputId="logoUploadDark"

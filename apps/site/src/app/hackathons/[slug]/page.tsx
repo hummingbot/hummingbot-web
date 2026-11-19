@@ -627,6 +627,7 @@ export default async function HackathonPage({ params, searchParams }: PageProps)
               raceStart={race?.start.toISOString() ?? null}
               raceEnd={race?.end.toISOString() ?? null}
               registerHref={`/hackathons/${hackathon.slug}/register`}
+              resourcesHref={`/hackathons/${hackathon.slug}/resources`}
             />
           </div>
         </section>

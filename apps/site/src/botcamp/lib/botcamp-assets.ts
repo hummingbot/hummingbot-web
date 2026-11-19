@@ -1,4 +1,5 @@
 import { prisma } from "@/botcamp/lib/prisma"
+import { botcampPublicAssetUrl } from "@/botcamp/lib/botcamp-asset-path"
 
 /**
  * Botcamp's database stores image URLs relative to botcamp.xyz: files from its
@@ -39,10 +40,7 @@ export async function resolveBotcampImageUrl(url: string | null): Promise<string
  * The synchronous half of resolveBotcampImageUrl, for paths into Botcamp's
  * public/ folder (course thumbnails): served here under /botcamp-assets/.
  */
-export function botcampPublicAssetUrl(url: string | null): string | null {
-  if (!url || !url.startsWith("/") || url.startsWith("/api/")) return url
-  return `/botcamp-assets${url}`
-}
+export { botcampPublicAssetUrl }
 
 /**
  * A member's avatar as this site can show it: OAuth photos (Google, GitHub,

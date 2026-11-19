@@ -10,6 +10,7 @@ import {
   serverErrorResponse,
 } from "@/botcamp/lib/api-utils"
 import { safeCallbackUrl } from "@/botcamp/lib/app-url"
+import { botcampPublicAssetUrl } from "@/botcamp/lib/botcamp-assets"
 
 const MAX_SIZE = 2 * 1024 * 1024 // 2MB
 
@@ -50,7 +51,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
     // Same-site paths only (the team PATCH enforces it; older rows may not)
     const path = url ? safeCallbackUrl(url, "") : ""
-    if (path) return NextResponse.redirect(new URL(path, request.url))
+    // Paths into Botcamp's public/ folder are served here under /botcamp-assets/.
+    if (path) return NextResponse.redirect(new URL(botcampPublicAssetUrl(path) ?? path, request.url))
 
     return notFoundResponse("No logo found")
   } catch (error) {
