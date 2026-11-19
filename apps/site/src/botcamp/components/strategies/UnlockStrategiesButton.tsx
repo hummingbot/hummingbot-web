@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 import { ArrowRight, BadgeCheck, Loader2, Lock, Sparkles } from "lucide-react"
 import { Dialog, DialogContent } from "@/botcamp/components/ui/dialog"
 import { Button } from "@/botcamp/components/ui/button"
@@ -29,6 +30,10 @@ type PlanKey = "course-bundle" | "strategy-unlock"
 // Set on the sign-in callback, so the person lands back on this page with the
 // dialog open on the plan they picked.
 const UNLOCK_PARAM = "unlock"
+
+// Several unlock buttons can share a page; only the first to mount reopens
+// the dialog after sign-in.
+let pendingUnlockClaimed = false
 
 const PLANS: Array<{
   key: PlanKey
@@ -64,14 +69,26 @@ export function UnlockStrategiesButton({
   shine = false,
 }: UnlockStrategiesButtonProps) {
   const router = useRouter()
-  // No sign-in on this site: always the signed-out view. (Botcamp also
-  // reopens the dialog after sign-in and starts a Stripe checkout via
-  // POST /api/checkout; neither can happen signed out.)
-  const session = null
+  const { data: session } = useSession()
   const [open, setOpen] = useState(false)
   const [plan, setPlan] = useState<PlanKey>("strategy-unlock")
-  const [isLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  // Back from sign-in: reopen the dialog on the plan they had picked, and drop
+  // the param so a reload doesn't open it again.
+  useEffect(() => {
+    if (!session || pendingUnlockClaimed) return
+    const url = new URL(window.location.href)
+    const pending = url.searchParams.get(UNLOCK_PARAM)
+    if (!PLANS.some((p) => p.key === pending)) return
+    pendingUnlockClaimed = true
+    url.searchParams.delete(UNLOCK_PARAM)
+    window.history.replaceState(window.history.state, "", url)
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- as in Botcamp (its ESLint predates this rule)
+    setPlan(pending as PlanKey)
+    setOpen(true)
+  }, [session])
 
   // Anyone can open the dialog and compare the plans; signing in is asked
   // for at Continue, since checkout needs an account.
@@ -80,11 +97,40 @@ export function UnlockStrategiesButton({
     setOpen(true)
   }
 
-  const handleBuy = () => {
-    const url = new URL(window.location.href)
-    url.searchParams.set(UNLOCK_PARAM, plan)
-    const callbackUrl = encodeURIComponent(`${url.pathname}${url.search}`)
-    router.push(`/signin?callbackUrl=${callbackUrl}`)
+  const handleBuy = async () => {
+    if (!session) {
+      const url = new URL(window.location.href)
+      url.searchParams.set(UNLOCK_PARAM, plan)
+      const callbackUrl = encodeURIComponent(`${url.pathname}${url.search}`)
+      router.push(`/signin?callbackUrl=${callbackUrl}`)
+      return
+    }
+
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: plan }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to start checkout")
+      }
+
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        throw new Error("No checkout URL received")
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to start checkout")
+      setIsLoading(false)
+    }
   }
 
   const selectedPlan = PLANS.find((p) => p.key === plan)!

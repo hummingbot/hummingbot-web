@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/botcamp/components/u
 import { ProfileEditor } from "@/botcamp/components/profile/ProfileEditor"
 import { NotificationPreferences } from "@/botcamp/components/dashboard/NotificationPreferences"
 import { StrategySubscriptionCard, type StrategySubscriptionGrant } from "@/botcamp/components/profile/StrategySubscriptionCard"
-import { CondorConnectionCard, type Connection } from "@/botcamp/components/profile/CondorConnectionCard"
+import { CondorConnectionCard } from "@/botcamp/components/profile/CondorConnectionCard"
 
 const TABS = ["profile", "notifications", "billing", "condor"] as const
 
@@ -14,8 +14,6 @@ type ProfileTabsProps = {
   canEditVisibility: ComponentProps<typeof ProfileEditor>["canEditVisibility"]
   notificationPrefs: ComponentProps<typeof NotificationPreferences>["initial"]
   strategyGrant: StrategySubscriptionGrant | null
-  /** Read-only preview: Condor connections, read on the server. */
-  condorConnections: Connection[]
   /** ?tab= on the page URL, so links can open a tab (Condor's errors link to "condor"). */
   initialTab?: string
 }
@@ -25,7 +23,6 @@ export function ProfileTabs({
   canEditVisibility,
   notificationPrefs,
   strategyGrant,
-  condorConnections,
   initialTab,
 }: ProfileTabsProps) {
   const defaultTab = TABS.find((t) => t === initialTab) ?? "profile"
@@ -51,7 +48,7 @@ export function ProfileTabs({
       </TabsContent>
 
       <TabsContent value="condor" className="mt-0">
-        <CondorConnectionCard initialConnections={condorConnections} />
+        <CondorConnectionCard />
       </TabsContent>
     </Tabs>
   )

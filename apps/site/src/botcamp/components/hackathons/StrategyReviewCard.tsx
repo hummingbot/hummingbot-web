@@ -10,7 +10,6 @@ import { parseVideoUrl, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from "@/botcamp/l
 import { YouTubeFacade } from "@/components/ui/youtube-facade"
 import type { ReviewStrategy } from "./application-review"
 import type { ReactNode } from "react"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface StrategyReviewCardProps {
   strategy: ReviewStrategy | null
@@ -146,10 +145,12 @@ export function StrategyReviewCard({
                 Files ({strategy.files.length})
               </h3>
               {strategy.files.length > 1 && (
-                <ReadOnlyHint><Button variant="outline" size="sm" disabled>
-                  <Download className="mr-2 h-3 w-3" />
+                <Button variant="outline" size="sm" asChild>
+                  <a href={`/api/strategies/${strategy.slug}/files/download-all`}>
+                    <Download className="mr-2 h-3 w-3" />
                     Download All
-                </Button></ReadOnlyHint>
+                  </a>
+                </Button>
               )}
             </div>
             {strategy.files.map((file) => (
@@ -182,10 +183,14 @@ export function StrategyReviewCard({
                     <p className="text-xs text-muted-foreground">
                       {file.mimeType || "Binary file"} — preview not available
                     </p>
-                    <ReadOnlyHint><Button variant="outline" size="sm" disabled>
-                      <Download className="mr-2 h-3 w-3" />
+                    <Button variant="outline" size="sm" asChild>
+                      <a
+                        href={`/api/strategies/${strategy.slug}/files/${file.id}/download`}
+                      >
+                        <Download className="mr-2 h-3 w-3" />
                         Download
-                    </Button></ReadOnlyHint>
+                      </a>
+                    </Button>
                   </div>
                 )}
               </div>

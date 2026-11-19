@@ -4,8 +4,13 @@ import { LessonAccessDenied } from "@/botcamp/components/lessons/LessonAccessDen
 import { LearnShell } from "@/botcamp/components/learn/LearnShell"
 import { LessonBody } from "@/botcamp/components/learn/LessonBody"
 import type { LearnGroup } from "@/botcamp/components/learn/types"
-import { getLessonProgressMap, getLessonProgressStatuses } from "@/botcamp/lib/lesson-progress"
-import { auth, isDashboardPreviewEnabled } from "@/botcamp/lib/preview-session"
+import {
+  CLIENT_TRACKED_LESSON_TYPES,
+  getLessonProgressMap,
+  getLessonProgressStatuses,
+  markLessonComplete,
+} from "@/botcamp/lib/lesson-progress"
+import { auth } from "@/botcamp/lib/auth"
 
 interface PageProps {
   params: Promise<{ cohortNumber: string; lessonSlug: string }>
@@ -81,15 +86,13 @@ async function checkAccess(userId: string | undefined, cohortId: string) {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  // The layout 404s when the preview is off; don't query for its title then.
-  if (!isDashboardPreviewEnabled()) return {}
   const { cohortNumber: cohortNumberStr, lessonSlug } = await params
   const cohortNumber = parseInt(cohortNumberStr.replace("cohort", ""))
   if (isNaN(cohortNumber)) return { title: "Lesson Not Found" }
   const data = await getCohortLessons(cohortNumber, lessonSlug)
   if (!data) return { title: "Lesson Not Found" }
   return {
-    title: `${data.lesson.title} - Cohort ${data.cohort.number} - Botcamp preview`,
+    title: `${data.lesson.title} - Cohort ${data.cohort.number} - Botcamp`,
   }
 }
 
@@ -105,9 +108,19 @@ export default async function CohortLessonPage({ params }: PageProps) {
   const session = await auth()
   const accessCheck = await checkAccess(session?.user?.id, cohort.id)
 
-  // Botcamp marks ARTICLE-type lessons complete just for being opened
-  // (markLessonComplete, a database write). This preview only reads, so the
-  // lesson keeps the progress last saved in Botcamp.
+  // Most lesson types have no finer-grained signal to gate completion on,
+  // so opening them is the only available signal. VIDEO, QUIZ, and
+  // CHALLENGE lessons complete client-side instead, once real progress is
+  // made — see LessonBody.
+  if (
+    session?.user?.id &&
+    accessCheck.hasAccess &&
+    !CLIENT_TRACKED_LESSON_TYPES.includes(
+      lesson.type as (typeof CLIENT_TRACKED_LESSON_TYPES)[number],
+    )
+  ) {
+    await markLessonComplete(session.user.id, lesson.id)
+  }
 
   const allLessonIds = cohort.weeks.flatMap((w) => w.lessons.map((l) => l.id))
   const progressStatuses = await getLessonProgressStatuses(session?.user?.id, allLessonIds)

@@ -4,7 +4,6 @@ import { useState } from "react"
 import { Button } from "@/botcamp/components/ui/button"
 import { Textarea } from "@/botcamp/components/ui/textarea"
 import { Pencil, Check, X, Loader2 } from "lucide-react"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface EditableAgentIdeaProps {
   hackathonSlug: string
@@ -69,14 +68,14 @@ export function EditableAgentIdea({
         />
         {error && <p className="text-xs text-destructive">{error}</p>}
         <div className="flex gap-2">
-          <ReadOnlyHint><Button size="sm" onClick={save} disabled>
+          <Button size="sm" onClick={save} disabled={saving}>
             {saving ? (
               <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
             ) : (
               <Check className="h-3.5 w-3.5 mr-1" />
             )}
             Save
-          </Button></ReadOnlyHint>
+          </Button>
           <Button size="sm" variant="ghost" onClick={cancel} disabled={saving}>
             <X className="h-3.5 w-3.5 mr-1" />
             Cancel
@@ -95,10 +94,10 @@ export function EditableAgentIdea({
       {locked ? (
         <p className="text-xs text-muted-foreground">Locked — registration has closed.</p>
       ) : (
-        <ReadOnlyHint><Button size="sm" variant="outline" onClick={startEditing} disabled>
+        <Button size="sm" variant="outline" onClick={startEditing}>
           <Pencil className="h-3.5 w-3.5 mr-1" />
           Edit
-        </Button></ReadOnlyHint>
+        </Button>
       )}
     </div>
   )

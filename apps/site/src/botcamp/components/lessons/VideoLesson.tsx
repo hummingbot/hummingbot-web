@@ -1,5 +1,6 @@
 "use client"
 
+import { useRef, useState } from "react"
 import {
   Accordion,
   AccordionContent,
@@ -9,16 +10,10 @@ import {
 import { Button } from "@/botcamp/components/ui/button"
 import { CheckCircle2, Download, Presentation } from "lucide-react"
 import { MarkdownContent } from "./MarkdownContent"
-import { parseLessonVideo, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
-import { YouTubeFacade } from "@/components/ui/youtube-facade"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
-
-// Read-only preview: Botcamp's VideoLesson reports playback to
-// /api/lessons/<id>/progress (useLessonVideoProgress + reportLessonProgress)
-// and offers "Mark as watched" for Loom/Drive. Nothing is saved here, so the
-// tracking is left out; the player resumes YouTube videos at the saved
-// position via the embed's start parameter instead, and the manual control
-// shows disabled.
+import { parseLessonVideo, VIDEO_IFRAME_SANDBOX } from "@/botcamp/lib/video-embed"
+import { useLessonVideoProgress } from "@/botcamp/hooks/useLessonVideoProgress"
+import { reportLessonProgress } from "@/botcamp/lib/lesson-progress-client"
+import { useSetLessonProgress } from "@/botcamp/components/learn/LessonProgressContext"
 
 // Renders transcript with markdown support and download button
 function TranscriptContent({ content }: { content: string }) {
@@ -35,7 +30,7 @@ function TranscriptContent({ content }: { content: string }) {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-bc-3">
       <div className="flex justify-end">
         <Button variant="outline" size="sm" onClick={handleDownload}>
           <Download className="h-4 w-4 mr-2" />
@@ -72,33 +67,52 @@ export function VideoLesson({
   initialPositionSeconds = 0,
   initialCompleted = false,
 }: VideoLessonProps) {
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const [completed, setCompleted] = useState(initialCompleted)
+  const setLessonProgress = useSetLessonProgress()
+
   const embed = parseLessonVideo(videoId)
   const provider = embed?.provider ?? null
-  const resumeAt = !initialCompleted && initialPositionSeconds > 0 ? Math.floor(initialPositionSeconds) : 0
-  const embedUrl =
-    embed && provider === "youtube" && resumeAt > 0 ? `${embed.embedUrl}?start=${resumeAt}` : embed?.embedUrl
-  const youtubeId = embed && provider === "youtube" ? youtubeVideoId(embed.embedUrl) : null
+  // YouTube's IFrame API needs this to let us listen for play state and
+  // seek to the saved position — Vimeo's player library works against the
+  // plain embed URL, no query param needed.
+  const trackableEmbedUrl =
+    embed && provider === "youtube" ? `${embed.embedUrl}?enablejsapi=1` : embed?.embedUrl
 
+  useLessonVideoProgress({
+    lessonId,
+    provider,
+    iframeRef,
+    initialPositionSeconds,
+    initialCompleted,
+  })
+
+  // Loom and Google Drive don't expose a playback API we can listen to, so
+  // there's no reliable "actually watched it" signal — offer an explicit
+  // control instead of silently never completing. Not shown when there's
+  // no lessonId to track against (admin preview).
   const needsManualComplete = !!lessonId && (provider === "loom" || provider === "gdrive")
-  const completed = initialCompleted
+
+  const handleMarkWatched = () => {
+    if (!lessonId) return
+    setCompleted(true)
+    setLessonProgress(lessonId, "completed")
+    reportLessonProgress(lessonId, 0, true)
+  }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-bc-6">
       {/* Video player - full width */}
-      {embedUrl ? (
+      {trackableEmbedUrl ? (
         <div className="aspect-video bg-black rounded-bc-lg overflow-hidden">
-          {youtubeId ? (
-            // Resume position rides along as the facade's start parameter.
-            <YouTubeFacade videoId={youtubeId} title="Lesson video" start={resumeAt} sandbox={VIDEO_IFRAME_SANDBOX} className="h-full" />
-          ) : (
-            <iframe
-              src={embedUrl}
-              className="w-full h-full"
-              sandbox={VIDEO_IFRAME_SANDBOX}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          )}
+          <iframe
+            ref={iframeRef}
+            src={trackableEmbedUrl}
+            className="w-full h-full"
+            sandbox={VIDEO_IFRAME_SANDBOX}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
         </div>
       ) : (
         <div className="rounded-bc-lg border border-border p-6 text-sm text-muted-foreground">
@@ -114,12 +128,10 @@ export function VideoLesson({
               Watched
             </span>
           ) : (
-            <ReadOnlyHint>
-              <Button variant="outline" size="sm" disabled>
-                <CheckCircle2 className="h-4 w-4 mr-2" />
-                Mark as watched
-              </Button>
-            </ReadOnlyHint>
+            <Button variant="outline" size="sm" onClick={handleMarkWatched}>
+              <CheckCircle2 className="h-4 w-4 mr-2" />
+              Mark as watched
+            </Button>
           )}
         </div>
       )}

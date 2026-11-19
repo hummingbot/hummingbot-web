@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
 import {
   ArrowRight,
   CheckCircle2,
@@ -73,22 +74,42 @@ interface CourseBundleDialogProps {
 
 export function CourseBundleDialog({ trigger }: CourseBundleDialogProps) {
   const router = useRouter()
-  // No sign-in on this site: always the signed-out view.
-  const session = null
+  const { data: session } = useSession()
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const cohortLandingHref = "/cohorts/cohort13/landing"
 
-  // Botcamp starts a Stripe checkout via POST /api/checkout, which answers a
-  // signed-out visitor with 401 and sends them to sign up. Nobody is signed in
-  // here, so the button goes straight to that sign-up step.
-  const handleBuy = () => {
+  const handleBuy = async () => {
     setIsLoading(true)
     setError(null)
-    const callbackUrl = encodeURIComponent(window.location.pathname)
-    router.push(`/signup?callbackUrl=${callbackUrl}`)
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "course-bundle" }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          const callbackUrl = encodeURIComponent(window.location.pathname)
+          router.push(`/signup?callbackUrl=${callbackUrl}`)
+          return
+        }
+        throw new Error(data.error || "Failed to start checkout")
+      }
+
+      if (!data.url) throw new Error("No checkout URL received")
+      window.location.href = data.url
+    } catch (err) {
+      console.error("Bundle checkout error:", err)
+      setError(err instanceof Error ? err.message : "Failed to start checkout")
+      setIsLoading(false)
+    }
   }
 
   return (

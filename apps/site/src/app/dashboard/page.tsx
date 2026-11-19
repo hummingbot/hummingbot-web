@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import { advanceDueHackathonStages } from "@/botcamp/lib/hackathon-stage-advance"
 import { prisma } from "@/botcamp/lib/prisma"
 import { botcampPublicAssetUrl } from "@/botcamp/lib/botcamp-assets"
 import { agentHoldingReviewSlot } from "@/botcamp/lib/agent-upload"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { Card, CardContent, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
 import { Button } from "@/botcamp/components/ui/button"
 import { StatusBadge } from "@/botcamp/components/ui/status-badge"
@@ -35,8 +36,7 @@ export const metadata = {
 const INTRO_COURSE_SLUG = "intro-to-algo-trading"
 
 async function getDashboardData(userId: string, { includeUnlockedCourses = false } = {}) {
-  // Botcamp advances the hackathon stage here (advanceDueHackathonStages, a
-  // database write). The read-only preview shows the stage last saved.
+  await advanceDueHackathonStages()
   const [enrollments, user, agentInReview, introCourse, unlockedCourses, strategyCount, openHackathon] = await Promise.all([
     prisma.enrollment.findMany({
       where: { userId },

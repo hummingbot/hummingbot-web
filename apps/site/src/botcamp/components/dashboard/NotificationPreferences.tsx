@@ -4,7 +4,6 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { Card, CardContent } from "@/botcamp/components/ui/card"
 import { Switch } from "@/botcamp/components/ui/switch"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 type Prefs = {
   emailMarketing: boolean
@@ -49,7 +48,6 @@ const ALWAYS_ON = [
 export function NotificationPreferences({ initial }: { initial: Prefs }) {
   const [prefs, setPrefs] = useState<Prefs>(initial)
   const [saving, setSaving] = useState<keyof Prefs | null>(null)
-  void saving // read-only preview: the switches are always disabled
 
   async function update(key: keyof Prefs, value: boolean) {
     const previous = prefs[key]
@@ -95,11 +93,12 @@ export function NotificationPreferences({ initial }: { initial: Prefs }) {
                 <p className="font-medium leading-none">{t.title}</p>
                 <p className="text-sm text-muted-foreground">{t.description}</p>
               </div>
-              <ReadOnlyHint><Switch
+              <Switch
                 checked={prefs[t.key]}
+                disabled={saving === t.key}
                 onCheckedChange={(v) => update(t.key, v)}
                 aria-label={t.title}
-                disabled /></ReadOnlyHint>
+              />
             </div>
           ))}
         </CardContent>
@@ -119,11 +118,12 @@ export function NotificationPreferences({ initial }: { initial: Prefs }) {
                   Opt in here and we&apos;ll add you to the list.
                 </p>
               </div>
-              <ReadOnlyHint><Switch
+              <Switch
                 checked={prefs.newsletterSubscribed}
+                disabled={saving === "newsletterSubscribed"}
                 onCheckedChange={(v) => update("newsletterSubscribed", v)}
                 aria-label="Hummingbot newsletter"
-                disabled /></ReadOnlyHint>
+              />
             </div>
           </CardContent>
         </Card>

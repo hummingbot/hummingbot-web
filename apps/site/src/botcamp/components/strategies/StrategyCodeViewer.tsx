@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { Button } from '@/botcamp/components/ui/button'
@@ -19,7 +19,6 @@ import {
 import { cn } from '@/botcamp/lib/utils'
 import { formatFileSize } from '@/botcamp/lib/format'
 import { alertColors } from '@/botcamp/lib/design-constants'
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface StrategyFile {
   id: string
@@ -102,14 +101,33 @@ function CodeContent({
   file: StrategyFile
   strategySlug: string
 }) {
-  const [content] = useState<string | null>(null)
-  const [loading] = useState(false)
-  const [error] = useState<string | null>(null)
+  const [content, setContent] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
 
-  // Read-only preview: strategy code is never served here (Botcamp fetches it
-  // from /api/strategies/[slug]/files/[id]/content, behind its sign-in).
+  useEffect(() => {
+    const fetchContent = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const response = await fetch(`/api/strategies/${strategySlug}/files/${file.id}/content`)
+        if (!response.ok) {
+          const data = await response.json()
+          throw new Error(data.error || 'Failed to load file')
+        }
+        const data = await response.json()
+        setContent(data.content)
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load file')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchContent()
+  }, [file.id, strategySlug])
 
   const handleCopy = useCallback(async () => {
     if (!content) return
@@ -157,14 +175,6 @@ function CodeContent({
     )
   }
 
-  if (content === null) {
-    return (
-      <div className="px-4 py-12 text-center text-sm text-muted-foreground">
-        Code isn&apos;t shown in the read-only preview.
-      </div>
-    )
-  }
-
   const language = getLanguageFromFilename(file.filename)
   const lineCount = content ? content.split('\n').length : 0
   const showCollapse = lineCount > 50
@@ -206,16 +216,16 @@ function CodeContent({
               )}
             </Button>
           )}
-          <ReadOnlyHint><Button variant="ghost" size="sm" onClick={handleCopy} disabled>
+          <Button variant="ghost" size="sm" onClick={handleCopy}>
             {copied ? (
               <Check className="h-4 w-4 text-green-500" />
             ) : (
               <Copy className="h-4 w-4" />
             )}
-          </Button></ReadOnlyHint>
-          <ReadOnlyHint><Button variant="ghost" size="sm" onClick={handleDownload} disabled>
+          </Button>
+          <Button variant="ghost" size="sm" onClick={handleDownload}>
             <Download className="h-4 w-4" />
-          </Button></ReadOnlyHint>
+          </Button>
         </div>
       </div>
 
@@ -383,14 +393,14 @@ export function StrategyCodeViewer({
                     )}
                   </div>
                 </div>
-                <ReadOnlyHint><Button
+                <Button
                   variant="outline"
                   size="sm"
                   onClick={() => handleDownload(file)}
-                  disabled>
+                >
                   <Download className="h-4 w-4 mr-2" />
                   Download
-                </Button></ReadOnlyHint>
+                </Button>
               </div>
             ))}
           </div>

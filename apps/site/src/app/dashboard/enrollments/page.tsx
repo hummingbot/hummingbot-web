@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { prisma } from "@/botcamp/lib/prisma"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { formatDate, formatDuration } from "@/botcamp/lib/format"
 import { calculateTotalLessons, calculateTotalDuration } from "@/botcamp/lib/calculations"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/botcamp/components/ui/card"

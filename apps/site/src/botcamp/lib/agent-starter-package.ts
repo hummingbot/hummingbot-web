@@ -4,7 +4,6 @@
  * builder starting from nothing gets every file in the right place.
  *
  *   example_pmm_agent/
- *     README.md                                          what each file does
  *     AGENT.md                                           name, description, agent_key, tools
  *     shutdown.md                                        what a wind-down closes (on_kill_switch)
  *     loops/main/loop.md                                 skills, default_config (bot_name, capital)
@@ -13,12 +12,14 @@
  *     controllers/example_pmm/CONTROLLER.md              its type and description
  *     controllers/example_pmm/sample_configs/default.yml its config (connector, pair, capital)
  *     routines/                                          optional helper scripts
+ *     docs/README.md                                     what each file does
  *
- * Only controllers/, loops/, routines/, skills/ and root files make it into
- * Condor (condorLeavesOut in agent-package.ts), so there is no conf/ and no
- * loops/<loop>/config.yml. Controllers use Condor's controllers/<name>/
- * folder, the only one it discovers. agent-starter-package.test.ts keeps the
- * package passing validateAgentPackage.
+ * It follows the agent structure exactly (structureIssue in
+ * agent-package.ts), which refuses anything else: no conf/, no
+ * loops/<loop>/config.yml, and the README lives in docs/, not at the top.
+ * Controllers use Condor's controllers/<name>/ folder, the only one it
+ * discovers. agent-starter-package.test.ts keeps the package passing
+ * validateAgentPackage.
  *
  * The strategy is deliberately plain — a two-sided market maker, the same
  * shape as Hummingbot's stock pmm_simple — so the package shows how the
@@ -83,6 +84,7 @@ export function starterAgentFileRoles(v: StarterAgentValues): Array<{ path: stri
       role: "The controller's config: market, spreads, sizing, barriers",
     },
     { path: "routines/", role: "Optional Python helpers the loop can call" },
+    { path: "docs/README.md", role: "Notes about the agent, for people — Condor never loads docs/" },
   ]
 }
 
@@ -323,6 +325,35 @@ class ExamplePMMController(MarketMakingControllerBase):
 `
 }
 
+/**
+ * The README section on what a package may contain — the structure check
+ * (structureIssue in agent-package.ts) — shared by the starter agent and the
+ * hackathon starter kit so the two never drift.
+ */
+export const STARTER_STRUCTURE_SECTION = `## What the package may contain
+
+Uploads are checked against a fixed structure. Anything else refuses the
+upload, with the list of files to remove.
+
+\`\`\`
+AGENT.md                                   required
+shutdown.md · reflect.md · core_rules.md   optional
+loops/<loop>/loop.md                       + optional shutdown.md
+skills/<skill>/SKILL.md                    + other .md files the skill refers to
+routines/<routine>.py
+controllers/<name>/<name>.py               + CONTROLLER.md, sample_configs/<style>.yml
+docs/**/*.md                               notes for people, like this README
+\`\`\`
+
+So no README or \`PROFILE.yml\` at the top, no \`conf/\`, no loop
+\`config.yml\`, no \`tests/\`, and no Hummingbot
+\`controllers/<type>/<name>.py\`. Keep controller configs in
+\`sample_configs/\`, and never name a style \`config\`.`
+
+/** Checklist lines for the structure, shared like STARTER_STRUCTURE_SECTION. */
+export const STARTER_STRUCTURE_CHECKLIST = `- [ ] Only the files above: nothing else at the top of the folder, and no other folders
+- [ ] Every loop, skill and controller folder has its \`loop.md\`, \`SKILL.md\` or \`<name>.py\``
+
 function readme(v: StarterAgentValues): string {
   const table = starterAgentFileRoles(v)
     .map(({ path, role }) => `| \`${path}\` | ${role} |`)
@@ -346,10 +377,7 @@ folder name, file name and every config's \`controller_name\` are the same
 server as \`${STARTER_CONTROLLER}__${v.style}\` and deploys the bot named
 \`bot_name\` with it.
 
-Condor installs only \`controllers/\`, \`loops/\`, \`routines/\`, \`skills/\`
-and files at the top of the folder. Anything else — a \`conf/\` folder, a
-loop's \`config.yml\`, \`tests/\` — is left out when you upload, so keep
-controller configs in \`sample_configs/\`. Never name a style \`config\`.
+${STARTER_STRUCTURE_SECTION}
 
 ## Make it yours
 
@@ -377,8 +405,7 @@ controller configs in \`sample_configs/\`. Never name a style \`config\`.
 - [ ] Every controller is \`controllers/<name>/<name>.py\`, and its configs' \`controller_name\` is \`<name>\`
 - [ ] Every skill in a loop's \`skills:\` has its \`skills/<skill>/SKILL.md\`
 - [ ] \`shutdown.md\` is at the top of the folder
-- [ ] Nothing outside \`controllers/\`, \`loops/\`, \`routines/\`, \`skills/\` and top-level files
-- [ ] Text files only: Markdown, YAML, Python, JSON
+${STARTER_STRUCTURE_CHECKLIST}
 - [ ] No API keys, secrets, \`.env\` files, private keys or wallet recovery phrases anywhere
 
 ## How to submit
@@ -399,7 +426,7 @@ export function buildStarterAgent(
   readmeMd: string = readme(values),
 ): StarterPackageFile[] {
   return [
-    { path: "README.md", content: readmeMd },
+    { path: "docs/README.md", content: readmeMd },
     { path: "AGENT.md", content: agentMd(values) },
     { path: "shutdown.md", content: shutdownMd(values) },
     { path: "loops/main/loop.md", content: loopMd(values) },

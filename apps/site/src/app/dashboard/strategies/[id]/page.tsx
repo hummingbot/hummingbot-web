@@ -1,12 +1,10 @@
-import { notFound } from "next/navigation"
-import { auth } from "@/botcamp/lib/preview-session"
+import { notFound, redirect } from "next/navigation"
+import { auth } from "@/botcamp/lib/auth"
 import { prisma } from "@/botcamp/lib/prisma"
 import { getHackathonEditState } from "@/botcamp/lib/strategy-edit"
 import { UserStrategyEditor } from "@/botcamp/components/dashboard/UserStrategyEditor"
 import { readPageSuggestions } from "@/botcamp/lib/agent-page-suggestions"
 import type { AgentReviewRecord } from "@/botcamp/lib/agent-review"
-import { forAuthor, versionSelect } from "@/botcamp/lib/agent-upload"
-import { getHackathonApplyEligibility, getStrategyOptions } from "@/botcamp/lib/dashboard-preview-data"
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -102,7 +100,7 @@ export default async function UserStrategyEditPage({ params }: PageProps) {
   const session = await auth()
 
   if (!session?.user?.id) {
-    notFound()
+    redirect("/signin")
   }
 
   const strategyId = parseInt(id)
@@ -116,7 +114,7 @@ export default async function UserStrategyEditPage({ params }: PageProps) {
     notFound()
   }
 
-  const [hackathonEdit, newestVersion, strategyOptions, hackathonApply, agentVersions] = await Promise.all([
+  const [hackathonEdit, newestVersion] = await Promise.all([
     getHackathonEditState(strategy.id),
     // The agent's state in the editor follows its newest version's review.
     prisma.agentVersion.findFirst({
@@ -124,16 +122,6 @@ export default async function UserStrategyEditPage({ params }: PageProps) {
       orderBy: { version: "desc" },
       select: { version: true, status: true, reviewNote: true, aiReview: true },
     }),
-    // Read-only preview: what the editor fetches on mount in Botcamp.
-    getStrategyOptions(),
-    getHackathonApplyEligibility(session.user.id),
-    strategy.strategyType === "AGENT"
-      ? prisma.agentVersion.findMany({
-          where: { strategyId: strategy.id },
-          select: versionSelect,
-          orderBy: { version: "desc" },
-        })
-      : Promise.resolve([]),
   ])
   // What the author sees of a review, as in the package card (forAuthor):
   // what to fix only on a rejection, never the reviewer's own findings.
@@ -157,24 +145,6 @@ export default async function UserStrategyEditPage({ params }: PageProps) {
           pageSuggestions: readPageSuggestions(strategy.pageSuggestions),
         }}
         hackathonEdit={hackathonEdit}
-        strategyOptions={strategyOptions}
-        hackathonApply={hackathonApply}
-        agentVersions={agentVersions.map((v) => {
-          const version = forAuthor(v)
-          return {
-            id: version.id,
-            version: version.version,
-            status: version.status,
-            source: version.source,
-            sourceRef: version.sourceRef,
-            sha256: version.sha256,
-            fileCount: version.fileCount,
-            warnings: (version.warnings ?? []) as { path?: string; message: string }[],
-            reviewNote: version.reviewNote,
-            feedback: version.feedback,
-            createdAt: version.createdAt.toISOString(),
-          }
-        })}
       />
     </div>
   )

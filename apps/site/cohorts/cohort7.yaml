@@ -1,0 +1,10 @@
+# Botcamp Cohort 7 Data
+# Completed Cohort - May 2024
+
+cohort:
+  number: 7
+  status: completed
+  startDate: "2024-04-07"
+  endDate: "2024-05-11"
+  description: "Cohort 7 focused on developing robust trading strategies using the Hummingbot framework. Participants learned market making theory, technical implementation, and best practices for managing trading operations."
+  demoDayURL: "https://www.youtube.com/watch?v=TAulqoSenmk"

@@ -10,7 +10,6 @@ import { LocationInput } from "@/botcamp/components/ui/location-input"
 import { SponsorSelect, type SponsorOption } from "./SponsorSelect"
 import { SponsorBadge } from "./SponsorBadge"
 import { getAvatarGradient } from "@/botcamp/lib/avatar"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface RegistrationProfileCardProps {
   firstName: string | null
@@ -138,10 +137,10 @@ export function RegistrationProfileCard({
         <LocationInput value={loc} onChange={setLoc} disabled={saving} />
         {error && <p className="text-xs text-destructive">{error}</p>}
         <div className="flex gap-2">
-          <ReadOnlyHint><Button size="sm" onClick={save} disabled>
+          <Button size="sm" onClick={save} disabled={saving}>
             {saving ? <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> : <Check className="mr-1 h-3.5 w-3.5" />}
             Save
-          </Button></ReadOnlyHint>
+          </Button>
           <Button size="sm" variant="ghost" onClick={() => { setEditing(false); setError(null) }} disabled={saving}>
             <X className="mr-1 h-3.5 w-3.5" />
             Cancel
@@ -184,10 +183,10 @@ export function RegistrationProfileCard({
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <ReadOnlyHint><Button size="sm" variant="outline" onClick={() => setEditing(true)} disabled>
+        <Button size="sm" variant="outline" onClick={() => setEditing(true)}>
           <Pencil className="mr-1 h-3.5 w-3.5" />
           Edit name & tagline
-        </Button></ReadOnlyHint>
+        </Button>
         <Button size="sm" variant="ghost" asChild>
           <Link href="/dashboard/profile">
             <Settings className="mr-1 h-3.5 w-3.5" />
@@ -213,14 +212,14 @@ export function RegistrationProfileCard({
               />
               {sponsorError && <p className="text-xs text-destructive">{sponsorError}</p>}
               <div className="flex gap-2">
-                <ReadOnlyHint><Button size="sm" onClick={saveSponsor} disabled>
+                <Button size="sm" onClick={saveSponsor} disabled={sponsorSaving}>
                   {sponsorSaving ? (
                     <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" />
                   ) : (
                     <Check className="mr-1 h-3.5 w-3.5" />
                   )}
                   Save
-                </Button></ReadOnlyHint>
+                </Button>
                 <Button
                   size="sm"
                   variant="ghost"
@@ -250,10 +249,10 @@ export function RegistrationProfileCard({
                 <span className="text-sm text-muted-foreground">No sponsor selected</span>
               )}
               {!sponsorLocked && (
-                <ReadOnlyHint><Button size="sm" variant="ghost" onClick={() => setSponsorEditing(true)} disabled>
+                <Button size="sm" variant="ghost" onClick={() => setSponsorEditing(true)}>
                   <Pencil className="mr-1 h-3.5 w-3.5" />
                   {currentSponsor ? "Change" : "Choose sponsor"}
-                </Button></ReadOnlyHint>
+                </Button>
               )}
             </div>
           )}

@@ -13,9 +13,8 @@ import { ApplicationReviewShell } from "@/botcamp/components/hackathons/Applicat
 import { ApplicantCard } from "@/botcamp/components/hackathons/ApplicantCard"
 import { StrategyReviewCard } from "@/botcamp/components/hackathons/StrategyReviewCard"
 import { TeamNoteCard } from "@/botcamp/components/hackathons/TeamNoteCard"
-import { StrategyComments, type Comment } from "@/botcamp/components/strategies/StrategyComments"
+import { StrategyComments } from "@/botcamp/components/strategies/StrategyComments"
 import type { ReviewApplicant, ReviewStrategy } from "@/botcamp/components/hackathons/application-review"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 type ApplicationStatus = "DRAFT" | "FINALIZED" | "REVIEWED"
 
@@ -50,8 +49,6 @@ interface ApplicationReviewerProps {
   maxSelections: number
   /** Base path of the team administration view, e.g. "/dashboard/team" or "/admin/teams/<id>". */
   basePath: string
-  /** Read-only preview: the strategy's comments, read on the server. */
-  comments: Comment[]
 }
 
 export function ApplicationReviewer({
@@ -63,11 +60,9 @@ export function ApplicationReviewer({
   selectedCount,
   maxSelections,
   basePath,
-  comments,
 }: ApplicationReviewerProps) {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  void isSubmitting // read-only preview: the actions are always disabled
   const [teamNote, setTeamNote] = useState(application.teamNote || "")
   const [error, setError] = useState<string | null>(null)
 
@@ -161,13 +156,14 @@ export function ApplicationReviewer({
             onChange={setTeamNote}
             placeholder="Add a note about this application (internal use only)..."
             footer={
-              <ReadOnlyHint><Button
+              <Button
                 variant="outline"
                 size="sm"
                 onClick={saveNote}
-                disabled>
+                disabled={isSubmitting || teamNote === (application.teamNote || "")}
+              >
                 Save Note
-              </Button></ReadOnlyHint>
+              </Button>
             }
           />
         </>
@@ -183,13 +179,16 @@ export function ApplicationReviewer({
             <CardContent className="space-y-bc-3">
               {!isSelected ? (
                 <>
-                  <ReadOnlyHint block><Button
+                  <Button
                     className="w-full"
                     onClick={handleSelect}
-                    disabled>
+                    disabled={
+                      isSubmitting || isFull || application.status === "DRAFT" || !selectionsOpen
+                    }
+                  >
                     <CheckCircle className="mr-2 h-4 w-4" />
                     Select Agent
-                  </Button></ReadOnlyHint>
+                  </Button>
                   {!selectionsOpen && (
                     <p className="text-xs text-muted-foreground text-center">
                       {selectionClosedReason(hackathonStatus)}
@@ -212,14 +211,15 @@ export function ApplicationReviewer({
                     <CheckCircle className="mr-2 h-4 w-4" />
                     Selected
                   </Button>
-                  <ReadOnlyHint block><Button
+                  <Button
                     variant="ghost"
                     className="w-full"
                     onClick={handleDeselect}
-                    disabled>
+                    disabled={isSubmitting || !selectionsOpen}
+                  >
                     <Undo className="mr-2 h-4 w-4" />
                     Deselect
-                  </Button></ReadOnlyHint>
+                  </Button>
                 </>
               )}
             </CardContent>
@@ -236,7 +236,7 @@ export function ApplicationReviewer({
             </CardContent>
           </Card>
 
-          {strategy && <StrategyComments strategySlug={strategy.slug} initialComments={comments} />}
+          {strategy && <StrategyComments strategySlug={strategy.slug} />}
         </>
       }
     />

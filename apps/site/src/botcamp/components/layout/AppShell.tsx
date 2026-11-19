@@ -2,11 +2,10 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Eye, PanelLeft } from "lucide-react"
+import { PanelLeft } from "lucide-react"
 import { Sheet, SheetContent } from "@/botcamp/components/ui/sheet"
 import { cn } from "@/botcamp/lib/utils"
 import type { BreadcrumbCrumb } from "@/botcamp/components/learn/types"
-import { READ_ONLY_TITLE, useSession } from "@/botcamp/lib/preview-session-client"
 
 interface SidebarRenderOpts {
   onToggle: () => void
@@ -16,8 +15,8 @@ interface SidebarRenderOpts {
 /**
  * Botcamp's dashboard chrome (AppShell), under this site's SiteHeader. Botcamp
  * slots the sidebar toggle + breadcrumb into its own header (LearnHeader);
- * here the site header stays as it is, so they sit in a slim bar under it,
- * together with the read-only preview notice. The sidebar rail starts below
+ * here the site header stays as it is, so they sit in a slim bar under it.
+ * The sidebar rail starts below
  * the 4rem site header instead of at the top of the window.
  */
 export function AppShell({
@@ -95,7 +94,7 @@ export function AppShell({
   )
 }
 
-/** Sidebar toggle + breadcrumb (Botcamp's LearnHeader left slot) and the preview notice. */
+/** Sidebar toggle + breadcrumb (Botcamp's LearnHeader left slot). */
 function CrumbBar({
   crumbs,
   onToggleSidebar,
@@ -105,8 +104,6 @@ function CrumbBar({
   onToggleSidebar: () => void
   sidebarVisibleOnDesktop: boolean
 }) {
-  const { data: session } = useSession()
-  const viewer = session?.user.name || session?.user.email
   return (
     <div className="flex h-12 items-center gap-3 border-b border-border/50 px-6 lg:px-8">
       <div className="flex min-w-0 items-center gap-x-2">
@@ -123,20 +120,6 @@ function CrumbBar({
         </button>
         <Crumbs crumbs={crumbs} />
       </div>
-      {/* Only on the preview's pages; the public cohort overview has no viewer. */}
-      {session && (
-      <p
-        className="ml-auto flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-card/60 px-1.5 py-1 font-mono text-[11px] text-muted-foreground sm:min-w-0 sm:shrink sm:px-2.5 sm:py-0.5"
-        title={`${READ_ONLY_TITLE}: nothing here can be saved or changed`}
-      >
-        <Eye className="h-3 w-3 shrink-0" aria-hidden="true" />
-        {/* Phones show the eye alone; the label stays for screen readers. */}
-        <span className="max-sm:sr-only sm:truncate">
-          {READ_ONLY_TITLE}
-          {viewer && <span className="max-sm:hidden"> · viewing as {viewer}</span>}
-        </span>
-      </p>
-      )}
     </div>
   )
 }

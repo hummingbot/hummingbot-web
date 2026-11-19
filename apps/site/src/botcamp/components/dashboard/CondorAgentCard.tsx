@@ -10,7 +10,7 @@ interface CondorAgentCardProps {
    * The agent holding this person's one review slot (agentHoldingReviewSlot),
    * if any: then the card follows that review instead of inviting another.
    */
-  holder: { strategyId: number; title: string; status: string } | null
+  holder: { strategyId: number; title: string; status: string; version: number; live: boolean } | null
 }
 
 /**
@@ -27,12 +27,16 @@ export function CondorAgentCard({ holder }: CondorAgentCardProps): React.JSX.Ele
     ? "Publish a Condor Agent"
     : rejected
       ? `${holder.title} wasn't approved`
-      : `${holder.title} is in review`
+      : holder.live
+        ? `${holder.title} v${holder.version} is in review`
+        : `${holder.title} is in review`
   const description = !holder
     ? "Upload your agent's folder. It's checked right away, then reviewed, and once approved anyone can clone it from Condor's Hub."
     : rejected
       ? "See what to fix, then upload a new version. You can publish another agent once this one is approved."
-      : "You'll get an email as it moves through review. You can publish another agent once this one is approved."
+      : holder.live
+        ? "The approved version stays live in Condor meanwhile. You'll get an email as it moves through review, and you can publish another agent once it's decided."
+        : "You'll get an email as it moves through review. You can publish another agent once this one is approved."
 
   return (
     <Card
@@ -69,7 +73,7 @@ export function CondorAgentCard({ holder }: CondorAgentCardProps): React.JSX.Ele
             <Button asChild>
               <Link href="/dashboard/agents/new">
                 <Plus className="mr-2 h-4 w-4" />
-                Publish Your Agent
+                Publish Your Strategy
               </Link>
             </Button>
             {/* The same dialog as /strategies; the starter agent is in it. */}

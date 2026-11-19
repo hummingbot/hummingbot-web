@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { prisma } from "@/botcamp/lib/prisma"
 import { CURRENT_HACKATHON_STATUSES } from "@/botcamp/lib/hackathon-stages"
 import { getEffectiveMembership } from "@/botcamp/lib/utils"

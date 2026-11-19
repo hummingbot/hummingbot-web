@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { prisma } from "@/botcamp/lib/prisma"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { formatDate } from "@/botcamp/lib/format"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
 import { Button } from "@/botcamp/components/ui/button"

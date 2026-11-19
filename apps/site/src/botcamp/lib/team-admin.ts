@@ -46,6 +46,30 @@ export async function getRelevantHackathonForTeam(teamId: string) {
   })
 }
 
+/**
+ * Whether a sponsor team may review an application: it ranked the team and
+ * has been submitted, or the team already selected it. A DRAFT is still the
+ * builder's work in progress — no team sees it (or its code) before they
+ * finalize. The same rule as canTeamReviewStrategy, for one team.
+ */
+export function teamCanReviewApplication(
+  application: { status: string; teamPreferences: string[]; selectedTeamId: string | null },
+  teamId: string,
+): boolean {
+  if (application.selectedTeamId === teamId) return true
+  return application.status !== "DRAFT" && application.teamPreferences.includes(teamId)
+}
+
+/** teamCanReviewApplication as a Prisma filter, for listings. */
+export function teamReviewableApplicationsWhere(teamId: string) {
+  return {
+    OR: [
+      { selectedTeamId: teamId },
+      { status: { not: "DRAFT" as const }, teamPreferences: { has: teamId } },
+    ],
+  }
+}
+
 export async function getTeamApplicants(teamId: string, hackathonId: string) {
   const applications = await prisma.application.findMany({
     where: {
@@ -146,8 +170,8 @@ function isTextFile(mimeType: string | null, filename: string): boolean {
 
 /**
  * Everything ApplicationReviewer needs to review one application on behalf of
- * a team. Returns null unless the application ranked this team — a team can
- * only review applications that actually applied to it.
+ * a team. Returns null unless the team may review it (teamCanReviewApplication):
+ * submitted and ranking this team, or already selected by it.
  */
 export async function getTeamApplicationReview(applicationId: string, teamId: string) {
   const application = await prisma.application.findUnique({
@@ -202,10 +226,16 @@ export async function getTeamApplicationReview(applicationId: string, teamId: st
       scores: {
         select: { score: true },
       },
+      // Only this team's own note — every ranked team reviews the same
+      // application and none may read another's.
+      teamNotes: {
+        where: { teamId },
+        select: { note: true },
+      },
     },
   })
 
-  if (!application || !application.teamPreferences.includes(teamId)) {
+  if (!application || !teamCanReviewApplication(application, teamId)) {
     return null
   }
 
@@ -248,7 +278,7 @@ export async function getTeamApplicationReview(applicationId: string, teamId: st
     application: {
       id: application.id,
       status: application.status,
-      teamNote: application.teamNote,
+      teamNote: application.teamNotes[0]?.note ?? null,
       adminNote: application.adminNote,
       scoreSummary: summarizeScoresForSponsor(application.scores),
       teamPreferences: application.teamPreferences,

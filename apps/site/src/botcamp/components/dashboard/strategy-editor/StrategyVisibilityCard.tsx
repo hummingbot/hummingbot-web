@@ -11,7 +11,6 @@ import {
 } from "@/botcamp/components/ui/select"
 import { Save, Loader2 } from "lucide-react"
 import type { Visibility } from "@/botcamp/types"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface StrategyVisibilityCardProps {
   visibility: Visibility
@@ -44,14 +43,14 @@ export function StrategyVisibilityCard({
             <SelectItem value="PRIVATE">Private</SelectItem>
           </SelectContent>
         </Select>
-        <ReadOnlyHint block><Button onClick={onSave} className="w-full" disabled>
+        <Button onClick={onSave} disabled={isLoading} className="w-full">
           {isLoading ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : (
             <Save className="mr-2 h-4 w-4" />
           )}
           Save Visibility
-        </Button></ReadOnlyHint>
+        </Button>
       </CardContent>
     </Card>
   )

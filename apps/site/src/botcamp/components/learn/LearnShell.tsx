@@ -23,9 +23,9 @@ interface LearnShellProps {
 
 /**
  * Botcamp's learn shell (outline sidebar + breadcrumb header), on the same
- * chrome as the dashboard preview: AppShell keeps this site's SiteHeader on
- * top and puts the sidebar toggle + breadcrumb (Botcamp's LearnHeader) in a
- * slim bar under it, with the read-only notice. The lesson outline is
+ * chrome as the dashboard: AppShell keeps this site's SiteHeader on top and
+ * puts the sidebar toggle + breadcrumb (Botcamp's LearnHeader) in a slim bar
+ * under it. The lesson outline is
  * Botcamp's LearnSidebar, unchanged.
  */
 export function LearnShell({

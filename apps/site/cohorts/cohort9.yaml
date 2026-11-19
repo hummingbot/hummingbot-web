@@ -1,0 +1,10 @@
+# Botcamp Cohort 9 Data
+# Completed Cohort - July 2024
+
+cohort:
+  number: 9
+  status: completed
+  startDate: "2024-08-01"
+  endDate: "2024-09-04"
+  description: "Cohort 9 participants learned to build, deploy, and profit from crypto market making strategies using Hummingbot. The cohort covered strategy development, risk management, and operational best practices."
+  demoDayURL: "https://www.youtube.com/watch?v=b2BL-gCqKYI"

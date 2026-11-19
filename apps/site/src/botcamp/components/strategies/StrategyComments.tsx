@@ -1,15 +1,12 @@
 'use client'
 
 /* eslint-disable @next/next/no-img-element -- as in Botcamp: images from its API */
-
-import { useState} from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/botcamp/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/botcamp/components/ui/select'
 import { MessageSquare, Send, Pencil, Trash2, X, Check, Globe, Lock, UserCheck, ChevronDown, ChevronUp } from 'lucide-react'
 import { getAvatarGradient } from '@/botcamp/lib/avatar'
 import { formatRelativeTime } from '@/botcamp/lib/format'
-import { useSession } from '@/botcamp/lib/preview-session-client'
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 type CommentVisibility = 'PUBLIC' | 'AUTHOR' | 'ADMIN'
 
@@ -37,7 +34,7 @@ interface CommentAuthor {
   hasAvatar?: boolean
 }
 
-export interface Comment {
+interface Comment {
   id: string
   content: string
   createdAt: string
@@ -48,8 +45,12 @@ export interface Comment {
 
 interface StrategyCommentsProps {
   strategySlug: string
-  /** Read-only preview: the comments, read on the server (Botcamp fetches them from its API). */
-  initialComments: Comment[]
+  /**
+   * Whether this viewer may post, when the page already knows (the Hub's
+   * strategy page: authors, admins, reviewing sponsors). Left out, the thread
+   * decides from the session as Botcamp's does and learns from a 403.
+   */
+  canPost?: boolean
 }
 
 function getAuthorName(author: CommentAuthor): string {
@@ -91,24 +92,28 @@ function AvatarImage({ author, size = 40 }: { author: CommentAuthor; size?: numb
   )
 }
 
-export function StrategyComments({ strategySlug, initialComments }: StrategyCommentsProps) {
-  const { data: previewSession } = useSession()
-  // Read-only preview: comments come from the server and the viewer from the
-  // preview session; nothing is fetched (Botcamp loads both from its API).
-  const [comments, setComments] = useState<Comment[]>(initialComments)
-  const [loading, setLoading] = useState(false)
+export function StrategyComments({ strategySlug, canPost }: StrategyCommentsProps) {
+  const [comments, setComments] = useState<Comment[]>([])
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [newComment, setNewComment] = useState('')
   const [newVisibility, setNewVisibility] = useState<CommentVisibility>('PUBLIC')
   const [submitting, setSubmitting] = useState(false)
   const [showAllComments, setShowAllComments] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
-  const [canComment, setCanComment] = useState(!!previewSession?.user)
-  const [currentUserId, setCurrentUserId] = useState<string | null>(previewSession?.user.id ?? null)
-  const [currentUserRole, setCurrentUserRole] = useState<string | null>(previewSession?.user.role ?? null)
+  const [canComment, setCanComment] = useState(canPost ?? false)
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
+  const [currentUserRole, setCurrentUserRole] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [editContent, setEditContent] = useState('')
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/immutability -- as in Botcamp (its ESLint predates this rule): runs after render, once both are declared
+    fetchComments()
+    // eslint-disable-next-line react-hooks/immutability -- as in Botcamp (its ESLint predates this rule): runs after render, once both are declared
+    checkSession()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [strategySlug])
 
   const checkSession = async () => {
     try {
@@ -119,7 +124,7 @@ export function StrategyComments({ strategySlug, initialComments }: StrategyComm
           setCurrentUserId(session.user.id)
           setCurrentUserRole(session.user.role)
           // Admins can always comment
-          if (session.user.role === 'ADMIN') {
+          if (canPost === undefined && session.user.role === 'ADMIN') {
             setCanComment(true)
           }
         }
@@ -129,7 +134,7 @@ export function StrategyComments({ strategySlug, initialComments }: StrategyComm
     }
   }
 
-  const fetchCommentsFromApi = async () => {
+  const fetchComments = async () => {
     try {
       setLoading(true)
       const response = await fetch(`/api/strategies/${strategySlug}/comments`)
@@ -150,9 +155,11 @@ export function StrategyComments({ strategySlug, initialComments }: StrategyComm
 
       // Check if user can comment (they'll get 403 when trying if not allowed)
       // For now, we'll let them try and show error if not allowed
-      const session = await fetch('/api/auth/session').then(r => r.json())
-      if (session?.user) {
-        setCanComment(true) // Will be validated server-side
+      if (canPost === undefined) {
+        const session = await fetch('/api/auth/session').then(r => r.json())
+        if (session?.user) {
+          setCanComment(true) // Will be validated server-side
+        }
       }
     } catch (err) {
       console.error('Failed to fetch comments:', err)
@@ -161,10 +168,6 @@ export function StrategyComments({ strategySlug, initialComments }: StrategyComm
       setLoading(false)
     }
   }
-
-  // Botcamp's loaders, unused in the read-only preview.
-  void fetchCommentsFromApi
-  void checkSession
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -356,10 +359,10 @@ export function StrategyComments({ strategySlug, initialComments }: StrategyComm
                           rows={3}
                         />
                         <div className="flex gap-2">
-                          <ReadOnlyHint><Button size="sm" onClick={() => handleEdit(comment.id)} disabled>
+                          <Button size="sm" onClick={() => handleEdit(comment.id)}>
                             <Check className="h-4 w-4 mr-1" />
                             Save
-                          </Button></ReadOnlyHint>
+                          </Button>
                           <Button size="sm" variant="ghost" onClick={cancelEditing}>
                             <X className="h-4 w-4 mr-1" />
                             Cancel
@@ -373,20 +376,20 @@ export function StrategyComments({ strategySlug, initialComments }: StrategyComm
                         </p>
                         {canModifyComment(comment) && (
                           <div className="flex gap-2 mt-2">
-                            <ReadOnlyHint><button
+                            <button
                               onClick={() => startEditing(comment)}
-                              className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 disabled:pointer-events-none disabled:opacity-50"
-                              disabled>
+                              className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
+                            >
                               <Pencil className="h-3 w-3" />
                               Edit
-                            </button></ReadOnlyHint>
-                            <ReadOnlyHint><button
+                            </button>
+                            <button
                               onClick={() => handleDelete(comment.id)}
-                              className="text-xs text-muted-foreground hover:text-destructive flex items-center gap-1 disabled:pointer-events-none disabled:opacity-50"
-                              disabled>
+                              className="text-xs text-muted-foreground hover:text-destructive flex items-center gap-1"
+                            >
                               <Trash2 className="h-3 w-3" />
                               Delete
-                            </button></ReadOnlyHint>
+                            </button>
                           </div>
                         )}
                       </>
@@ -432,10 +435,10 @@ export function StrategyComments({ strategySlug, initialComments }: StrategyComm
                 </SelectContent>
               </Select>
             )}
-            <ReadOnlyHint className="ml-auto"><Button type="submit" disabled>
+            <Button type="submit" disabled={!newComment.trim() || submitting} className="ml-auto">
               <Send className="h-4 w-4 mr-2" />
               {submitting ? 'Posting...' : 'Post Comment'}
-            </Button></ReadOnlyHint>
+            </Button>
           </div>
         </form>
       )}

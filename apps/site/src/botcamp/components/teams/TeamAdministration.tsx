@@ -18,6 +18,7 @@ import {
 import { findRaceWindow, fmtFull, FINALS_SESSION_SLUG } from "@/botcamp/lib/hackathon-stages"
 import { prisma } from "@/botcamp/lib/prisma"
 import { Handshake } from "lucide-react"
+import { advanceDueHackathonStages } from "@/botcamp/lib/hackathon-stage-advance"
 
 export type TeamAdminTeam = Prisma.TeamGetPayload<{ select: typeof teamAdminSelect }>
 
@@ -87,7 +88,7 @@ export async function TeamAdministration({
   manage,
   settings,
 }: TeamAdministrationProps) {
-  // Botcamp advances the hackathon stage first (a write); the read-only preview shows the stage last saved.
+  await advanceDueHackathonStages()
   const hackathon = await getRelevantHackathonForTeam(team.id)
   // Applications open with the Open stage; before that the team can only
   // see who registered with it as their sponsor.

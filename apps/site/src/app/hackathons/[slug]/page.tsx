@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation"
+import { advanceDueHackathonStages } from "@/botcamp/lib/hackathon-stage-advance"
 import { prisma } from "@/botcamp/lib/prisma"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
@@ -73,9 +74,8 @@ interface PageProps {
 }
 
 async function getHackathon(slug: string, { allowDraft = false } = {}) {
-  // Botcamp advances the stage here when the race clock passes it
-  // (advanceDueHackathonStages, a database write). This site only reads, so
-  // the page shows the stage Botcamp last saved.
+  // Advance the stage when the race clock passes it.
+  await advanceDueHackathonStages()
   const hackathon = await prisma.hackathon.findUnique({
     where: { slug },
     select: {

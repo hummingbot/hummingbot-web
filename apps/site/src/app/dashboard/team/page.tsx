@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { prisma } from "@/botcamp/lib/prisma"
 import { resolveBotcampImageUrl } from "@/botcamp/lib/botcamp-assets"
 import { teamAdminSelect } from "@/botcamp/lib/team-admin"

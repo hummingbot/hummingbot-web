@@ -1,7 +1,6 @@
 'use client'
 
 /* eslint-disable @next/next/no-img-element -- as in Botcamp: images from its API */
-
 import { useState, useCallback, useEffect, ReactNode } from 'react'
 import { Button } from '@/botcamp/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/botcamp/components/ui/card'
@@ -10,7 +9,6 @@ import { ImageIcon, Upload, Trash2, Loader2, Lock, X } from 'lucide-react'
 import { cn } from '@/botcamp/lib/utils'
 import { alertColors } from '@/botcamp/lib/design-constants'
 import { formatFileSize } from '@/botcamp/lib/format'
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 export interface StrategyImage {
   id: string
@@ -212,18 +210,19 @@ export function ImageGalleryUpload({
                     </p>
                   </div>
                   {!disabled && (
-                    <ReadOnlyHint><Button
+                    <Button
                       variant="destructive"
                       size="icon"
                       className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity"
                       onClick={() => handleDelete(image.id)}
-                      disabled>
+                      disabled={deletingId === image.id}
+                    >
                       {deletingId === image.id ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
                       ) : (
                         <Trash2 className="h-4 w-4" />
                       )}
-                    </Button></ReadOnlyHint>
+                    </Button>
                   )}
                 </div>
               ))}
@@ -260,12 +259,12 @@ export function ImageGalleryUpload({
                 accept="image/png,image/jpeg,image/svg+xml,image/webp"
                 multiple
                 onChange={handleUpload}
-                disabled
+                disabled={isUploading}
                 className="hidden"
                 id="image-gallery-upload"
               />
-              <ReadOnlyHint><Button asChild disabled>
-                <label htmlFor="image-gallery-upload" className="pointer-events-none opacity-50">
+              <Button asChild disabled={isUploading}>
+                <label htmlFor="image-gallery-upload" className="cursor-pointer">
                   {isUploading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
@@ -273,7 +272,7 @@ export function ImageGalleryUpload({
                   )}
                   Upload Images
                 </label>
-              </Button></ReadOnlyHint>
+              </Button>
             </div>
           )}
 
@@ -285,12 +284,12 @@ export function ImageGalleryUpload({
                 accept="image/png,image/jpeg,image/svg+xml,image/webp"
                 multiple
                 onChange={handleUpload}
-                disabled
+                disabled={isUploading}
                 className="hidden"
                 id="image-gallery-upload-more"
               />
-              <ReadOnlyHint><Button variant="outline" asChild disabled>
-                <label htmlFor="image-gallery-upload-more" className="pointer-events-none opacity-50">
+              <Button variant="outline" asChild disabled={isUploading}>
+                <label htmlFor="image-gallery-upload-more" className="cursor-pointer">
                   {isUploading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
@@ -298,7 +297,7 @@ export function ImageGalleryUpload({
                   )}
                   Add More Images
                 </label>
-              </Button></ReadOnlyHint>
+              </Button>
             </div>
           )}
 

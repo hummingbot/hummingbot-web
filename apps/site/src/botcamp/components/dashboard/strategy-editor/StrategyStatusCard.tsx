@@ -18,7 +18,6 @@ import { strategyStatusColors } from "@/botcamp/lib/design-constants"
 import { cn } from "@/botcamp/lib/utils"
 import { FINALS_CODE_FREEZE_HOURS } from "@/botcamp/lib/hackathon-stages"
 import type { HackathonApplyInfo, HackathonEditInfo } from "./types"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface StrategyStatusCardProps {
   status: StrategyStatus
@@ -145,18 +144,17 @@ export function StrategyStatusCard({
   hackathonApply,
   onApplyToHackathon,
 }: StrategyStatusCardProps) {
-  void canSubmit // read-only preview: Submit is always disabled
   const hackathonNote = getHackathonNote(hackathonEdit)
   const agentState = agentReview ? getAgentState(agentReview.latest, hasApprovedAgentVersion) : null
   const saveButton = canEditContent ? (
-    <ReadOnlyHint block><Button variant="outline" onClick={onSave} className="w-full" disabled>
+    <Button variant="outline" onClick={onSave} disabled={isLoading} className="w-full">
       {isLoading ? (
         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
       ) : (
         <Save className="mr-2 h-4 w-4" />
       )}
       Save Changes
-    </Button></ReadOnlyHint>
+    </Button>
   ) : null
 
   return (
@@ -208,14 +206,15 @@ export function StrategyStatusCard({
               // put it up for cohort certification, the strategy review.
               !agentOnly && (
                 <div className="space-y-bc-1.5">
-                  <ReadOnlyHint block><Button
+                  <Button
                     variant="ghost"
                     onClick={onOpenSubmitDialog}
+                    disabled={isSubmitting || !canSubmit}
                     className="w-full"
-                    disabled>
+                  >
                     {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
                     Submit for Cohort Review
-                  </Button></ReadOnlyHint>
+                  </Button>
                   <p className="text-center text-xs text-muted-foreground">
                     Only for cohort certification. Needs details, a video and an approved agent version.
                   </p>
@@ -228,32 +227,34 @@ export function StrategyStatusCard({
                   : "Your page is hidden until an agent version is approved. Upload your agent in the Condor Agent Package card — each version is reviewed when you upload it."}
               </p>
             ) : (
-              <ReadOnlyHint block><Button
+              <Button
                 onClick={onOpenSubmitDialog}
+                disabled={isSubmitting || !canSubmit}
                 className="w-full"
-                disabled>
+              >
                 {isSubmitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                   <Send className="mr-2 h-4 w-4" />
                 )}
                 Submit for Review
-              </Button></ReadOnlyHint>
+              </Button>
             )}
             {saveButton}
             {status === "DRAFT" && !hasApprovedAgentVersion && (
-              <ReadOnlyHint block><Button
+              <Button
                 variant="outline"
                 onClick={onOpenDiscardDialog}
+                disabled={isDiscarding}
                 className="w-full text-muted-foreground hover:text-destructive hover:border-destructive hover:bg-destructive/5"
-                disabled>
+              >
                 {isDiscarding ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                   <Trash2 className="mr-2 h-4 w-4" />
                 )}
                 Discard Draft
-              </Button></ReadOnlyHint>
+              </Button>
             )}
           </div>
         )}
@@ -280,17 +281,18 @@ export function StrategyStatusCard({
               Your strategy has been approved! Certify to complete your
               certification.
             </p>
-            <ReadOnlyHint block><Button
+            <Button
               onClick={onOpenCertifyDialog}
+              disabled={isCertifying}
               className="w-full bg-metric-purple hover:bg-metric-purple/90"
-              disabled>
+            >
               {isCertifying ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
                 <Award className="mr-2 h-4 w-4" />
               )}
               Certify Strategy
-            </Button></ReadOnlyHint>
+            </Button>
             {saveButton}
           </div>
         )}
@@ -321,14 +323,14 @@ export function StrategyStatusCard({
         {status === "CERTIFIED" && saveButton}
 
         {hackathonApply && (
-          <ReadOnlyHint block><Button
+          <Button
             variant="outline"
             onClick={onApplyToHackathon}
             className="w-full border-primary/50 text-primary hover:bg-primary/10 hover:text-primary"
-            disabled>
+          >
             <Trophy className="mr-2 h-4 w-4" />
             Apply to {hackathonApply.title}
-          </Button></ReadOnlyHint>
+          </Button>
         )}
       </CardContent>
     </Card>

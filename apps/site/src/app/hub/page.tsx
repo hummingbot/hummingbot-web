@@ -1,6 +1,8 @@
 import { prisma } from "@/botcamp/lib/prisma"
 import { CURRENT_HACKATHON_STATUSES } from "@/botcamp/lib/hackathon-stages"
-import { PUBLISHED_STRATEGY_WHERE, getFreePreviewStrategyIds, notRacingWhere } from "@/botcamp/lib/strategy-access"
+import { auth } from "@/botcamp/lib/auth"
+import { PUBLISHED_STRATEGY_WHERE, getFreePreviewStrategyIds, hasStrategyContentAccess, notRacingWhere } from "@/botcamp/lib/strategy-access"
+import { advanceDueHackathonStages } from "@/botcamp/lib/hackathon-stage-advance"
 import { getStrategyShowcase } from "@/botcamp/lib/strategy-showcase"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
@@ -163,8 +165,7 @@ async function getStrategies() {
 // an APPROVED version, a page that isn't PRIVATE, not racing. Unlike the list below,
 // it doesn't ask that the agent raced; an admin approved every one of them.
 async function getCondorReadyAgents() {
-  // Botcamp advances due hackathon stages here first (a database write);
-  // this site only reads, so it uses the stage Botcamp last saved.
+  await advanceDueHackathonStages()
   const agents = await prisma.strategy.findMany({
     where: {
       strategyType: "AGENT",
@@ -268,15 +269,26 @@ async function getCurrentHackathon() {
   }
 }
 
-// Botcamp reads the session here (membership or an unlock for access, and
-// whether anyone is signed in). This site has no sign-in, so the viewer is
-// always signed out: no access, and no free previews without an account.
+// Whether the viewer can read every strategy's code (membership or an unlock).
 async function getHasStrategyAccess() {
-  return false
+  const session = await auth()
+  const userId = session?.user?.id
+  if (!userId) return false
+
+  // Fresh membership read (not the cached JWT) — same convention as the
+  // strategy detail/file-serving routes.
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { role: true, isMember: true },
+  })
+  if (!user) return false
+
+  return hasStrategyContentAccess({ id: userId, role: user.role, isMember: user.isMember })
 }
 
 async function getIsSignedIn() {
-  return false
+  const session = await auth()
+  return Boolean(session?.user?.id)
 }
 
 export default async function StrategiesPage() {

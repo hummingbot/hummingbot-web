@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { prisma } from "@/botcamp/lib/prisma"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { getCompletedLessonIds, resolveResumeLesson } from "@/botcamp/lib/lesson-progress"
 
 interface PageProps {

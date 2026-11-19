@@ -5,6 +5,8 @@ import { cn } from "@/botcamp/lib/utils"
 export interface AgentPackageIssue {
   path?: string
   message: string
+  /** The list of files to remove, shown above their own errors; not counted as a problem. */
+  summary?: true
 }
 
 /** What POST /api/user/agent-packages/check answers with. */
@@ -21,8 +23,8 @@ export interface AgentPackageCheck {
   sourceRef: string | null
 }
 
-// The check's result file by file: what Condor installs, what it leaves out
-// and why, and which files have to be fixed. Problems that aren't about a
+// The check's result file by file: what Condor installs and which files have
+// to be fixed or removed. Problems that aren't about a
 // listed file (no AGENT.md, too many files) go above the tree.
 export function AgentPackageReport({ check }: { check: AgentPackageCheck }): React.JSX.Element {
   const errors = check.errors ?? []
@@ -33,8 +35,10 @@ export function AgentPackageReport({ check }: { check: AgentPackageCheck }): Rea
   const listed = new Set(check.tree.map((entry) => entry.path))
   const unlisted = (issue: AgentPackageIssue) => !issue.path || !listed.has(issue.path)
   const general = [...errors.filter(unlisted), ...check.warnings.filter(unlisted)]
-  const installed = check.tree.filter((entry) => !entry.leftOut).length
-  const leftOut = check.tree.length - installed
+  // A problem is a file with errors, or an error that isn't on a listed file.
+  const failing = check.tree.filter((entry) => errorsByPath.has(entry.path)).length
+  const problems = failing + errors.filter((e) => unlisted(e) && !e.summary).length
+  const passing = check.tree.length - failing
 
   return (
     <div className="space-y-bc-4">
@@ -49,11 +53,12 @@ export function AgentPackageReport({ check }: { check: AgentPackageCheck }): Rea
           <p className="font-medium">
             {check.ok
               ? `${check.manifest?.name ?? "The agent"} is ready to submit`
-              : `${errors.length} ${errors.length === 1 ? "problem" : "problems"} to fix before you can submit`}
+              : `${problems} ${problems === 1 ? "problem" : "problems"} to fix before you can submit`}
           </p>
           <p className="mt-0.5 opacity-80">
-            {installed} {installed === 1 ? "file" : "files"} Condor will install
-            {leftOut > 0 && `, ${leftOut} left out`}
+            {check.ok
+              ? `${passing} ${passing === 1 ? "file" : "files"} Condor will install`
+              : `${passing} of ${check.tree.length} files are fine`}
             {check.manifest && check.manifest.loops.length > 0 && ` · loops: ${check.manifest.loops.join(", ")}`}
             {check.source === "GITHUB" && check.sourceRef && ` · GitHub @ ${check.sourceRef.slice(0, 7)}`}
           </p>

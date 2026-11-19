@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation"
 import { prisma } from "@/botcamp/lib/prisma"
 import { CURRENT_HACKATHON_STATUSES } from "@/botcamp/lib/hackathon-stages"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { EmptyState } from "@/botcamp/components/ui/empty-state"
 import { PageHeader } from "@/botcamp/components/ui/page-header"
 import { Trophy } from "lucide-react"

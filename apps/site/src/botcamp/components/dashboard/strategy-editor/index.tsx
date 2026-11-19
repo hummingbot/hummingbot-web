@@ -18,11 +18,12 @@ import { FileUploadManager } from "@/botcamp/components/ui/file-upload-manager"
 import { ImageGalleryUpload } from "@/botcamp/components/strategies/ImageGalleryUpload"
 import { StrategyPreview } from "@/botcamp/components/strategies/StrategyPreview"
 import { TagInput } from "@/botcamp/components/ui/tag-input"
-import { AgentPackageCard, type AgentPackageVersion } from "@/botcamp/components/agents/AgentPackageCard"
+import { AgentPackageCard } from "@/botcamp/components/agents/AgentPackageCard"
 import { Eye, Edit, Video, FileText, Tags, Lock, Bot } from "lucide-react"
 import { alertColors } from "@/botcamp/lib/design-constants"
 import { cn } from "@/botcamp/lib/utils"
 import { STRATEGY_FILE_ACCEPT } from "@/botcamp/lib/strategy-file-types"
+import { youtubeVideoId } from "@/botcamp/lib/video-embed"
 
 import { useStrategyForm } from "./useStrategyForm"
 import { StrategyHeader } from "./StrategyHeader"
@@ -34,7 +35,7 @@ import { StrategyStatusCard } from "./StrategyStatusCard"
 import { StrategyVisibilityCard } from "./StrategyVisibilityCard"
 import { StrategyConfirmDialogs } from "./StrategyConfirmDialogs"
 import { StrategyDetailsEditor } from "./StrategyDetailsEditor"
-import type { HackathonApplyInfo, HackathonEditInfo, Strategy, StrategyType } from "./types"
+import type { HackathonEditInfo, Strategy, StrategyType } from "./types"
 
 // Support both existing strategy and new (unsaved) strategy
 type StrategyInput = Strategy | (Omit<Strategy, "id" | "slug"> & { id: null; slug: null })
@@ -42,11 +43,6 @@ type StrategyInput = Strategy | (Omit<Strategy, "id" | "slug"> & { id: null; slu
 interface UserStrategyEditorProps {
   strategy: StrategyInput
   hackathonEdit?: HackathonEditInfo
-  // Read-only preview: data Botcamp's client components fetch on load, read
-  // on the server by the page instead.
-  strategyOptions: { tags: string[]; exchanges: string[] }
-  hackathonApply: HackathonApplyInfo | null
-  agentVersions?: AgentPackageVersion[]
 }
 
 const HACKATHON_LOCK_COPY = {
@@ -57,9 +53,6 @@ const HACKATHON_LOCK_COPY = {
 export function UserStrategyEditor({
   strategy,
   hackathonEdit = { kind: "none" },
-  strategyOptions,
-  hackathonApply: preloadedHackathonApply,
-  agentVersions = [],
 }: UserStrategyEditorProps) {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<"edit" | "preview">("edit")
@@ -75,10 +68,7 @@ export function UserStrategyEditor({
     alerts,
     suggestions,
     hackathonApply,
-  } = useStrategyForm(strategy, hackathonEdit, {
-    options: strategyOptions,
-    hackathonApply: preloadedHackathonApply,
-  })
+  } = useStrategyForm(strategy, hackathonEdit)
 
   // A hackathon lock explains itself; otherwise the field is locked by certification.
   const lockedCopy = (certifiedCopy: string) =>
@@ -171,7 +161,7 @@ export function UserStrategyEditor({
           </p>
         </div>
         {typeCard}
-        <NewAgentWizard initialTitle={state.title} initialSummary={state.summary} strategyOptions={strategyOptions} />
+        <NewAgentWizard initialTitle={state.title} initialSummary={state.summary} />
       </div>
     )
   }
@@ -376,7 +366,6 @@ export function UserStrategyEditor({
               {strategy.id !== null && strategy.strategyType === "AGENT" && (
                 <div id="agent-package" className="scroll-mt-24">
                   <AgentPackageCard
-                    initialVersions={agentVersions}
                     strategyId={strategy.id}
                     strategySlug={strategy.slug}
                     disabled={!permissions.canEditContent}
@@ -422,7 +411,7 @@ export function UserStrategyEditor({
                   </CardTitle>
                   <CardDescription>
                     {permissions.canEditContent
-                      ? `YouTube, Vimeo, Google Drive, or Loom link (${contentOptional ? "optional" : "required"})`
+                      ? `YouTube link (${contentOptional ? "optional" : "required"})`
                       : lockedCopy("Content is locked after certification")}
                   </CardDescription>
                 </CardHeader>
@@ -430,20 +419,15 @@ export function UserStrategyEditor({
                   <Input
                     value={state.videoURL}
                     onChange={(e) => actions.setVideoURL(e.target.value)}
-                    placeholder="YouTube, Vimeo, Google Drive, or Loom link"
+                    placeholder="https://www.youtube.com/watch?v=..."
                     disabled={!permissions.canEditContent}
                     className={!permissions.canEditContent ? "opacity-60" : ""}
                   />
-                  {state.videoURL &&
-                    !state.videoURL.includes("youtube.com") &&
-                    !state.videoURL.includes("youtu.be") &&
-                    !state.videoURL.includes("vimeo.com") &&
-                    !state.videoURL.includes("drive.google.com") &&
-                    !state.videoURL.includes("loom.com") && (
-                      <p className="text-xs text-warning mt-2">
-                        Supported: YouTube, Vimeo, Google Drive, or Loom
-                      </p>
-                    )}
+                  {state.videoURL && !youtubeVideoId(state.videoURL) && (
+                    <p className="text-xs text-warning mt-2">
+                      Only YouTube links are accepted. Unlisted videos work.
+                    </p>
+                  )}
                 </CardContent>
               </Card>
 

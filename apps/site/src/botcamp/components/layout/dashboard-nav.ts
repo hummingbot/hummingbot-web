@@ -1,9 +1,13 @@
 import {
+  Bell,
   BookOpen,
+  Bot,
   ClipboardList,
+  GraduationCap,
   Home,
   Lightbulb,
   Pencil,
+  Shield,
   Trophy,
   User,
   Users,
@@ -57,4 +61,26 @@ export const teamNavItems: DashboardNavItem[] = [
     icon: ClipboardList,
     match: ["/dashboard/team/applications"],
   },
+]
+
+/**
+ * The admin context (role ADMIN): Botcamp's admin panel sections
+ * (components/admin/AdminSidebar). Every page and /api/admin route checks the
+ * role on the server; this list only decides what the sidebar shows.
+ */
+export const adminNavItems: DashboardNavItem[] = [
+  { title: "Overview", href: "/admin", icon: Shield },
+  { title: "Users", href: "/admin/users", icon: Users },
+  { title: "Enrollments", href: "/admin/enrollments", icon: ClipboardList },
+  { title: "Courses", href: "/admin/courses", icon: BookOpen },
+  { title: "Cohorts", href: "/admin/cohorts", icon: GraduationCap },
+  { title: "Hackathon", href: "/admin/hackathons", icon: Trophy, match: ["/admin/teams"] },
+  { title: "Strategies", href: "/admin/strategies", icon: Lightbulb },
+  { title: "Agents", href: "/admin/agents", icon: Bot },
+  { title: "Notifications", href: "/admin/notifications", icon: Bell },
+]
+
+/** Instructors only get the course tools (Botcamp's middleware enforces it). */
+export const teachingNavItems: DashboardNavItem[] = [
+  { title: "Courses", href: "/admin/courses", icon: BookOpen },
 ]

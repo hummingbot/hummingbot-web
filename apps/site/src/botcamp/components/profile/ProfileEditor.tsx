@@ -30,16 +30,8 @@ import {
   AlertDialogTitle,
 } from "@/botcamp/components/ui/alert-dialog"
 import { ProfilePreview } from "@/botcamp/components/profile/ProfilePreview"
-// Botcamp's admin user editor reuses this with isAdmin; the dashboard never
-// does, so its admin-only cards (EnrollmentManager, StrategyAccessManager) are
-// left out of the read-only preview.
-interface StrategyAccessGrant {
-  id: string
-  status: string
-  expiresAt: string | null
-  purchasedAt: string
-  stripeSubscriptionId: string | null
-}
+import { EnrollmentManager } from "@/botcamp/components/admin/EnrollmentManager"
+import { StrategyAccessManager, type StrategyAccessGrant } from "@/botcamp/components/admin/StrategyAccessManager"
 import type { Enrollment } from "@/botcamp/types/enrollments"
 import { Avatar, AvatarFallback, AvatarImage } from "@/botcamp/components/ui/avatar"
 import {
@@ -61,7 +53,6 @@ import {
 import type { Visibility } from "@/botcamp/types"
 import { cn } from "@/botcamp/lib/utils"
 import { alertColors } from "@/botcamp/lib/design-constants"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface ProfileUser {
   id: string
@@ -360,19 +351,19 @@ export function ProfileEditor({
         </div>
         <div className="flex gap-2">
           {isAdmin && (
-            <ReadOnlyHint><Button variant="destructive" onClick={() => setShowDeleteDialog(true)} disabled>
+            <Button variant="destructive" onClick={() => setShowDeleteDialog(true)} disabled={isLoading}>
               <Trash2 className="mr-2 h-4 w-4" />
               Delete
-            </Button></ReadOnlyHint>
+            </Button>
           )}
-          <ReadOnlyHint><Button onClick={handleSave} disabled>
+          <Button onClick={handleSave} disabled={isLoading}>
             {isLoading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
               <Save className="mr-2 h-4 w-4" />
             )}
             Save Changes
-          </Button></ReadOnlyHint>
+          </Button>
         </div>
       </div>
 
@@ -425,32 +416,31 @@ export function ProfileEditor({
                         <AvatarFallback className="text-2xl">{initials}</AvatarFallback>
                       </Avatar>
                       {(hasAvatar || avatarPreview) && (
-                        <ReadOnlyHint><Button
+                        <Button
                           type="button"
                           variant="destructive"
                           size="icon"
                           className="absolute -top-1 -right-1 h-6 w-6 rounded-full"
                           onClick={handleAvatarDelete}
-                          disabled>
+                        >
                           <X className="h-3 w-3" />
-                        </Button></ReadOnlyHint>
+                        </Button>
                       )}
                     </div>
                     <div className="space-y-bc-2">
-                      <label htmlFor="avatar-upload" title="Read-only preview" className="cursor-not-allowed">
+                      <label htmlFor="avatar-upload">
                         <input
                           id="avatar-upload"
                           type="file"
                           accept="image/png,image/jpeg,image/webp"
                           className="hidden"
                           onChange={handleAvatarUpload}
-                          disabled
                         />
                         <Button
                           type="button"
                           variant="outline"
                           size="sm"
-                          className="pointer-events-none opacity-50"
+                          className="cursor-pointer"
                           asChild
                         >
                           <span>
@@ -666,6 +656,23 @@ export function ProfileEditor({
                 </CardContent>
               </Card>
 
+              {/* Enrollments (Admin only) */}
+              {isAdmin && (
+                <EnrollmentManager
+                  userId={user.id}
+                  initialEnrollments={user.enrollments || []}
+                  onError={setError}
+                />
+              )}
+
+              {/* Strategy Access (Admin only) */}
+              {isAdmin && (
+                <StrategyAccessManager
+                  userId={user.id}
+                  initialGrant={user.strategyAccessGrant || null}
+                  onError={setError}
+                />
+              )}
             </TabsContent>
 
             {/* Preview Tab */}

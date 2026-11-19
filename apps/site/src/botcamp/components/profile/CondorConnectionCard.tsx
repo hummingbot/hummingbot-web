@@ -1,13 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
 import { Button } from "@/botcamp/components/ui/button"
 import { Loader2 } from "lucide-react"
 import { cn } from "@/botcamp/lib/utils"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
-export interface Connection {
+interface Connection {
   id: string
   name: string
   scopes: string[]
@@ -21,18 +20,19 @@ function isActive(c: Connection): boolean {
 }
 
 // Whether Condor is connected to this account. Condor connects itself through
-// "Connect Botcamp" (the device login at /connect); each active token is one
+// "Connect Botcamp" (a code from /connect pasted into Condor); each active token is one
 // Condor install, and disconnecting one revokes its token.
-export function CondorConnectionCard({
-  initialConnections,
-}: {
-  /** Read-only preview: this user's tokens, read on the server (Botcamp fetches /api/user/api-tokens). */
-  initialConnections: Connection[]
-}): React.JSX.Element {
-  const [connections, setConnections] = useState<Connection[] | null>(() => initialConnections.filter(isActive))
+export function CondorConnectionCard(): React.JSX.Element {
+  const [connections, setConnections] = useState<Connection[] | null>(null)
   const [busyId, setBusyId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
+  useEffect(() => {
+    fetch("/api/user/api-tokens")
+      .then((res) => res.json())
+      .then((body) => setConnections(((body.data ?? []) as Connection[]).filter(isActive)))
+      .catch(() => setError("Failed to load your Condor connection"))
+  }, [])
 
   const handleDisconnect = async (id: string) => {
     setBusyId(id)
@@ -72,7 +72,7 @@ export function CondorConnectionCard({
         <CardDescription>
           {connected
             ? "Condor can clone the agents you can read on Botcamp and publish your agents for review. A connection lasts 90 days; after that, connect again from Condor. Disconnect an install to cut its access."
-            : "In Condor, open the Hub and choose Connect Botcamp. Enter the code it shows at botcamp.xyz/connect, signed in here."}
+            : "Generate a code at /connect, then paste it in Condor under Agent Hub → Connect Botcamp."}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-bc-4">
@@ -97,15 +97,16 @@ export function CondorConnectionCard({
                     {c.expiresAt && ` · expires ${new Date(c.expiresAt).toLocaleDateString()}`}
                   </p>
                 </div>
-                <ReadOnlyHint><Button
+                <Button
                   type="button"
                   variant="outline"
                   size="sm"
+                  disabled={busyId === c.id}
                   onClick={() => handleDisconnect(c.id)}
-                  disabled>
+                >
                   {busyId === c.id ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                   Disconnect
-                </Button></ReadOnlyHint>
+                </Button>
               </li>
             ))}
           </ul>

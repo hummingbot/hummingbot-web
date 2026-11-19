@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import { prisma } from "@/botcamp/lib/prisma"
-import { auth, isDashboardPreviewEnabled } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { botcampPublicAssetUrl } from "@/botcamp/lib/botcamp-assets"
 import { formatDuration, formatPriceCents } from "@/botcamp/lib/format"
 import { calculateTotalLessons, calculateTotalDuration } from "@/botcamp/lib/calculations"
@@ -10,6 +10,7 @@ import { FreeEnrollButton } from "@/botcamp/components/learn/FreeEnrollButton"
 import { SectionList } from "@/botcamp/components/learn/SectionList"
 import type { LearnGroup } from "@/botcamp/components/learn/types"
 import { getLessonProgressStatuses, resolveResumeLesson } from "@/botcamp/lib/lesson-progress"
+import { CohortDepositBanner } from "@/botcamp/components/courses/CohortDepositBanner"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -58,13 +59,11 @@ async function getUserRole(userId: string | undefined) {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  // The layout 404s when the preview is off; don't query for its title then.
-  if (!isDashboardPreviewEnabled()) return {}
   const { slug } = await params
   const course = await getCourse(slug)
   if (!course) return { title: "Course Not Found" }
   return {
-    title: `${course.title} - Botcamp preview`,
+    title: `${course.title} - Botcamp`,
     description: course.description || `Learn ${course.title} with Botcamp`,
   }
 }
@@ -166,7 +165,12 @@ export default async function CourseDetailPage({ params }: PageProps) {
         }
         ctaSlot={
           !hasAccess ? (
-            <FreeEnrollButton price={course.price} />
+            <FreeEnrollButton
+              courseId={course.id}
+              courseSlug={slug}
+              price={course.price}
+              firstLessonSlug={firstLesson?.slug}
+            />
           ) : undefined
         }
       />
@@ -178,9 +182,13 @@ export default async function CourseDetailPage({ params }: PageProps) {
         hasAccess={hasAccess}
       />
 
-      {/* Botcamp also shows its cohort-deposit upsell (CohortDepositBanner)
-          to viewers without access here; that's a checkout flow, so the
-          read-only preview leaves it out. */}
+      {!hasAccess && (
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-12">
+          <div className="mx-auto max-w-6xl">
+            <CohortDepositBanner />
+          </div>
+        </div>
+      )}
     </LearnShell>
   )
 }

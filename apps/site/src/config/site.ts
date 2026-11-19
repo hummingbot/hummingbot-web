@@ -21,7 +21,7 @@ export const urls = {
   cohorts: "/botcamp#cohorts",
   courses: "/botcamp#courses",
   hackathons: "/hackathons",
-  // Placeholder until accounts move over from Botcamp.
+  signin: "/signin",
   signup: "/signup",
   rewards: "https://xrpliquid.com",
   install: "/install.sh",

@@ -1,24 +1,22 @@
-import { auth, isDashboardPreviewEnabled } from "@/botcamp/lib/preview-session";
+import type { Session } from "next-auth";
+import { servableAvatarUrl } from "@/botcamp/lib/botcamp-assets";
 import { SiteHeaderClient, type HeaderAccount } from "./site-header-client";
+
+/** The header's account menu for a signed-in session. */
+export function headerAccount(session: Session): HeaderAccount {
+  return {
+    name: session.user.name || session.user.email || null,
+    image: servableAvatarUrl(session.user.image),
+    isAdmin: session.user.role === "ADMIN",
+  };
+}
 
 /**
  * Site header. Kept as a server entry point so pages can keep awaiting it.
- * There's no sign-in on this site yet: with the dashboard preview on (local
- * development only), every page shows the preview user's avatar menu, so the
- * dashboard is reachable from anywhere. Otherwise it shows Sign in.
+ * Pages that already read the session (the dashboard) pass the account; on
+ * every other page the client reads it (useSession), so reading cookies
+ * doesn't make static pages (home, blog, docs) dynamic.
  */
 export async function SiteHeader({ account }: { account?: HeaderAccount } = {}) {
-  let resolved = account;
-  if (!resolved && isDashboardPreviewEnabled()) {
-    const session = await auth().catch(() => null);
-    if (session) {
-      resolved = {
-        name: session.user.name,
-        // Botcamp-relative avatars aren't served here; those fall back to initials.
-        image: session.user.image?.startsWith("http") ? session.user.image : null,
-        isAdmin: session.user.role === "ADMIN",
-      };
-    }
-  }
-  return <SiteHeaderClient account={resolved} />;
+  return <SiteHeaderClient account={account} />;
 }

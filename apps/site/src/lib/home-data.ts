@@ -1,6 +1,5 @@
 /**
- * Home page figures from Botcamp's database (read-only; see src/botcamp/lib/
- * prisma.ts). The same rules as the Botcamp page, so the numbers on the
+ * Home page figures from Botcamp's database. The same rules as the Botcamp page, so the numbers on the
  * home always match what that page lists.
  */
 import { prisma } from "@/botcamp/lib/prisma";

@@ -9,7 +9,6 @@ import { Badge } from "@/botcamp/components/ui/badge"
 import { applicationStatusColors } from "@/botcamp/lib/design-constants"
 import { MAX_APPLICATIONS_PER_HACKATHON } from "@/botcamp/lib/hackathon-squads"
 import { cn } from "@/botcamp/lib/utils"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 export interface HubApplication {
   id: string
@@ -242,10 +241,12 @@ export function MyApplicationsPanel({
                   You&apos;ve reached the limit of {MAX_APPLICATIONS_PER_HACKATHON} agents submitted per hackathon.
                 </p>
               ) : (
-                <ReadOnlyHint><Button size="sm" disabled>
-                  <Plus className="mr-1 h-4 w-4" />
-                  {applications.length === 0 ? "Apply to a team" : "New application"}
-                </Button></ReadOnlyHint>
+                <Button size="sm" asChild>
+                  <Link href={`/hackathons/${hackathonSlug}/apply`}>
+                    <Plus className="mr-1 h-4 w-4" />
+                    {applications.length === 0 ? "Apply to a team" : "New application"}
+                  </Link>
+                </Button>
               )
             ) : (
               <Button size="sm" disabled>
@@ -291,23 +292,24 @@ export function MyApplicationsPanel({
                 </div>
                 {applicationsOpen && (
                   <div className="mt-2 flex items-center gap-2">
-                    <ReadOnlyHint><Button size="sm" variant="ghost" className="h-7 px-2 text-xs" disabled>
-                      Edit
-                    </Button></ReadOnlyHint>
+                    <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" asChild>
+                      <Link href={`/hackathons/${hackathonSlug}/applications/${app.id}/edit`}>Edit</Link>
+                    </Button>
                     {app.status === "DRAFT" && (
-                      <ReadOnlyHint><Button
+                      <Button
                         size="sm"
                         variant="ghost"
                         className="h-7 px-2 text-xs text-muted-foreground hover:text-destructive"
                         onClick={() => withdraw(app.id)}
-                        disabled>
+                        disabled={withdrawingId === app.id}
+                      >
                         {withdrawingId === app.id ? (
                           <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" />
                         ) : (
                           <Trash2 className="mr-1 h-3.5 w-3.5" />
                         )}
                         Withdraw
-                      </Button></ReadOnlyHint>
+                      </Button>
                     )}
                   </div>
                 )}

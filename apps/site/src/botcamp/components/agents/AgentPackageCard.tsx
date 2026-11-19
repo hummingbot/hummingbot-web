@@ -17,7 +17,6 @@ import {
 import { alertColors } from "@/botcamp/lib/design-constants"
 import { formatDateTime } from "@/botcamp/lib/format"
 import { cn } from "@/botcamp/lib/utils"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface AgentVersion {
   id: string
@@ -38,11 +37,7 @@ interface Issue {
   message: string
 }
 
-export type AgentPackageVersion = AgentVersion
-
 interface AgentPackageCardProps {
-  /** Read-only preview: the versions, read on the server (Botcamp fetches them from its API). */
-  initialVersions: AgentPackageVersion[]
   strategyId: number
   strategySlug: string
   disabled?: boolean
@@ -66,13 +61,12 @@ const POLL_MS = 60_000
 // agent's folder, structure-checked on upload, then reviewed before Condor
 // can clone it. Versions uploaded from GitHub before folders-only still list.
 export function AgentPackageCard({
-  initialVersions,
   strategyId,
   strategySlug,
   disabled,
   onReviewChange,
 }: AgentPackageCardProps): React.JSX.Element {
-  const [versions, setVersions] = useState<AgentVersion[] | null>(initialVersions)
+  const [versions, setVersions] = useState<AgentVersion[] | null>(null)
   const [dragging, setDragging] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -82,15 +76,26 @@ export function AgentPackageCard({
 
   const endpoint = `/api/user/strategies/${strategyId}/agent-versions`
 
-  // Read-only preview: the versions come from the server; Botcamp loads them
-  // from its API here and polls while one is in review.
   const load = useCallback(async () => {
-    setVersions(initialVersions)
-  }, [initialVersions])
-  void POLL_MS
-  void strategyId
+    const res = await fetch(endpoint)
+    const body = await res.json()
+    if (res.ok) setVersions(body.data)
+    else setError(body.error || "Failed to load agent versions")
+  }, [endpoint])
 
-  const pending = versions?.some((v) => v.status === "PENDING")
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- as in Botcamp (its ESLint predates this rule)
+    load()
+  }, [load])
+
+  // A version waiting on the AI or on an admin: no other upload until it's
+  // decided (the server's one-in-review limit), and followed without a reload.
+  const pending = versions?.some((v) => v.status === "PENDING" || v.status === "NEEDS_REVIEW")
+  useEffect(() => {
+    if (!pending) return
+    const timer = setInterval(load, POLL_MS)
+    return () => clearInterval(timer)
+  }, [pending, load])
 
   // Tell the page when the newest version's review moves on (or a new one
   // lands), so whatever shows the agent's state can follow it.
@@ -147,6 +152,11 @@ export function AgentPackageCard({
   }
 
   const latestApproved = versions?.find((v) => v.status === "APPROVED")
+  // An update to a live agent: newer than what Condor serves and not decided yet.
+  const updateInReview = versions?.find(
+    (v) => (v.status === "PENDING" || v.status === "NEEDS_REVIEW") && (!latestApproved || v.version > latestApproved.version),
+  )
+  const nextVersion = (versions?.[0]?.version ?? 0) + 1
   // Condor's Hub (Pull agents → Look up by slug) addresses an agent by slug.
   const cloneCommand = latestApproved
     ? strategySlug
@@ -182,10 +192,9 @@ export function AgentPackageCard({
               multiple
               onChange={(e) => e.target.files && uploadFolder(filesFromFolderInput(e.target.files))}
             />
-            <ReadOnlyHint block>
             <button
               type="button"
-              disabled
+              disabled={busy || pending}
               onClick={() => fileInput.current?.click()}
               onDragOver={(e) => {
                 e.preventDefault()
@@ -206,13 +215,18 @@ export function AgentPackageCard({
               )}
             >
               {busy ? <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" /> : <Upload className="h-5 w-5 text-muted-foreground" />}
-              <span className="text-sm font-medium">Drop the agent&apos;s folder here, or click to choose it</span>
+              <span className="text-sm font-medium">
+                {versions && versions.length > 0
+                  ? `Upload a new version (v${nextVersion}): drop the agent's folder here, or click to choose it`
+                  : "Drop the agent's folder here, or click to choose it"}
+              </span>
             </button>
-            </ReadOnlyHint>
             <p className="text-xs text-muted-foreground">
               {pending
                 ? "You can upload again once the version in review is decided."
-                : "Each upload is a new version. Up to 4MB once zipped, up to 5 versions a day."}
+                : latestApproved
+                  ? `It goes through the AI review and an admin check like a new agent; Condor keeps serving v${latestApproved.version} meanwhile. Up to 4MB once zipped, up to 5 versions a day.`
+                  : "Each upload is a new version. Up to 4MB once zipped, up to 5 versions a day."}
             </p>
           </div>
         )}
@@ -233,11 +247,16 @@ export function AgentPackageCard({
           </div>
         )}
 
+        {updateInReview && latestApproved && (
+          <p className={cn("rounded-bc-md px-3 py-2 text-sm", alertColors.info)}>
+            {`v${updateInReview.version} is in review. Condor keeps serving v${latestApproved.version} until v${updateInReview.version} is approved.`}
+          </p>
+        )}
+
         {cloneCommand && (
           <div className="space-y-bc-2">
             <p className="text-sm">
-              Anyone can clone v{latestApproved?.version} in Condor from Hub → Pull agents, or with this slug
-              under Look up by slug:
+              {`Anyone can clone it in Condor from Hub → Pull agents, or with this slug under Look up by slug. The slug doesn't change between versions: it always installs the latest approved one, v${latestApproved?.version} now.`}
             </p>
             <div className="flex items-center gap-2">
               <code className="flex-1 overflow-x-auto rounded bg-muted px-2 py-1 font-mono text-xs">{cloneCommand}</code>

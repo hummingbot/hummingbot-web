@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Monoton } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { AuthSessionProvider } from "@/botcamp/components/layout/AuthSessionProvider";
 
 const satoshi = localFont({
   // Latin + Latin-1 subset of Satoshi-Variable.ttf (wght axis kept), as woff2.
@@ -44,7 +45,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {children}
+        <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>
   );

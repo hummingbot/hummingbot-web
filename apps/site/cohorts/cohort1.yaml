@@ -1,0 +1,9 @@
+# Botcamp Cohort 1 Data
+# Completed Cohort - September 2023
+
+cohort:
+  number: 1
+  status: completed
+  startDate: "2022-08-15"
+  endDate: "2022-09-29"
+  description: "The inaugural Botcamp cohort where Hummingbot core community members learned the fundamentals and created their own strategies. This pioneering group helped shape the program's curriculum and set the foundation for future cohorts."

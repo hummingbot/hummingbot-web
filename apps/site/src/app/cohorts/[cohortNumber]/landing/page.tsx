@@ -12,7 +12,7 @@ import CoursesIncluded from "@/botcamp/components/sections/cohorts/CoursesInclud
 import CohortFAQ from "@/botcamp/components/sections/cohorts/CohortFAQ"
 import CohortInstructors from "@/botcamp/components/sections/cohorts/Instructors"
 import Testimonials from "@/botcamp/components/sections/Testimonials"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
+import { CheckoutButton } from "@/botcamp/components/ui/checkout-button"
 import { YouTubeFacade } from "@/components/ui/youtube-facade"
 import {
   Clock,
@@ -24,10 +24,8 @@ import {
 } from "lucide-react"
 
 // Botcamp's public cohort landing (botcamp.xyz/cohorts/cohort<N>/landing), the
-// overview's "Enroll" target, read from its database. Always Botcamp's
-// signed-out view (no sign-in here). Left out:
-// - Stripe checkout: the enroll button renders disabled with the read-only
-//   hint (Botcamp's button posts to /api/checkout).
+// overview's "Enroll" target, read from its database. Enroll goes to Stripe
+// checkout (/api/checkout), as on Botcamp. Left out:
 // - Cohort13Landing: Botcamp only shows it while cohort 13 is open; it is
 //   COMPLETED, so the page redirects before reaching it.
 // - The YAML schedule (cohorts/cohort<N>.yaml): Botcamp only has files for
@@ -75,18 +73,6 @@ async function getCohort(cohortNumber: number) {
     ...cohort,
     spotsRemaining,
   }
-}
-
-/** Botcamp's checkout button look, disabled: checkout is a write. */
-function EnrollButton({ price }: { price: number }) {
-  return (
-    <ReadOnlyHint>
-      <Button size="lg" disabled>
-        Enroll Now - ${(price / 100).toLocaleString("en-US", { maximumFractionDigits: 0 })}
-        <ArrowRight className="ml-2 h-5 w-5" />
-      </Button>
-    </ReadOnlyHint>
-  )
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -188,7 +174,7 @@ export default async function CohortLandingPage({ params }: PageProps) {
 
                   <div className="flex flex-wrap gap-4">
                     {cohort.price && cohort.price > 0 ? (
-                      <EnrollButton price={cohort.price} />
+                      <CheckoutButton cohortId={cohort.id} price={cohort.price} />
                     ) : cohort.registrationUrl ? (
                       <Button size="lg" asChild>
                         <a href={cohort.registrationUrl} target="_blank" rel="noopener noreferrer">
@@ -247,7 +233,7 @@ export default async function CohortLandingPage({ params }: PageProps) {
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                       {cohort.price && cohort.price > 0 ? (
-                        <EnrollButton price={cohort.price} />
+                        <CheckoutButton cohortId={cohort.id} price={cohort.price} />
                       ) : cohort.registrationUrl ? (
                         <Button size="lg" asChild>
                           <a href={cohort.registrationUrl} target="_blank" rel="noopener noreferrer">

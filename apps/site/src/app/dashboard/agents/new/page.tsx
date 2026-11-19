@@ -1,12 +1,11 @@
 import Link from "next/link"
-import { notFound } from "next/navigation"
-import { auth } from "@/botcamp/lib/preview-session"
+import { redirect } from "next/navigation"
+import { auth } from "@/botcamp/lib/auth"
 import { strategyCapRefusal } from "@/botcamp/lib/strategy-create"
 import { agentHoldingReviewSlot, reviewSlotMessage } from "@/botcamp/lib/agent-upload"
 import { Button } from "@/botcamp/components/ui/button"
 import { PageHeader } from "@/botcamp/components/ui/page-header"
 import { NewAgentWizard } from "@/botcamp/components/agents/NewAgentWizard"
-import { getStrategyOptions } from "@/botcamp/lib/dashboard-preview-data"
 
 export const metadata = {
   title: "Create Condor Agent - Botcamp",
@@ -17,7 +16,7 @@ export const metadata = {
 export default async function NewAgentPage() {
   const session = await auth()
   if (!session?.user?.id) {
-    notFound()
+    redirect(`/signin?callbackUrl=${encodeURIComponent("/dashboard/agents/new")}`)
   }
 
   // One agent in review at a time, held until it's approved
@@ -45,7 +44,7 @@ export default async function NewAgentPage() {
           </Button>
         </div>
       ) : (
-        <NewAgentWizard strategyOptions={await getStrategyOptions()} />
+        <NewAgentWizard />
       )}
     </div>
   )

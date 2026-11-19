@@ -1,8 +1,8 @@
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import Link from "next/link"
 import { prisma } from "@/botcamp/lib/prisma"
 import { findRaceWindow, isRegistrationOpen, raceDurationHours, STAGE_LABELS } from "@/botcamp/lib/hackathon-stages"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { Button } from "@/botcamp/components/ui/button"
 import { eyebrow } from "@/botcamp/lib/design-constants"
 import { getHackathonSquads, getRegisteredBuilders } from "@/botcamp/lib/hackathon-data"
@@ -40,7 +40,9 @@ import {
   Lock,
   Flag,
 } from "lucide-react"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
+import { advanceDueHackathonStages } from "@/botcamp/lib/hackathon-stage-advance"
+import { StarterKitPanel } from "@/botcamp/components/hackathons/StarterKitPanel"
+import { parseRaceHosts, resolveStarterKit } from "@/botcamp/lib/hackathon-starter-kit"
 
 const DISCORD_URL = "https://discord.gg/hummingbot"
 
@@ -175,8 +177,8 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function HackathonHubPage({ params, searchParams }: PageProps) {
-  // Botcamp advances the hackathon stage here (advanceDueHackathonStages, a
-  // database write). The read-only preview shows the stage last saved.
+  // Race clock may have moved the stage since the last render.
+  await advanceDueHackathonStages()
   const { slug } = await params
   const { discord: discordFeedback } = await searchParams
   const session = await auth()
@@ -904,13 +906,12 @@ export default async function HackathonHubPage({ params, searchParams }: PagePro
                   Verify your registration to get the badge that unlocks the private builders
                   channel on the Hummingbot Discord.
                 </p>
-                {/* Read-only preview: Botcamp's Discord OAuth (/api/discord/authorize) grants a role. */}
-                <ReadOnlyHint className="shrink-0">
-                  <Button variant="outline" disabled>
+                <Button asChild variant="outline" className="shrink-0">
+                  <a href={`/api/discord/authorize?hackathon=${hackathon.slug}`}>
                     <Lock className="mr-2 h-4 w-4" />
                     Unlock Channel
-                  </Button>
-                </ReadOnlyHint>
+                  </a>
+                </Button>
               </div>
             )}
 

@@ -1,5 +1,5 @@
 import { redirect, notFound } from "next/navigation"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { prisma } from "@/botcamp/lib/prisma"
 import { getTeamApplicationReview } from "@/botcamp/lib/team-admin"
 import { ApplicationReviewer } from "@/botcamp/components/teams/ApplicationReviewer"
@@ -41,34 +41,11 @@ export default async function TeamApplicationReviewPage({ params }: PageProps) {
     notFound()
   }
 
-  // Read-only preview: what Botcamp's comment thread fetches on load — the
-  // public comments a sponsor reviewer sees.
-  const comments = review.strategy
-    ? await prisma.strategyComment.findMany({
-        where: { strategy: { slug: review.strategy.slug }, deletedAt: null, visibility: "PUBLIC" },
-        select: {
-          id: true,
-          content: true,
-          createdAt: true,
-          updatedAt: true,
-          visibility: true,
-          author: { select: { id: true, firstName: true, lastName: true, role: true, avatarUrl: true, avatarMimeType: true } },
-        },
-        orderBy: { createdAt: "asc" },
-      })
-    : []
-
   return (
     <ApplicationReviewer
       {...review}
       team={team}
       basePath="/dashboard/team"
-      comments={comments.map(({ author: { avatarMimeType, ...author }, ...c }) => ({
-        ...c,
-        createdAt: c.createdAt.toISOString(),
-        updatedAt: c.updatedAt.toISOString(),
-        author: { ...author, hasAvatar: !!avatarMimeType },
-      }))}
     />
   )
 }

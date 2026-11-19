@@ -11,7 +11,6 @@ import { useFormData } from "@/botcamp/hooks"
 import { MarkdownContent } from "@/botcamp/components/lessons/MarkdownContent"
 import { TeamPreviewDialog } from "@/botcamp/components/teams/TeamPreviewDialog"
 import { cn } from "@/botcamp/lib/utils"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 const PRESET_COLORS = [
   "#FF6A1A",
@@ -165,7 +164,6 @@ export function TeamInfoEditForm({
     formData.primaryColor !== (team.primaryColor ?? "") ||
     hasPendingLogoChange(pendingLogo) ||
     hasPendingLogoChange(pendingLogoDark)
-  void isDirty // read-only preview: Save is always disabled
 
   const setLogoWarningFor = (dark: boolean, warning: string | null) => {
     if (dark) setLogoWarningDark(warning)
@@ -489,7 +487,7 @@ export function TeamInfoEditForm({
       {error && <p className="text-sm text-destructive">{error}</p>}
 
       <div className="flex items-center gap-3">
-        <ReadOnlyHint><Button onClick={handleSave} disabled>
+        <Button onClick={handleSave} disabled={isSaving || !isDirty}>
           {isSaving ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -498,7 +496,7 @@ export function TeamInfoEditForm({
           ) : (
             "Save Changes"
           )}
-        </Button></ReadOnlyHint>
+        </Button>
         {saved && !isSaving && (
           <span className="flex items-center gap-1.5 text-sm text-success">
             <CheckCircle2 className="h-4 w-4" />
@@ -550,16 +548,15 @@ function LogoPicker({
         </div>
 
         <div className="flex items-center gap-2">
-          <label htmlFor={inputId} title="Read-only preview" className="cursor-not-allowed">
+          <label htmlFor={inputId}>
             <input
               id={inputId}
               type="file"
               accept="image/png,image/jpeg,image/jpg,image/svg+xml"
               className="hidden"
               onChange={onSelect}
-              disabled
             />
-            <Button type="button" variant="outline" size="sm" className="pointer-events-none opacity-50" asChild>
+            <Button type="button" variant="outline" size="sm" className="cursor-pointer" asChild>
               <span>
                 <Upload className="mr-2 h-3.5 w-3.5" />
                 {src ? "Change" : "Upload"}
@@ -567,10 +564,10 @@ function LogoPicker({
             </Button>
           </label>
           {src && (
-            <ReadOnlyHint><Button type="button" variant="ghost" size="sm" onClick={onRemove} disabled>
+            <Button type="button" variant="ghost" size="sm" onClick={onRemove}>
               <X className="mr-1 h-3.5 w-3.5" />
               Remove
-            </Button></ReadOnlyHint>
+            </Button>
           )}
         </div>
       </div>

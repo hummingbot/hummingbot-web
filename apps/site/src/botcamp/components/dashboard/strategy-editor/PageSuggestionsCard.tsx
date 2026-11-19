@@ -12,7 +12,6 @@ import {
 } from "@/botcamp/lib/agent-page-suggestions"
 import { alertColors } from "@/botcamp/lib/design-constants"
 import { cn } from "@/botcamp/lib/utils"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface PageSuggestionsCardProps {
   strategyId: number
@@ -93,14 +92,14 @@ export function PageSuggestionsCard({
               <TextBlock label="Suggested" text={suggestions.fields[field] ?? ""} />
             </div>
             <div className="flex flex-wrap gap-2 pt-1">
-              <ReadOnlyHint><Button size="sm" onClick={() => answer(field, "accept")} disabled>
+              <Button size="sm" onClick={() => answer(field, "accept")} disabled={!!busy}>
                 {busy === `${field}:accept` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Check className="mr-2 h-4 w-4" />}
                 Accept
-              </Button></ReadOnlyHint>
-              <ReadOnlyHint><Button size="sm" variant="outline" onClick={() => answer(field, "dismiss")} disabled>
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => answer(field, "dismiss")} disabled={!!busy}>
                 {busy === `${field}:dismiss` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <X className="mr-2 h-4 w-4" />}
                 Keep Mine
-              </Button></ReadOnlyHint>
+              </Button>
             </div>
           </div>
         ))}

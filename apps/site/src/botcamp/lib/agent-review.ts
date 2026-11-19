@@ -1,13 +1,29 @@
+import { timingSafeEqual } from "crypto"
+import type { NextRequest } from "next/server"
+import type { AgentVersionStatus, Prisma } from "@prisma/client"
 import { z } from "zod"
-
-// The types of Botcamp's agent-review.ts, for the read-only dashboard preview.
-// Recording verdicts (a write) and the reviewer's token check are left out.
+import { prisma } from "@/botcamp/lib/prisma"
+import { sendAgentAwaitingAdminEmail, sendAgentVersionStatusEmail } from "@/botcamp/lib/notifications"
 
 // The AI review of uploaded agents runs outside Botcamp (metabrain). An upload
 // waits in PENDING; the reviewer reads the queue through /api/agent-review/*
 // and posts a verdict: approve → NEEDS_REVIEW, where an admin gives the final
 // check; reject → REJECTED, with feedback the author can act on. The contract
 // for the reviewer is docs/agent-review-api.md.
+
+export const AGENT_REVIEWER_TOKEN_ENV = "AGENT_REVIEWER_TOKEN"
+
+// The reviewer authenticates with a service token, not a user session. While
+// it's unset the API is off (callers answer 404).
+export function reviewerAuth(request: NextRequest): "ok" | "disabled" | "unauthorized" {
+  const expected = process.env[AGENT_REVIEWER_TOKEN_ENV]
+  if (!expected) return "disabled"
+  const match = /^Bearer\s+(\S+)$/i.exec(request.headers.get("authorization") ?? "")
+  if (!match) return "unauthorized"
+  const given = Buffer.from(match[1])
+  const want = Buffer.from(expected)
+  return given.length === want.length && timingSafeEqual(given, want) ? "ok" : "unauthorized"
+}
 
 const CATEGORIES = [
   "exfiltration",
@@ -65,4 +81,41 @@ export interface AgentReviewRecord {
   // findings stay admin-only.
   authorFeedback: AuthorFeedback[]
   reviewedAt: string
+}
+
+export type RecordVerdictResult = { status: AgentVersionStatus } | { error: "not_found" | "not_pending" }
+
+// Applies the reviewer's verdict to a PENDING version. Conditional on it still
+// being PENDING, so a verdict never overwrites an admin's decision or a
+// second verdict for the same version.
+export async function recordAiVerdict(id: string, verdict: AgentVerdict): Promise<RecordVerdictResult> {
+  const status: AgentVersionStatus = verdict.decision === "approve" ? "NEEDS_REVIEW" : "REJECTED"
+  const record: AgentReviewRecord = {
+    reviewer: verdict.reviewer,
+    model: verdict.model,
+    decision: verdict.decision,
+    summary: verdict.summary,
+    findings: verdict.findings,
+    authorFeedback: verdict.authorFeedback,
+    reviewedAt: new Date().toISOString(),
+  }
+
+  const { count } = await prisma.agentVersion.updateMany({
+    where: { id, status: "PENDING" },
+    data: { status, aiReview: record as unknown as Prisma.InputJsonValue, reviewedAt: new Date() },
+  })
+  if (count === 0) {
+    const exists = await prisma.agentVersion.findUnique({ where: { id }, select: { id: true } })
+    return { error: exists ? "not_pending" : "not_found" }
+  }
+
+  await sendAgentVersionStatusEmail(id).catch((err) =>
+    console.error(`Failed to send agent version email for ${id}:`, err),
+  )
+  if (status === "NEEDS_REVIEW") {
+    await sendAgentAwaitingAdminEmail(id).catch((err) =>
+      console.error(`Failed to notify admins about agent version ${id}:`, err),
+    )
+  }
+  return { status }
 }

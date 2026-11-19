@@ -1,24 +1,27 @@
 import "server-only"
 import { cache } from "react"
 import { prisma } from "@/botcamp/lib/prisma"
+import { auth } from "@/botcamp/lib/auth"
 import {
   PUBLISHED_STRATEGY_WHERE,
-  decideSignedOutStrategyCodeAccess,
+  decideStrategyCodeAccess,
   isAwaitingAgentApproval,
+  sessionCodeViewer,
   isFreePreviewStrategy,
 } from "@/botcamp/lib/strategy-access"
 import { servableAvatarUrl } from "@/botcamp/lib/botcamp-assets"
 
 // Botcamp's GET /api/strategies/[slug] (origin/main), read on the server for
-// the strategy page (/hub/[slug]) as a signed-out visitor sees it. Botcamp's
-// page fetches it in the browser with the session; this site has none, so:
+// the strategy page (/hub/[slug]) with the viewer's session, by the same rule
+// as the route (decideStrategyCodeAccess):
 //
-// - an agent awaiting approval, a draft or one still in review is "not found"
-//   (Botcamp 404s them for everyone but authors, admins and reviewers);
-// - code and resources are never sent (hasContentAccess is false for every
-//   signed-out visitor: Botcamp asks for a sign-in first, Example and free
-//   strategies included), and `lockedReason` says which locked copy shows;
-// - the Discussion tab is never offered (members only).
+// - a draft, one in review or an agent awaiting approval is "not found",
+//   except to its authors, admins and the sponsors reviewing it;
+// - code (files) and resources (images) come only with access, and
+//   `lockedReason` says which locked copy shows otherwise;
+// - the public Discussion is open to everyone who can see the page, except on
+//   PRIVATE or racing strategies (the comments API asks the same); posting is
+//   for authors, admins and the reviewing sponsors, as on Botcamp.
 
 export type StrategyType = "AGENT" | "SCRIPT" | "CONTROLLER" | "V1_STRATEGY" | "OTHER"
 export type StrategyVisibility = "PUBLIC" | "MEMBERS_ONLY" | "PRIVATE"
@@ -30,6 +33,24 @@ export interface StrategyDetailAuthor {
   lastName: string | null
   /** Null when Botcamp serves it from its own API (uploads): initials instead. */
   avatarUrl: string | null
+}
+
+export interface StrategyDetailFile {
+  id: string
+  type: "FILE" | "LINK"
+  filename: string
+  mimeType: string | null
+  size: number | null
+  url: string | null
+  sortOrder: number
+}
+
+export interface StrategyDetailImage {
+  id: string
+  filename: string
+  mimeType: string
+  size: number
+  sortOrder: number
 }
 
 export interface StrategyDetail {
@@ -46,8 +67,16 @@ export interface StrategyDetail {
   visibility: StrategyVisibility
   strategyType: StrategyType
   updatedAt: string
-  /** Why Code & Resources are locked for a signed-out visitor. */
-  lockedReason: "racing" | "private" | "signin"
+  /** Why Code & Resources are locked for this viewer; null when they can read them. */
+  lockedReason: "racing" | "private" | "signin" | "paywall" | null
+  /** Code files and links, when the viewer has access. */
+  files: StrategyDetailFile[]
+  /** Resource images, when the viewer has access. */
+  images: StrategyDetailImage[]
+  /** The public Discussion tab: everyone, unless the strategy is PRIVATE or racing. */
+  showDiscussion: boolean
+  /** Whether this viewer may post in it (authors, admins, reviewing sponsors). */
+  canComment: boolean
   /** Latest APPROVED Condor agent version, or null when there's none to clone. */
   condorVersion: number | null
   /** That version's package, as Condor's catalogue lists it (not shown by Botcamp). */
@@ -79,8 +108,8 @@ async function resolveWhere(slug: string): Promise<{ id: number } | { slug: stri
   return alias ? { id: alias.id } : { slug }
 }
 
-/** The strategy as Botcamp shows it signed out, or null where Botcamp 404s. */
-export const getPublicStrategy = cache(async (slug: string): Promise<StrategyDetail | null> => {
+/** The strategy as Botcamp shows it to this viewer, or null where Botcamp 404s. */
+export const getStrategyForViewer = cache(async (slug: string): Promise<StrategyDetail | null> => {
   const where = await resolveWhere(slug)
   const strategy = await prisma.strategy.findUnique({
     where,
@@ -112,14 +141,32 @@ export const getPublicStrategy = cache(async (slug: string): Promise<StrategyDet
         },
       },
       cohortRelation: { select: { number: true } },
+      files: {
+        select: { id: true, type: true, filename: true, mimeType: true, size: true, url: true, sortOrder: true },
+        orderBy: { sortOrder: "asc" },
+      },
+      images: {
+        select: { id: true, filename: true, mimeType: true, size: true, sortOrder: true },
+        orderBy: { sortOrder: "asc" },
+      },
     },
   })
   if (!strategy) return null
 
-  const access = await decideSignedOutStrategyCodeAccess(strategy)
-  // The page is for published strategies; an agent awaiting approval is its
-  // authors', admins' and reviewers' only.
-  if (isAwaitingAgentApproval(strategy) || access === "not_found") return null
+  const user = await sessionCodeViewer(await auth())
+  const { access, viewer } = await decideStrategyCodeAccess(
+    { ...strategy, authors: strategy.authors.map((a) => ({ userId: a.user.id })) },
+    user,
+  )
+  // The page is for published strategies; a draft, one in review or an agent
+  // awaiting approval is its authors', admins' and reviewers' only.
+  if (!viewer && (isAwaitingAgentApproval(strategy) || access === "not_found")) return null
+
+  const hasContentAccess = access === "ok"
+  // An approved agent's code is its reviewed package; its loose files were
+  // never reviewed, so only authors, admins and reviewers see them listed.
+  const looseFilesWithdrawn =
+    strategy.strategyType === "AGENT" && strategy.agentVersions.length > 0 && !viewer
 
   const latest = strategy.strategyType === "AGENT" ? strategy.agentVersions[0] : undefined
 
@@ -143,7 +190,19 @@ export const getPublicStrategy = cache(async (slug: string): Promise<StrategyDet
     visibility: strategy.visibility,
     strategyType: strategy.strategyType,
     updatedAt: strategy.updatedAt.toISOString(),
-    lockedReason: access === "racing" ? "racing" : access === "private" ? "private" : "signin",
+    lockedReason: hasContentAccess
+      ? null
+      : access === "racing"
+        ? "racing"
+        : access === "private"
+          ? "private"
+          : user
+            ? "paywall"
+            : "signin",
+    files: hasContentAccess && !looseFilesWithdrawn ? strategy.files : [],
+    images: hasContentAccess ? strategy.images : [],
+    showDiscussion: access !== "racing" && access !== "private",
+    canComment: viewer !== null,
     condorVersion: latest?.version ?? null,
     condorPackage: latest
       ? {
@@ -220,6 +279,10 @@ export const getBotcampStrategy = cache(async (slug: string): Promise<StrategyDe
     strategyType: s.strategyType,
     updatedAt: s.updatedAt,
     lockedReason,
+    files: [],
+    images: [],
+    showDiscussion: false,
+    canComment: false,
     condorVersion: s.strategyType === "AGENT" ? s.condorVersion : null,
     condorPackage,
     free: listed?.free ?? false,

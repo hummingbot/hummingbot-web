@@ -15,7 +15,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/botcamp/components/ui/alert-dialog"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface DeleteStrategyButtonProps {
   strategyId: number
@@ -57,19 +56,16 @@ export function DeleteStrategyButton({ strategyId, title }: DeleteStrategyButton
         if (!next) setError(null)
       }}
     >
-      <ReadOnlyHint>
       <AlertDialogTrigger asChild>
         <Button
           size="sm"
           variant="outline"
           className="w-24 text-destructive hover:text-destructive"
-          disabled
         >
           <Trash2 className="h-4 w-4 mr-1" />
           Delete
         </Button>
       </AlertDialogTrigger>
-      </ReadOnlyHint>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete &ldquo;{title}&rdquo;?</AlertDialogTitle>

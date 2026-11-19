@@ -11,6 +11,9 @@ const GuideContext = createContext<GuideState>({ path: "condor", os: "mac", setP
 
 const PATH_KEY = "hb-guide-path";
 
+/** Fired on window with the chosen path (detail), for the site header's sub-brand. */
+export const GUIDE_PATH_EVENT = "hb:guide-path";
+
 function detectOs(): GuideOs {
   const ua = navigator.userAgent;
   if (/Windows/i.test(ua)) return "windows";
@@ -51,6 +54,16 @@ export function GuideProvider({ children }: { children: React.ReactNode }) {
     url.searchParams.set("path", p);
     window.history.replaceState(null, "", url);
   };
+
+  // The site header shows "Hummingbot Condor" while the Condor path is open;
+  // it lives outside this provider, so the choice is announced on the page.
+  useEffect(() => {
+    document.documentElement.dataset.guidePath = path;
+    window.dispatchEvent(new CustomEvent(GUIDE_PATH_EVENT, { detail: path }));
+    return () => {
+      delete document.documentElement.dataset.guidePath;
+    };
+  }, [path]);
 
   return <GuideContext.Provider value={{ path, os, setPath, setOs }}>{children}</GuideContext.Provider>;
 }

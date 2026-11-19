@@ -1,22 +1,16 @@
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 import { DashboardShell } from "@/botcamp/components/layout/DashboardShell"
-import { ReadOnlyFetchGuard } from "@/botcamp/components/layout/ReadOnlyFetchGuard"
 import { pageBackgrounds } from "@/botcamp/lib/design-constants"
+import { advanceDueHackathonStages } from "@/botcamp/lib/hackathon-stage-advance"
 import { prisma } from "@/botcamp/lib/prisma"
 import { CURRENT_HACKATHON_STATUSES } from "@/botcamp/lib/hackathon-stages"
-import { auth, isDashboardPreviewEnabled } from "@/botcamp/lib/preview-session"
-import { PreviewSessionProvider } from "@/botcamp/lib/preview-session-client"
+import { auth } from "@/botcamp/lib/auth"
 import { nextSession, resolveSessionUrl } from "@/botcamp/lib/hackathon-sessions"
-import { SiteHeader } from "@/components/layout/site-header"
+import { SiteHeader, headerAccount } from "@/components/layout/site-header"
 import type { NextHackathonEvent, DashboardTeam } from "@/botcamp/components/layout/DashboardSidebar"
 
-// Botcamp's user dashboard, as a READ-ONLY preview with no login: every page
-// renders as the Botcamp user named by DASHBOARD_PREVIEW_USER. It shows a real
-// user's data without authentication, so it exists only in development: in
-// production, or without that variable (or with an email that isn't a user),
-// every /dashboard route is a 404. Nothing here can write — the Prisma client
-// refuses writes, the buttons that would change anything are disabled, and
-// ReadOnlyFetchGuard answers any write request in the browser.
+// Botcamp's user dashboard, for the signed-in user (signed-out visitors go to
+// /signin and come back).
 
 export const dynamic = "force-dynamic"
 
@@ -34,8 +28,8 @@ async function getActiveHackathon(): Promise<{
   name: string | null
   nextEvent: NextHackathonEvent | null
 }> {
-  // Botcamp advances the hackathon stage here first (advanceDueHackathonStages,
-  // a database write). This preview only reads: it shows the stage last saved.
+  // Move any hackathon whose race clock has passed to its next stage first.
+  await advanceDueHackathonStages()
   const live = await prisma.hackathon.findFirst({
     where: { status: { in: CURRENT_HACKATHON_STATUSES } },
     orderBy: { startDate: "desc" },
@@ -67,7 +61,13 @@ async function getActiveHackathon(): Promise<{
   return { name: h.title, nextEvent }
 }
 
-/** Resolve the preview user's sponsor team, if any, for the sidebar's team switcher. */
+/** Resolve the user's sponsor team, if any, for the sidebar's team switcher. */
+/** The role, fresh from the database (not the session token): decides the admin context. */
+async function getUserRole(userId: string): Promise<string | null> {
+  const user = await prisma.user.findUnique({ where: { id: userId }, select: { role: true } })
+  return user?.role ?? null
+}
+
 async function getUserTeam(userId: string): Promise<DashboardTeam | null> {
   const membership = await prisma.teamMember.findFirst({
     where: { userId },
@@ -82,32 +82,25 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  // The guard: never in production, never without a known preview user.
-  if (process.env.NODE_ENV === "production" || !isDashboardPreviewEnabled()) notFound()
   const session = await auth()
-  if (!session) notFound()
+  // Layouts don't see the URL, so a signed-out visit lands on /dashboard after sign-in.
+  if (!session?.user?.id) redirect("/signin?callbackUrl=%2Fdashboard")
 
-  const [{ name, nextEvent }, team] = await Promise.all([
+  const [{ name, nextEvent }, team, role] = await Promise.all([
     getActiveHackathon(),
     getUserTeam(session.user.id),
+    getUserRole(session.user.id),
   ])
 
   return (
-    <PreviewSessionProvider session={session}>
-      <ReadOnlyFetchGuard />
+    <>
       {/* Subtle page gradient, matching marketing surfaces */}
       <div className={`fixed inset-0 ${pageBackgrounds.default} -z-10`} />
 
-      <SiteHeader
-        account={{
-          name: session.user.name,
-          // Botcamp-relative avatars aren't served here; those fall back to initials.
-          image: session.user.image?.startsWith("http") ? session.user.image : null,
-          isAdmin: session.user.role === "ADMIN" }}
-      />
-      <DashboardShell hackathonName={name} nextEvent={nextEvent} team={team}>
+      <SiteHeader account={headerAccount(session)} />
+      <DashboardShell hackathonName={name} nextEvent={nextEvent} team={team} role={role}>
         {children}
       </DashboardShell>
-    </PreviewSessionProvider>
+    </>
   )
 }

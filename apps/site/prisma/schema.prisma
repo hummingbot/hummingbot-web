@@ -1,9 +1,11 @@
 // Copied from botcamp-site (prisma/schema.prisma). This app shares Botcamp's
-// database and only READS it: never run `prisma db push` or migrations from
-// here — Botcamp owns the schema. Re-copy this file when Botcamp's changes.
+// database and reads and writes its rows, but never its schema: don't run
+// `prisma db push` or migrations from here — Botcamp owns the schema until the
+// cutover. Re-copy this file when Botcamp's changes.
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -39,8 +41,9 @@ model User {
   isMember                  Boolean               @default(false)
   profileVisibility         Visibility            @default(PUBLIC)
   termsAcceptedAt           DateTime?
-  // Set once the user ticks the Clone to Condor disclaimer; the agent zip
-  // download (/api/agents/[slug]/versions/*) refuses until it is.
+  // Legacy: the once-per-user Clone to Condor checkbox on the website. Nothing
+  // reads it — consent is now given in Condor, per version (AgentConsent).
+  // Kept so the deploy isn't a destructive db push; drop it in a follow-up.
   condorTermsAcceptedAt     DateTime?
   // Set from the NextAuth `signIn` event (src/lib/auth.ts) on every successful
   // sign-in (OAuth + credentials) — used to find inactive users for outreach.
@@ -80,6 +83,8 @@ model User {
   strategyAccessGrants      StrategyAccessGrant[]
   lessonProgress            LessonProgress[]
   agentVersions             AgentVersion[]
+  agentConsents             AgentConsent[]
+  condorConnectCodes        CondorConnectCode[]
   apiTokens                 ApiToken[]
   deviceAuthorizations      DeviceAuthorization[]
 
@@ -325,6 +330,35 @@ model Enrollment {
 // re-modeled as an enum, so a new Stripe status value never needs a
 // migration. `cancelAtPeriodEnd` lets the UI show "cancels on <date>" while
 // access remains valid through the already-paid period.
+// One row per Stripe Checkout Session we fulfilled (src/lib/checkout-fulfillment.ts).
+// The webhook and the success redirect both fulfill; the row makes it once per
+// session, so reopening an old success URL can't re-grant what an admin or a
+// refund took away. `enrollmentIds` are the enrollments this purchase created
+// (a cohort's included courses carry no payment id), so a refund or dispute
+// removes those — less any course another live purchase also covers
+// (`courseIds`). `revokedAt` is set when it is.
+model CheckoutFulfillment {
+  id                String    @id @default(cuid())
+  checkoutSessionId String    @unique
+  paymentIntentId   String?
+  userId            String
+  type              String
+  enrollmentIds     String[]
+  // Every course the purchase grants, created here or already held: another
+  // purchase's refund keeps enrollments this one still covers.
+  courseIds         String[]
+  // Set once the steps after the claim (course-purchase strategy access, the
+  // confirmation email) ran. Null on a claimed row means a crash cut them
+  // short, and the next webhook retry finishes them.
+  completedAt       DateTime?
+  revokedAt         DateTime?
+  createdAt         DateTime  @default(now())
+
+  @@index([paymentIntentId])
+  @@index([userId])
+  @@map("checkout_fulfillments")
+}
+
 // The Stripe fields and `expiresAt` are nullable to support admin-granted
 // access with no underlying subscription and no expiration — `stripeCustomerId`/
 // `stripeSubscriptionId` are null and `expiresAt` is null (meaning indefinite)
@@ -712,8 +746,8 @@ model ApiToken {
   // What the token may do (see src/lib/api-tokens.ts). Tokens made on the
   // profile page read agents; "Connect Botcamp" in Condor also publishes.
   scopes     String[]  @default(["agents:read"])
-  // Every token expires (API_TOKEN_TTL_DAYS) and can't be renewed: Condor
-  // runs the device login again. Null only on legacy rows.
+  // Every token expires (API_TOKEN_TTL_DAYS) and can't be renewed: the person
+  // connects Condor again with a new code. Null only on legacy rows.
   expiresAt  DateTime?
   lastUsedAt DateTime?
   createdAt  DateTime  @default(now())
@@ -730,10 +764,10 @@ enum DeviceAuthorizationStatus {
   CONSUMED
 }
 
-// "Connect Botcamp" from Condor (OAuth 2.0 device flow, RFC 8628): Condor
-// gets a device code it polls with and a short user code the person approves
-// at /connect while signed in. On the first poll after approval the ApiToken
-// is created and handed to Condor, and the row is spent (CONSUMED).
+// No longer written: the old "Connect Botcamp" device flow, where Condor showed
+// a code typed on /connect. Replaced by CondorConnectCode. Kept only so deploys
+// don't stall on the deploy guard's DROP TABLE; drop it in a deploy run with
+// ALLOW_DESTRUCTIVE_DB_PUSH=1.
 model DeviceAuthorization {
   id             String                    @id @default(cuid())
   deviceCodeHash String                    @unique // sha256; the device code itself is only in Condor
@@ -753,9 +787,41 @@ model DeviceAuthorization {
   @@map("device_authorizations")
 }
 
-// One row per code a signed-in person looks up or answers on /connect,
-// failed guesses included, so guessing codes is rate-limited per account.
-// Rows older than the window are pruned as new ones arrive.
+// "Connect Botcamp": /connect shows the signed-in person a code, they paste it
+// into Condor, and Condor redeems it once for an ApiToken
+// (src/lib/connect-code.ts). Only the hash is stored; one live code per person.
+model CondorConnectCode {
+  id         String    @id @default(cuid())
+  codeHash   String    @unique // sha256 of the normalized code
+  userId     String
+  scopes     String[]
+  expiresAt  DateTime
+  usedAt     DateTime? // Set once, when Condor redeems it
+  redeemerIp String?
+  createdAt  DateTime  @default(now())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("condor_connect_codes")
+}
+
+// One row per action counted by rateLimit() (src/lib/rate-limit.ts), keyed
+// by what's limited — "strategy-create:user:<id>", "signup:ip:<ip>". Rows past
+// the longest window are pruned as new ones arrive.
+model RateLimitHit {
+  id        String   @id @default(cuid())
+  key       String
+  createdAt DateTime @default(now())
+
+  @@index([key, createdAt])
+  @@index([createdAt])
+  @@map("rate_limit_hits")
+}
+
+// No longer written: counted by RateLimitHit (src/lib/rate-limit.ts) since
+// the limiters were merged. Kept only so deploys don't stall on the deploy
+// guard's DROP TABLE; drop it in a deploy run with ALLOW_DESTRUCTIVE_DB_PUSH=1.
 model DeviceCodeAttempt {
   id        String   @id @default(cuid())
   userId    String
@@ -765,10 +831,9 @@ model DeviceCodeAttempt {
   @@map("device_code_attempts")
 }
 
-// One row per agent package read on someone's behalf — a check from the New
-// Agent flow or an upload — so reading packages is capped per person
-// (src/lib/agent-upload.ts). A GitHub link costs three calls against the
-// site's shared GitHub token, so unbounded reads could starve everyone's.
+// No longer written: counted by RateLimitHit (src/lib/rate-limit.ts) since
+// the limiters were merged. Kept only so deploys don't stall on the deploy
+// guard's DROP TABLE; drop it in a deploy run with ALLOW_DESTRUCTIVE_DB_PUSH=1.
 model AgentPackageRead {
   id        String   @id @default(cuid())
   userId    String
@@ -779,7 +844,8 @@ model AgentPackageRead {
 }
 
 // One row per strategy created, so creating is capped per person and per IP
-// over a rolling day (src/lib/strategy-create.ts). Deleting a strategy keeps
+// over a rolling day (src/lib/strategy-create.ts). `ip` is the limit's key:
+// the IPv4 address, or an IPv6 caller's /64. Deleting a strategy keeps
 // its row — a create/delete loop still counts — and there's no relation to
 // User on purpose, so deleting an account doesn't hand its quota back. Rows
 // older than the window are pruned as new ones arrive.
@@ -792,6 +858,18 @@ model StrategyCreation {
   @@index([userId, createdAt])
   @@index([ip, createdAt])
   @@map("strategy_creations")
+}
+
+// No longer written: counted by RateLimitHit (src/lib/rate-limit.ts) since
+// the limiters were merged. Kept only so deploys don't stall on the deploy
+// guard's DROP TABLE; drop it in a deploy run with ALLOW_DESTRUCTIVE_DB_PUSH=1.
+model SignInCodeRequest {
+  id        String   @id @default(cuid())
+  ip        String
+  createdAt DateTime @default(now())
+
+  @@index([ip, createdAt])
+  @@map("sign_in_code_requests")
 }
 
 // No longer written: the contact forms and POST /api/contact were removed in
@@ -836,11 +914,32 @@ model AgentVersion {
   createdAt    DateTime           @default(now())
   strategy     Strategy           @relation(fields: [strategyId], references: [id], onDelete: Cascade)
   uploadedBy   User               @relation(fields: [uploadedById], references: [id])
+  consents     AgentConsent[]
 
   @@unique([strategyId, version])
   @@index([strategyId, status])
   @@index([status])
   @@map("agent_versions")
+}
+
+// A person's consent to run one agent version, given in Condor (Condor
+// shows the terms; Botcamp only receives and stores the acceptance, see
+// POST /api/agents/[slug]/versions/[version]/consent). One per user and
+// version, sent with the token of the person's Condor connection.
+model AgentConsent {
+  id             String       @id @default(cuid())
+  userId         String
+  agentVersionId String
+  sha256         String // The version's sha256 when consented: the exact bytes
+  termsVersion   String // Which of Condor's texts was accepted, as Condor reports it
+  apiTokenId     String? // The Condor connection that sent it (its id, never the token); no FK, tokens are deleted on disconnect
+  acceptedAt     DateTime     @default(now())
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agentVersion   AgentVersion @relation(fields: [agentVersionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, agentVersionId])
+  @@index([agentVersionId])
+  @@map("agent_consents")
 }
 
 // Hackathon Models
@@ -879,6 +978,13 @@ model Hackathon {
   // Public FAQ for this edition: [{ q, a, show }], markdown with {{tokens}}
   // (src/lib/hackathon-faq.ts). Null = the default template, flagged in admin.
   faq               Json?
+  // Values every agent must use — model, venues, naming, support
+  // (src/lib/hackathon-starter-kit.ts). Public. Null = the default kit.
+  starterKit        Json?
+  // Race hosts racers set as `server_name`: [{ name, address, note }].
+  // Shown only to builders holding a finals seat — never select it on a
+  // public page.
+  raceHosts         Json?
 
   // Configuration
   maxParticipants Int?
@@ -983,8 +1089,9 @@ model Team {
 
   members              TeamMember[]
   invites              TeamInvite[]
-  selectedApplications Application[]      @relation("ApplicationSelectedTeam")
-  sponsoredEntries     HackathonEntry[]   @relation("EntrySponsor")
+  selectedApplications Application[]         @relation("ApplicationSelectedTeam")
+  applicationNotes     ApplicationTeamNote[]
+  sponsoredEntries     HackathonEntry[]      @relation("EntrySponsor")
   // Sponsor workshop session(s) recorded for this team, shown on its team page.
   workshopSessions     HackathonSession[]
   raceAgents           RaceAgent[]
@@ -1040,7 +1147,7 @@ model Application {
 
   // Selection result (set by team/admin)
   selectedTeamId String? // Which team selected this application
-  teamNote       String? // Team's own internal note on selection (team-writable only)
+  teamNote       String? // LEGACY: one note shared by every ranked team, so one team read and overwrote another's. Nothing reads it; notes live in ApplicationTeamNote. Drop once scripts/migrate-team-notes.ts has run on prod
   adminNote      String? // Botcamp's note to the sponsor team, e.g. context for our score (admin-writable, team read-only)
 
   // Results (set by admin post-race)
@@ -1051,11 +1158,12 @@ model Application {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  hackathon       Hackathon          @relation(fields: [hackathonId], references: [id])
-  user            User               @relation(fields: [userId], references: [id])
-  strategy        Strategy?          @relation(fields: [strategyId], references: [id])
-  selectedTeam    Team?              @relation("ApplicationSelectedTeam", fields: [selectedTeamId], references: [id])
+  hackathon       Hackathon             @relation(fields: [hackathonId], references: [id])
+  user            User                  @relation(fields: [userId], references: [id])
+  strategy        Strategy?             @relation(fields: [strategyId], references: [id])
+  selectedTeam    Team?                 @relation("ApplicationSelectedTeam", fields: [selectedTeamId], references: [id])
   scores          ApplicationScore[]
+  teamNotes       ApplicationTeamNote[]
   raceAgent       RaceAgent?
   raceMetrics     RaceMetric[]
   raceAgentDetail RaceAgentDetail?
@@ -1064,6 +1172,25 @@ model Application {
   @@index([hackathonId, status])
   @@index([userId])
   @@map("applications")
+}
+
+// A sponsor team's own internal note on an application it was ranked for.
+// One row per team: every team the applicant ranked reviews the same
+// application, and none may read or overwrite another's note.
+model ApplicationTeamNote {
+  id            String   @id @default(cuid())
+  applicationId String
+  teamId        String
+  note          String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  team        Team        @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@unique([applicationId, teamId])
+  @@index([teamId])
+  @@map("application_team_notes")
 }
 
 // One admin's 1-10 review rating on an application. Each admin who reviews an

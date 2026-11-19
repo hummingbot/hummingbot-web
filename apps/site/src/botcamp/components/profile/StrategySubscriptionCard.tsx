@@ -5,7 +5,6 @@ import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
 import { Button } from "@/botcamp/components/ui/button"
 import { Loader2 } from "lucide-react"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 // Mirrors src/lib/strategy-access.ts's INACTIVE_SUBSCRIPTION_STATUSES — kept
 // as a local literal since that module also imports Prisma, which can't be
@@ -60,7 +59,7 @@ export function StrategySubscriptionCard({ grant }: StrategySubscriptionCardProp
         {!grant && (
           <p className="text-sm text-muted-foreground">
             You don&apos;t have an active subscription.{" "}
-            <Link href="/strategies" className="text-primary hover:underline">
+            <Link href="/hub" className="text-primary hover:underline">
               Browse strategies
             </Link>{" "}
             to unlock the full library.
@@ -91,7 +90,7 @@ export function StrategySubscriptionCard({ grant }: StrategySubscriptionCardProp
         {grant && !isActive && (
           <p className="text-sm text-muted-foreground">
             No active subscription.{" "}
-            <Link href="/strategies" className="text-primary hover:underline">
+            <Link href="/hub" className="text-primary hover:underline">
               Resubscribe
             </Link>{" "}
             to unlock the full library again.
@@ -99,7 +98,7 @@ export function StrategySubscriptionCard({ grant }: StrategySubscriptionCardProp
         )}
 
         {grant && !isManual && (
-          <ReadOnlyHint><Button variant="outline" onClick={handleManage} disabled>
+          <Button variant="outline" onClick={handleManage} disabled={isLoading}>
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -108,7 +107,7 @@ export function StrategySubscriptionCard({ grant }: StrategySubscriptionCardProp
             ) : (
               "Manage subscription"
             )}
-          </Button></ReadOnlyHint>
+          </Button>
         )}
 
         {error && <p className="text-sm text-destructive">{error}</p>}

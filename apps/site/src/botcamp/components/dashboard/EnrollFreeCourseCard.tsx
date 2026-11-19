@@ -11,7 +11,6 @@ import {
   CardTitle,
 } from "@/botcamp/components/ui/card"
 import { Button } from "@/botcamp/components/ui/button"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 interface EnrollFreeCourseCardProps {
   courseId: string
@@ -74,8 +73,7 @@ export function EnrollFreeCourseCard({
           Learn the fundamentals of algorithmic trading and Hummingbot — no cost,
           no prerequisites.
         </p>
-        <ReadOnlyHint>
-        <Button onClick={handleEnroll} disabled>
+        <Button onClick={handleEnroll} disabled={isLoading}>
           {isLoading ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : (
@@ -83,7 +81,6 @@ export function EnrollFreeCourseCard({
           )}
           {isLoading ? "Enrolling…" : "Enroll for free"}
         </Button>
-        </ReadOnlyHint>
         {error && <p className="text-sm text-destructive">{error}</p>}
       </CardContent>
     </Card>

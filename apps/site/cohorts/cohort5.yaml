@@ -1,0 +1,10 @@
+# Botcamp Cohort 5 Data
+# Completed Cohort - March 2024
+
+cohort:
+  number: 5
+  status: completed
+  startDate: "2023-07-01"
+  endDate: "2023-07-31"
+  description: "Participants in Cohort 5 mastered market making fundamentals and developed custom trading strategies. The cohort emphasized practical implementation, code quality, and real-world deployment scenarios."
+  demoDayURL: "https://www.youtube.com/watch?v=kjavBd9vvWA"

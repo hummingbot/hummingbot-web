@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, CircleCheck, FolderOpen, Loader2, Upload, X } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
@@ -23,7 +23,6 @@ import { alertColors } from "@/botcamp/lib/design-constants"
 import { MAX_SUMMARY_LENGTH, MAX_TITLE_LENGTH } from "@/botcamp/lib/strategy-input"
 import { youtubeVideoId } from "@/botcamp/lib/video-embed"
 import { cn } from "@/botcamp/lib/utils"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 // The agent folder the author picked, zipped in the browser for the upload.
 type PackageSource = { name: string; fileCount: number; zip: Blob }
@@ -49,14 +48,11 @@ function packageRequest(source: PackageSource): RequestInit {
 export function NewAgentWizard({
   initialTitle = "",
   initialSummary = "",
-  strategyOptions,
 }: {
   /** What was already typed, when the flow opens from the strategy form. */
   initialTitle?: string
   initialSummary?: string
-  /** Read-only preview: the tag/exchange vocabulary, read on the server (Botcamp fetches it). */
-  strategyOptions: { tags: string[]; exchanges: string[] }
-}): React.JSX.Element {
+} = {}): React.JSX.Element {
   const [step, setStep] = useState(0)
 
   const [source, setSource] = useState<PackageSource | null>(null)
@@ -71,7 +67,13 @@ export function NewAgentWizard({
   const [exchanges, setExchanges] = useState<string[]>([])
   const [tags, setTags] = useState<string[]>([])
   // The same vocabulary as the strategy editor: existing tags and exchanges only.
-  const [options] = useState<{ tags: string[]; exchanges: string[] }>(strategyOptions)
+  const [options, setOptions] = useState<{ tags: string[]; exchanges: string[] }>({ tags: [], exchanges: [] })
+  useEffect(() => {
+    fetch("/api/strategies/options")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => data && setOptions({ tags: data.tags ?? [], exchanges: data.exchanges ?? [] }))
+      .catch(() => {})
+  }, [])
 
   const [submitting, setSubmitting] = useState(false)
   // Set when the page was created but its first version wasn't: the author
@@ -283,7 +285,7 @@ export function NewAgentWizard({
 
             {!source ? (
               <div className="space-y-bc-4">
-                <ReadOnlyHint block><button
+                <button
                   type="button"
                   onClick={() => fileInput.current?.click()}
                   onDragOver={(e) => {
@@ -294,23 +296,21 @@ export function NewAgentWizard({
                   onDrop={(e) => {
                     e.preventDefault()
                     setDragging(false)
-                    // Read-only preview: no package is read or checked.
-                    if (e.currentTarget.disabled) return
                     filesFromDrop(e.dataTransfer)
                       .then(pickFolder)
                       .catch((err) => setError(err instanceof Error ? err.message : "Couldn't read that folder"))
                   }}
                   className={cn(
-                    "flex w-full flex-col items-center gap-2 rounded-bc-lg border border-dashed px-6 py-10 text-center transition-colors disabled:cursor-not-allowed disabled:opacity-60",
+                    "flex w-full flex-col items-center gap-2 rounded-bc-lg border border-dashed px-6 py-10 text-center transition-colors",
                     dragging ? "border-primary bg-primary/5" : "border-border hover:border-primary/50",
                   )}
-                  disabled>
+                >
                   <Upload className="h-6 w-6 text-muted-foreground" />
                   <span className="text-sm font-medium">Drop the agent&apos;s folder here, or click to choose it</span>
                   <span className="text-xs text-muted-foreground">
                     The folder with AGENT.md in it. Up to {MAX_ZIP_MB}MB once zipped.
                   </span>
-                </button></ReadOnlyHint>
+                </button>
 
               </div>
             ) : (
@@ -501,10 +501,10 @@ export function NewAgentWizard({
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back
               </Button>
-              <ReadOnlyHint><Button type="button" onClick={submit} disabled>
+              <Button type="button" onClick={submit} disabled={submitting}>
                 {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                 {createdId !== null ? "Try the Upload Again" : "Submit for Review"}
-              </Button></ReadOnlyHint>
+              </Button>
             </div>
           </CardContent>
         </Card>

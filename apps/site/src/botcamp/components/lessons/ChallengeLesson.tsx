@@ -1,16 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/botcamp/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
 import { MarkdownContent } from "./MarkdownContent"
 import { cn } from "@/botcamp/lib/utils"
 import { Code, CheckCircle, ExternalLink, Eye, EyeOff } from "lucide-react"
-
-// Read-only preview: Botcamp reports opening the challenge and revealing its
-// solution to /api/lessons/<id>/progress. Nothing is saved here, so those
-// reports are left out; the steps checklist and the solution still work, in
-// the browser only, as they do in Botcamp.
+import { reportLessonProgress } from "@/botcamp/lib/lesson-progress-client"
+import { useSetLessonProgress } from "@/botcamp/components/learn/LessonProgressContext"
 
 interface ChallengeStep {
   title: string
@@ -24,6 +21,9 @@ interface ChallengeLessonProps {
   starterCode?: string
   solutionCode?: string
   externalUrl?: string
+  /** Identifies the lesson to the progress API. Omitted in admin preview
+   *  contexts, where there's nothing to track. */
+  lessonId?: string
   initialCompleted?: boolean
 }
 
@@ -31,6 +31,7 @@ export function ChallengeLesson({
   content,
   steps = [],
   externalUrl,
+  lessonId,
   initialCompleted,
 }: ChallengeLessonProps) {
   const [completedSteps, setCompletedSteps] = useState<boolean[]>(
@@ -38,6 +39,7 @@ export function ChallengeLesson({
   )
   const [showSolution, setShowSolution] = useState(!!initialCompleted)
   const [expandedHint, setExpandedHint] = useState<number | null>(null)
+  const setLessonProgress = useSetLessonProgress()
 
   const toggleStepComplete = (index: number) => {
     const newCompleted = [...completedSteps]
@@ -54,10 +56,31 @@ export function ChallengeLesson({
   const challengeContent = parts[0].trim()
   const solutionContent = parts.length > 1 ? "### Solution" + parts[1] : null
 
-  const revealSolution = () => setShowSolution(true)
+  const revealSolution = () => {
+    setShowSolution(true)
+    if (lessonId) {
+      setLessonProgress(lessonId, "completed")
+      reportLessonProgress(lessonId, 0, true)
+    }
+  }
+
+  // Opening the challenge starts it. Challenges with no solution section
+  // have no further action to gate on, so opening is also the completion
+  // signal there — same as an ARTICLE lesson.
+  useEffect(() => {
+    if (!lessonId || initialCompleted) return
+    if (solutionContent) {
+      setLessonProgress(lessonId, "in-progress")
+      reportLessonProgress(lessonId, 0, false)
+    } else {
+      setLessonProgress(lessonId, "completed")
+      reportLessonProgress(lessonId, 0, true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessonId])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-bc-8">
       {/* Challenge description */}
       <div className="max-w-3xl">
         <MarkdownContent content={challengeContent} />
@@ -98,7 +121,7 @@ export function ChallengeLesson({
               />
             </div>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-bc-3">
             {steps.map((step, index) => (
               <div
                 key={index}
@@ -113,7 +136,7 @@ export function ChallengeLesson({
                   <button
                     onClick={() => toggleStepComplete(index)}
                     className={cn(
-                      "mt-0.5 w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 transition-colors",
+                      "mt-0.5 w-5 h-5 rounded border flex items-center justify-center shrink-0 transition-colors",
                       completedSteps[index]
                         ? "bg-green-500 border-green-500 text-white"
                         : "border-muted-foreground"
@@ -178,7 +201,7 @@ export function ChallengeLesson({
               </CardContent>
             </Card>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-bc-4">
               <div className="flex items-center justify-between">
                 <Button
                   variant="ghost"

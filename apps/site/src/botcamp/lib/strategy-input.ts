@@ -1,4 +1,4 @@
-import { parseVideoUrl } from "@/botcamp/lib/video-embed"
+import { youtubeVideoId } from "@/botcamp/lib/video-embed"
 
 // Caps on a strategy's free text, well above anything on prod (on 2026-10-29
 // the longest title was 107 characters, summary 1,265, details 20,864). They
@@ -26,8 +26,9 @@ const TEXT_FIELDS = [
  * The first problem with the strategy fields being written, or null. Absent,
  * null and "" values clear a field and always pass.
  *
- * The video link must be a YouTube, Vimeo, Loom or Google Drive video — it is
- * framed on the strategy page. It is only checked when it differs from
+ * The video link must be a YouTube video — it is framed on the strategy page,
+ * and YouTube is the one host we let users point that frame at. Vimeo, Loom
+ * and Drive links saved earlier still play. It is only checked when it differs from
  * `storedVideoURL`: the editor sends every field on each save, so a link
  * saved before this check existed mustn't stop its author saving anything else.
  */
@@ -43,8 +44,6 @@ export function strategyInputError(input: StrategyTextInput, storedVideoURL: str
   if (video === undefined || video === null || video === "") return null
   if (typeof video !== "string") return "Video link must be text"
   if (video === storedVideoURL) return null
-  if (!parseVideoUrl(video)) {
-    return "Video link must be a YouTube, Vimeo, Loom or Google Drive video"
-  }
+  if (!youtubeVideoId(video)) return "Video link must be a YouTube video"
   return null
 }

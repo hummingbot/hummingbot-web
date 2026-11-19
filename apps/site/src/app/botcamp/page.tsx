@@ -1,3 +1,4 @@
+import { auth } from "@/botcamp/lib/auth"
 import { prisma } from "@/botcamp/lib/prisma"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
@@ -128,8 +129,7 @@ async function getUserCohortEnrollments(userId: string | undefined) {
 }
 
 export default async function EducationPage() {
-  // No sign-in on this site: always the signed-out view.
-  const session = null as { user?: { id?: string } } | null
+  const session = await auth()
   const [cohorts, cohortStats, cohort14RegisteredCount, userCohortEnrollments, testimonialMembers] = await Promise.all([
     getCohorts(),
     getCohortStats(),

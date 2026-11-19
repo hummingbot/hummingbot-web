@@ -1,26 +1,9 @@
-import { notFound } from "next/navigation"
+import { redirect } from "next/navigation"
 import { prisma } from "@/botcamp/lib/prisma"
-import { auth } from "@/botcamp/lib/preview-session"
+import { auth } from "@/botcamp/lib/auth"
 import { ProfileTabs } from "@/botcamp/components/profile/ProfileTabs"
 import { getEffectiveMembership } from "@/botcamp/lib/utils"
-
-// Botcamp's getLatestStrategyGrant (lib/strategy-access): the newest grant,
-// whatever its status, for the billing tab. Not in this site's trimmed copy.
-function getLatestStrategyGrant(userId: string) {
-  return prisma.strategyAccessGrant.findFirst({
-    where: { userId },
-    orderBy: { createdAt: "desc" },
-  })
-}
-
-// What Botcamp's Condor tab fetches from /api/user/api-tokens (never the token).
-function getCondorConnections(userId: string) {
-  return prisma.apiToken.findMany({
-    where: { userId },
-    select: { id: true, name: true, scopes: true, expiresAt: true, lastUsedAt: true, createdAt: true },
-    orderBy: { createdAt: "desc" },
-  })
-}
+import { getLatestStrategyGrant } from "@/botcamp/lib/strategy-access"
 
 export const metadata = {
   title: "Profile - Dashboard - Botcamp",
@@ -132,13 +115,13 @@ export default async function ProfilePage({
   const session = await auth()
 
   if (!session?.user?.id) {
-    notFound()
+    redirect("/signin")
   }
 
   const user = await getUserProfile(session.user.id)
 
   if (!user) {
-    notFound()
+    redirect("/signin")
   }
 
   const prefs = await prisma.user.findUnique({
@@ -153,13 +136,10 @@ export default async function ProfilePage({
   })
 
   if (!prefs) {
-    notFound()
+    redirect("/signin")
   }
 
-  const [grant, condorTokens] = await Promise.all([
-    getLatestStrategyGrant(session.user.id),
-    getCondorConnections(session.user.id),
-  ])
+  const grant = await getLatestStrategyGrant(session.user.id)
 
   return (
     <div className="space-y-bc-6">
@@ -167,12 +147,6 @@ export default async function ProfilePage({
         user={user}
         canEditVisibility={user.isMember}
         initialTab={(await searchParams).tab}
-        condorConnections={condorTokens.map((t) => ({
-          ...t,
-          expiresAt: t.expiresAt?.toISOString() ?? null,
-          lastUsedAt: t.lastUsedAt?.toISOString() ?? null,
-          createdAt: t.createdAt.toISOString(),
-        }))}
         notificationPrefs={prefs}
         strategyGrant={
           grant

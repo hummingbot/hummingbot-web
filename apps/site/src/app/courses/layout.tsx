@@ -1,7 +1,6 @@
-import { PreviewChrome } from "@/botcamp/components/layout/PreviewChrome"
+import { BotcampChrome } from "@/botcamp/components/layout/BotcampChrome"
 
-// Botcamp's course (overview + learn) pages, ported as a READ-ONLY local preview (see
-// PreviewChrome): a 404 in production or without DASHBOARD_PREVIEW_USER.
+// Botcamp's course (overview + learn) pages (see BotcampChrome).
 
 export const dynamic = "force-dynamic"
 
@@ -10,5 +9,5 @@ export const metadata = {
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <PreviewChrome>{children}</PreviewChrome>
+  return <BotcampChrome>{children}</BotcampChrome>
 }

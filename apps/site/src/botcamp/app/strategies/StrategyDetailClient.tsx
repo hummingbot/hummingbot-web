@@ -2,9 +2,8 @@
 
 import type { ReactNode } from 'react'
 import Link from 'next/link'
-import { Lock, FileCode2, BookOpen, ExternalLink, Calendar, Eye, BadgeCheck, ChevronDown } from 'lucide-react'
+import { Lock, FileCode2, BookOpen, ExternalLink, Calendar, Eye, BadgeCheck, ChevronDown, ImageIcon, MessageSquare } from 'lucide-react'
 import { Button } from '@/botcamp/components/ui/button'
-import { ReadOnlyHint } from '@/botcamp/components/ui/read-only'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/botcamp/components/ui/tabs'
 import { getCohortBadgeClasses, capitalizeExchange } from '@/botcamp/lib/utils'
 import { CollapsibleDescription } from '@/botcamp/components/strategies/CollapsibleDescription'
@@ -12,21 +11,22 @@ import { StrategyBreadcrumb } from '@/botcamp/components/strategies/StrategyBrea
 import { BuilderAvatar } from '@/botcamp/components/hackathons/BuilderAvatar'
 import { parseVideoUrl, youtubeVideoId, VIDEO_IFRAME_SANDBOX } from '@/botcamp/lib/video-embed'
 import { YouTubeFacade } from '@/components/ui/youtube-facade'
+import { StrategyComments } from '@/botcamp/components/strategies/StrategyComments'
+import { StrategyCodeViewer } from '@/botcamp/components/strategies/StrategyCodeViewer'
+import { StrategyImageGallery } from '@/botcamp/components/strategies/StrategyImageGallery'
+import { UnlockStrategiesButton } from '@/botcamp/components/strategies/UnlockStrategiesButton'
+import { AgentCodeViewer } from '@/botcamp/components/agents/AgentCodeViewer'
 import type { StrategyDetail, StrategyDetailAuthor, StrategyType, StrategyVisibility } from '@/botcamp/lib/strategy-detail'
 
-// Botcamp's StrategyDetailClient (origin/main), signed out. Botcamp fetches
+// Botcamp's StrategyDetailClient (origin/main). Botcamp fetches
 // /api/strategies/<slug> in the browser with the session; here the page reads
-// the same payload on the server (getPublicStrategy) and passes it in, so the
-// loading skeleton and "not found" states are the page's business.
-//
-// Signed out, Botcamp never shows code or resources (hasContentAccess is
-// false) and never the Discussion tab (members only), so the Code tab is
-// always its locked message, and there is no Resources or Discussion tab
-// and no file list to count. Its "Sign in" button is disabled here (no
-// accounts on this site yet). Where Botcamp shows "Sign in to Clone to
-// Condor", the page passes the site's own Clone dialog (`cloneButton`).
-// Not in Botcamp: the "Validated" block in the sidebar (version, package,
-// SHA-256 from Condor's catalogue), which the Hub page showed before.
+// the same payload on the server for this viewer (getStrategyForViewer) and
+// passes it in, so the loading skeleton and "not found" states are the page's
+// business. Code, Resources and Discussion follow that payload: `lockedReason`
+// is null when the viewer can read the code. Where Botcamp shows its "Clone
+// to Condor" button, the page passes the site's own Clone dialog
+// (`cloneButton`). Not in Botcamp: the "Validated" block in the sidebar
+// (version, package, SHA-256 from Condor's catalogue).
 
 const STRATEGY_TYPE_LABELS: Record<StrategyType, string> = {
   AGENT: 'Agent',
@@ -71,7 +71,7 @@ function formatDate(iso: string): string {
   return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(iso))
 }
 
-const LOCKED_COPY: Record<StrategyDetail['lockedReason'], { title: string; body: string }> = {
+const LOCKED_COPY: Record<NonNullable<StrategyDetail['lockedReason']>, { title: string; body: string }> = {
   racing: {
     title: 'Racing — Code & Resources hidden',
     body: 'This strategy is entered in a hackathon. Its code and resources stay hidden until the race is over.',
@@ -83,6 +83,10 @@ const LOCKED_COPY: Record<StrategyDetail['lockedReason'], { title: string; body:
   signin: {
     title: 'Sign in to view Code & Resources',
     body: 'Source files and resources are available to signed-in Botcamp users.',
+  },
+  paywall: {
+    title: 'Unlock this strategy',
+    body: 'You can read the description for free. Cohort members see every strategy’s code and resources automatically — everyone else can unlock the full library by purchasing the course bundle or subscribing to the annual strategies plan.',
   },
 }
 
@@ -117,16 +121,21 @@ export default function StrategyDetailClient({
     : null
   const showClone = strategy.condorVersion !== null && lockedReason !== 'private' && lockedReason !== 'racing'
 
-  const lockedBlock = (
+  const showsAgentPackage = strategy.condorVersion !== null
+  const hasFiles = !showsAgentPackage && strategy.files.length > 0
+  const hasImages = strategy.strategyType !== 'AGENT' && strategy.images.length > 0
+
+  const lockedBlock = lockedReason && (
     <div className="border border-dashed rounded-bc-lg p-10 text-center">
       <Lock className="h-10 w-10 mx-auto mb-4 text-muted-foreground" />
       <h3 className="text-lg font-semibold mb-2">{LOCKED_COPY[lockedReason].title}</h3>
       <p className="text-muted-foreground mb-4 max-w-md mx-auto">{LOCKED_COPY[lockedReason].body}</p>
       {lockedReason === 'signin' && (
-        <ReadOnlyHint>
-          <Button disabled>Sign in</Button>
-        </ReadOnlyHint>
+        <Button asChild>
+          <Link href={`/signin?callbackUrl=${encodeURIComponent(`/hub/${strategy.slug}`)}`}>Sign in</Link>
+        </Button>
       )}
+      {lockedReason === 'paywall' && <UnlockStrategiesButton className="mx-auto" shine />}
     </div>
   )
 
@@ -185,7 +194,27 @@ export default function StrategyDetailClient({
                   <TabsTrigger value="code" className={tabTriggerClasses}>
                     <FileCode2 className="h-4 w-4 mr-2" />
                     Code
+                    {hasFiles && (
+                      <span className="ml-2 inline-flex items-center justify-center min-w-[1.25rem] h-5 rounded-full bg-muted text-[10px] font-mono">
+                        {strategy.files.length}
+                      </span>
+                    )}
                   </TabsTrigger>
+                  {hasImages && (
+                    <TabsTrigger value="resources" className={tabTriggerClasses}>
+                      <ImageIcon className="h-4 w-4 mr-2" />
+                      Resources
+                      <span className="ml-2 inline-flex items-center justify-center min-w-[1.25rem] h-5 rounded-full bg-muted text-[10px] font-mono">
+                        {strategy.images.length}
+                      </span>
+                    </TabsTrigger>
+                  )}
+                  {strategy.showDiscussion && (
+                    <TabsTrigger value="discussion" className={tabTriggerClasses}>
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      Discussion
+                    </TabsTrigger>
+                  )}
                 </TabsList>
                 {/* On desktop the Clone button lives in the sidebar card; here only on small screens. */}
                 {showClone && cloneButton && <div className="ml-auto self-center py-1.5 lg:hidden">{cloneButton}</div>}
@@ -216,10 +245,49 @@ export default function StrategyDetailClient({
                   )}
                 </TabsContent>
 
-                {/* Code tab — always locked signed out */}
+                {/* Code tab — gated */}
                 <TabsContent value="code" className="mt-6 focus-visible:outline-none">
-                  {lockedBlock}
+                  {lockedReason ? (
+                    lockedBlock
+                  ) : showsAgentPackage ? (
+                    <AgentCodeViewer strategySlug={strategy.slug} />
+                  ) : hasFiles ? (
+                    <div className="space-y-bc-3">
+                      {strategy.strategyType === 'AGENT' && (
+                        <p className="rounded-bc-md border border-border bg-muted/40 px-3 py-2 text-sm text-muted-foreground">
+                          These files weren&apos;t reviewed for Condor. Once a version of this agent is approved,
+                          this tab shows that instead.
+                        </p>
+                      )}
+                      <StrategyCodeViewer files={strategy.files} strategySlug={strategy.slug} />
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground italic">No source files have been uploaded for this strategy.</p>
+                  )}
                 </TabsContent>
+
+                {/* Resources tab — gated */}
+                {hasImages && (
+                  <TabsContent value="resources" className="mt-6 focus-visible:outline-none">
+                    {lockedReason ? (
+                      lockedBlock
+                    ) : (
+                      <StrategyImageGallery
+                        images={strategy.images}
+                        strategySlug={strategy.slug}
+                        title={strategy.images.length === 1 ? 'Resource' : 'Resources'}
+                      />
+                    )}
+                  </TabsContent>
+                )}
+
+                {/* Discussion tab — the public thread, for everyone who can see
+                    the page; authors, admins and reviewing sponsors can post. */}
+                {strategy.showDiscussion && (
+                  <TabsContent value="discussion" className="mt-6 focus-visible:outline-none">
+                    <StrategyComments strategySlug={strategy.slug} canPost={strategy.canComment} />
+                  </TabsContent>
+                )}
               </Tabs>
             </div>
 

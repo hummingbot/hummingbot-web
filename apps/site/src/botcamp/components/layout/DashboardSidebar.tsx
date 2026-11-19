@@ -3,11 +3,10 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
-import { useSession } from "@/botcamp/lib/preview-session-client"
-import { Check, ChevronsUpDown, GraduationCap, Handshake, PanelLeft, Bell, User, X } from "lucide-react"
+import { Check, ChevronsUpDown, GraduationCap, Handshake, PanelLeft, Bell, Shield, User, X, type LucideIcon } from "lucide-react"
 import { cn } from "@/botcamp/lib/utils"
 import { SITE_NAME } from "@/botcamp/lib/site"
-import { dashboardNavItems, teamNavItems, type DashboardNavItem } from "./dashboard-nav"
+import { adminNavItems, dashboardNavItems, teachingNavItems, teamNavItems, type DashboardNavItem } from "./dashboard-nav"
 
 export interface NextHackathonEvent {
   title: string
@@ -30,9 +29,13 @@ interface DashboardSidebarProps {
   hackathonName?: string | null
   /** Next hackathon session — promoted in a card at the sidebar bottom. */
   nextEvent?: NextHackathonEvent | null
-  /** Sponsor team the current user belongs to, if any — shows the context switcher. */
+  /** Sponsor team the current user belongs to, if any — a context in the switcher. */
   team?: DashboardTeam | null
+  /** The user's role, read from the database by the layout: ADMIN and INSTRUCTOR get the admin context. */
+  role?: string | null
 }
+
+export type DashboardContext = "me" | "team" | "admin"
 
 function linkClass(isActive: boolean, highlighted = false) {
   return cn(
@@ -51,18 +54,23 @@ export function DashboardSidebar({
   hackathonName,
   nextEvent,
   team,
+  role,
 }: DashboardSidebarProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { data: session } = useSession()
-  const isInstructor = session?.user?.role === "INSTRUCTOR"
+  const isAdmin = role === "ADMIN"
+  const isInstructor = role === "INSTRUCTOR"
   // Session-only dismiss — resets on a full refresh, persists across in-app nav.
   const [eventDismissed, setEventDismissed] = useState(false)
 
-  // The sponsor-team context is its own area: only team members ever see the
-  // switcher, and once inside it the sidebar shows the team's sections.
-  const inTeam = !!team && !!pathname?.startsWith("/dashboard/team")
-  const items = inTeam ? teamNavItems : dashboardNavItems
+  // Each context is its own area — personal, the sponsor team, admin — and the
+  // sidebar shows that area's sections. Only people with a second context (a
+  // team member, an admin or instructor) see the switcher.
+  const inAdmin = (isAdmin || isInstructor) && !!pathname && (pathname === "/admin" || pathname.startsWith("/admin/"))
+  const inTeam = !inAdmin && !!team && !!pathname?.startsWith("/dashboard/team")
+  const context: DashboardContext = inAdmin ? "admin" : inTeam ? "team" : "me"
+  const items = inAdmin ? (isAdmin ? adminNavItems : teachingNavItems) : inTeam ? teamNavItems : dashboardNavItems
+  const hasSwitcher = !!team || isAdmin || isInstructor
 
   const isActive = (item: DashboardNavItem) => {
     if (!pathname) return false
@@ -74,7 +82,7 @@ export function DashboardSidebar({
       if (item.match?.some((m) => pathname.startsWith(m))) return true
       return pathname === path && current === tab
     }
-    if (path === "/dashboard") return pathname === path
+    if (path === "/dashboard" || path === "/admin") return pathname === path
     return [path, ...(item.match ?? [])].some((p) => pathname === p || pathname.startsWith(`${p}/`))
   }
 
@@ -98,13 +106,13 @@ export function DashboardSidebar({
         </div>
       )}
 
-      {team && (
+      {hasSwitcher && (
         <div className={cn("px-3 pb-3", !onToggle && "pt-4")}>
-          <ContextSwitcher team={team} inTeam={inTeam} onNavigate={onNavigate} />
+          <ContextSwitcher team={team ?? null} role={role ?? null} context={context} onNavigate={onNavigate} />
         </div>
       )}
 
-      <nav className={cn("grid gap-1 px-3 pb-4", !onToggle && !team && "pt-4")}>
+      <nav className={cn("grid gap-1 px-3 pb-4", !onToggle && !hasSwitcher && "pt-4")}>
         {items.map((item) => (
           <Link
             key={item.href}
@@ -117,20 +125,6 @@ export function DashboardSidebar({
           </Link>
         ))}
 
-        {/* Instructors' course tools */}
-        {isInstructor && !inTeam && (
-          <>
-            <div className="my-2 border-t border-border" />
-            <Link
-              href="/admin/courses"
-              onClick={onNavigate}
-              className={linkClass(!!pathname?.startsWith("/admin/courses"))}
-            >
-              <GraduationCap className="h-5 w-5" />
-              Teaching
-            </Link>
-          </>
-        )}
       </nav>
 
       {/* Next hackathon event — promo card pinned to the sidebar bottom. */}
@@ -182,17 +176,19 @@ export function DashboardSidebar({
 }
 
 /**
- * "Your account ▾ / {team}" — switches the sidebar between the personal area
- * and the sponsor team's admin, like Vercel's team or Hugging Face's org
- * switcher. Rendered only for team members.
+ * "Your account ▾ / {team} / Admin" — switches the sidebar between the personal
+ * area, the sponsor team's admin and the site admin, like Vercel's team or
+ * Hugging Face's org switcher. Rendered only for people with a second context.
  */
 function ContextSwitcher({
   team,
-  inTeam,
+  role,
+  context,
   onNavigate,
 }: {
-  team: DashboardTeam
-  inTeam: boolean
+  team: DashboardTeam | null
+  role: string | null
+  context: DashboardContext
   onNavigate?: () => void
 }) {
   const [open, setOpen] = useState(false)
@@ -210,11 +206,18 @@ function ContextSwitcher({
     }
   }, [open])
 
-  const options = [
-    { key: "me", label: "Your account", hint: "Learning, strategies, hackathons", href: "/dashboard", icon: User, active: !inTeam },
-    { key: "team", label: team.name, hint: "Sponsor team admin", href: "/dashboard/team", icon: Handshake, active: inTeam },
+  const options: { key: DashboardContext; kicker: string; label: string; hint: string; href: string; icon: LucideIcon }[] = [
+    { key: "me", kicker: "Personal", label: "Your account", hint: "Learning, strategies, hackathons", href: "/dashboard", icon: User },
+    ...(team
+      ? [{ key: "team" as const, kicker: "Team", label: team.name, hint: "Sponsor team admin", href: "/dashboard/team", icon: Handshake }]
+      : []),
+    ...(role === "ADMIN"
+      ? [{ key: "admin" as const, kicker: "Admin", label: "Admin", hint: "Users, courses, hackathons, agents", href: "/admin", icon: Shield }]
+      : role === "INSTRUCTOR"
+        ? [{ key: "admin" as const, kicker: "Teaching", label: "Teaching", hint: "Course editor", href: "/admin/courses", icon: GraduationCap }]
+        : []),
   ]
-  const current = options.find((o) => o.active)!
+  const current = options.find((o) => o.key === context) ?? options[0]
 
   return (
     <div ref={ref} className="relative">
@@ -228,7 +231,7 @@ function ContextSwitcher({
         <current.icon className="h-5 w-5 shrink-0 text-primary" />
         <span className="min-w-0 flex-1">
           <span className="block font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
-            {inTeam ? "Team" : "Personal"}
+            {current.kicker}
           </span>
           <span className="block truncate text-sm font-semibold">{current.label}</span>
         </span>
@@ -240,7 +243,7 @@ function ContextSwitcher({
           className="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-bc-lg border border-border bg-popover p-1 shadow-xl"
         >
           {options.map((o) => (
-            <li key={o.key} role="option" aria-selected={o.active}>
+            <li key={o.key} role="option" aria-selected={o.key === current.key}>
               <Link
                 href={o.href}
                 onClick={() => {
@@ -254,7 +257,7 @@ function ContextSwitcher({
                   <span className="block truncate text-sm font-medium">{o.label}</span>
                   <span className="block truncate text-xs text-muted-foreground">{o.hint}</span>
                 </span>
-                {o.active && <Check className="h-4 w-4 shrink-0 text-primary" />}
+                {o.key === current.key && <Check className="h-4 w-4 shrink-0 text-primary" />}
               </Link>
             </li>
           ))}

@@ -18,7 +18,6 @@ import { formatFileSize } from "@/botcamp/lib/format"
 import { Plus, Trash2, Loader2, FileCode, Download, Lock, Link2, ExternalLink } from "lucide-react"
 import { cn } from "@/botcamp/lib/utils"
 import { alertColors } from "@/botcamp/lib/design-constants"
-import { ReadOnlyHint } from "@/botcamp/components/ui/read-only"
 
 export interface FileItem {
   id: string
@@ -260,16 +259,17 @@ export function FileUploadManager({
           >
             Cancel
           </Button>
-          <ReadOnlyHint><Button
+          <Button
             onClick={handleAddLink}
-            disabled>
+            disabled={isAddingLink || !linkName.trim() || !linkUrl.trim()}
+          >
             {isAddingLink ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
               <Link2 className="mr-2 h-4 w-4" />
             )}
             Add Link
-          </Button></ReadOnlyHint>
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -347,27 +347,28 @@ export function FileUploadManager({
                   </a>
                 </Button>
               ) : (
-                <ReadOnlyHint><Button
+                <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => handleDownload(file.id, file.filename)}
-                  disabled>
+                >
                   <Download className="h-4 w-4 mr-1" />
                   Download
-                </Button></ReadOnlyHint>
+                </Button>
               )}
               {!disabled && (
-                <ReadOnlyHint><Button
+                <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => handleDelete(file.id)}
-                  disabled>
+                  disabled={isDeleting === file.id}
+                >
                   {isDeleting === file.id ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
                     <Trash2 className="h-4 w-4 text-destructive" />
                   )}
-                </Button></ReadOnlyHint>
+                </Button>
               )}
             </div>
           </div>
@@ -380,13 +381,13 @@ export function FileUploadManager({
                 type="file"
                 multiple
                 onChange={handleUpload}
-                disabled
+                disabled={isUploading}
                 className="hidden"
                 id={inputId}
                 accept={accept}
               />
-              <ReadOnlyHint><Button size="sm" asChild disabled>
-                <label htmlFor={inputId} className="pointer-events-none opacity-50">
+              <Button size="sm" asChild disabled={isUploading}>
+                <label htmlFor={inputId} className="cursor-pointer">
                   {isUploading ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
@@ -394,16 +395,16 @@ export function FileUploadManager({
                   )}
                   Upload Files
                 </label>
-              </Button></ReadOnlyHint>
+              </Button>
               {allowLinks && (
-                <ReadOnlyHint><Button
+                <Button
                   size="sm"
                   variant="outline"
                   onClick={() => setLinkDialogOpen(true)}
-                  disabled>
+                >
                   <Link2 className="mr-2 h-4 w-4" />
                   Add Link
-                </Button></ReadOnlyHint>
+                </Button>
               )}
             </div>
             <p className="text-xs text-muted-foreground">

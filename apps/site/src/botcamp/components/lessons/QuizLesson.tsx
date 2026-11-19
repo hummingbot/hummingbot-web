@@ -1,15 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Button } from "@/botcamp/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/botcamp/components/ui/card"
 import { cn } from "@/botcamp/lib/utils"
 import { CheckCircle, HelpCircle } from "lucide-react"
-import { READ_ONLY_TITLE } from "@/botcamp/components/ui/read-only"
-
-// Read-only preview: answering works as in Botcamp (it's all in the browser),
-// but Botcamp also reports "started"/"finished" to /api/lessons/<id>/progress.
-// Nothing is saved here, so those reports are left out and the result says so.
+import { reportLessonProgress } from "@/botcamp/lib/lesson-progress-client"
+import { useSetLessonProgress } from "@/botcamp/components/learn/LessonProgressContext"
 
 interface QuizQuestion {
   question: string
@@ -20,18 +17,31 @@ interface QuizQuestion {
 
 interface QuizLessonProps {
   questions: QuizQuestion[]
+  /** Identifies the lesson to the progress API. Omitted in admin preview
+   *  contexts, where playback isn't tracked. */
+  lessonId?: string
 }
 
-export function QuizLesson({ questions }: QuizLessonProps) {
+export function QuizLesson({ questions, lessonId }: QuizLessonProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(
     new Array(questions.length).fill(null)
   )
   const [showResults, setShowResults] = useState(false)
   const [showExplanation, setShowExplanation] = useState(false)
+  const hasStartedRef = useRef(false)
+  const setLessonProgress = useSetLessonProgress()
 
   const handleSelectAnswer = (optionIndex: number) => {
     if (showResults) return
+
+    // First answer in this session — the quiz is now "in progress", not
+    // just opened.
+    if (!hasStartedRef.current && lessonId) {
+      hasStartedRef.current = true
+      setLessonProgress(lessonId, "in-progress")
+      reportLessonProgress(lessonId, 0, false)
+    }
 
     const newAnswers = [...selectedAnswers]
     newAnswers[currentQuestion] = optionIndex
@@ -45,6 +55,10 @@ export function QuizLesson({ questions }: QuizLessonProps) {
       setCurrentQuestion(currentQuestion + 1)
     } else {
       setShowResults(true)
+      if (lessonId) {
+        setLessonProgress(lessonId, "completed")
+        reportLessonProgress(lessonId, 0, true)
+      }
     }
   }
 
@@ -84,17 +98,13 @@ export function QuizLesson({ questions }: QuizLessonProps) {
           </div>
           <CardTitle className="text-2xl">Quiz Complete!</CardTitle>
         </CardHeader>
-        <CardContent className="text-center space-y-4">
+        <CardContent className="text-center space-y-bc-4">
           <div>
             <p className="text-4xl font-bold">{score}%</p>
             <p className="text-muted-foreground">
               {correctCount} of {questions.length} correct
             </p>
           </div>
-
-          <p className="text-xs text-muted-foreground">
-            {READ_ONLY_TITLE}: this result isn&apos;t saved.
-          </p>
 
           <div className="flex justify-center gap-4 pt-4">
             <Button variant="outline" onClick={handleRetry}>
@@ -111,7 +121,7 @@ export function QuizLesson({ questions }: QuizLessonProps) {
   const isCorrect = selectedAnswer === question.correctIndex
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-bc-6">
       {/* Progress */}
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>Question {currentQuestion + 1} of {questions.length}</span>
@@ -138,11 +148,11 @@ export function QuizLesson({ questions }: QuizLessonProps) {
       <Card>
         <CardHeader>
           <div className="flex items-start gap-3">
-            <HelpCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+            <HelpCircle className="w-6 h-6 text-primary shrink-0 mt-0.5" />
             <CardTitle className="text-xl">{question.question}</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-bc-3">
           {question.options.map((option, index) => (
             <button
               key={index}

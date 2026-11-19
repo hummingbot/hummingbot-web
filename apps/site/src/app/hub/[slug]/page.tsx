@@ -6,7 +6,7 @@ import { CloneToCondor } from "@/components/hub/clone-to-condor";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import StrategyDetailClient from "@/botcamp/app/strategies/StrategyDetailClient";
-import { getBotcampStrategy, getPublicStrategy } from "@/botcamp/lib/strategy-detail";
+import { getBotcampStrategy, getStrategyForViewer } from "@/botcamp/lib/strategy-detail";
 import {
   condorConnectUrl,
   formatBytes,
@@ -16,8 +16,8 @@ import {
 
 type Params = { params: Promise<{ slug: string }> };
 
-// Botcamp's strategy page (botcamp.xyz/strategies/<slug>), signed out, read
-// from the Botcamp database (getPublicStrategy) or, where that copy doesn't
+// Botcamp's strategy page (botcamp.xyz/strategies/<slug>) for this viewer, read
+// from the Botcamp database (getStrategyForViewer) or, where that copy doesn't
 // have it, Botcamp's public API (getBotcampStrategy). The Hub catalogue's slugs are
 // Botcamp strategy slugs, so the same URL serves both; a catalogue agent with
 // no strategy Botcamp would show falls back to the catalogue-only page below.
@@ -33,7 +33,7 @@ const STRATEGY_TYPE_LABEL = {
 
 async function findStrategy(slug: string) {
   // A database hiccup shouldn't take the catalogue page down with it.
-  const fromDb = await getPublicStrategy(slug).catch((error) => {
+  const fromDb = await getStrategyForViewer(slug).catch((error) => {
     console.error("Failed to read strategy:", error);
     return null;
   });

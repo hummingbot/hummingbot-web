@@ -1,0 +1,157 @@
+# Botcamp Cohort 13 Data
+# This file contains all information for Cohort 13
+# Status can be: scheduled, completed
+
+cohort:
+  number: 13
+  status: completed
+
+  # Dates
+  startDate: "2026-04-23"
+  endDate: "2026-05-18"
+
+  # Registration
+  registrationUrl: "https://courses.botcamp.xyz/event/botcamp-cohort-13-13/register"
+
+  # Weekly Schedule
+  weeks:
+    - week: 0
+      title: "Welcome to Botcamp"
+      description: "Cohort preview, introductions, and setup"
+      sessions:
+        - date: "2026-04-14"
+          time: "15:00 UTC"
+          type: "setup"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          eventUrl: "https://lu.ma/yrw1a7tj"
+          title: "Cohort Preview and Welcome Session"
+          description: "With a revamped curriculum that combines training in algo trading strategy design and development with the latest advances in AI agentic trading, Botcamp Cohort 13 teaches students the theory and practice of professional market making with hands-on instruction from the maintainers of Hummingbot, the open source crypto trading framework."
+
+        - date: "2026-04-23"
+          time: "15:00 UTC"
+          type: "setup"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          title: "Cohort Intros and Setup"
+          description: "Get to know your fellow cohort members in this interactive session. Share your background, trading experience, and goals for the cohort. Then, set up your development environment by installing Hummingbot, Condor, and Hummingbot API, and verify that you have access to all the necessary tools and resources needed for hands-on exercises throughout the program."
+
+    - week: 1
+      title: "Algo Trading Fundamentals"
+      description: "Introduction to Botcamp, algorithmic trading bots, market making theory, and hands-on experience with the Hummingbot V2 framework"
+      sessions:
+        - date: "2026-04-27"
+          time: "15:00 UTC"
+          type: "theory"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          title: "Introduction to Algo Trading"
+          description: "An introduction to algorithmic trading bots and the cryptocurrency exchange landscape. Explore the differences between various types of algo trading strategies, including arbitrage, trend-following, and market making. Understand the tradeoffs between different exchange types—spot vs perpetual, centralized vs decentralized, and central limit order books vs automated market makers—and learn about the critical role that market makers play in providing liquidity to crypto markets."
+
+        - date: "2026-04-28"
+          time: "15:00 UTC"
+          type: "technical"
+          instructor: "Federico Cardoso"
+          instructorEmail: "federico@hummingbot.org"
+          title: "Hummingbot Technical Architecture"
+          description: "A comprehensive overview of overall Hummingbot technical architecture. Understand the distinct roles and interactions between the Hummingbot legacy client, Hummingbot API, Gateway, and Condor in the overall system and how they work together to enable automated trading."
+
+        - date: "2026-04-29"
+          time: "15:00 UTC"
+          type: "theory"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          title: "Market Making Theory and Practice"
+          description: "Trace the history of market making from traditional finance through the development of the groundbreaking Avellaneda-Stoikov model and its evolution into modern crypto market making. Learn the business models, trading strategies, and operational protocols employed by professional market makers. Apply these concepts by running your first market making scripts and controllers in Hummingbot and Condor, while understanding how to effectively balance risk and return in your trading approach."
+
+        - date: "2026-04-30"
+          time: "15:00 UTC"
+          type: "technical"
+          instructor: "Federico Cardoso"
+          instructorEmail: "federico@hummingbot.org"
+          title: "The Hummingbot StrategyV2 Framework"
+          description: "Gain a deep understanding of the Hummingbot StrategyV2 Framework architecture and how it enables flexible, modular strategy development. Walk through each core component of the framework, including Executors, Controllers, and Scripts. Master the main executor types available in Hummingbot API: Order, Position, Grid, and LP. Learn when to use each executor type, how to configure them properly, deploy them via the API, and integrate them effectively within your controllers."
+
+    - week: 2
+      title: "Advanced Strategies"
+      description: "DeFi yield strategies, liquidity provision, custom controller development, and introduction to AI trading infrastructure"
+      sessions:
+        - date: "2026-05-04"
+          time: "15:00 UTC"
+          type: "theory"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          title: "Earning Yield with DeFi"
+          description: "An introduction to decentralized finance and on-chain trading across Solana and Ethereum ecosystems. Understand the differences between lending pools, liquidity pools, vaults, routers, and various decentralized exchange types. Learn about different on-chain yield strategies including staking, lending, liquidity provision, and looping—along with their expected returns, risks, and tradeoffs. See a live demonstration of how to connect your wallet securely and the operational security measures you should implement to protect your assets."
+
+        - date: "2026-05-05"
+          time: "15:00 UTC"
+          type: "theory"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          title: "Liquidity Provision Strategies"
+          description: "A deep dive into liquidity provision strategies and how they compare to traditional order book-based market making approaches. Analyze and compare liquidity provision mechanisms across Meteora, Orca, Uniswap, and PancakeSwap to understand each platform's unique characteristics. Learn to use the LP executor and the LP Rebalancer controller for automated liquidity management across different exchange types and DeFi protocols."
+
+        - date: "2026-05-06"
+          time: "15:00 UTC"
+          type: "technical"
+          instructor: "Federico Cardoso"
+          instructorEmail: "federico@hummingbot.org"
+          title: "Running Market Making Strategies at Scale"
+          description: "A hands-on session exploring a professional market making strategy operating at scale. Watch a live demonstration of the PMM Mister strategy running with multiple controllers, all managed using AI. Compare how it differs from the original PMM V1 strategy and understand the improvements in the new architecture. Learn to implement your own unique trading logic within the V2 Framework architecture."
+
+        - date: "2026-05-07"
+          time: "15:00 UTC"
+          type: "theory"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          title: "Cross-Exchange Strategies"
+          description: "Explore multi-legged trading strategies that operate across multiple exchanges and markets. Learn about arbitrage strategies that capture price discrepancies, cross-exchange market making that provides liquidity while hedging risk, and funding rate arbitrage between spot and perpetual markets. Master the XEMM Executor for cross-exchange market making and the Arbitrage Executor for automated arbitrage execution. Understand the infrastructure requirements, latency considerations, and risk management techniques needed to execute these sophisticated strategies effectively."
+
+    - week: 3
+      title: "Building AI Trading Agents"
+      description: "Hands-on development and deployment of AI-powered trading strategies with personalized office hours support"
+      sessions:
+        - date: "2026-05-11"
+          time: "15:00 UTC"
+          type: "technical"
+          instructor: "Federico Cardoso"
+          instructorEmail: "federico@hummingbot.org"
+          title: "Building a Trading Agent"
+          description: "Create an AI-powered trading agent that combines Hummingbot's robust data collection and trade execution capabilities with intelligent, autonomous decision-making. Learn how the Hummingbot Agent Specification defines a reliable, autonomous trading system that seamlessly integrates Hummingbot execution with AI-driven decision logic. Build a fully functional trading agent that can run across Condor, OpenClaw, and other harnesses, ensuring compatibility and portability across different deployment platforms."
+
+        - date: "2026-05-12"
+          time: "15:00 UTC"
+          type: "technical"
+          instructor: "Federico Cardoso"
+          instructorEmail: "federico@hummingbot.org"
+          title: "Toward Agent Swarms"
+          description: "Learn to deploy, monitor, and manage agent swarms—coordinated groups of trading agents that work together and learn from their collective performance over time. Discover best practices for swarm orchestration, comprehensive logging, and performance optimization when running multiple agents across different environments. Understand how to implement feedback loops that enable your agents to adapt their strategies based on market conditions and historical results."
+
+        - date: "2026-05-13"
+          time: "15:00 UTC"
+          type: "office_hours"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          title: "Office Hours with Mike"
+          description: "Get personalized help with your agent design, implementation questions, and competition preparation from Mike."
+
+        - date: "2026-05-14"
+          time: "15:00 UTC"
+          type: "office_hours"
+          instructor: "Federico Cardoso"
+          instructorEmail: "federico@hummingbot.org"
+          title: "Office Hours with Federico"
+          description: "Get personalized technical support for your agent swarm implementation and deployment from Federico."
+
+    - week: 4
+      title: "Demo Day"
+      description: "Present your strategy as an agent, controller or script for certification and celebrate your achievements"
+      sessions:
+        - date: "2026-05-19"
+          time: "15:00 UTC"
+          type: "demo_day"
+          instructor: "Michael Feng"
+          instructorEmail: "mike@hummingbot.org"
+          title: "Demo Day"
+          description: "Present your strategy to fellow cohort members and industry experts to earn your official Hummingbot certification. Celebrate the achievements of all participants and recognize outstanding contributions to the cohort."

@@ -11,12 +11,6 @@ type StrategyInput = Strategy | (Omit<Strategy, "id" | "slug"> & { id: null; slu
 export function useStrategyForm(
   strategy: StrategyInput,
   hackathonEdit: HackathonEditInfo = { kind: "none" },
-  // Read-only preview: what Botcamp fetches on mount from /api/strategies/options
-  // and /api/user/hackathon-apply-eligibility, read on the server instead.
-  preload: { options: { tags: string[]; exchanges: string[] }; hackathonApply: HackathonApplyInfo | null } = {
-    options: { tags: [], exchanges: [] },
-    hackathonApply: null,
-  },
 ): UseStrategyFormReturn {
   const router = useRouter()
   const isCreateMode = strategy.id === null
@@ -38,7 +32,7 @@ export function useStrategyForm(
   const [showApplyHackathonDialog, setShowApplyHackathonDialog] = useState(false)
 
   // Whether there's an open hackathon this strategy could be applied to
-  const [hackathonApply] = useState<HackathonApplyInfo | null>(preload.hackathonApply)
+  const [hackathonApply, setHackathonApply] = useState<HackathonApplyInfo | null>(null)
 
   // Form field states
   const [title, setTitleState] = useState(strategy.title || "")
@@ -55,6 +49,8 @@ export function useStrategyForm(
   const [tags, setTags] = useState<string[]>(strategy.tags)
   const [exchanges, setExchanges] = useState<string[]>(strategy.exchanges)
   const [visibility, setVisibility] = useState<Visibility>(strategy.visibility)
+  // What this editor loaded: a refresh brings a new `strategy` but keeps the state above.
+  const [loadedVisibility] = useState<Visibility>(strategy.visibility)
   const [files, setFiles] = useState(strategy.files)
   const [images, setImages] = useState(strategy.images)
 
@@ -95,8 +91,27 @@ export function useStrategyForm(
   }, [isDirty])
 
   // Suggestions
-  const [tagSuggestions] = useState<string[]>(preload.options.tags)
-  const [exchangeSuggestions] = useState<string[]>(preload.options.exchanges)
+  const [tagSuggestions, setTagSuggestions] = useState<string[]>([])
+  const [exchangeSuggestions, setExchangeSuggestions] = useState<string[]>([])
+
+  // Fetch suggestions on mount
+  useEffect(() => {
+    fetch("/api/strategies/options")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.tags) setTagSuggestions(data.tags)
+        if (data.exchanges) setExchangeSuggestions(data.exchanges)
+      })
+      .catch(console.error)
+  }, [])
+
+  // Check whether there's an open hackathon this strategy could be applied to
+  useEffect(() => {
+    fetch("/api/user/hackathon-apply-eligibility")
+      .then((res) => res.json())
+      .then((data) => setHackathonApply(data.data?.hackathon ?? null))
+      .catch(console.error)
+  }, [])
 
   // Permissions
   // A running hackathon overrides the certification rule: agents selected for
@@ -180,7 +195,10 @@ export function useStrategyForm(
             videoURL: canEditContent ? (videoURL || null) : undefined,
             tags: canEditContent ? tags : undefined,
             exchanges: canEditContent ? exchanges : undefined,
-            visibility: canChangeVisibility ? visibility : undefined,
+            // Only when changed here: the editor keeps the visibility it loaded,
+            // so sending it on every save would undo a change made since (the
+            // first approval publishing the agent, or an admin's change).
+            visibility: canChangeVisibility && visibility !== loadedVisibility ? visibility : undefined,
           }),
         })
 

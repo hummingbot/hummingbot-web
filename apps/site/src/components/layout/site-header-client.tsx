@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { ChevronDown, LayoutDashboard, LogOut, Menu, Shield, User, X } from "lucide-react";
 import { cn } from "@hummingbot/ui";
 import { nav, primaryCta, urls, type NavItem } from "@/config/site";
+import { GUIDE_PATH_EVENT } from "@/components/get-started/guide-client";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -13,10 +15,30 @@ import { ThemeToggle } from "./theme-toggle";
 const SUB_BRANDS = [
   { label: "Botcamp", href: "/botcamp" },
   { label: "Condor", href: "/docs/condor" },
+  { label: "Condor", href: "/connect" },
 ] as const;
 
 function subBrandFor(pathname: string | null) {
   return SUB_BRANDS.find((b) => pathname === b.href || pathname?.startsWith(b.href + "/")) ?? null;
+}
+
+/**
+ * The get-started guide's chosen path (Condor or Client), while on /get-started.
+ * The guide picks it in the browser (?path=, then the last choice, then Condor)
+ * and announces it (GUIDE_PATH_EVENT); null anywhere else.
+ */
+function subscribeGuidePath(onChange: () => void): () => void {
+  window.addEventListener(GUIDE_PATH_EVENT, onChange);
+  return () => window.removeEventListener(GUIDE_PATH_EVENT, onChange);
+}
+
+function useGuidePath(pathname: string | null): string | null {
+  const path = useSyncExternalStore(
+    subscribeGuidePath,
+    () => document.documentElement.dataset.guidePath ?? null,
+    () => null,
+  );
+  return pathname === "/get-started" ? path : null;
 }
 
 function matches(pathname: string | null, href: string): boolean {
@@ -31,6 +53,13 @@ function isActive(pathname: string | null, item: NavItem): boolean {
 
 /** The signed-in user, when there is one (today: the dashboard preview user). */
 export type HeaderAccount = { name: string | null; image: string | null; isAdmin?: boolean };
+
+/** Botcamp's servableAvatarUrl, client-side: public/ paths live under /botcamp-assets/. */
+function avatarSrc(url: string | null | undefined): string | null {
+  if (!url) return null;
+  if (url.startsWith("/") && !url.startsWith("/api/")) return `/botcamp-assets${url}`;
+  return url;
+}
 
 function initials(name: string | null) {
   return (name ?? "?").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]!.toUpperCase()).join("") || "?";
@@ -124,7 +153,6 @@ function AccountMenu({ account }: { account: HeaderAccount }) {
             <Avatar account={account} className="size-9" />
             <span className="min-w-0">
               <span className="block truncate text-sm font-semibold">{account.name ?? "Your account"}</span>
-              <span className="block text-xs text-muted-foreground">Read-only preview</span>
             </span>
           </div>
           <div className="my-1 border-t border-border" />
@@ -144,9 +172,8 @@ function AccountMenu({ account }: { account: HeaderAccount }) {
           <div className="my-1 border-t border-border" />
           <button
             type="button"
-            disabled
-            title="Read-only preview"
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground opacity-60"
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground hover:bg-card"
           >
             <LogOut className="size-4" aria-hidden="true" />
             Sign out
@@ -275,10 +302,23 @@ function MobileSection({ item, active, onNavigate }: { item: NavItem; active: bo
  * nav (dropdowns for Products, Learn and Community), theme toggle, Sign in and
  * the primary call to action.
  */
-export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) {
+export function SiteHeaderClient({ account: given }: { account?: HeaderAccount } = {}) {
+  // Pages that read the session on the server pass the account; elsewhere it
+  // comes from the session the root layout's SessionProvider fetches.
+  const { data: session } = useSession();
+  const account: HeaderAccount | undefined =
+    given ??
+    (session?.user
+      ? {
+          name: session.user.name || session.user.email || null,
+          image: avatarSrc(session.user.image),
+          isAdmin: session.user.role === "ADMIN",
+        }
+      : undefined);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const subBrand = subBrandFor(pathname);
+  const guidePath = useGuidePath(pathname);
+  const subBrand = subBrandFor(pathname) ?? (guidePath === "condor" ? { label: "Condor" } : null);
   const headerRef = useRef<HTMLElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   useDismiss(open, setOpen, headerRef, menuButton);
@@ -335,7 +375,7 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
           <ThemeToggle />
           {!account && (
             <Link
-              href={urls.signup}
+              href={urls.signin}
               className="hidden h-9 items-center whitespace-nowrap px-3 text-sm font-medium text-foreground hover:text-primary xl:inline-flex"
             >
               Sign in
@@ -404,12 +444,22 @@ export function SiteHeaderClient({ account }: { account?: HeaderAccount } = {}) 
                   </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-foreground hover:bg-card"
+                >
+                  <LogOut className="size-4 text-muted-foreground" aria-hidden="true" />
+                  Sign out
+                </button>
+              </li>
             </ul>
           )}
           <div className={cn("mt-4 grid gap-2", !account && "grid-cols-2")}>
             {!account && (
               <Link
-                href={urls.signup}
+                href={urls.signin}
                 onClick={() => setOpen(false)}
                 className="flex h-10 items-center justify-center rounded-md border border-input text-sm font-medium"
               >

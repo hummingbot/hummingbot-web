@@ -61,6 +61,14 @@ export function selectionClosedReason(status: string): string {
 }
 
 /**
+ * Stages where a hackathon's race is over. The stage is the one source of
+ * truth for it: advanceDueHackathonStages moves a race to Judging once its
+ * race window (raceEnd, or the finals session's) has passed, and access to
+ * entries' code only reads the stage. Until then an entry stays hidden.
+ */
+export const RACE_OVER_STATUSES: HackathonStatus[] = ["JUDGING", "COMPLETED"]
+
+/**
  * Stages where a hackathon is the "current" one — shown in listings, the
  * dashboard, the home page and the sidebar. Judging stays current so builders
  * can follow results; Completed drops out once winners are announced.

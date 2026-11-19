@@ -20,6 +20,23 @@ export type LessonProgressStatus = "in-progress" | "completed"
  */
 export const CLIENT_TRACKED_LESSON_TYPES = ["VIDEO", "QUIZ", "CHALLENGE"] as const
 
+/**
+ * Marks a lesson as complete immediately — for lesson types with no
+ * finer-grained signal to gate on (see `CLIENT_TRACKED_LESSON_TYPES`),
+ * opening the lesson page is the only available signal.
+ */
+export async function markLessonComplete(userId: string, lessonId: string) {
+  const existing = await prisma.lessonProgress.findUnique({
+    where: { userId_lessonId: { userId, lessonId } },
+    select: { completedAt: true },
+  })
+  await prisma.lessonProgress.upsert({
+    where: { userId_lessonId: { userId, lessonId } },
+    create: { userId, lessonId, completedAt: new Date() },
+    update: { completedAt: existing?.completedAt ?? new Date() },
+  })
+}
+
 /** Set of lesson IDs (from `lessonIds`) the user has completed. */
 export async function getCompletedLessonIds(
   userId: string | undefined,
