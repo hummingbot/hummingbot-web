@@ -327,7 +327,7 @@ function RaceProgress({
         className="relative h-2 rounded-full bg-border/70"
       >
         <div
-          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-botcamp-amber to-primary transition-[width] duration-700"
+          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-brand-teal to-primary transition-[width] duration-700"
           style={{ width: `${percent}%` }}
         />
         {ticks.map((h) => (

@@ -300,11 +300,11 @@
   transition: none;
 }
 
-/* Post-race edition year (EditionYear). Gold, glowing digits that come
+/* Post-race edition year (EditionYear). Teal, glowing digits that come
    together once when "shown"; "idle" (reduced motion) is the final state. */
 .edition-year-dates,
 .edition-year-digit {
-  background: linear-gradient(180deg, hsl(var(--primary)) 20%, var(--botcamp-amber) 100%);
+  background: linear-gradient(180deg, var(--brand-teal) 20%, hsl(var(--primary)) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

@@ -83,62 +83,53 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  /* Inverted neutral ramp — low indices read as ink (text), high as surfaces.
-   * ink-400/500/600 are darkened past the WCAG AA 4.5:1 floor for muted text
-   * on light surfaces (plain #71717a measured 4.06 — just under). */
-  --ink-0: #18181b;
-  --ink-50: #1f1f22;
-  --ink-100: #27272a;
-  --ink-150: #3f3f46;
-  --ink-200: #3f3f46;
-  --ink-300: #52525b;
-  --ink-400: #5c5c64;
-  --ink-500: #63636b;
-  --ink-600: #67676f;
-  --ink-700: #d4d4d8;
-  --ink-800: #e4e4e7;
-  --ink-850: #ececef;
-  --ink-900: #f4f4f5;
-  --ink-950: #f9f9fa;
+  /* hbui's light theme (github.com/hummingbot/hbui): body #FAFAFA, white
+   * windows (cards), borders #E9EBEC, text #151819. The ramp is inverted, so
+   * low indices read as text and high ones as surfaces. hbui's tertiary text
+   * (#788187) is 3.9:1 on the body, under the WCAG AA 4.5:1 floor for muted
+   * text, so ink-400/500/600 use a darker step of the same grey. */
+  --ink-0: #151819;
+  --ink-50: #1e2224;
+  --ink-100: #282c2f;
+  --ink-150: #323639;
+  --ink-200: #323639; /* hbui light text-secondary */
+  --ink-300: #484d51;
+  --ink-400: #555c61;
+  --ink-500: #5d6468;
+  --ink-600: #63696e;
+  --ink-700: #c9cdcf;
+  --ink-800: #e9ebec; /* hbui light borders */
+  --ink-850: #f1f3f3;
+  --ink-900: #f1f3f3;
+  --ink-950: #fafafa; /* hbui light body */
   --ink-999: #ffffff;
 
-  /* Semantic surfaces — consumed as hsl(var(--x)), so set HSL channels. Page
-   * is a light gray so white cards (--card) separate without relying only on
-   * borders. */
-  --background: 220 16% 95%; /* #eef0f3 */
-  --foreground: 240 6% 10%; /* #18181b */
-  --card: 0 0% 100%; /* #ffffff */
-  --card-foreground: 240 6% 10%;
+  --background: 0 0% 98%; /* #fafafa */
+  --foreground: 195 9% 9%; /* #151819 */
+  --card: 0 0% 100%;
+  --card-foreground: 195 9% 9%;
   --popover: 0 0% 100%;
-  --popover-foreground: 240 6% 10%;
-  --muted: 220 14% 92%;
-  --muted-foreground: 240 4% 42%;
-  --border: 240 6% 90%; /* #e4e4e7 */
-  --input: 240 6% 90%;
-  /* The same bright gold as the dark theme, with dark text on it. Gold text
-   * doesn't read on white, so in light mode gold stays on fills (buttons,
-   * badges, highlights) and gold-colored text turns dark — see below. */
-  --primary: 46 98% 50%; /* #fdc70c */
-  --primary-foreground: 0 0% 9%;
-  --secondary: 21 85% 54%;
+  --popover-foreground: 195 9% 9%;
+  --muted: 180 7% 95%; /* #f1f3f3 */
+  --muted-foreground: 202 6% 39%; /* #5d6468 */
+  --border: 200 6% 92%; /* #e9ebec */
+  --input: 200 6% 92%;
+  /* Hummingbot teal on fills, with dark text on it. Teal text doesn't read on
+   * white (2.1:1), so teal-colored text turns dark — see below. */
+  --primary: 184 100% 40%; /* #00c2ce */
+  --primary-foreground: 195 9% 9%;
+  --secondary: 28 87% 55%;
   --secondary-foreground: 0 0% 100%;
-  /* Focus rings must stand out on light surfaces (WCAG 1.4.11): gold on
-   * white is 1.6:1, so the light theme rings in near-black instead. */
-  --ring: 240 6% 10%;
-  /* What "gold" text becomes on light surfaces. */
-  --primary-text: 240 5% 26%;
+  /* Focus rings must stand out on light surfaces (WCAG 1.4.11): teal on
+   * white is 2.1:1, so the light theme rings in near-black instead. */
+  --ring: 195 9% 9%;
+  /* What "teal" text becomes on light surfaces. */
+  --primary-text: 206 6% 21%;
 
   /* Neon teal (#5fffd7) washes out on white — use a legible teal for accents,
    * focus rings and brand-teal surfaces. Darker than the hub's light teal so
    * white text on the teal CTA button clears WCAG AA 4.5 (4.4 at #0d9aa6). */
   --brand-teal: #0a8a95;
-}
-
-/* Dark theme: the shared token ink-500 (#71717a) is 4.1:1 on the page
- * background, under the 4.5:1 AA floor for the muted text it's used for.
- * Lift it for this site only (other apps keep @hummingbot/tokens as is). */
-:root:not([data-theme="light"]) {
-  --ink-500: #8b8b94;
 }
 
 /* ------------------------------------------------------------------
@@ -229,27 +220,42 @@
   overflow-x: auto;
 }
 
-/* Strategy covers (Hub cards, carousel) follow the theme: near-black with white
- * type in dark, warm white with ink type in light. Candles and the outlined
- * rank stay gold in both. */
+/* Code samples (the home's config panel). hbui's palettes: teal and blue on
+ * dark, their deeper steps on light so they clear 4.5:1 on white. */
 :root {
-  --cover-ink: #111111;
-  --cover-fg: 0 0% 100%;
-  --cover-accent: 46 98% 50%;
+  --code-key: #75b3ff; /* hbui blue-300 */
+  --code-value: #8ae3e8; /* hbui brand-200 */
+  --code-accent: #5fffd7; /* hbui terminal */
+  --code-comment: #939b9f;
 }
 :root[data-theme="light"] {
-  --cover-ink: #fbfaf6;
-  --cover-fg: 240 6% 10%;
-  /* Bright gold candles wash out on the light cover; a deeper gold reads. */
-  --cover-accent: 43 91% 42%;
+  --code-key: #2364b5; /* hbui blue-700 */
+  --code-value: #006b71; /* hbui brand-800 */
+  --code-accent: #005157; /* hbui brand-900 */
+  --code-comment: #63696e;
 }
 
-/* Light theme depth for the Hub: a warm gold glow on each cover instead of a
+/* Strategy covers (Hub cards, carousel) follow the theme: near-black with white
+ * type in dark, white with ink type in light. Candles and the outlined rank
+ * are Hummingbot teal in both. */
+:root {
+  --cover-ink: #151819;
+  --cover-fg: 0 0% 100%;
+  --cover-accent: 184 100% 40%;
+}
+:root[data-theme="light"] {
+  --cover-ink: #ffffff;
+  --cover-fg: 195 9% 9%;
+  /* Bright teal candles wash out on the light cover; a deeper teal reads. */
+  --cover-accent: 184 100% 29%;
+}
+
+/* Light theme depth for the Hub: a soft teal glow on each cover instead of a
  * flat white, and cards that float on a soft shadow. Dark needs neither. */
 :root[data-theme="light"] .strategy-cover {
   background:
-    radial-gradient(120% 90% at 100% 0%, hsl(46 98% 50% / 0.22), transparent 60%),
-    radial-gradient(80% 70% at 0% 100%, hsl(43 91% 42% / 0.08), transparent 70%),
+    radial-gradient(120% 90% at 100% 0%, hsl(184 100% 40% / 0.18), transparent 60%),
+    radial-gradient(80% 70% at 0% 100%, hsl(184 100% 29% / 0.08), transparent 70%),
     var(--cover-ink);
 }
 :root[data-theme="light"] .hub-card {
@@ -260,37 +266,38 @@
 :root[data-theme="light"] .hub-card:hover {
   box-shadow:
     0 1px 2px rgb(16 16 16 / 0.05),
-    0 22px 48px -20px hsl(43 91% 42% / 0.45);
+    0 22px 48px -20px hsl(184 100% 29% / 0.4);
 }
 
-/* Gold is for fills (buttons, badges, the headline marker), not text: in both
- * themes, gold-colored text renders as a neutral (--primary-text) and headline
- * highlights get a gold marker. Dark strategy covers keep their gold. */
+/* The accent (Hummingbot teal) is for fills (buttons, badges, the headline
+ * marker), not text: in both themes, primary-colored text renders as a
+ * neutral (--primary-text) and headline highlights get a teal marker. Dark
+ * strategy covers keep their teal. */
 :root {
-  --primary-text: 0 0% 85%;
+  --primary-text: 200 5% 80%;
 }
 :root[data-theme="light"] {
-  --primary-text: 240 5% 26%;
+  --primary-text: 206 6% 21%;
 }
 .text-primary:not(.strategy-cover *),
 .hover\:text-primary:hover:not(.strategy-cover *),
 .group:hover .group-hover\:text-primary:not(.strategy-cover *) {
   color: hsl(var(--primary-text));
 }
-/* Gold text on a dark cover reads; on a light one it doesn't. */
+/* Teal text on a dark cover reads; on a light one it doesn't. */
 :root[data-theme="light"] .strategy-cover .text-primary {
   color: hsl(var(--primary-text));
 }
-/* The product name in the header wordmark ("Hummingbot Botcamp") keeps its
- * gold, as on Botcamp. Bright gold on the light theme is unreadable, so it
- * takes the deeper gold the light strategy covers use. */
+/* The product name in the header wordmark ("Hummingbot Botcamp") is in the
+ * accent color. Bright teal on the light theme is unreadable, so it takes a
+ * deeper teal from hbui's brand scale. */
 .brand-word {
   color: hsl(var(--primary));
 }
 :root[data-theme="light"] .brand-word {
-  color: hsl(40 95% 30%); /* deep gold, 4.7:1 on the light header */
+  color: hsl(184 100% 22%); /* deep teal (#006b71), 6:1 on the light header */
 }
-/* Headline highlights: a gold marker with dark text, the same in both themes.
+/* Headline highlights: a teal marker with dark text, the same in both themes.
  * It starts just above the cap height, so on tight headlines it never covers
  * the descenders of the line above. */
 .text-primary.brand-highlight {
