@@ -1,5 +1,6 @@
 import { Github, MessageCircle, Twitter, Youtube } from "lucide-react";
-import { urls } from "@/config/site";
+import Link from "next/link";
+import { footerLinks, urls } from "@/config/site";
 import { Logo } from "./logo";
 
 const socials = [
@@ -19,14 +20,22 @@ export function SiteFooter() {
         <div className="flex max-w-md flex-col gap-4">
           <Logo />
           <p className="text-sm text-ink-500 text-pretty">
-            The open source framework for agentic trading strategies. Built by
-            market makers worldwide.
+            The open source framework for market makers. Built by market makers
+            worldwide.
           </p>
           <p className="text-xs text-ink-500">
             © {new Date().getFullYear()} Hummingbot Foundation. Apache 2.0.
           </p>
         </div>
 
+        <div className="flex flex-col gap-6 md:items-end">
+        <nav aria-label="More" className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          {footerLinks.map(({ label, href }) => (
+            <Link key={href} href={href} className="text-ink-400 hover:text-foreground">
+              {label}
+            </Link>
+          ))}
+        </nav>
         <div className="flex gap-1">
           {socials.map(({ label, href, Icon }) => (
             <a
@@ -40,6 +49,7 @@ export function SiteFooter() {
               <Icon className="size-5" aria-hidden="true" />
             </a>
           ))}
+        </div>
         </div>
       </div>
     </footer>

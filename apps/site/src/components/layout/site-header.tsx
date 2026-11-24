@@ -1,5 +1,6 @@
 import type { Session } from "next-auth";
 import { servableAvatarUrl } from "@/botcamp/lib/botcamp-assets";
+import { getRepoStars } from "@/lib/github";
 import { SiteHeaderClient, type HeaderAccount } from "./site-header-client";
 
 /** The header's account menu for a signed-in session. */
@@ -18,5 +19,8 @@ export function headerAccount(session: Session): HeaderAccount {
  * doesn't make static pages (home, blog, docs) dynamic.
  */
 export async function SiteHeader({ account }: { account?: HeaderAccount } = {}) {
-  return <SiteHeaderClient account={account} />;
+  // Hummingbot's star count for the GitHub link (cached for an hour, so static
+  // pages stay static).
+  const githubStars = await getRepoStars("hummingbot");
+  return <SiteHeaderClient account={account} githubStars={githubStars} />;
 }

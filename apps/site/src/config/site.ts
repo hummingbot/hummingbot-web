@@ -35,20 +35,19 @@ export type NavItem = {
   children?: { label: string; href: string; description?: string }[];
 };
 
-// Top-level nav names what people do or look for, not internal brands
-// (Botcamp lives under Learn, like LangChain/Vercel Academy). Products maps the
-// pieces users confuse most; audiences get cards on the home, not nav items.
+// Top-level nav names what an algo trader does or looks for, not internal
+// brands (Botcamp lives under Learn). Each menu keeps only what that reader
+// needs: "Get started" is the header button, Docs is its own item, and pages
+// for exchanges and members are linked from the footer.
 export const nav: NavItem[] = [
   {
     label: "Products",
-    href: "/#products",
+    href: "/get-started",
     children: [
-      { label: "Get started", href: "/get-started", description: "Install Hummingbot and run your first bot, step by step" },
-      { label: "Condor", href: "/get-started?path=condor", description: "Hummingbot in your browser, with AI agents" },
-      { label: "Hummingbot Client", href: "/get-started?path=client", description: "Hummingbot in the terminal: connectors and strategies" },
-      { label: "Hummingbot API", href: `${DOCS}/hummingbot-api`, description: "Deploy and manage many bots from one server" },
+      { label: "Condor", href: "/get-started?path=condor", description: "Run AI trading agents and bots from Telegram" },
+      { label: "Hummingbot Client", href: "/get-started?path=client", description: "Code your own strategies, with connectors to every exchange" },
+      { label: "Hummingbot API", href: `${DOCS}/hummingbot-api`, description: "Run and backtest many bots from one server" },
       { label: "Gateway", href: `${DOCS}/gateway`, description: "Trade on DEXs and land transactions on-chain" },
-      { label: "Which one do I need?", href: "/#products" },
     ],
   },
   { label: "Strategies", href: urls.hub },
@@ -57,9 +56,8 @@ export const nav: NavItem[] = [
     href: urls.botcamp,
     children: [
       { label: "Botcamp", href: urls.botcamp, description: "Hummingbot's training and certification program" },
-      { label: "Cohorts", href: urls.cohorts, description: "Live, guided cohorts to build your first agent" },
       { label: "Courses", href: urls.courses, description: "Self-paced courses, from basics to advanced" },
-      { label: "Docs & guides", href: urls.docs, description: "Reference, quickstarts and walkthroughs" },
+      { label: "Cohorts", href: urls.cohorts, description: "Live, guided cohorts to build your own agent" },
     ],
   },
   { label: "Hackathons", href: urls.hackathons },
@@ -68,13 +66,21 @@ export const nav: NavItem[] = [
     label: "Community",
     href: "/community",
     children: [
-      { label: "Community", href: "/community", description: "Discord, Telegram and where to get help" },
-      { label: "Builders", href: "/builders", description: "Botcamp members, their strategies and where they build" },
+      { label: "Discord & help", href: "/community", description: "Where to ask questions and meet other traders" },
       { label: "Bounties", href: "/bounties", description: "Get paid to build connectors and features" },
-      { label: "For exchanges", href: "/foundation/sponsors#exchange-partners", description: "List a connector, sponsor a hackathon, fee share" },
-      { label: "Foundation", href: "/foundation", description: "Who maintains Hummingbot and HBOT governance" },
+      { label: "Foundation", href: "/foundation", description: "Who maintains Hummingbot, and HBOT governance" },
     ],
   },
+];
+
+/** Secondary pages, linked from the footer instead of the header. */
+export const footerLinks: { label: string; href: string }[] = [
+  { label: "Exchanges", href: urls.exchanges },
+  { label: "Volume", href: "/volumes" },
+  { label: "Builders", href: "/builders" },
+  { label: "For exchanges", href: "/foundation/sponsors#exchange-partners" },
+  { label: "Blog", href: urls.blog },
+  { label: "Terms", href: "/terms" },
 ];
 
 /** The header's primary call to action: clone a strategy into Condor. */

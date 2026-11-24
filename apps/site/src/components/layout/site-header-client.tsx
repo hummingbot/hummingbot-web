@@ -10,6 +10,7 @@ import { nav, primaryCta, urls, type NavItem } from "@/config/site";
 import { GUIDE_PATH_EVENT } from "@/components/get-started/guide-client";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
+import { GithubRepoWidget } from "./github-repo-widget";
 
 /** Main products whose name joins the wordmark while you're in them. */
 const SUB_BRANDS = [
@@ -299,10 +300,14 @@ function MobileSection({ item, active, onNavigate }: { item: NavItem; active: bo
 
 /**
  * Botcamp-style header: a sticky frosted bar with the logo, a right-aligned
- * nav (dropdowns for Products, Learn and Community), theme toggle, Sign in and
+ * nav (dropdowns for Products, Learn and Community), the GitHub repo with its
+ * stars, theme toggle, Sign in and
  * the primary call to action.
  */
-export function SiteHeaderClient({ account: given }: { account?: HeaderAccount } = {}) {
+export function SiteHeaderClient({
+  account: given,
+  githubStars = null,
+}: { account?: HeaderAccount; githubStars?: number | null } = {}) {
   // Pages that read the session on the server pass the account; elsewhere it
   // comes from the session the root layout's SessionProvider fetches.
   const { data: session } = useSession();
@@ -372,6 +377,9 @@ export function SiteHeaderClient({ account: given }: { account?: HeaderAccount }
             account avatar at the far right. */}
         <div className="ml-auto flex items-center gap-2">
           <span aria-hidden="true" className="mr-1 hidden h-6 w-px bg-border xl:block" />
+          <span className="hidden px-2 sm:inline-flex">
+            <GithubRepoWidget repo="hummingbot" href={urls.github} stars={githubStars} />
+          </span>
           <ThemeToggle />
           {!account && (
             <Link

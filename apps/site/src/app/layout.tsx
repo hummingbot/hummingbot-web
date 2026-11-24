@@ -24,9 +24,9 @@ const monoton = Monoton({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hummingbot.org"),
-  title: "Hummingbot — The open source framework for agentic trading strategies",
+  title: "Hummingbot — The open source framework for market makers",
   description:
-    "Open source, self-hosted trading bots and AI agents across 50+ exchanges.",
+    "Open source market making strategies, connectors to 39+ exchanges, and AI agents that run them, self-hosted on your own keys.",
 };
 
 // Resolve the theme before first paint to avoid a flash: stored choice wins,
