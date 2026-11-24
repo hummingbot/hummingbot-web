@@ -113,13 +113,13 @@
   --border: 200 6% 92%; /* #e9ebec */
   --input: 200 6% 92%;
   /* Hummingbot teal on fills, with dark text on it. Teal text doesn't read on
-   * white (2.1:1), so teal-colored text turns dark — see below. */
-  --primary: 184 100% 40%; /* #00c2ce */
+   * white (1.8:1), so teal-colored text turns dark — see below. */
+  --primary: 176 88% 45%; /* #0ed8ca */
   --primary-foreground: 195 9% 9%;
   --secondary: 28 87% 55%;
   --secondary-foreground: 0 0% 100%;
   /* Focus rings must stand out on light surfaces (WCAG 1.4.11): teal on
-   * white is 2.1:1, so the light theme rings in near-black instead. */
+   * white is 1.8:1, so the light theme rings in near-black instead. */
   --ring: 195 9% 9%;
   /* What "teal" text becomes on light surfaces. */
   --primary-text: 206 6% 21%;
