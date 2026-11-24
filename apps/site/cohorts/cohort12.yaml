@@ -1,0 +1,11 @@
+# Botcamp Cohort 12 Data
+# This file contains all information for Cohort 12
+# Status can be: scheduled, completed
+
+cohort:
+  number: 12
+  status: completed
+  startDate: "2025-09-09"
+  endDate: "2025-09-30"
+  description: "Cohort 12 was the first to use the new Hummingbot API and Quants-Lab repos for data collection and analysis."
+  demoDayURL: "https://www.youtube.com/watch?v=z7Bw46QR1N4"

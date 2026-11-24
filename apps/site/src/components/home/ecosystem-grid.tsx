@@ -63,7 +63,7 @@ export async function EcosystemGrid() {
                               {name}
                             </code>
                             {meta && (
-                              <span className="inline-flex items-center gap-0.5 text-xs tabular-nums text-ink-600">
+                              <span className="inline-flex items-center gap-0.5 text-xs tabular-nums text-ink-500">
                                 <Star className="size-3 fill-current" aria-hidden="true" />
                                 {formatStars(meta.stars)}
                               </span>

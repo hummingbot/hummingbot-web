@@ -73,7 +73,7 @@ function palette() {
     fg: `hsl(${v("--foreground")})`,
     fgMuted: v("--ink-400"),
     border: `hsl(${v("--border")})`,
-    primary: v("--brand-teal"),
+    primary: `hsl(${v("--primary")})`,
     bgElev: `hsl(${v("--card")})`,
     mutedSlice: isLight ? "#cbd5e1" : "#3f3f46",
   };
@@ -416,7 +416,7 @@ export function VolumesDashboard() {
                 <div className="max-h-64 overflow-y-auto">
                   {visibleOptions.map((ex) => (
                     <label key={ex} className="group flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-normal normal-case tracking-normal text-ink-200 hover:bg-ink-900">
-                      <input type="checkbox" checked={selected.has(ex)} onChange={() => toggle(ex)} className="accent-brand-teal" />
+                      <input type="checkbox" checked={selected.has(ex)} onChange={() => toggle(ex)} className="accent-primary" />
                       <span className="flex-1 truncate">{ex}</span>
                       <button type="button" onClick={(e) => { e.preventDefault(); only(ex); }} className="rounded border border-ink-700 px-1.5 py-0.5 text-[10px] uppercase text-ink-400 opacity-0 transition-opacity hover:text-foreground group-hover:opacity-100">
                         Only
@@ -444,7 +444,7 @@ export function VolumesDashboard() {
               <s.Icon className="size-4" aria-hidden="true" />
               {s.label}
             </dt>
-            <dd className="mt-2 text-2xl font-bold tabular-nums text-brand-teal sm:text-3xl">{s.value}</dd>
+            <dd className="mt-2 text-2xl font-bold tabular-nums text-primary sm:text-3xl">{s.value}</dd>
           </div>
         ))}
       </dl>
@@ -484,7 +484,7 @@ export function VolumesDashboard() {
                     <td className="py-2">
                       <div className="flex items-center gap-2">
                         <div className="h-1.5 w-24 overflow-hidden rounded-full bg-ink-800">
-                          <div className="h-full rounded-full bg-brand-teal" style={{ width: `${row.bar}%` }} />
+                          <div className="h-full rounded-full bg-primary" style={{ width: `${row.bar}%` }} />
                         </div>
                         <span className="tabular-nums text-ink-400">{row.share.toFixed(1)}%</span>
                       </div>

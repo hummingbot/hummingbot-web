@@ -1,24 +1,26 @@
-import { urls } from "@/config/site";
-import { getRepoStats } from "@/lib/github";
-import { GithubRepoWidget } from "./github-repo-widget";
-import { SiteHeaderClient } from "./site-header-client";
+import type { Session } from "next-auth";
+import { servableAvatarUrl } from "@/botcamp/lib/botcamp-assets";
+import { getRepoStars } from "@/lib/github";
+import { SiteHeaderClient, type HeaderAccount } from "./site-header-client";
+
+/** The header's account menu for a signed-in session. */
+export function headerAccount(session: Session): HeaderAccount {
+  return {
+    name: session.user.name || session.user.email || null,
+    image: servableAvatarUrl(session.user.image),
+    isAdmin: session.user.role === "ADMIN",
+  };
+}
 
 /**
- * Server wrapper: fetches the flagship repo's star count (ISR-cached) and passes
- * a rendered GitHub repo widget into the interactive client shell. Async server
- * component — every page already awaits server components, so importers don't
- * change.
+ * Site header. Kept as a server entry point so pages can keep awaiting it.
+ * Pages that already read the session (the dashboard) pass the account; on
+ * every other page the client reads it (useSession), so reading cookies
+ * doesn't make static pages (home, blog, docs) dynamic.
  */
-export async function SiteHeader() {
-  const stats = await getRepoStats("hummingbot");
-
-  const widget = (
-    <GithubRepoWidget
-      repo="hummingbot/hummingbot"
-      href={urls.github}
-      stars={stats?.stars ?? null}
-    />
-  );
-
-  return <SiteHeaderClient githubWidget={widget} />;
+export async function SiteHeader({ account }: { account?: HeaderAccount } = {}) {
+  // Hummingbot's star count for the GitHub link (cached for an hour, so static
+  // pages stay static).
+  const githubStars = await getRepoStars("hummingbot");
+  return <SiteHeaderClient account={account} githubStars={githubStars} />;
 }

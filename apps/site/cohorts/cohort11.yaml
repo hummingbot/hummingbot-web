@@ -1,0 +1,10 @@
+# Botcamp Cohort 11 Data
+# Completed Cohort - April 2025
+
+cohort:
+  number: 11
+  status: completed
+  startDate: "2025-04-08"
+  endDate: "2025-04-29"
+  description: "Cohort 11 was the first to use the new Solana DEX connectors in Hummingbot for market making strategies."
+  demoDayURL: "https://www.youtube.com/watch?v=8lglLz7tYgs"

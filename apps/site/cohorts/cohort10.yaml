@@ -1,0 +1,10 @@
+# Botcamp Cohort 10 Data
+# Completed Cohort - October 2024
+
+cohort:
+  number: 10
+  status: completed
+  startDate: "2024-11-15"
+  endDate: "2024-12-15"
+  description: "Cohort 10 participants developed sophisticated market making strategies with the Hummingbot framework. The cohort focused on advanced techniques, multi-exchange strategies, and production deployment workflows."
+  demoDayURL: "https://youtu.be/FVtaqrpzhU4"

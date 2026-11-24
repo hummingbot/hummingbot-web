@@ -49,7 +49,7 @@ export function PostCard({ post }: { post: PostMeta }) {
         <h3 className="mt-3 text-lg font-semibold leading-snug tracking-tight">
           <Link
             href={`/blog/${post.slug}`}
-            className="rounded-sm hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="rounded-sm hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {post.title}
           </Link>
@@ -81,7 +81,7 @@ export function FeaturedCard({ post }: { post: PostMeta }) {
         <h2 className="mt-3 text-balance text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
           <Link
             href={`/blog/${post.slug}`}
-            className="rounded-sm hover:text-brand-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="rounded-sm hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {post.title}
           </Link>

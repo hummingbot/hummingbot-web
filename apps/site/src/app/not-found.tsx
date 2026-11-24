@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, GradientText } from "@hummingbot/ui";
+import { Button } from "@hummingbot/ui";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { urls } from "@/config/site";
@@ -13,7 +13,7 @@ export default function NotFound() {
       <main className="flex flex-1 flex-col items-center justify-center px-4 py-24 text-center">
         <p className="font-mono text-sm text-ink-500">404</p>
         <h1 className="mt-4 text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-          This page could not be <GradientText>found</GradientText>
+          This page could not be <span className="brand-highlight text-primary">found</span>
         </h1>
         <p className="mt-3 max-w-md text-pretty text-ink-400">
           The page you&apos;re looking for doesn&apos;t exist or may have moved.
@@ -22,7 +22,7 @@ export default function NotFound() {
           <Link href="/">
             <Button size="lg">Back to home</Button>
           </Link>
-          <a href={urls.docs} target="_blank" rel="noreferrer">
+          <a href={urls.docs}>
             <Button size="lg" variant="outline">
               Read the docs
             </Button>

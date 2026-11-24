@@ -1,0 +1,10 @@
+# Botcamp Cohort 4 Data
+# Completed Cohort - February 2024
+
+cohort:
+  number: 4
+  status: completed
+  startDate: "2023-04-06"
+  endDate: "2023-05-10"
+  description: "Cohort 4 focused on building sophisticated trading strategies with Hummingbot V2. Participants learned to integrate multiple exchanges, implement advanced order types, and optimize strategy performance."
+  demoDayURL: "https://www.youtube.com/watch?v=mjeTm9MQz9c"

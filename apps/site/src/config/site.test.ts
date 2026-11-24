@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { announcement, githubOrg, nav, urls } from "./site";
+import { githubOrg, nav, urls } from "./site";
 
 describe("site config", () => {
   it("exposes absolute external urls and a github org", () => {
     expect(githubOrg).toBeTruthy();
     expect(urls.github).toMatch(/^https:\/\/github\.com\//);
     expect(urls.discord).toMatch(/^https?:\/\//);
-    expect(urls.docs).toMatch(/^https?:\/\//);
+    expect(urls.docs).toBe("/docs");
   });
 
   it("has a non-empty nav; internal items are root-relative, external are absolute", () => {
@@ -22,21 +22,15 @@ describe("site config", () => {
     }
   });
 
-  it("has a Hub menu covering all three primitive types", () => {
-    const hub = nav.find((i) => i.label === "Hub");
-    expect(hub?.children?.map((c) => c.label)).toEqual(["Strategies", "Routines", "Skills"]);
+  it("names tasks, not internal brands, at the top level", () => {
+    expect(nav.map((i) => i.label)).toEqual(["Products", "Strategies", "Learn", "Hackathons", "Docs", "Community"]);
+    // Botcamp lives under Learn.
+    expect(nav.find((i) => i.label === "Learn")?.children?.[0]?.label).toBe("Botcamp");
   });
 
-  it("links Blog to the internal /blog route", () => {
-    const blog = nav.find((i) => i.label === "Blog");
-    expect(blog?.href).toBe("/blog");
-    expect(blog?.external).toBeFalsy();
-    expect(urls.blog).toBe("/blog");
+  it("keeps every section on this site", () => {
+    expect(nav.every((i) => i.href.startsWith("/") && !i.external)).toBe(true);
+    for (const item of nav) for (const child of item.children ?? []) expect(child.href.startsWith("/")).toBe(true);
   });
 
-  it("announcement has display text and a link", () => {
-    expect(announcement.text).toBeTruthy();
-    // internal (root-relative) or absolute external both valid
-    expect(announcement.href.startsWith("/") || /^https?:\/\//.test(announcement.href)).toBe(true);
-  });
 });

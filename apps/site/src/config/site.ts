@@ -1,9 +1,8 @@
 /** Single source of truth for marketing-site config: nav, socials, links. */
 
-// Docs (Mintlify) + Hub live on their own domains in prod; override with
-// NEXT_PUBLIC_DOCS_URL / NEXT_PUBLIC_HUB_URL to point at local instances.
-const DOCS = process.env.NEXT_PUBLIC_DOCS_URL ?? "https://docs.hummingbot.org";
-const HUB = process.env.NEXT_PUBLIC_HUB_URL ?? "https://hub.hummingbot.org";
+// Docs (/docs, lib/docs.ts) and the Hub (/hub, lib/hub.ts) live in this site.
+const DOCS = "/docs";
+const HUB = "/hub";
 
 export const urls = {
   docs: DOCS,
@@ -16,7 +15,14 @@ export const urls = {
   discord: "https://discord.gg/hummingbot",
   x: "https://x.com/_hummingbot",
   youtube: "https://youtube.com/@hummingbot",
-  education: "https://www.botcamp.xyz",
+  // Botcamp cohort questions before enrolling (the public cohort chat).
+  telegram: "https://t.me/botcampcohorts",
+  botcamp: "/botcamp",
+  cohorts: "/botcamp#cohorts",
+  courses: "/botcamp#courses",
+  hackathons: "/hackathons",
+  signin: "/signin",
+  signup: "/signup",
   rewards: "https://xrpliquid.com",
   install: "/install.sh",
   condorInstall: "/condor.sh",
@@ -29,45 +35,56 @@ export type NavItem = {
   children?: { label: string; href: string; description?: string }[];
 };
 
+// Top-level nav names what an algo trader does or looks for, not internal
+// brands (Botcamp lives under Learn). Each menu keeps only what that reader
+// needs: "Get started" is the header button, Docs is its own item, and pages
+// for exchanges and members are linked from the footer.
 export const nav: NavItem[] = [
   {
-    label: "Docs",
-    href: urls.docs,
-    external: true,
+    label: "Products",
+    href: "/get-started",
     children: [
-      { label: "Hummingbot", href: urls.docs, description: "Framework, strategies & connectors" },
-      { label: "Condor", href: "/condor", description: "The harness for AI trading agents" },
+      { label: "Condor", href: "/get-started?path=condor", description: "Run AI trading agents and bots from Telegram" },
+      { label: "Hummingbot Client", href: "/get-started?path=client", description: "Code your own strategies, with connectors to every exchange" },
+      { label: "Hummingbot API", href: `${DOCS}/hummingbot-api`, description: "Run and backtest many bots from one server" },
+      { label: "Gateway", href: `${DOCS}/gateway`, description: "Trade on DEXs and land transactions on-chain" },
     ],
   },
+  { label: "Strategies", href: urls.hub },
   {
-    label: "Hub",
-    href: urls.hub,
-    external: true,
+    label: "Learn",
+    href: urls.botcamp,
     children: [
-      { label: "Strategies", href: `${urls.hub}/strategies`, description: "Market-making, arbitrage & more" },
-      { label: "Routines", href: `${urls.hub}/routines`, description: "Schedulable Condor workflows" },
-      { label: "Skills", href: `${urls.hub}/skills`, description: "AI-assistant skills for Hummingbot" },
+      { label: "Botcamp", href: urls.botcamp, description: "Hummingbot's training and certification program" },
+      { label: "Courses", href: urls.courses, description: "Self-paced courses, from basics to advanced" },
+      { label: "Cohorts", href: urls.cohorts, description: "Live, guided cohorts to build your own agent" },
     ],
   },
-  { label: "Exchanges", href: "/exchanges" },
-  { label: "Volumes", href: "/volumes" },
-  { label: "Blog", href: "/blog" },
+  { label: "Hackathons", href: urls.hackathons },
+  { label: "Docs", href: urls.docs },
   {
-    label: "About",
-    href: "/about",
+    label: "Community",
+    href: "/community",
     children: [
-      { label: "Foundation", href: "/about", description: "Mission, history & team" },
-      { label: "Bounties", href: "/bounties", description: "How connectors get funded" },
-      { label: "Community", href: "/community", description: "Discord, certification & rewards" },
-      { label: "Governance", href: "/about#governance", description: "HBOT & on-chain voting" },
+      { label: "Discord & help", href: "/community", description: "Where to ask questions and meet other traders" },
+      { label: "Bounties", href: "/bounties", description: "Get paid to build connectors and features" },
+      { label: "Foundation", href: "/foundation", description: "Who maintains Hummingbot, and HBOT governance" },
     ],
   },
 ];
 
-export const announcement = {
-  text: "Introducing Condor 🦅 — The Open Source Harness for Trading Agents",
-  href: `${urls.blog}/introducing-condor`,
-} as const;
+/** Secondary pages, linked from the footer instead of the header. */
+export const footerLinks: { label: string; href: string }[] = [
+  { label: "Exchanges", href: urls.exchanges },
+  { label: "Volume", href: "/volumes" },
+  { label: "Builders", href: "/builders" },
+  { label: "For exchanges", href: "/foundation/sponsors#exchange-partners" },
+  { label: "Blog", href: urls.blog },
+  { label: "Terms", href: "/terms" },
+];
+
+/** The header's primary call to action: clone a strategy into Condor. */
+export const primaryCta = { label: "Get started", href: "/get-started" } as const;
 
 /** GitHub org repos grouped for the EcosystemGrid (descriptions/stars fetched live). */
 export const ecosystem: { category: string; icon: string; repos: string[] }[] = [

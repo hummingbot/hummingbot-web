@@ -1,42 +1,13 @@
 @import "tailwindcss";
 @import "@hummingbot/tokens/theme.css";
+@import "../botcamp/botcamp.css";
 @plugin "@tailwindcss/typography";
 
 @source "../../../../packages/ui/src";
 
 @theme {
   --font-satoshi: var(--font-satoshi);
-}
-
-/* Horizontal marquee for the testimonials rows (TweetMarquee). */
-@keyframes hb-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.hb-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: hb-marquee var(--hb-marquee-duration, 60s) linear infinite;
-}
-.hb-marquee-reverse {
-  animation-direction: reverse;
-}
-.hb-marquee:hover .hb-marquee-track,
-.hb-marquee:focus-within .hb-marquee-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hb-marquee-track {
-    animation: none;
-    flex-wrap: wrap;
-    width: 100%;
-  }
+  --font-monoton: var(--font-monoton-face), "Monoton", cursive;
 }
 
 /* Long-form blog prose. Binds @tailwindcss/typography's --tw-prose-* vars to
@@ -47,13 +18,13 @@
   @apply prose max-w-none;
   --tw-prose-body: var(--ink-300);
   --tw-prose-headings: hsl(var(--foreground));
-  --tw-prose-links: var(--brand-teal);
+  --tw-prose-links: hsl(var(--primary));
   --tw-prose-bold: hsl(var(--foreground));
   --tw-prose-counters: var(--ink-400);
   --tw-prose-bullets: var(--ink-600);
   --tw-prose-hr: var(--ink-800);
   --tw-prose-quotes: var(--ink-300);
-  --tw-prose-quote-borders: var(--brand-teal);
+  --tw-prose-quote-borders: hsl(var(--primary));
   --tw-prose-captions: var(--ink-500);
   --tw-prose-code: var(--ink-100);
   --tw-prose-pre-code: var(--ink-300);
@@ -112,42 +83,226 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  /* Inverted neutral ramp — low indices read as ink (text), high as surfaces.
-   * ink-400/500/600 are darkened past the WCAG AA 4.5:1 floor for muted text
-   * on light surfaces (plain #71717a measured 4.06 — just under). */
-  --ink-0: #18181b;
-  --ink-50: #1f1f22;
-  --ink-100: #27272a;
-  --ink-150: #3f3f46;
-  --ink-200: #3f3f46;
-  --ink-300: #52525b;
-  --ink-400: #5c5c64;
-  --ink-500: #63636b;
-  --ink-600: #67676f;
-  --ink-700: #d4d4d8;
-  --ink-800: #e4e4e7;
-  --ink-850: #ececef;
-  --ink-900: #f4f4f5;
-  --ink-950: #f9f9fa;
+  /* hbui's light theme (github.com/hummingbot/hbui): body #FAFAFA, white
+   * windows (cards), borders #E9EBEC, text #151819. The ramp is inverted, so
+   * low indices read as text and high ones as surfaces. hbui's tertiary text
+   * (#788187) is 3.9:1 on the body, under the WCAG AA 4.5:1 floor for muted
+   * text, so ink-400/500/600 use a darker step of the same grey. */
+  --ink-0: #151819;
+  --ink-50: #1e2224;
+  --ink-100: #282c2f;
+  --ink-150: #323639;
+  --ink-200: #323639; /* hbui light text-secondary */
+  --ink-300: #484d51;
+  --ink-400: #555c61;
+  --ink-500: #5d6468;
+  --ink-600: #63696e;
+  --ink-700: #c9cdcf;
+  --ink-800: #e9ebec; /* hbui light borders */
+  --ink-850: #f1f3f3;
+  --ink-900: #f1f3f3;
+  --ink-950: #fafafa; /* hbui light body */
   --ink-999: #ffffff;
 
-  /* Semantic surfaces — consumed as hsl(var(--x)), so set HSL channels. Page
-   * is a light gray so white cards (--card) separate without relying only on
-   * borders. */
-  --background: 220 16% 95%; /* #eef0f3 */
-  --foreground: 240 6% 10%; /* #18181b */
-  --card: 0 0% 100%; /* #ffffff */
-  --card-foreground: 240 6% 10%;
+  --background: 0 0% 98%; /* #fafafa */
+  --foreground: 195 9% 9%; /* #151819 */
+  --card: 0 0% 100%;
+  --card-foreground: 195 9% 9%;
   --popover: 0 0% 100%;
-  --popover-foreground: 240 6% 10%;
-  --muted: 220 14% 92%;
-  --muted-foreground: 240 4% 42%;
-  --border: 240 6% 90%; /* #e4e4e7 */
-  --input: 240 6% 90%;
-  --ring: 186 85% 35%; /* calmer teal */
+  --popover-foreground: 195 9% 9%;
+  --muted: 180 7% 95%; /* #f1f3f3 */
+  --muted-foreground: 202 6% 39%; /* #5d6468 */
+  --border: 200 6% 92%; /* #e9ebec */
+  --input: 200 6% 92%;
+  /* Hummingbot teal on fills, with dark text on it. Teal text doesn't read on
+   * white (2.1:1), so teal-colored text turns dark — see below. */
+  --primary: 184 100% 40%; /* #00c2ce */
+  --primary-foreground: 195 9% 9%;
+  --secondary: 28 87% 55%;
+  --secondary-foreground: 0 0% 100%;
+  /* Focus rings must stand out on light surfaces (WCAG 1.4.11): teal on
+   * white is 2.1:1, so the light theme rings in near-black instead. */
+  --ring: 195 9% 9%;
+  /* What "teal" text becomes on light surfaces. */
+  --primary-text: 206 6% 21%;
 
   /* Neon teal (#5fffd7) washes out on white — use a legible teal for accents,
    * focus rings and brand-teal surfaces. Darker than the hub's light teal so
    * white text on the teal CTA button clears WCAG AA 4.5 (4.4 at #0d9aa6). */
   --brand-teal: #0a8a95;
+}
+
+/* ------------------------------------------------------------------
+ * Docs (/docs) — mkdocs admonitions and tabs, converted to HTML in
+ * lib/docs.ts. Styled as Botcamp cards: card surface, border, a tinted
+ * title; color says the kind (note/tip/warning/danger).
+ * ------------------------------------------------------------------ */
+.docs-prose .admonition {
+  --adm: hsl(var(--primary));
+  margin: 1.5rem 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  background: hsl(var(--card));
+  padding: 1rem 1.25rem;
+}
+.docs-prose .admonition > :last-child {
+  margin-bottom: 0;
+}
+.docs-prose .admonition-title,
+.docs-prose details.admonition > summary {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--adm);
+}
+.docs-prose details.admonition > summary {
+  cursor: pointer;
+  margin: 0;
+}
+.docs-prose details.admonition[open] > summary {
+  margin-bottom: 0.5rem;
+}
+.docs-prose .admonition-tip,
+.docs-prose .admonition-success,
+.docs-prose .admonition-check {
+  --adm: var(--color-bull);
+}
+.docs-prose .admonition-warning,
+.docs-prose .admonition-caution,
+.docs-prose .admonition-attention {
+  --adm: hsl(var(--secondary));
+}
+.docs-prose .admonition-danger,
+.docs-prose .admonition-error,
+.docs-prose .admonition-failure,
+.docs-prose .admonition-bug {
+  --adm: var(--color-bear);
+}
+.docs-prose .admonition-info,
+.docs-prose .admonition-abstract,
+.docs-prose .admonition-question,
+.docs-prose .admonition-example {
+  --adm: hsl(var(--accent));
+}
+
+.docs-prose .tabbed {
+  margin: 1.5rem 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.docs-prose .tabbed-panel {
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+}
+.docs-prose .tabbed-panel > :last-child {
+  margin-bottom: 0;
+}
+.docs-prose .tabbed-label {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  border-radius: 9999px;
+  background: hsl(var(--primary) / 0.1);
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(var(--primary));
+}
+.docs-prose iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.docs-prose table {
+  display: block;
+  overflow-x: auto;
+}
+
+/* Code samples (the home's config panel). hbui's palettes: teal and blue on
+ * dark, their deeper steps on light so they clear 4.5:1 on white. */
+:root {
+  --code-key: #75b3ff; /* hbui blue-300 */
+  --code-value: #8ae3e8; /* hbui brand-200 */
+  --code-accent: #5fffd7; /* hbui terminal */
+  --code-comment: #939b9f;
+}
+:root[data-theme="light"] {
+  --code-key: #2364b5; /* hbui blue-700 */
+  --code-value: #006b71; /* hbui brand-800 */
+  --code-accent: #005157; /* hbui brand-900 */
+  --code-comment: #63696e;
+}
+
+/* Strategy covers (Hub cards, carousel) follow the theme: near-black with white
+ * type in dark, white with ink type in light. Candles and the outlined rank
+ * are Hummingbot teal in both. */
+:root {
+  --cover-ink: #151819;
+  --cover-fg: 0 0% 100%;
+  --cover-accent: 184 100% 40%;
+}
+:root[data-theme="light"] {
+  --cover-ink: #ffffff;
+  --cover-fg: 195 9% 9%;
+  /* Bright teal candles wash out on the light cover; a deeper teal reads. */
+  --cover-accent: 184 100% 29%;
+}
+
+/* Light theme depth for the Hub: a soft teal glow on each cover instead of a
+ * flat white, and cards that float on a soft shadow. Dark needs neither. */
+:root[data-theme="light"] .strategy-cover {
+  background:
+    radial-gradient(120% 90% at 100% 0%, hsl(184 100% 40% / 0.18), transparent 60%),
+    radial-gradient(80% 70% at 0% 100%, hsl(184 100% 29% / 0.08), transparent 70%),
+    var(--cover-ink);
+}
+:root[data-theme="light"] .hub-card {
+  box-shadow:
+    0 1px 2px rgb(16 16 16 / 0.05),
+    0 12px 32px -16px rgb(16 16 16 / 0.22);
+}
+:root[data-theme="light"] .hub-card:hover {
+  box-shadow:
+    0 1px 2px rgb(16 16 16 / 0.05),
+    0 22px 48px -20px hsl(184 100% 29% / 0.4);
+}
+
+/* The accent (Hummingbot teal) is for fills (buttons, badges, the headline
+ * marker), not text: in both themes, primary-colored text renders as a
+ * neutral (--primary-text) and headline highlights get a teal marker. Dark
+ * strategy covers keep their teal. */
+:root {
+  --primary-text: 200 5% 80%;
+}
+:root[data-theme="light"] {
+  --primary-text: 206 6% 21%;
+}
+.text-primary:not(.strategy-cover *),
+.hover\:text-primary:hover:not(.strategy-cover *),
+.group:hover .group-hover\:text-primary:not(.strategy-cover *) {
+  color: hsl(var(--primary-text));
+}
+/* Teal text on a dark cover reads; on a light one it doesn't. */
+:root[data-theme="light"] .strategy-cover .text-primary {
+  color: hsl(var(--primary-text));
+}
+/* The product name in the header wordmark ("Hummingbot Botcamp") is in the
+ * accent color. Bright teal on the light theme is unreadable, so it takes a
+ * deeper teal from hbui's brand scale. */
+.brand-word {
+  color: hsl(var(--primary));
+}
+:root[data-theme="light"] .brand-word {
+  color: hsl(184 100% 22%); /* deep teal (#006b71), 6:1 on the light header */
+}
+/* Headline highlights: a teal marker with dark text, the same in both themes.
+ * It starts just above the cap height, so on tight headlines it never covers
+ * the descenders of the line above. */
+.text-primary.brand-highlight {
+  color: hsl(var(--primary-foreground));
+  background-image: linear-gradient(transparent 28%, hsl(var(--primary)) 28%, hsl(var(--primary)) 90%, transparent 90%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }

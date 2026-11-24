@@ -1,0 +1,10 @@
+# Botcamp Cohort 2 Data
+# Completed Cohort - October 2023
+
+cohort:
+  number: 2
+  status: completed
+  startDate: "2023-12-05"
+  endDate: "2023-01-04"
+  description: "In the first public Botcamp cohort, students learned to build market making strategies using Hummingbot. The cohort focused on practical implementation of student's strategy designs and live trading."
+  demoDayURL: "https://youtu.be/C8SADS3LUak"

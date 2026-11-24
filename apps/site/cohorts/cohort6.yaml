@@ -1,0 +1,9 @@
+# Botcamp Cohort 6 Data
+# Completed Cohort - April 2024
+
+cohort:
+  number: 6
+  status: completed
+  startDate: "2024-02-15"
+  endDate: "2024-03-31"
+  description: "Private Botcamp cohort organized for Ripple Labs employees (first batch) to build market making strategies on the XRPL blockchain. Participants developed production-ready XRPL strategies covering cross-exchange market making, inventory management, and performance optimization."

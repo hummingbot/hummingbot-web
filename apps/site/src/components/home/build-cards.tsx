@@ -7,21 +7,21 @@ const cards = [
     title: "Strategies",
     icon: LineChart,
     desc: "Market-making, arbitrage, and directional bots — Hummingbot scripts & v2 controllers.",
-    href: `${urls.hub}/strategies`,
+    href: urls.hub,
     cmd: "hummingbot install @author/name",
   },
   {
     title: "Routines",
     icon: Workflow,
     desc: "Declarative, schedulable Condor workflows that orchestrate your trading.",
-    href: `${urls.hub}/routines`,
+    href: urls.hub,
     cmd: "condor install @author/name",
   },
   {
     title: "Skills",
     icon: Bot,
     desc: "Installable skills that let AI assistants operate Hummingbot through natural language.",
-    href: `${urls.hub}/skills`,
+    href: urls.hub,
     cmd: "npx skills add hummingbot/skills --skill name",
   },
 ];
@@ -43,13 +43,11 @@ export function BuildCards() {
           <a
             key={title}
             href={href}
-            target="_blank"
-            rel="noreferrer"
             className="group rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Card className="h-full p-6 transition-colors group-hover:border-ink-700">
               <div className="flex items-center justify-between">
-                <Icon className="size-6 text-brand-teal" aria-hidden="true" />
+                <Icon className="size-6 text-primary" aria-hidden="true" />
                 <ArrowUpRight className="size-4 text-ink-600 transition-colors group-hover:text-foreground" aria-hidden="true" />
               </div>
               <h3 className="mt-4 text-xl font-semibold">{title}</h3>

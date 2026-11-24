@@ -1,0 +1,10 @@
+# Botcamp Cohort 3 Data
+# Completed Cohort - December 2023
+
+cohort:
+  number: 3
+  status: completed
+  startDate: "2023-02-15"
+  endDate: "2023-03-31"
+  description: "Cohort 3 participants learned advanced market making techniques and strategy development. The cohort emphasized risk management, backtesting methodologies, and production deployment best practices."
+  demoDayURL: "https://youtu.be/h8-TyANqam0"
