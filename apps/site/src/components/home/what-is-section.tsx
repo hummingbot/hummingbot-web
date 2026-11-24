@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Bot, CandlestickChart, FlaskConical, Network, type LucideIcon } from "lucide-react";
-import { urls } from "@/config/site";
+import { docsPages, urls } from "@/config/site";
 import { EXCHANGE_COUNT } from "@/lib/exchanges";
 import { ConfigSwitcher } from "./config-switcher";
 
@@ -10,7 +10,7 @@ const PILLARS: { Icon: LucideIcon; title: string; body: string; href: string }[]
     Icon: CandlestickChart,
     title: "Market making strategies",
     body: "Pure and cross-exchange market making, grids, arbitrage and DEX liquidity.",
-    href: `${urls.docs}/documentation/strategies/v2-strategies/controllers`,
+    href: docsPages.controllers,
   },
   {
     Icon: Network,
@@ -22,13 +22,13 @@ const PILLARS: { Icon: LucideIcon; title: string; body: string; href: string }[]
     Icon: FlaskConical,
     title: "Backtest, then go live",
     body: "Test on historical candles, then deploy on your own keys.",
-    href: `${urls.docs}/documentation/hummingbot-api`,
+    href: docsPages.hummingbotApi,
   },
   {
     Icon: Bot,
     title: "Agents that run it",
     body: "Condor runs your bots and AI agents and reports on Telegram.",
-    href: `${urls.docs}/condor/introduction`,
+    href: docsPages.condor,
   },
 ];
 

@@ -1,8 +1,9 @@
 /** Single source of truth for marketing-site config: nav, socials, links. */
 
-// Docs (Mintlify) + Hub live on their own domains in prod; override with
-// NEXT_PUBLIC_DOCS_URL / NEXT_PUBLIC_HUB_URL to point at local instances.
-const DOCS = process.env.NEXT_PUBLIC_DOCS_URL ?? "https://docs.hummingbot.org";
+// The docs live in this site (/docs, rendered by lib/docs.ts from the
+// hummingbot-site checkout). The Hub isn't live yet; override with
+// NEXT_PUBLIC_HUB_URL to point at a local instance.
+const DOCS = "/docs";
 const HUB = process.env.NEXT_PUBLIC_HUB_URL ?? "https://hub.hummingbot.org";
 
 export const urls = {
@@ -17,9 +18,19 @@ export const urls = {
   x: "https://x.com/_hummingbot",
   youtube: "https://youtube.com/@hummingbot",
   education: "https://www.botcamp.xyz",
+  // Botcamp's Strategy Library: strategies and agents that clone into Condor.
+  strategyLibrary: "https://www.botcamp.xyz/strategies",
   rewards: "https://xrpliquid.com",
   install: "/install.sh",
   condorInstall: "/condor.sh",
+} as const;
+
+/** Docs pages the home and the header link to. */
+export const docsPages = {
+  installation: "/get-started",
+  controllers: `${DOCS}/strategies/v2-strategies/controllers`,
+  hummingbotApi: `${DOCS}/hummingbot-api`,
+  condor: `${DOCS}/condor`,
 } as const;
 
 export type NavItem = {
@@ -33,22 +44,14 @@ export const nav: NavItem[] = [
   {
     label: "Docs",
     href: urls.docs,
-    external: true,
     children: [
+      { label: "Get started", href: "/get-started", description: "Install Hummingbot and run your first bot, step by step" },
       { label: "Hummingbot", href: urls.docs, description: "Framework, strategies & connectors" },
-      { label: "Condor", href: "/condor", description: "The harness for AI trading agents" },
+      { label: "Condor", href: `${DOCS}/condor`, description: "The harness for AI trading agents" },
     ],
   },
-  {
-    label: "Hub",
-    href: urls.hub,
-    external: true,
-    children: [
-      { label: "Strategies", href: `${urls.hub}/strategies`, description: "Market-making, arbitrage & more" },
-      { label: "Routines", href: `${urls.hub}/routines`, description: "Schedulable Condor workflows" },
-      { label: "Skills", href: `${urls.hub}/skills`, description: "AI-assistant skills for Hummingbot" },
-    ],
-  },
+  // The Hub (hub.hummingbot.org) isn't live yet; strategies are in Botcamp's library.
+  { label: "Strategies", href: urls.strategyLibrary, external: true },
   { label: "Exchanges", href: "/exchanges" },
   { label: "Volumes", href: "/volumes" },
   { label: "Blog", href: "/blog" },
@@ -64,8 +67,8 @@ export const nav: NavItem[] = [
   },
 ];
 
-/** The header's primary button: the install commands at the top of the home. */
-export const primaryCta = { label: "Get started", href: "/#install" } as const;
+/** The header's primary button: the step-by-step install guide. */
+export const primaryCta = { label: "Get started", href: "/get-started" } as const;
 
 /** Secondary pages, linked from the footer. */
 export const footerLinks: { label: string; href: string }[] = [

@@ -27,7 +27,7 @@ export function EducationSection() {
           </h2>
           <p className="mt-5 text-pretty text-lg leading-relaxed text-muted-foreground">
             Botcamp certification shows you can build, backtest, and deploy custom strategies on the Hummingbot V2
-            framework. Certified developers can publish on the Hub.
+            framework. Certified developers can publish in the Strategy Library.
           </p>
           <a
             href={urls.education}

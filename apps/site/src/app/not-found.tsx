@@ -22,7 +22,7 @@ export default function NotFound() {
           <Link href="/">
             <Button size="lg">Back to home</Button>
           </Link>
-          <a href={urls.docs} target="_blank" rel="noreferrer">
+          <a href={urls.docs}>
             <Button size="lg" variant="outline">
               Read the docs
             </Button>

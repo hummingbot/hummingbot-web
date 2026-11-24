@@ -11,6 +11,7 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hummingbot.org"),
   title: "Hummingbot — The open source framework for market makers",
   description:
     "Open source market making strategies, connectors to 50+ exchanges, and AI agents that run them, self-hosted on your own keys.",

@@ -63,15 +63,13 @@ export async function Hero() {
               source. Battle-tested. Yours to command.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={urls.docs}
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                href="/get-started"
                 className="inline-flex h-14 items-center justify-center rounded-md bg-primary px-8 text-lg font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
               >
-                Read the docs
+                Get started
                 <ArrowRight className="ml-2 size-5" aria-hidden="true" />
-              </a>
+              </Link>
               <a
                 href={urls.github}
                 target="_blank"
@@ -106,9 +104,9 @@ export async function Hero() {
                 {
                   id: "hummingbot",
                   label: "Hummingbot",
-                  command: "curl -fsSL https://hummingbot.org/install-hummingbot.sh | bash",
-                  comment: "# Installs Hummingbot, then asks how you want to run it.",
-                  channels: true,
+                  command:
+                    "git clone https://github.com/hummingbot/hummingbot.git && cd hummingbot && make setup && make deploy",
+                  comment: "# Hummingbot Client in Docker. Then: make link-cli",
                   icon: "code",
                   title: "Core client and connectors",
                   description:

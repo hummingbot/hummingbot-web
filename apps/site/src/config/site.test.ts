@@ -6,7 +6,7 @@ describe("site config", () => {
     expect(githubOrg).toBeTruthy();
     expect(urls.github).toMatch(/^https:\/\/github\.com\//);
     expect(urls.discord).toMatch(/^https?:\/\//);
-    expect(urls.docs).toMatch(/^https?:\/\//);
+    expect(urls.docs).toBe("/docs");
   });
 
   it("has a non-empty nav; internal items are root-relative, external are absolute", () => {
@@ -22,9 +22,10 @@ describe("site config", () => {
     }
   });
 
-  it("has a Hub menu covering all three primitive types", () => {
-    const hub = nav.find((i) => i.label === "Hub");
-    expect(hub?.children?.map((c) => c.label)).toEqual(["Strategies", "Routines", "Skills"]);
+  it("sends Strategies to Botcamp's Strategy Library while the Hub isn't live", () => {
+    const strategies = nav.find((i) => i.label === "Strategies");
+    expect(strategies?.href).toBe(urls.strategyLibrary);
+    expect(strategies?.external).toBe(true);
   });
 
   it("links Blog to the internal /blog route", () => {

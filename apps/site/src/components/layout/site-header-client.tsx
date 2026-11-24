@@ -131,7 +131,7 @@ function NavDropdown({ item, active }: { item: NavItem; active: boolean }) {
   );
 }
 
-/** A mobile-menu section (Docs, Hub, About): collapsed until tapped. */
+/** A mobile-menu section (Docs, About): collapsed until tapped. */
 function MobileSection({ item, active, onNavigate }: { item: NavItem; active: boolean; onNavigate: () => void }) {
   const [expanded, setExpanded] = useState(false);
   const listId = useId();
@@ -257,6 +257,7 @@ export function SiteHeaderClient({ githubWidget }: { githubWidget?: React.ReactN
             <ThemeToggle />
             <Link
               href={primaryCta.href}
+              {...externalProps(primaryCta.href)}
               className="hidden h-9 items-center justify-center whitespace-nowrap rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 sm:inline-flex"
             >
               {primaryCta.label}
@@ -322,6 +323,7 @@ export function SiteHeaderClient({ githubWidget }: { githubWidget?: React.ReactN
             </ul>
             <Link
               href={primaryCta.href}
+              {...externalProps(primaryCta.href)}
               onClick={() => setOpen(false)}
               className="mt-4 flex h-10 items-center justify-center rounded-md bg-primary text-sm font-medium text-primary-foreground sm:hidden"
             >
