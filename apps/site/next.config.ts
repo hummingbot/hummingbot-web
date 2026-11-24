@@ -9,6 +9,11 @@ const DEPLOY_RAW =
 const nextConfig: NextConfig = {
   transpilePackages: ["@hummingbot/ui", "@hummingbot/brand", "@hummingbot/tokens"],
 
+  images: {
+    // YouTube thumbnails for the home's latest videos.
+    remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com" }],
+  },
+
   async redirects() {
     return [
       // Install one-liners → deploy repo scripts (302; curl -fsSL follows).
