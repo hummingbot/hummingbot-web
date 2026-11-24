@@ -1,0 +1,27 @@
+/* Prose in docs and Hummingbot section pages: gold is for fills, so links are
+ * body text with a gold underline; tables span the column (scroll on phones). */
+.docs-prose a:not(.md-button) {
+  color: hsl(var(--foreground));
+  text-decoration-line: underline;
+  text-decoration-color: hsl(var(--primary));
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.docs-prose a:not(.md-button):hover {
+  text-decoration-thickness: 3px;
+}
+/* Long inline tokens (wallet addresses, hashes) wrap instead of widening the
+ * page on phones. Code blocks keep their own horizontal scroll. */
+.docs-prose :where(:not(pre) > code) {
+  overflow-wrap: anywhere;
+}
+.docs-prose table {
+  display: table;
+  width: 100%;
+}
+@media (max-width: 640px) {
+  .docs-prose table {
+    display: block;
+    overflow-x: auto;
+  }
+}

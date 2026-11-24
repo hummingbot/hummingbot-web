@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { GradientText } from "@hummingbot/ui";
 import { urls } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -41,7 +40,7 @@ export default function BountiesPage() {
       <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-16">
         <header className="mb-16">
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-            Connectors, funded by <GradientText>bounties</GradientText>
+            Connectors, funded by <span className="brand-highlight text-primary">bounties</span>
           </h1>
           <p className="mt-4 max-w-2xl text-pretty text-lg text-ink-400">
             Hummingbot reaches 50+ exchanges through a transparent bounty
@@ -53,7 +52,7 @@ export default function BountiesPage() {
             href={BOARD}
             target="_blank"
             rel="noreferrer"
-            className="mt-6 inline-flex items-center gap-1.5 rounded-md bg-brand-teal px-4 py-2 text-sm font-semibold text-ink-999 transition-opacity hover:opacity-90"
+            className="mt-6 inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
           >
             Browse the bounty board
             <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -66,7 +65,7 @@ export default function BountiesPage() {
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
               {roles.map((r) => (
                 <div key={r.who} className="rounded-xl border border-ink-800 bg-card p-5">
-                  <h3 className="font-semibold text-brand-teal">{r.who}</h3>
+                  <h3 className="font-semibold text-primary">{r.who}</h3>
                   <p className="mt-1 text-sm text-ink-400 text-pretty">{r.body}</p>
                 </div>
               ))}
@@ -97,7 +96,7 @@ export default function BountiesPage() {
             <ol className="mt-6 flex flex-col gap-3">
               {lifecycle.map((step, i) => (
                 <li key={i} className="flex gap-4 rounded-xl border border-ink-800 bg-card p-4">
-                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink-900 font-mono text-sm text-brand-teal">
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-ink-900 font-mono text-sm text-primary">
                     {i + 1}
                   </span>
                   <p className="self-center text-sm text-ink-300 text-pretty">{step}</p>

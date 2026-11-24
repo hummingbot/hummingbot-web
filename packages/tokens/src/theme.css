@@ -1,6 +1,7 @@
 /* ============================================================
    Hummingbot Design Tokens — Tailwind v4, dark-first
-   Ported from ~/botcamp-site/src/app/globals.css
+   Colors from hbui, the Hummingbot design system
+   (github.com/hummingbot/hbui, tokens/index.json)
    Consume from an app:  @import "tailwindcss";
                          @import "@hummingbot/tokens/theme.css";
    Load Satoshi in each Next app via next/font/local, exposing --font-satoshi
@@ -88,42 +89,47 @@
   --brand-orange: #ef8728;
   --brand-cyan: #00c2ce;
 
-  /* Ink scale (neutrals) */
+  /* Ink scale (neutrals): hbui's grey-light / grey-dark palettes
+   * (github.com/hummingbot/hbui, tokens/index.json). */
   --ink-0: #ffffff;
-  --ink-50: #fafafa;
-  --ink-100: #f5f5f5;
-  --ink-150: #ededee;
-  --ink-200: #e5e7eb;
-  --ink-300: #d4d4d8;
-  --ink-400: #a1a1aa;
-  --ink-500: #71717a;
-  --ink-600: #52525b;
-  --ink-700: #3f3f46;
-  --ink-800: #2f2f2f;
-  --ink-850: #1f1f22;
-  --ink-900: #1a1a1b;
-  --ink-950: #0f0f0f;
-  --ink-999: #090909;
+  --ink-50: #fcfcfc;
+  --ink-100: #f7f7f7; /* hbui dark text-primary */
+  --ink-150: #f1f3f3;
+  --ink-200: #e9ebec;
+  --ink-300: #c9cdcf;
+  --ink-400: #aeb3b6; /* hbui dark text-secondary */
+  --ink-500: #939b9f;
+  --ink-600: #757e84; /* hbui dark text-tertiary */
+  --ink-700: #484d51;
+  --ink-800: #323639; /* hbui dark window border */
+  --ink-850: #282c2f;
+  --ink-900: #1e2224; /* hbui dark window */
+  --ink-950: #151819; /* hbui dark body */
+  --ink-999: #060708;
 
-  --background: 0 0% 7%;
-  --foreground: 0 0% 96%;
-  --card: 0 0% 4%;
-  --card-foreground: 0 0% 96%;
-  --popover: 0 0% 4%;
-  --popover-foreground: 0 0% 96%;
-  --primary: 46 98% 50%;
-  --primary-foreground: 0 0% 9%;
-  --secondary: 21 85% 54%;
+  /* Semantic surfaces, from hbui's dark theme: body #151819, window (cards)
+   * #1E2224, borders #323639. Primary is #0ED8CA, a step from Hummingbot's
+   * brand teal (#00C2CE) toward its terminal mint (#5FFFD7), with the dark
+   * body color on it. */
+  --background: 195 9% 9%;
+  --foreground: 0 0% 97%;
+  --card: 200 9% 13%;
+  --card-foreground: 0 0% 97%;
+  --popover: 200 9% 13%;
+  --popover-foreground: 0 0% 97%;
+  --primary: 176 88% 45%;
+  --primary-foreground: 195 9% 9%;
+  --secondary: 28 87% 55%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 0 0% 15%;
-  --muted-foreground: 0 0% 65%;
-  --accent: 289 100% 64%;
+  --muted: 206 8% 17%;
+  --muted-foreground: 203 4% 70%;
+  --accent: 290 100% 64%;
   --accent-foreground: 0 0% 100%;
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 96%;
-  --border: 0 0% 18%;
-  --input: 0 0% 18%;
-  --ring: 46 98% 50%;
+  --destructive: 0 79% 63%;
+  --destructive-foreground: 0 0% 97%;
+  --border: 206 6% 21%;
+  --input: 206 6% 21%;
+  --ring: 176 88% 45%;
 
   --radius: 0.5rem;
 

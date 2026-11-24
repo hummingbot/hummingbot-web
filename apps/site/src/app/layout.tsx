@@ -3,16 +3,18 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 const satoshi = localFont({
-  src: "../../../../packages/tokens/fonts/Satoshi-Variable.ttf",
+  // Latin + Latin-1 subset of Satoshi-Variable.ttf (wght axis kept), as woff2.
+  src: "../../../../packages/tokens/fonts/Satoshi-Variable.woff2",
   variable: "--font-satoshi",
   weight: "300 900",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Hummingbot — The open source framework for agentic trading strategies",
+  metadataBase: new URL("https://hummingbot.org"),
+  title: "Hummingbot — The open source framework for market makers",
   description:
-    "Open source, self-hosted trading bots and AI agents across 50+ exchanges.",
+    "Open source market making strategies, connectors to 50+ exchanges, and AI agents that run them, self-hosted on your own keys.",
 };
 
 // Resolve the theme before first paint to avoid a flash: stored choice wins,
