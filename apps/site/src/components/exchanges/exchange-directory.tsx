@@ -12,7 +12,7 @@ import {
 
 /** Colored dot per market type — neutral badge text keeps contrast safe in both themes. */
 const TYPE_DOT: Record<MarketType, string> = {
-  "CLOB Spot": "bg-brand-teal",
+  "CLOB Spot": "bg-primary",
   "CLOB Perp": "bg-sky-400",
   "AMM DEX": "bg-fuchsia-400",
   "CLMM DEX": "bg-amber-400",
@@ -54,7 +54,7 @@ export function ExchangeDirectory({ exchanges }: { exchanges: Exchange[] }) {
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 filter === t
-                  ? "border-brand-teal bg-brand-teal text-ink-950"
+                  ? "border-primary bg-primary text-primary-foreground"
                   : "border-ink-800 text-ink-400 hover:border-ink-700 hover:text-foreground",
               )}
             >
@@ -101,7 +101,7 @@ export function ExchangeDirectory({ exchanges }: { exchanges: Exchange[] }) {
             <div className="flex items-center justify-between">
               <span className="font-semibold text-foreground">{e.name}</span>
               <ArrowUpRight
-                className="size-4 shrink-0 text-ink-600 transition-colors group-hover:text-brand-teal"
+                className="size-4 shrink-0 text-ink-600 transition-colors group-hover:text-primary"
                 aria-hidden="true"
               />
             </div>

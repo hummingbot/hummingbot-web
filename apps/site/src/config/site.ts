@@ -64,19 +64,22 @@ export const nav: NavItem[] = [
   },
 ];
 
+/** The header's primary button: the install commands at the top of the home. */
+export const primaryCta = { label: "Get started", href: "/#install" } as const;
+
+/** Secondary pages, linked from the footer. */
+export const footerLinks: { label: string; href: string }[] = [
+  { label: "Exchanges", href: "/exchanges" },
+  { label: "Volumes", href: "/volumes" },
+  { label: "Blog", href: "/blog" },
+  { label: "Bounties", href: "/bounties" },
+  { label: "Community", href: "/community" },
+  { label: "Education", href: urls.education },
+];
+
 export const announcement = {
   text: "Introducing Condor 🦅 — The Open Source Harness for Trading Agents",
   href: `${urls.blog}/introducing-condor`,
 } as const;
-
-/** GitHub org repos grouped for the EcosystemGrid (descriptions/stars fetched live). */
-export const ecosystem: { category: string; icon: string; repos: string[] }[] = [
-  { category: "Core Trading", icon: "Cpu", repos: ["hummingbot", "gateway", "hummingbot-api"] },
-  { category: "AI Agents", icon: "Bot", repos: ["condor", "mcp", "skills"] },
-  { category: "Research & Backtesting", icon: "FlaskConical", repos: ["quants-lab", "dashboard", "bot-battle"] },
-  { category: "Deploy & Ops", icon: "Rocket", repos: ["deploy", "brokers", "hummingbot-api-client"] },
-  { category: "Clients & Community", icon: "Users", repos: ["hbot-remote-client-py", "community-tools", "awesome-hummingbot"] },
-  { category: "Docs & Data", icon: "BookOpen", repos: ["hummingbot-site", "condor-docs", "datadog"] },
-];
 
 export const githubOrg = "hummingbot";

@@ -3,7 +3,6 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { FeaturedCard } from "@/components/blog/post-card";
 import { CategoryFilter } from "@/components/blog/category-filter";
-import { GradientText } from "@hummingbot/ui";
 import { allCategories, getAllPostMeta, getFeaturedPost, toMeta } from "@/lib/blog";
 
 export const metadata: Metadata = {
@@ -23,7 +22,7 @@ export default function BlogIndexPage() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-16">
         <header className="mb-12">
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-            The Hummingbot <GradientText>Blog</GradientText>
+            The Hummingbot <span className="brand-highlight text-primary">Blog</span>
           </h1>
           <p className="mt-4 max-w-2xl text-pretty text-lg text-ink-400">
             Product releases, strategy deep-dives, market-making tutorials,

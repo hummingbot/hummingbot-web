@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { GradientText } from "@hummingbot/ui";
 import { urls } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -48,7 +47,7 @@ function SectionLink({ href, children, external }: { href: string; children: Rea
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-      className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-teal hover:underline"
+      className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-foreground underline decoration-primary underline-offset-4 hover:decoration-2"
     >
       {children}
       <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -63,7 +62,7 @@ export default function AboutPage() {
       <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-16">
         <header className="mb-16">
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-            A <GradientText>community-governed</GradientText> open source project
+            A <span className="brand-highlight text-primary">community-governed</span> open source project
           </h1>
           <p className="mt-4 max-w-2xl text-pretty text-lg text-ink-400">
             Hummingbot is built in the open and steered by the people who use it
@@ -110,13 +109,13 @@ export default function AboutPage() {
               community-driven governance system built around the HBOT token.
             </p>
             <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-              <a href={`${urls.blog}/hummingbot-whitepaper`} className="text-brand-teal hover:underline">
+              <a href={`${urls.blog}/hummingbot-whitepaper`} className="font-medium text-foreground underline decoration-primary underline-offset-4 hover:decoration-2">
                 Hummingbot whitepaper
               </a>
-              <a href={`${urls.blog}/from-hedge-fund-to-market-making-bot-the-hummingbot-origin-story`} className="text-brand-teal hover:underline">
+              <a href={`${urls.blog}/from-hedge-fund-to-market-making-bot-the-hummingbot-origin-story`} className="font-medium text-foreground underline decoration-primary underline-offset-4 hover:decoration-2">
                 Origin story
               </a>
-              <a href={`${urls.blog}/introducing-the-hummingbot-foundation`} className="text-brand-teal hover:underline">
+              <a href={`${urls.blog}/introducing-the-hummingbot-foundation`} className="font-medium text-foreground underline decoration-primary underline-offset-4 hover:decoration-2">
                 Introducing the Foundation
               </a>
             </div>
@@ -153,7 +152,7 @@ export default function AboutPage() {
             <ol className="mt-6 grid gap-4 sm:grid-cols-2">
               {govSteps.map((s) => (
                 <li key={s.n} className="rounded-xl border border-ink-800 bg-card p-5">
-                  <span className="font-mono text-sm text-brand-teal">{s.n}</span>
+                  <span className="font-mono text-sm text-primary">{s.n}</span>
                   <h3 className="mt-1 font-semibold">{s.title}</h3>
                   <p className="mt-1 text-sm text-ink-400 text-pretty">{s.body}</p>
                 </li>
