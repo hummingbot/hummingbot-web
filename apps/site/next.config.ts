@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "avatars.githubusercontent.com" },
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
       { protocol: "https", hostname: "media.licdn.com" },
+      // YouTube thumbnails for the home's latest videos.
+      { protocol: "https", hostname: "i.ytimg.com" },
     ],
     // Local images may carry a query string: team logos are served as
     // /api/teams/<slug>/logo?variant=dark&v=<updatedAt>.
